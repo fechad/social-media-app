@@ -1,0 +1,24 @@
+image: node:latest
+
+stages:
+  - build
+  - run
+
+# Job's name
+first-job:
+  # Define stage
+  stage: build
+  # What to run on the job.
+  script:
+    - cd ./client
+    - npm install
+    - npm run build
+  artifacts:
+    paths:
+      - node_modules
+
+
+second-job-parallel:
+  stage: run
+  script:
+    - echo "I'm running at the same time as second-job!!!"
