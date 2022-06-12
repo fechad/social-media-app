@@ -23,9 +23,6 @@ const Library = () => {
 
         </section>
       </div>
-      
-
-
     </section>
   )
 }
