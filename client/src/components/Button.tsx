@@ -22,7 +22,7 @@ const Button = ({color, icon, text, state} : buttonProps) => {
 
 Button.defaultProps = {
     color: '#8773F0',
-    text: 'test',
+    text: 'Test',
     icon: undefined,
     state: 'enabled'
 }
