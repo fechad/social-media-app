@@ -19,7 +19,6 @@ const Library = () => {
       <div>
         <h1>Logo ideas :</h1>
         <section>
-          
         <img src='logo.svg' alt = ' test' height="87"width="50"></img>
         </section>
       </div>
