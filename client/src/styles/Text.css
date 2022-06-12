@@ -1,0 +1,28 @@
+.body, 
+.H1, 
+.H2, 
+.H3, 
+.PH{
+    font-family: 'Open Sans', sans-serif; 
+}
+
+.body {
+    font-size: 16px;
+}
+
+.H1{
+    font-size: 30px;
+}
+
+.H2{
+    font-size: 24px;
+}
+
+.H3{
+    font-size: 18px;
+}
+
+.PH{
+    font-size: 14px;
+    color: #949494;
+}

@@ -2,6 +2,7 @@ import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
 import '../styles/Button.css'
 import { IconBaseProps } from 'react-icons'
+import Text from '../components/Text';
 
 interface buttonProps { 
     color?: string,
@@ -14,7 +15,7 @@ const Button = ({color, icon, text, state} : buttonProps) => {
   return (
     <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
         color}} className='ButtonComponent'>
-        <p style={state === 'disabled' ?{color: 'darkgrey'} : {color: 'white'}}>{text}</p>
+        <Text color={state === 'disabled' ? 'darkgrey' : 'white'} content={text}/>
         {icon ? icon : ''}
     </div>
   )

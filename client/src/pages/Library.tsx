@@ -2,10 +2,18 @@ import React from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
+import Text from '../components/Text';
 
 const Library = () => {
   return (
     <section className='Library'>
+      <div>
+        <h1>Logo ideas :</h1>
+        <section>
+        <img src='logo.svg' alt = ' test' height="87"width="50"></img>
+        </section>
+      </div>
+
       <div>
         <h1>Buttons examples :</h1>
         <section>
@@ -16,10 +24,15 @@ const Library = () => {
             <Button text='Add' icon={<FaUserPlus color='white'/>}/>
         </section>
       </div>
+      
       <div>
-        <h1>Logo ideas :</h1>
+        <h1>Text types :</h1>
         <section>
-        <img src='logo.svg' alt = ' test' height="87"width="50"></img>
+          <Text type='H1'/>
+          <Text type='H2'/>
+          <Text type='H3'/>
+          <Text type='body'/>
+          <Text type='PH' content='Place holder'/>
         </section>
       </div>
     </section>
