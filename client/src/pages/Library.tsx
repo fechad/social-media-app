@@ -3,6 +3,7 @@ import Button from '../components/Button';
 import { FaEdit, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
 import Text from '../components/Text';
+import Switch from '../components/Switch';
 
 const Library = () => {
   return (
@@ -33,6 +34,12 @@ const Library = () => {
           <Text type='H3'/>
           <Text type='body'/>
           <Text type='PH' content='Place holder'/>
+        </section>
+      </div>
+      <div>
+        <h1> Switches :</h1>
+        <section>
+          <Switch lightmode = {true}></Switch>
         </section>
       </div>
     </section>
