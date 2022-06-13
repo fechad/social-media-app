@@ -4,6 +4,7 @@ import { FaEdit, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
 import Text from '../components/Text';
 import Link from '../components/Link';
+import TextInput from '../components/TextInput';
 
 const Library = () => {
   return (
@@ -20,7 +21,7 @@ const Library = () => {
         <section>
             <Button textType='H1' text='Button plus large'></Button>
             <Button color='#FF5555' text= 'Auto layout test'/>
-            <Button state='disabled' text= 'disabled'/>
+            <Button state='disabled' text= 'Disabled'/>
             <Button text='Edit' icon = {<FaEdit color='white'/>} />
             <Button text='Add' icon={<FaUserPlus color='white'/>}/>
         </section>
@@ -42,6 +43,14 @@ const Library = () => {
         <section>
           <Link />
           <Link underlined={true}/>
+        </section>
+      </div>
+
+      <div>
+      <Text type='H1' content='TextInput examples:' />
+        <section>
+          <TextInput label='This is a text input' />
+          <TextInput type='password' label='This is a password input' placeHolder='Enter password' />
         </section>
       </div>
     </section>
