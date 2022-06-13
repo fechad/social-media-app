@@ -9,16 +9,16 @@ const Library = () => {
   return (
     <section className='Library'>
       <div>
-        <h1>Logo ideas :</h1>
+        <Text type='H1' content='Logo ideas:' />
         <section>
         <img src='logo.svg' alt = ' test' height="87"width="50"></img>
         </section>
       </div>
 
       <div>
-        <h1>Buttons examples :</h1>
+        <Text type='H1' content='Button examples:' />
         <section>
-            <Button></Button>
+            <Button textType='H1' text='Button plus large'></Button>
             <Button color='#FF5555' text= 'Auto layout test'/>
             <Button state='disabled' text= 'disabled'/>
             <Button text='Edit' icon = {<FaEdit color='white'/>} />
@@ -27,7 +27,7 @@ const Library = () => {
       </div>
       
       <div>
-        <h1>Text types :</h1>
+      <Text type='H1' content='Text examples :' />
         <section>
           <Text type='H1'/>
           <Text type='H2'/>
@@ -38,7 +38,7 @@ const Library = () => {
       </div>
 
       <div>
-        <h1>Link types :</h1>
+      <Text type='H1' content='Link examples:' />
         <section>
           <Link />
           <Link underlined={true}/>
