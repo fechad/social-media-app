@@ -1,13 +1,13 @@
 @import '../styles/Text.css';
 
 a:hover{
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
+    color: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)),
                 linear-gradient(0deg, #0047FF, #0047FF);
 
 }
 
 a:active{
-    background: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
+    color: linear-gradient(0deg, rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.35)),
                 linear-gradient(0deg, #0047FF, #0047FF);
 
 }
