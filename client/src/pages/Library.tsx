@@ -5,6 +5,7 @@ import '../styles/Library.css'
 import Text from '../components/Text';
 import Link from '../components/Link';
 import TextInput from '../components/TextInput';
+import Checkbox from '../components/Checkbox';
 
 const Library = () => {
   return (
@@ -52,6 +53,13 @@ const Library = () => {
           <TextInput label='This is a text input' />
           <TextInput type='password' label='This is a password input' placeHolder='Enter password' />
           <TextInput icon={<FaSearch size={25} color={'#767676'}/>} />
+        </section>
+      </div>
+
+      <div>
+      <Text type='H1' content='Checkbox examples:' />
+        <section>
+          <Checkbox text='Is this a checkbox ?' />
         </section>
       </div>
     </section>

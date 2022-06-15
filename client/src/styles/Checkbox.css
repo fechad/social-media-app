@@ -1,0 +1,15 @@
+.Checkbox{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Checkbox input{
+    width: 16px;
+    height: 16px;
+    color: '#8773F0';
+    filter:'#8773f0';
+}
+
