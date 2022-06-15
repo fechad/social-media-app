@@ -1,6 +1,6 @@
 import React from 'react'
 import Button from '../components/Button';
-import { FaEdit, FaUserPlus } from "react-icons/fa";
+import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
 import Text from '../components/Text';
 import Link from '../components/Link';
@@ -51,6 +51,7 @@ const Library = () => {
         <section>
           <TextInput label='This is a text input' />
           <TextInput type='password' label='This is a password input' placeHolder='Enter password' />
+          <TextInput icon={<FaSearch size={25} color={'#767676'}/>} />
         </section>
       </div>
     </section>

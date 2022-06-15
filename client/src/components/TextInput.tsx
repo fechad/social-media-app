@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { ReactElement } from 'react'
 import '../styles/TextInput.css'
 import Text from '../components/Text';
+import { IconBaseProps } from 'react-icons';
 
 interface TextInputProps {
     type: string,
@@ -8,14 +9,16 @@ interface TextInputProps {
     placeHolder?: string,
     width?:string,
     height?: string
+    icon?: ReactElement<IconBaseProps>,
 }
 
-const TextInput = ({type, label, placeHolder, width, height} : TextInputProps) => {
+const TextInput = ({type, label, placeHolder, width, height, icon} : TextInputProps) => {
   return (
     <div>
         <Text content={label} />
-        <div style={{width: width, height: height}}>
+        <div className='inputContainer' style={{width: width, height: height}}>
             <input type={type} placeholder={placeHolder} maxLength={type === 'password' ? 15 : 512}></input>
+            <i>{icon}</i>
         </div>
     </div>
   )
