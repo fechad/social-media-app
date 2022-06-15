@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../components/Button';
-import { FaEdit, FaUserPlus } from "react-icons/fa";
+import { FaEdit, FaUserPlus, FaSun } from "react-icons/fa";
+import { BsSun } from "react-icons/bs"
 import '../styles/Library.css'
 import Text from '../components/Text';
 import Switch from '../components/Switch';
@@ -40,6 +41,7 @@ const Library = () => {
         <h1> Switches :</h1>
         <section>
           <Switch lightmode = {true}></Switch>
+          <Switch lightmode = {false}></Switch>
         </section>
       </div>
     </section>

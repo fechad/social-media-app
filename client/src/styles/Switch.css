@@ -6,27 +6,16 @@
     
 }
 
-label {
-    display: flex;
-    width: 100px;
-    height: 32px;
-    border-radius: 100px;
-    cursor: pointer;
-    transition: 0.5s;
-    border: 1px solid #A1A1A1;
-    align-items: center;
-}
-
-.thumb {
-    margin: 4px;
+.close-thumb {
+    margin: 2px 2px 2px 4px;
     width: 28px;
     height: 28px;
-    background-color: #8773F0;
     border-radius: 70px;
-    transition: transform 2s;
 }
 
-input:checked {
-    left: calc(100% - 10px);
-    transform: translateX(-100%);
-    }
+.open-thumb {
+    margin: 2px 2px 2px 40px;
+    width: 28px;
+    height: 28px;
+    border-radius: 70px;
+}
