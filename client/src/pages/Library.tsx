@@ -59,7 +59,7 @@ const Library = () => {
       <div>
       <Text type='H1' content='Checkbox examples:' />
         <section>
-          <Checkbox text='Is this a checkbox ?' />
+          <Checkbox text='Is this a checkbox ? Check if yes !' />
         </section>
       </div>
     </section>
