@@ -1,4 +1,4 @@
-.Checkbox{
+.CheckboxContainer{
     width: fit-content;
     display: flex;
     flex-direction: row;
@@ -6,10 +6,25 @@
     align-items: center;
 }
 
-.Checkbox input{
+.Checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20px;
+    width: 20px;
+    border: 1px solid rgb(68, 68, 68);
+}
+
+.Checkbox:hover{
+    cursor: pointer;
+}
+
+.Checked{
+    background: #8773F0;
+}
+.CheckboxContainer input{
     width: 16px;
     height: 16px;
     color: '#8773F0';
-    filter:'#8773f0';
 }
 
