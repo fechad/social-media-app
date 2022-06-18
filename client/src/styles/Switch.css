@@ -1,21 +1,76 @@
-.switch {
+.Switch {
     display: flex;
+    align-items: center;
+    justify-content: space-between;
     width: 80px;
     height: 32px;
     border-radius: 16px;
+    border: 1px solid #A1A1A1;
+}
+
+.Switch:hover{
+    cursor: pointer;
+}
+
+.LightMode{
+    transition: all 0.5s ease-in;
+    background-color: #FFFFFF;
+}
+
+.DarkMode{
+    display: flex;
+    transition: all 0.5s ease-in;
+    background-color: #202020;
+    border: 1px solid #FFFFFF;
+}
+
+.closed-thumb,
+.opened-thumb{  
+    width: 24px;
+    height: 24px;
+    border-radius: 100px;
+}
+
+.closed-thumb {
+    animation: thumb-close .5s;
+    animation-direction: normal;
+    background-color: #8773F0;
+    margin-left: 8px;
+}
+
+.opened-thumb {
+    animation: thumb-open .5s;
+    animation-direction: normal;
+    background-color: #5CE1E6;
+    margin-right: 8px;
+}
+
+.Sun{
+    animation: icon .2s;
+    animation-direction: normal;
+    margin-right: 8px;
+}
+
+.Moon{
+    animation: icon .2s;
+    animation-direction: normal;
+    margin-left: 8px;
+    color: white;
+}
+
+
+@keyframes thumb-open {
+    0% {left:0px; margin-right: 24px}
+    100% {left:0px; margin-left: 24px; margin-right: 8px;} 
+}
+
+@keyframes thumb-close {
+    0% {left:0px; margin-left: 24px; margin-right: 8px;} 
+    100% {left:0px; margin-right: 24px}
     
 }
 
-.close-thumb {
-    margin: 2px 2px 2px 4px;
-    width: 28px;
-    height: 28px;
-    border-radius: 70px;
-}
-
-.open-thumb {
-    margin: 2px 2px 2px 40px;
-    width: 28px;
-    height: 28px;
-    border-radius: 70px;
+@keyframes icon {
+    0% {left: 0px; z-index: -22;}
+    100% {left: 0px; z-index: 1;}
 }
