@@ -5,6 +5,14 @@ import '../styles/Library.css'
 import Text from '../components/Text';
 import Switch from '../components/Switch';
 
+
+
+function print(){
+  console.log('I did my job !');
+}
+
+
+
 const Library = () => {
   return (
     <section className='Library'>
@@ -39,7 +47,9 @@ const Library = () => {
       <div>
         <h1> Switches :</h1>
         <section>
-          <Switch />
+          <Switch resp='theme' role={print}/>
+          <Switch resp='notifications' role={print} />
+          <Switch resp='' role={print} />
         </section>
       </div>
     </section>

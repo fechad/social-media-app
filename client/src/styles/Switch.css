@@ -12,14 +12,18 @@
     cursor: pointer;
 }
 
-.LightMode{
+.UnSwitched{
     transition: all 0.5s ease-in;
     background-color: #FFFFFF;
 }
 
-.DarkMode{
+.Switched{
     display: flex;
     transition: all 0.5s ease-in;
+    background-color: #8773F0;
+}
+
+.DarkMode{
     background-color: #202020;
     border: 1px solid #FFFFFF;
 }
@@ -41,13 +45,21 @@
 .opened-thumb {
     animation: thumb-open .5s;
     animation-direction: normal;
-    background-color: #5CE1E6;
     margin-right: 8px;
+    background-color: #ffffff;
 }
 
-.Sun{
+.opened-thumb-dark-mode{
+    background-color: #5CE1E6;
+}
+
+.Icon-left{
     animation: icon .2s;
     animation-direction: normal;
+    margin-left: 8px;
+}
+
+.Icon-right{
     margin-right: 8px;
 }
 
