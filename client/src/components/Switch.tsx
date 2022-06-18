@@ -1,8 +1,9 @@
-import React, {  ReactElement, useState } from 'react'
+import React, { useState } from 'react'
 import '../styles/Switch.css'
-import { BsSun } from "react-icons/bs"
-import { FaBell, FaBellSlash, FaGlobe, FaMapPin, FaRegMoon } from 'react-icons/fa'
-import { IconBaseProps } from 'react-icons'
+import {RiNotificationFill, RiNotificationOffFill} from 'react-icons/ri'
+import { BsMoonFill, BsSun } from "react-icons/bs"
+import { FaGlobe} from 'react-icons/fa'
+import {MdLocationPin} from 'react-icons/md'
 import PropTypes from 'prop-types'
 
 interface SwitchProps{
@@ -22,9 +23,9 @@ const Switch = ({resp, role}: SwitchProps) => {
     
   return (
       <div className={`Switch ${switched && resp === 'theme' ? 'Switched DarkMode': switched && resp !== 'theme' ? 'Switched' : 'UnSwitched'} `} onClick={() => doYourRole()}>
-        {switched ? <> {(resp === 'theme') ? <FaRegMoon  className='Moon'/>  : (resp === 'notifications') ? <FaBell className='Icon-left'/> : <FaGlobe className='Icon-left'/>}</>: ''}
+        {switched ? <> {(resp === 'theme') ? <BsMoonFill  className='Moon' color='white'/>  : (resp === 'notifications') ? <RiNotificationFill className='Icon-left' color='white'/> : <MdLocationPin className='Icon-left' color='white'/> }</>: ''}
         <div id='thumb' className={`${switched && resp === 'theme' ? 'opened-thumb opened-thumb-dark-mode' : switched && resp !== 'theme' ? 'opened-thumb ': 'closed-thumb'}`} />
-        {switched ? '' : <> {(resp === 'theme') ? <BsSun className= 'Icon-right' />  : (resp === 'notifications') ? <FaBellSlash className='Icon-right'/> : <FaMapPin className='Icon-right' />}</>}
+        {switched ? '' : <> {(resp === 'theme') ? <BsSun className= 'Icon-right' />  : (resp === 'notifications') ? <RiNotificationOffFill className='Icon-right' color='#8773F0'/> : <FaGlobe className='Icon-right' color='#8773F0'/>}</>}
       </div>
   )
 }
