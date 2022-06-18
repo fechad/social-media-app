@@ -7,6 +7,7 @@ import Switch from '../components/Switch';
 import Link from '../components/Link';
 import TextInput from '../components/TextInput';
 import Checkbox from '../components/Checkbox';
+import CodeInput from '../components/CodeInput';
 
 
 
@@ -78,6 +79,15 @@ const Library = () => {
           <Switch resp='' role={print} />
         </section>
       </div>
+
+      <div>
+        <h1> Code input :</h1>
+        <section>
+          <CodeInput role={print} />
+        </section>
+      </div>
+
+      <footer> <Text content='This is the footer'></Text></footer>
     </section>
   )
 }
