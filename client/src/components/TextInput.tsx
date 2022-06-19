@@ -17,7 +17,7 @@ const TextInput = ({type, label, placeHolder, width, height, icon} : TextInputPr
     <div>
         <Text content={label} />
         <div className='inputContainer' style={{width: width, height: height}}>
-            <input type={type} placeholder={placeHolder} maxLength={type === 'password' ? 15 : 512}></input>
+            <input className='body' type={type} placeholder={placeHolder} maxLength={type === 'password' ? 15 : 512}></input>
             <i>{icon}</i>
         </div>
     </div>
