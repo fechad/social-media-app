@@ -10,6 +10,7 @@ import {
 } from "react-router-dom";
 import Library from './pages/Library';
 import Login from './pages/Login';
+import Credentials from './pages/sign-up/Credentials';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -21,6 +22,7 @@ root.render(
         <Route index element={<App/>}/>
       </Route>
       <Route path='/login' element={<Login/>}/>
+      <Route path='/Sign-up' element={<Credentials/>}/>
       <Route path='/components' element={<Library/>}/>
     </Routes>
   </BrowserRouter>

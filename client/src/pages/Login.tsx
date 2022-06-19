@@ -27,10 +27,10 @@ const Login = () => {
                 <Text type='H2' content='OR'/>
                 <hr />
             </section>
-            <Button text='Sign in with Google' icon={<FcGoogle />} url='https://www.google.com/?gws_rd=ssl'/>
+            <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} url='https://www.google.com/?gws_rd=ssl'/>
             <section className='SignUpSection'>
                 <Text type='H3' content="Don't have an account?"/>
-                <Link underlined={true} content='Sign-up'/>
+                <Link underlined={true} content='Sign-up' url='/Sign-up'/>
             </section>
         </div>
     </div>
