@@ -17,10 +17,10 @@ const Login = () => {
                 <img src='logo.svg' alt = ' test' height="87"width="50"></img>
                 <Text type='H3' content='Name of app'/>
             </section>
-            <TextInput label='Username' />
+            <TextInput label='Email' placeHolder='ex: jDoe@gmail.com'/>
             <section className='PasswordSection'>
                 <Link underlined={false} content='Forgot password?'/>
-                <TextInput type='password' />
+                <TextInput type='password' placeHolder='Enter password'/>
             </section>
             <section className='Separator'>
                 <hr />
