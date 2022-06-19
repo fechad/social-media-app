@@ -16,7 +16,7 @@ const Credentials = () => {
         </section>
         <TextInput label='Please enter your email address:' placeHolder='ex: JohnDoe@domainName.com'/>
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
-        <div className='ProgressBarSection'> Insert progress bar here</div>
+        <div className='ProgressBarSection'> Insert progress bar component here</div>
         <section className='Separator'>
                 <hr />
                 <Text type='H2' content='OR'/>
@@ -24,7 +24,7 @@ const Credentials = () => {
         </section>
         <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} url='https://www.google.com/?gws_rd=ssl'/>
         <section className='ContinueSection'>
-          <Button textType='H2' text='Continue'/>
+          <Button textType='H2' text='Continue' url='/Sign-up/confirmation' />
         </section>
       </div>
     </div>

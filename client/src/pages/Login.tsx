@@ -4,7 +4,6 @@ import Link from '../components/Link';
 import Text from '../components/Text';
 import TextInput from '../components/TextInput';
 import { FcGoogle} from "react-icons/fc";
-import {IoArrowBack} from "react-icons/io5"
 import {BsArrowLeft} from "react-icons/bs"
 import '../styles/Login.css'
 
