@@ -9,16 +9,19 @@ interface buttonProps {
     text: string,
     textType?: string,
     icon?:  ReactElement<IconBaseProps>,
-    state?: string
+    state?: string,
+    url?: string
 }
 
-const Button = ({color, icon, text, textType, state} : buttonProps) => {
+const Button = ({color, icon, text, textType, state, url} : buttonProps) => {
   return (
-    <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
+    <a style={{textDecoration: "none"}} href={url}>
+      <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
         color}} className='ButtonComponent'>
         <Text color={state === 'disabled' ? 'darkgrey' : 'white'} type={textType} content={text}/>
         {icon ? icon : ''}
     </div>
+    </a>
   )
 }
 
