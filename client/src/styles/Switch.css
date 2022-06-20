@@ -1,3 +1,14 @@
+
+.SwitchContainer{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.SwitchContainer p{
+    margin-left: 16px;
+}
+
 .Switch {
     display: flex;
     align-items: center;

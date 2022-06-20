@@ -37,7 +37,7 @@ const ProfileSetup = () => {
               <Text content='Bio:' />
               <textarea placeholder='Write a short bio !' maxLength={512} />
             </section>
-            <Button textType='H3' text='Create profile' />
+            <Button textType='H3' text='Create profile' url='/User/NewsOptions'/>
           </section>
         </div>
       </div>
