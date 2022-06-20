@@ -7,23 +7,28 @@ import Text from '../components/Text';
 interface buttonProps { 
     color?: string,
     text: string,
+    textType?: string,
     icon?:  ReactElement<IconBaseProps>,
-    state?: string
+    state?: string,
+    url?: string
 }
 
-const Button = ({color, icon, text, state} : buttonProps) => {
+const Button = ({color, icon, text, textType, state, url} : buttonProps) => {
   return (
-    <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
+    <a style={{textDecoration: "none"}} href={url}>
+      <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
         color}} className='ButtonComponent'>
-        <Text color={state === 'disabled' ? 'darkgrey' : 'white'} content={text}/>
+        <Text color={state === 'disabled' ? 'darkgrey' : 'white'} type={textType} content={text}/>
         {icon ? icon : ''}
-    </div>
+      </div>
+    </a>
   )
 }
 
 Button.defaultProps = {
     color: '#8773F0',
     text: 'Test',
+    textType: 'body',
     icon: undefined,
     state: 'enabled'
 }

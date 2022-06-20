@@ -1,0 +1,26 @@
+.inputContainer{
+    display: flex;
+    flex-direction: row;
+    border-width: 2px;
+    border-color: '#767676';
+    border-radius: 8px;
+    border-style: solid;
+    align-items: center;
+    justify-content: space-between;
+    margin: -8px 0px;
+
+}
+
+.inputContainer i{
+    margin-right: 8px;
+}
+
+.inputContainer input{
+    width: 90%;
+    height: 100%;
+    margin-left: 8px;
+    box-sizing: border-box;
+    border-style: none;
+    border-color: none;
+    outline: none;
+}
