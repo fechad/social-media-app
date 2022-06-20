@@ -20,7 +20,7 @@ const Button = ({color, icon, text, textType, state, url} : buttonProps) => {
         color}} className='ButtonComponent'>
         <Text color={state === 'disabled' ? 'darkgrey' : 'white'} type={textType} content={text}/>
         {icon ? icon : ''}
-    </div>
+      </div>
     </a>
   )
 }
