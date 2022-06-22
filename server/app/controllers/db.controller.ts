@@ -13,7 +13,18 @@ export class DatabaseController {
         const router: Router = Router();
 
         // ======= GENERAL ROUTES =======
-        router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
+
+        router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerInfos(req.params.handle)
+                .then((result: pg.QueryResult) => res.json(result.rows))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        /*router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getTablesList()
                 .then((result: pg.QueryResult) => res.json(result.rows))
@@ -92,6 +103,7 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+        */
 
         return router;
     }

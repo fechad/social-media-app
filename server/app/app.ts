@@ -9,6 +9,7 @@ import * as swaggerJSDoc from 'swagger-jsdoc';
 import * as swaggerUi from 'swagger-ui-express';
 import { Service } from 'typedi';
 import { HttpController } from './controllers/http.controller';
+import { DatabaseController } from './controllers/db.controller';
 
 @Service()
 export class Application {
@@ -16,7 +17,7 @@ export class Application {
     private readonly internalError: number = StatusCodes.INTERNAL_SERVER_ERROR;
     private readonly swaggerOptions: swaggerJSDoc.Options;
 
-    constructor(private readonly httpController: HttpController) {
+    constructor(private readonly httpController: HttpController, private dbController: DatabaseController ) {
         this.app = express();
 
         this.swaggerOptions = {
@@ -38,9 +39,10 @@ export class Application {
     bindRoutes(): void {
         this.app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc.default(this.swaggerOptions)));
         this.app.use('/api', this.httpController.router);
-        this.app.use('/', (req, res) => {
+        this.app.use('/database', this.dbController.router);
+        /*this.app.use('/', (req, res) => {
             res.redirect('/api/docs');
-        });
+        });*/
         this.errorHandling();
     }
 

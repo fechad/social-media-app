@@ -1,5 +1,5 @@
 
-import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER } from '@app/constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER } from '../constants';
 import * as pg from 'pg';
 import 'reflect-metadata';
 import { Service } from 'typedi';
@@ -27,10 +27,15 @@ export class DatabaseService {
     public async getTable(tableName: string, filter: any = {}): Promise<pg.QueryResult> {
         console.log(SELECT_ALL(tableName) + ' WHERE name LIKE ' + `'%${filter.name}%' ` + END_CHAR);
 
-        if (Object.keys(filter).length && tableName === 'plant')
+        if (Object.keys(filter).length && tableName === 'users')
             return this.query(SELECT_ALL(tableName) + 'WHERE name LIKE ' + `"%${filter.name}%" ` + END_CHAR);
         if (Object.keys(filter).length) return this.query(SELECT_ALL(tableName) + this.where(filter) + END_CHAR);
         else return this.query(SELECT_ALL(tableName) + END_CHAR);
+    }
+
+    public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('users') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
+        return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
     public async getTablesList(): Promise<pg.QueryResult> {

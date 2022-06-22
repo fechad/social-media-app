@@ -1,11 +1,11 @@
-export const USER = 'user';
-export const DATABASE = 'app';
-export const PASSWORD = '123app';
+export const USER = 'Oveezion';
+export const DATABASE = 'Social-Media-App';
+export const PASSWORD = '123Oveezion';
 export const PORT = 5432;
 export const HOST = '127.0.0.1';
 export const KEEPALIVE = true;
 
-export const SCHEMA_NAME = 'Social-Media-APP';
+export const SCHEMA_NAME = 'Chymera';
 
 
 export const END_CHAR = ';';
