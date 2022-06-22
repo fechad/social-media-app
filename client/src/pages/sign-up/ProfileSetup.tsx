@@ -6,8 +6,20 @@ import Button from '../../components/Button'
 import TextInput from '../../components/TextInput'
 import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
+import { environment } from '../../environments/environment';
+import { json } from 'stream/consumers'
 
 const ProfileSetup = () => {
+    const sendInfo = async () => {
+        await fetch(`${environment.serverUrl}/user`, {
+          method: 'POST',
+          headers: {'Content-type': 'application/json'},
+          body: JSON.stringify({ "user": {
+            "email" : 'bang',
+            "password" : 'mdp'
+          }}),
+        })
+    }
   return (
     <div className='ProfileSetupPage'>
       <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
@@ -37,7 +49,7 @@ const ProfileSetup = () => {
               <Text content='Bio:' />
               <textarea placeholder='Write a short bio !' maxLength={512} />
             </section>
-            <Button textType='H3' text='Create profile' url='/User/NewsOptions'/>
+            <Button textType='H3' text='Create profile' url = '/User/newsOptions' fct = {sendInfo}/>
           </section>
         </div>
       </div>
