@@ -11,13 +11,14 @@ interface buttonProps {
     icon?:  ReactElement<IconBaseProps>,
     state?: string,
     url?: string
+    fct: Function,
 }
 
-const Button = ({color, icon, text, textType, state, url} : buttonProps) => {
+const Button = ({color, icon, text, textType, state, url, fct} : buttonProps) => {
   return (
     <a style={{textDecoration: "none"}} href={url}>
       <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
-        color}} className='ButtonComponent'>
+        color}} className='ButtonComponent' onClick = {()=>{fct()}}>
         <Text color={state === 'disabled' ? 'darkgrey' : 'white'} type={textType} content={text}/>
         {icon ? icon : ''}
       </div>
@@ -30,7 +31,8 @@ Button.defaultProps = {
     text: 'Test',
     textType: 'body',
     icon: undefined,
-    state: 'enabled'
+    state: 'enabled',
+    fct: ()=>{console.log('future fct')}
 }
 
 Button.propTypes = {
