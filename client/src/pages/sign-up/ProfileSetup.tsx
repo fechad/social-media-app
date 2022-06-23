@@ -7,7 +7,6 @@ import TextInput from '../../components/TextInput'
 import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
-import { json } from 'stream/consumers'
 
 const ProfileSetup = () => {
     const sendInfo = async () => {
