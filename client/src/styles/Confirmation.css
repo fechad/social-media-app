@@ -38,7 +38,12 @@
     margin-left: 4px;
 }
 
-.ConfirmationContainer .ButtonComponent{
+.ConfirmationContainer .ContinueSection .ButtonComponent{
     margin-top: 104px;
     width:  376px;
+}
+
+.ConfirmationContainer .ResendCodeSection .ButtonComponent{
+    margin-top: 24px;
+    width: 200px;
 }

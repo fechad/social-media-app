@@ -9,16 +9,18 @@ const Discover = () => {
 
 
     let navigate = useNavigate();
-    function  getUserName(){
+    function  getUserName() {
         const auth = getAuth();
         const user = auth.currentUser;
-        return user?.displayName;
+        return user!.email
+    
     }
 
     function signOutOfWebsite(){
         const auth = getAuth(app);
         signOut(auth).then(() => {
             // Sign-out successful.
+            alert('Signed out');
             navigate("/", { replace: true });
           }).catch((error) => {
             // An error happened.
@@ -27,7 +29,7 @@ const Discover = () => {
 
   return (
     <div>
-        <Text type='H1' content={`Welcome to our app ${getUserName}`} />
+        <Text type='H1' content={`Welcome to our app ${getUserName()}`} />
         <Button text='Sign out' fct={signOutOfWebsite} />
     </div>
   )

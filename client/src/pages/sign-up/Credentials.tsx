@@ -6,7 +6,7 @@ import TextInput from '../../components/TextInput'
 import Button from '../../components/Button'
 import { FcGoogle } from 'react-icons/fc'
 import {app} from '../../firebaseConfig'
-import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 
 const Credentials = () => {
@@ -23,6 +23,11 @@ const Credentials = () => {
       // Signed in 
       const user = userCredential.user;
       console.log(user)
+      sendEmailVerification(user)
+      .then(() => {
+        alert('Email sent')
+      });
+      
       navigate("/Sign-up/confirmation", { replace: true });
       // ...
     })
