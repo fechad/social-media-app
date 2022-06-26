@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Button from '../components/Button';
 import Link from '../components/Link';
 import Text from '../components/Text';
@@ -8,6 +8,18 @@ import {BsArrowLeft} from "react-icons/bs"
 import '../styles/Login.css'
 
 const Login = () => {
+
+    const [validCredentials, setCredentialsStatus] = useState(false);
+
+    const collectInfos = async () => {
+
+        const loginInfos = {
+            "email" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
+            "password" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
+        }
+        console.log(loginInfos)
+      }
+
   return (
     <div className='LoginPage'>
         <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>
@@ -27,6 +39,9 @@ const Login = () => {
                 <hr />
             </section>
             <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} url='https://www.google.com/?gws_rd=ssl'/>
+            <section className='LoginSection'>
+                <Button textType='H2' text='Login' url={validCredentials ? '/Discover' : undefined} fct={collectInfos}/>
+            </section>
             <section className='SignUpSection'>
                 <Text type='H3' content="Don't have an account?"/>
                 <Link underlined={true} content='Sign-up' url='/Sign-up'/>

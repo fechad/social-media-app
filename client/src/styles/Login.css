@@ -65,6 +65,10 @@
     width:  376px;
 }
 
+.LoginContainer .LoginSection{
+    margin-top: 96px;
+}
+
 .SignUpSection{
     display: flex;
     flex-direction: row;
