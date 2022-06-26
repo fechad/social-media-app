@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import Button from '../components/Button';
 import Link from '../components/Link';
 import Text from '../components/Text';
@@ -8,13 +8,15 @@ import {BsArrowLeft} from "react-icons/bs"
 import '../styles/Login.css'
 import {app} from '../firebaseConfig'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
 
-    const [validCredentials, setCredentialsStatus] = useState(false);
+    //const [validCredentials, setCredentialsStatus] = useState(false);
     const auth = getAuth(app);
+    let navigate = useNavigate();
     const collectInfos = async () => {
-
         const loginInfos = {
             "email" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
             "password" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
@@ -24,7 +26,8 @@ const Login = () => {
                 // Signed in 
                 const user = userCredential.user;
                 console.log(user)
-
+                
+                navigate("/User/Discover", { replace: true });
                 // ...
             })
             .catch((error) => {
@@ -79,7 +82,7 @@ const Login = () => {
             </section>
             <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle} />
             <section className='LoginSection'>
-                <Button textType='H2' text='Login' url={validCredentials ? '/User/Discover' : undefined} fct={collectInfos}/>
+                <Button textType='H2' text='Login' fct={collectInfos}/>
             </section>
             <section className='SignUpSection'>
                 <Text type='H3' content="Don't have an account?"/>

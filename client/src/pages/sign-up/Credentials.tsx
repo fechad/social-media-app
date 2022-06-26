@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/Credentials.css'
 import Text from '../../components/Text'
@@ -7,14 +7,12 @@ import Button from '../../components/Button'
 import { FcGoogle } from 'react-icons/fc'
 import {app} from '../../firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
-
+import { useNavigate } from "react-router-dom";
 
 const Credentials = () => {
 
-  const [validCredentials, setCredentialsStatus] = useState(false);
-
   const auth = getAuth(app);
-
+  let navigate = useNavigate();
   const collectInfos = async () => {
     const signUpInfos = {
         "email" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
@@ -25,6 +23,7 @@ const Credentials = () => {
       // Signed in 
       const user = userCredential.user;
       console.log(user)
+      navigate("/Sign-up/confirmation", { replace: true });
       // ...
     })
     .catch((error) => {
@@ -44,6 +43,7 @@ const Credentials = () => {
         // The signed-in user info.
         const user = result.user;
         console.log(user, token, credential);
+        navigate("/User/ProfileSetup", { replace: true });
         // ...
         }).catch((error) => {
             // Handle Errors here.
@@ -77,7 +77,7 @@ const Credentials = () => {
         </section>
         <Button textType='H2' text='Sign up with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle}/>
         <section className='ContinueSection'>
-          <Button textType='H2' text='Continue'  url={validCredentials ? '/Sign-up/confirmation' : undefined } fct={collectInfos}/>
+          <Button textType='H2' text='Continue'  fct={collectInfos}/>
         </section>
       </div>
     </div>
