@@ -14,6 +14,7 @@ import Credentials from './pages/sign-up/Credentials';
 import Confirmation from './pages/sign-up/Confirmation';
 import ProfileSetup from './pages/sign-up/ProfileSetup';
 import NewOptions from './pages/sign-up/NewOptions';
+import Discover from './pages/Discover';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -29,6 +30,7 @@ root.render(
       <Route path='/Sign-up/confirmation' element={<Confirmation/>}/>
       <Route path='/User/ProfileSetup' element={<ProfileSetup/>}/>
       <Route path='/User/NewsOptions' element={<NewOptions/>}/>
+      <Route path='/User/Discover' element={<Discover/>}/>
       <Route path='/components' element={<Library/>}/>
     </Routes>
   </BrowserRouter>

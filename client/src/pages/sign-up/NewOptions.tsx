@@ -16,7 +16,7 @@ const NewOptions = () => {
   return (
     <div className='NewsOptionsPage'>
       <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
-      <a className='SkipLink H2' href='https://www.w3schools.com/'> Skip</a>
+      <a className='SkipLink H2' href='/User/Discover'> Skip</a>
       <div className='NewsOptionsContainer'>
         <section className='NewsOptionsContainerTitle'>
           <Text type='H1' content="News options !" />
@@ -41,7 +41,7 @@ const NewOptions = () => {
           <Switch resp='custom' role={print} text={'Local news'} />
           <VscInfo className='InfoIcon' size={30}/>
         </section>
-        <Button textType='H3' text='Continue to App' url='/'/>
+        <Button textType='H3' text='Continue to App' url='/User/Discover'/>
          
       </div>
     </div>

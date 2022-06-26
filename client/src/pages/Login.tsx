@@ -6,19 +6,58 @@ import TextInput from '../components/TextInput';
 import { FcGoogle} from "react-icons/fc";
 import {BsArrowLeft} from "react-icons/bs"
 import '../styles/Login.css'
+import {app} from '../firebaseConfig'
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const Login = () => {
 
     const [validCredentials, setCredentialsStatus] = useState(false);
-
+    const auth = getAuth(app);
     const collectInfos = async () => {
 
         const loginInfos = {
             "email" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
             "password" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
         }
-        console.log(loginInfos)
-      }
+        signInWithEmailAndPassword(auth, loginInfos.email, loginInfos.password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                console.log(user)
+
+                // ...
+            })
+            .catch((error) => {
+                //const errorCode = error.code;
+                const errorMessage = error.message;
+                alert(errorMessage)
+            });
+    }
+
+    const signUpWithGoogle = async () => {
+        const provider = new GoogleAuthProvider();
+        signInWithPopup(auth, provider)
+            .then((result) => {
+            // This gives you a Google Access Token. You can use it to access the Google API.
+            const credential = GoogleAuthProvider.credentialFromResult(result);
+            const token = credential?.accessToken;
+            // The signed-in user info.
+            const user = result.user;
+            console.log(user, token, credential);
+            // ...
+            }).catch((error) => {
+                // Handle Errors here.
+                //const errorCode = error.code;
+                const errorMessage = error.message;
+                // The email of the user's account used.
+                //const email = error.customData.email;
+                // The AuthCredential type that was used.
+                const credential = GoogleAuthProvider.credentialFromError(error);
+                alert({errorMessage, credential});
+
+                // ...
+            });
+    }
 
   return (
     <div className='LoginPage'>
@@ -38,9 +77,9 @@ const Login = () => {
                 <Text type='H2' content='OR'/>
                 <hr />
             </section>
-            <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} url='https://www.google.com/?gws_rd=ssl'/>
+            <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle} />
             <section className='LoginSection'>
-                <Button textType='H2' text='Login' url={validCredentials ? '/Discover' : undefined} fct={collectInfos}/>
+                <Button textType='H2' text='Login' url={validCredentials ? '/User/Discover' : undefined} fct={collectInfos}/>
             </section>
             <section className='SignUpSection'>
                 <Text type='H3' content="Don't have an account?"/>
