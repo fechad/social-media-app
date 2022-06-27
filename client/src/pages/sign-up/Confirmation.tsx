@@ -26,9 +26,7 @@ const Confirmation = () => {
   let navigate = useNavigate();
   const checkEmailVerification = () => {
     const auth = getAuth(app);
-    auth.updateCurrentUser(auth.currentUser).then((user) =>{
-     return auth.currentUser;
-    });
+    console.log(auth.currentUser?.emailVerified)
     if(auth.currentUser?.emailVerified){
       navigate("/User/ProfileSetup", { replace: true });
 

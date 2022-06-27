@@ -4,17 +4,17 @@ import { getAuth, signOut  } from "firebase/auth";
 import Button from '../components/Button';
 import { app } from '../firebaseConfig';
 import { useNavigate } from "react-router-dom";
+function  getUserEmail() {
+    const auth = getAuth(app);
+    const user = auth.currentUser;
+    return user!.email
 
+}
 const Discover = () => {
 
 
     let navigate = useNavigate();
-    function  getUserEmail() {
-        const auth = getAuth(app);
-        const user = auth.currentUser;
-        return user!.email
-    
-    }
+   
 
     function signOutOfWebsite(){
         const auth = getAuth(app);

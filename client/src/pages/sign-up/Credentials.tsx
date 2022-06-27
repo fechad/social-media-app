@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/Credentials.css'
 import Text from '../../components/Text'
@@ -7,7 +7,8 @@ import Button from '../../components/Button'
 import { FcGoogle } from 'react-icons/fc'
 import {app} from '../../firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { AuthContext } from '../../Auth'
 
 const Credentials = () => {
 
@@ -63,6 +64,12 @@ const Credentials = () => {
             // ...
         });
 }
+
+  const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+      return <Navigate to="/User/Discover" />;
+  }
 
 
   return (

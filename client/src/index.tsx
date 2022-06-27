@@ -15,24 +15,29 @@ import Confirmation from './pages/sign-up/Confirmation';
 import ProfileSetup from './pages/sign-up/ProfileSetup';
 import NewOptions from './pages/sign-up/NewOptions';
 import Discover from './pages/Discover';
+import { AuthProvider } from './Auth';
+import ProtectedRoute from './ProtectedRoute';
+import PrivateRoute from './ProtectedRoute';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
   <BrowserRouter>
+    <AuthProvider>
     <Routes>
       <Route path='/' element={<App/>}>
         <Route index element={<App/>}/>
       </Route>
       <Route path='/login' element={<Login/>}/>
       <Route path='/Sign-up' element={<Credentials/>}/>
-      <Route path='/Sign-up/Confirmation' element={<Confirmation/>}/>
-      <Route path='/User/ProfileSetup' element={<ProfileSetup/>}/>
-      <Route path='/User/NewsOptions' element={<NewOptions/>}/>
-      <Route path='/User/Discover' element={<Discover/>}/>
+      <Route  path='/Sign-up/Confirmation'  element={<ProtectedRoute outlet={<Confirmation />} />}/>
+      <Route  path='/User/ProfileSetup'  element={<ProtectedRoute outlet={<ProfileSetup />} />}/>
+      <Route  path='/User/NewsOptions'  element={<ProtectedRoute outlet={<NewOptions />} />}/>
+      <Route  path='/User/Discover'  element={<ProtectedRoute outlet={<Discover />} />}/>
       <Route path='/components' element={<Library/>}/>
     </Routes>
+    </AuthProvider>
   </BrowserRouter>
 );
 

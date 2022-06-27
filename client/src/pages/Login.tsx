@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Button from '../components/Button';
 import Link from '../components/Link';
 import Text from '../components/Text';
@@ -8,7 +8,8 @@ import {BsArrowLeft} from "react-icons/bs"
 import '../styles/Login.css'
 import {app} from '../firebaseConfig'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
+import { AuthContext } from '../Auth';
 
 
 const Login = () => {
@@ -61,6 +62,12 @@ const Login = () => {
                 // ...
             });
     }
+
+    const { currentUser } = useContext(AuthContext);
+
+  if (currentUser) {
+    return <Navigate to="/User/Discover" />;
+  }
 
   return (
     <div className='LoginPage'>
