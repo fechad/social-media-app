@@ -9,8 +9,8 @@ const Discover = () => {
 
 
     let navigate = useNavigate();
-    function  getUserName() {
-        const auth = getAuth();
+    function  getUserEmail() {
+        const auth = getAuth(app);
         const user = auth.currentUser;
         return user!.email
     
@@ -29,7 +29,7 @@ const Discover = () => {
 
   return (
     <div>
-        <Text type='H1' content={`Welcome to our app ${getUserName()}`} />
+        <Text type='H1' content={`Welcome to our app ${getUserEmail()}`} />
         <Button text='Sign out' fct={signOutOfWebsite} />
     </div>
   )

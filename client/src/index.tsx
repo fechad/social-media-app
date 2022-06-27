@@ -27,7 +27,7 @@ root.render(
       </Route>
       <Route path='/login' element={<Login/>}/>
       <Route path='/Sign-up' element={<Credentials/>}/>
-      <Route path='/Sign-up/confirmation' element={<Confirmation/>}/>
+      <Route path='/Sign-up/Confirmation' element={<Confirmation/>}/>
       <Route path='/User/ProfileSetup' element={<ProfileSetup/>}/>
       <Route path='/User/NewsOptions' element={<NewOptions/>}/>
       <Route path='/User/Discover' element={<Discover/>}/>
