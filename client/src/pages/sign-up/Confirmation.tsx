@@ -7,12 +7,6 @@ import {app} from '../../firebaseConfig'
 import {getAuth, sendEmailVerification} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
 
-/*
-function print(){
-  console.log('Sent the code')
-}
-*/
-
 
 const Confirmation = () => {
   
@@ -26,14 +20,17 @@ const Confirmation = () => {
   let navigate = useNavigate();
   const checkEmailVerification = () => {
     const auth = getAuth(app);
-    console.log(auth.currentUser?.emailVerified)
-    if(auth.currentUser?.emailVerified){
-      navigate("/User/ProfileSetup", { replace: true });
-
-    } else{
-      alert('Email not verified');
-    }
     
+    auth.currentUser?.reload()
+    .then(() =>{
+      if(auth.currentUser?.emailVerified){
+        navigate("/User/ProfileSetup", { replace: true });
+  
+      } 
+      else{
+        alert('Email not verified');
+      }
+    });
   }
 
   const resendEmail = () => {

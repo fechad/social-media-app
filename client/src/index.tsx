@@ -17,7 +17,6 @@ import NewOptions from './pages/sign-up/NewOptions';
 import Discover from './pages/Discover';
 import { AuthProvider } from './Auth';
 import ProtectedRoute from './ProtectedRoute';
-import PrivateRoute from './ProtectedRoute';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

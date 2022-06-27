@@ -65,9 +65,9 @@ const Login = () => {
 
     const { currentUser } = useContext(AuthContext);
 
-  if (currentUser) {
-    return <Navigate to="/User/Discover" />;
-  }
+    if (currentUser) {
+        return <Navigate to="/User/Discover" />;
+    }
 
   return (
     <div className='LoginPage'>
