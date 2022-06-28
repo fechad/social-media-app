@@ -7,18 +7,51 @@ import TextInput from '../../components/TextInput'
 import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
+import { useNavigate } from 'react-router-dom'
 
 const ProfileSetup = () => {
+  
+    let navigate = useNavigate();
+    function getAge(dateString:string) {
+      var today = new Date();
+      var birthDate = new Date(dateString);
+      var age = today.getFullYear() - birthDate.getFullYear();
+      var m = today.getMonth() - birthDate.getMonth();
+      if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) 
+      {
+          age--;
+      }
+      return age;
+    }
     const sendInfo = async () => {
-        await fetch(`${environment.serverUrl}/user`, {
+        const profileSetupInfos = {
+          "photo" : undefined,
+          "handle" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
+          "birthday" : getAge((document.getElementsByClassName('DateInput')[0] as HTMLInputElement).value),
+          "accountName" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
+          "bio" : (document.getElementsByTagName('textarea')[0]).value,
+
+        }
+        console.log(profileSetupInfos);
+        await fetch(`${environment.serverUrl}/database/users`, {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
-          body: JSON.stringify({ "user": {
-            "email" : 'bang',
-            "password" : 'mdp'
-          }}),
+          body: JSON.stringify({
+            "handle" : `${profileSetupInfos.handle}`,
+            "profile_pic" : `${profileSetupInfos.photo}`,
+            "age" : `${profileSetupInfos.birthday}`,
+            "account_name" : `${profileSetupInfos.accountName}`,
+            "private_account" : 'false',
+            "bio" : `${profileSetupInfos.bio}`,
+            "news_options" : 'All',
+            "local_news" : 'false',
+            "french_language" : 'false',
+          }),
+        }).then(() =>{
+          navigate("/User/newsOptions", { replace: true });
         })
     }
+
   return (
     <div className='ProfileSetupPage'>
       <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
@@ -48,7 +81,7 @@ const ProfileSetup = () => {
               <Text content='Bio:' />
               <textarea placeholder='Write a short bio !' maxLength={512} />
             </section>
-            <Button textType='H3' text='Create profile' url = '/User/newsOptions' fct = {sendInfo}/>
+            <Button textType='H3' text='Create profile' fct = {sendInfo}/>
           </section>
         </div>
       </div>

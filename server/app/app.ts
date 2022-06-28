@@ -39,7 +39,7 @@ export class Application {
     bindRoutes(): void {
         this.app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc.default(this.swaggerOptions)));
         this.app.use('/api', this.httpController.router);
-        this.app.use('/database', this.dbController.router);
+        this.app.use('/api/database', this.dbController.router);
         /*this.app.use('/', (req, res) => {
             res.redirect('/api/docs');
         });*/
