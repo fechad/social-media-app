@@ -32,7 +32,6 @@ const ProfileSetup = () => {
           "bio" : (document.getElementsByTagName('textarea')[0]).value,
 
         }
-        console.log(profileSetupInfos);
         await fetch(`${environment.serverUrl}/database/users`, {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
