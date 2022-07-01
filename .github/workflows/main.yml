@@ -37,12 +37,12 @@ jobs:
        working-directory: ./client/
     steps:
       - name: Checkout repository
-        uses: actions/checkout@main
-      - name: Download artifact
-        uses: actions/download-artifact@main
+        uses: actions/checkout@master
+        uses: actions/setup-node@master
         with:
-          name: react-github-actions-build
-          path: ./client/build
+        node-version: 16
+      - run: npm ci
+      - run: npm run build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
