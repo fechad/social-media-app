@@ -38,9 +38,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@master
-        uses: actions/setup-node@master
-        with:
-        node-version: 16
       - run: npm ci
       - run: npm run build
       - name: Deploy to Firebase
