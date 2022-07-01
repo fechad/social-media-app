@@ -36,16 +36,14 @@ jobs:
      run:
        working-directory: ./client/
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@master
-      - run: npm i
-      - run: npm ci
-      - run: npm run build
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
+      - uses: actions/checkout@v2
+      - run: npm ci && npm run build
+      - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
-          args: deploy --only hosting
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          repoToken: '${{ secrets.FIREBASE_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CHYMERA_B509C }}'
+          projectId: chymera-b509c
+    
+    
         
     
