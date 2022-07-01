@@ -27,7 +27,7 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: react-github-actions-build
-          path: /build
+          path: ./client/build
   deploy: 
     name: Deploy
     needs: build
@@ -42,7 +42,7 @@ jobs:
         uses: actions/download-artifact@main
         with:
           name: react-github-actions-build
-          path: /build
+          path: ./client/build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
