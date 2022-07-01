@@ -26,8 +26,8 @@ jobs:
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
-          name: dist
-          path: dist
+          name: build
+          path: build
   deploy: 
     name: Deploy
     needs: build
