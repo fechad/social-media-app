@@ -2,7 +2,7 @@
     display: flex;
     flex-direction: row;
     border-width: 2px;
-    border-color: '#767676';
+    border-color: #767676;
     border-radius: 8px;
     border-style: solid;
     align-items: center;
