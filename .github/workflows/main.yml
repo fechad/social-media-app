@@ -26,19 +26,22 @@ jobs:
       - name: Archive production artifact
         uses: actions/upload-artifact@main
         with:
-          name: build
+          name: react-github-actions-build
           path: build
   deploy: 
     name: Deploy
     needs: build
     runs-on: ubuntu-latest
+    defaults:
+     run:
+       working-directory: ./client/
     steps:
       - name: Checkout repository
         uses: actions/checkout@main
       - name: Download artifact
         uses: actions/download-artifact@main
         with:
-          name: build
+          name: react-github-actions-build
           path: build
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
