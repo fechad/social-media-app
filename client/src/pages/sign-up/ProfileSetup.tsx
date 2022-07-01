@@ -25,7 +25,7 @@ const ProfileSetup = () => {
     }
     const sendInfo = async () => {
         const profileSetupInfos = {
-          "photo" : undefined,
+          "photo" : (document.getElementById('download') as HTMLInputElement).files![0],
           "handle" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
           "birthday" : getAge((document.getElementsByClassName('DateInput')[0] as HTMLInputElement).value),
           "accountName" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
