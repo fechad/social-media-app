@@ -29,7 +29,7 @@ const Discover = () => {
 
   return (
     <div>
-        <Text type='H1' content={`Welcome to our app ${getUserEmail()}`} />
+        <Text type='H1' content={` ${process.env.NODE_ENV}  Welcome to our app ${getUserEmail()}`} />
         <Button text='Sign out' fct={signOutOfWebsite} />
     </div>
   )
