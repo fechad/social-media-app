@@ -38,6 +38,7 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@master
+      - run: npm i
       - run: npm ci
       - run: npm run build
       - name: Deploy to Firebase
