@@ -118,3 +118,27 @@
     margin-left: 32px;
     width: 392px;
 }
+
+#download {
+    display: none;
+}
+.upload{
+    color: white;
+    margin: 0px;
+    font-size: large;
+}
+#download + label {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    width: 180px;
+    height: 40px; 
+    background-color: #8773F0 ;
+    border-radius: 8px;
+}
+
+#photo {
+    height: 100%;
+    width: 100%;
+}

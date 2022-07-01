@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/ProfileSetup.css'
 import Text from '../../components/Text'
@@ -51,6 +51,15 @@ const ProfileSetup = () => {
         })
     }
 
+    const uploadFile = (event: any) => {
+      const file = (document.getElementById('download') as HTMLInputElement).files![0];
+      const reader = new FileReader();
+      reader.addEventListener('load', ()=>{
+        document.getElementById('photo')?.setAttribute('src', reader.result!.toString())
+      })
+      reader.readAsDataURL(file);
+    }
+
   return (
     <div className='ProfileSetupPage'>
       <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
@@ -60,8 +69,13 @@ const ProfileSetup = () => {
         </section>
         <div className='Content'>
           <section className='PhotoInputSection'>
-            <div className='PhotoPreview'> Insert photo component here </div>
-            <Button text='Upload a photo' icon={<FiUpload color='white' size={24}/>}/>
+            <div className='PhotoPreview'> <img src="" alt="" id ='photo'/></div>
+            {/* <Button text='Upload a photo' icon={<FiUpload color='white' size={24}/>}/> */}
+            <input type = 'file' id = 'download' onChange={uploadFile}></input>
+            <label htmlFor="download">
+              <p className = 'upload'> upload a photo </p>
+              <FiUpload color='white' size = {24}/>
+            </label>
           </section>
           <section className='ProfileDetailsSection'>
             <section className='HandleSection'>
@@ -85,7 +99,5 @@ const ProfileSetup = () => {
         </div>
       </div>
     </div>
-  )
-}
-
+  )}
 export default ProfileSetup
