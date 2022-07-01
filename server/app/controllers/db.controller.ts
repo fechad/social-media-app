@@ -23,6 +23,17 @@ export class DatabaseController {
                     res.status(404).json(e.stack);
                 });
         });
+        
+        router.post('/users', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .create('users', req.body)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
 
         /*router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService

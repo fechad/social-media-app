@@ -11,7 +11,7 @@ CREATE SCHEMA Chymera;
 CREATE TABLE IF NOT EXISTS Users(
 	handle TEXT NOT NULL,
 	profile_pic TEXT,
-	age INT NOT NULL,
+	age VARCHAR(3) NOT NULL,
 	account_name TEXT,
 	private_account boolean NOT NULL,
 	bio TEXT,

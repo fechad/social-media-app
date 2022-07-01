@@ -23,10 +23,11 @@ export class HttpController {
             const time: string = 'Hello world';
             res.json(time);
         });
-        this.router.post('/user', async (req: Request, res: Response) => {
-            console.log(req.body);
+        /*this.router.post('/user', async (req: Request, res: Response) => {
+            
         });
-        /*this.router.get('/high-scores', async (req: Request, res: Response) => {
+
+        this.router.get('/high-scores', async (req: Request, res: Response) => {
             const scores = await this.highScoreService.getScores(false);
             res.json(scores);
         });*/

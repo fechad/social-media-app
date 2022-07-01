@@ -3,6 +3,7 @@
 
 name: Deploy to Firebase Hosting on PR
 'on': pull_request
+
 jobs:
   build_and_preview:
     if: '${{ github.event.pull_request.head.repo.full_name == github.repository }}'
@@ -10,6 +11,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: npm ci && npm run build
+        working-directory: ./client/
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
