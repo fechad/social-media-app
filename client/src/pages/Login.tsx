@@ -84,7 +84,7 @@ const Login = () => {
             </section>
             <section className='Separator'>
                 <hr />
-                <Text type='H2' content='OR'/>
+                <Text type='H2' content='OR' />
                 <hr />
             </section>
             <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle} />
