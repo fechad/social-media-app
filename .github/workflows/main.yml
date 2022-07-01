@@ -43,7 +43,7 @@ jobs:
           repoToken: '${{ secrets.FIREBASE_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT_CHYMERA_B509C }}'
           projectId: chymera-b509c
-          path: ./client/
+          entryPoint: ./client/
     
     
         
