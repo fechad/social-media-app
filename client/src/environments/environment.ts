@@ -2,11 +2,26 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 // deployment - version 2
+
+let production = undefined;
+
+switch(process.env.NODE_ENV) {
+    case 'production':
+      production = true;
+      break;
+    case 'development':
+    default:
+      production = false;
+}
+
 export const environment = {
-    production: false,
-    serverUrl: 'http://localhost:3000/api',
-    socketUrl: 'http://localhost:3000',
+
+    production: production,
+    serverUrl: `${production ? 'https://chymera-b509c.nn.r.appspot.com/api' : 'http://localhost:3000/api'}`,
+    socketUrl: `${production ? 'https://chymera-b509c.nn.r.appspot.com' : 'http://localhost:3000'}`,
 };
+
+
 
 /*
  * For easier debugging in development mode, you can import the following file
