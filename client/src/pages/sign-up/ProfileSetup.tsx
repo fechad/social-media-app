@@ -1,4 +1,3 @@
-import React, {useState} from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/ProfileSetup.css'
 import Text from '../../components/Text'
