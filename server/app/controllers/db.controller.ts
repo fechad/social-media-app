@@ -1,5 +1,4 @@
 import { NextFunction, Request, Response, Router } from 'express';
-
 import * as pg from 'pg';
 import { Service } from 'typedi';
 import { DatabaseService } from '../services/database.service';
@@ -12,6 +11,20 @@ export class DatabaseController {
     public get router(): Router {
         const router: Router = Router();
 
+        const multer = require('multer');
+        const storage = multer.diskStorage({
+            destination:function(req:any, file:any, cb:any) {
+            cb(null, './assets/profile-pics')
+            },
+            filename: function(req:any, file:any, cb:any) {
+                cb(null, file.originalname)
+            }
+        })
+
+        const upload = multer({ storage: storage})
+
+        // this.router.post('/image', upload.single('image'), async (req: Request, res: Response) => {});
+
         // ======= GENERAL ROUTES =======
 
         router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
@@ -22,6 +35,10 @@ export class DatabaseController {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
                 });
+        });
+        
+        router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).json('OK');
         });
         
         router.post('/users', (req: Request, res: Response, next: NextFunction) => {

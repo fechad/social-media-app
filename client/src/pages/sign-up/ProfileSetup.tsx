@@ -8,9 +8,9 @@ import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const ProfileSetup = () => {
-  
     let navigate = useNavigate();
     function getAge(dateString:string) {
       var today = new Date();
@@ -24,14 +24,20 @@ const ProfileSetup = () => {
       return age;
     }
     const sendInfo = async () => {
+        const form = new FormData();
+        form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0].name);
+        const name: string = (document.getElementById('download') as HTMLInputElement).files![0].name;
+
+
         const profileSetupInfos = {
-          "photo" : (document.getElementById('download') as HTMLInputElement).files![0],
+          "photo" : `./assets/profile-pics/${name}`,
           "handle" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
           "birthday" : getAge((document.getElementsByClassName('DateInput')[0] as HTMLInputElement).value),
           "accountName" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
           "bio" : (document.getElementsByTagName('textarea')[0]).value,
 
         }
+        axios.post(`${environment.serverUrl}/database/image`, form);
         await fetch(`${environment.serverUrl}/database/users`, {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
