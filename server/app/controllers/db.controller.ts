@@ -10,6 +10,7 @@ export class DatabaseController {
 
     public get router(): Router {
         const router: Router = Router();
+        this.databaseService.createUnixSocketPool();
 
         const multer = require('multer');
         const storage = multer.diskStorage({
@@ -30,7 +31,7 @@ export class DatabaseController {
         router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerInfos(req.params.handle)
-                .then((result: pg.QueryResult) => res.json(result.rows))
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);

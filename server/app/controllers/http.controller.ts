@@ -19,6 +19,8 @@ export class HttpController {
 
         //const { validate } = new Validator({});
         this.router = Router();
+        
+        this.router.get('/favicon.ico', (req, res) => res.status(204));
         this.router.get('/', async (req: Request, res: Response) => {
             // Send the request to the service and send the response
             const time: string = 'Hello world';
