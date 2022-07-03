@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "chymera-b509c",
+  "private_key_id": "f4e0403d53a0e4d2ece44b8a41d0015cea8f3739",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCgHIvZifAvNvCw\n8Zp0j9nG58gnPn+JFpR3IMOzX4MUAapduzLtLQ1UuoNIbWaRoWqgXIN3O4xbyEra\n8O8wopP3FE+XVMRYTyNEaoGoBje6WMigbWRQhPdN+fS1dNbsbJkX6G+VGBApXIhC\nbdy6q8vhQu4mglQzpbECdHlXfvLEeokY8vJKeEM+xKQIfPdIm6oXL6wrIGPtGrHU\nji+zx8uY4dFijN7O+xpitvi9MX8lpo0djPKFK67mRZ5IRe+XGmsHTPPOfV/8htMy\n6crjJWqMF7KvOyWIn5FtRgaHt3CWsVV8yX9BBTpnPIQv3IGlbf3G+01u6lU4Gw51\nVv1ZWxejAgMBAAECggEAShpsL5bD71ZCN+LaVbBuXrzPyjoG1O/6bthfOxmtlQjg\nTNljTJpZXSmlsVPQ8P4AV4/52Kla4O/mlUaFrcDRMr3XyHaXGTgnXnbc42NdT4Xf\n9UAr+YhQ3WoedA1Lm8j3YjVVz29/q2UEO5qVWmBA0FUl2/Td+7loH3bA4loDCiPg\n4QLUtYs3edn6F04MpOXoyXObbUOO0ZrMqHoDqH5EVjTYKR1WYdN6RpKK8fBk2gmP\nlTr46F6duQ5sFt7R/HPCLKFE6O17mv5mmIrlM6Swm2mlbSQwnRrs6HrDVKLYo/l+\nCBbGXxu7tZYd3c+/9YEyrzK8WUMdn1mxrk90T08FoQKBgQDR5CdcJHgzjkQWUc2G\n9U/dN5h6/VfDLFTUzaugl2r6nS0ldYHPQVwn0PwAYKUy4zhAvXeo5G6gEAbfkq1A\nRy3Yvm55PHLCtMakKBYlhsbRUY8y9PASf6DJYlbcE9Iesw1eqIv41bHyl9tSM+Dj\np0qTWBsBiWBAZzmw9jfya/BDRwKBgQDDSOJ+rqkFJbzICiNevtVBc30WoueeYUln\n66bwLr7QVnnGTzzTq6a+w7i6ra2hAng1xDoIrgKV2ET7GDfA35c9Cb45qm32+dD7\nkVAac6540YV8u7s1mBtKmLpVXcxtnawd+hyn9eQnSc+PdzE2cOlhlbAXZnjoMtK0\nbYXaSkMexQKBgGw3lEufyhHa4iQX3T4eMSU/yvBuutc4fiySNlFAgLniXCqaIWm4\nq0kkKSoQqlxIZvKKPa3oyVjhqomPWKBxkqPT26XKkujsyBZPTMvgZ5X41TpSq4z+\nHOp4N4yU85s8ekI56KFNnMgVn9EMSoFV+c9qd9IdAHF0R3yEFmh5WpF1AoGALthI\nBM2PG/3+eBn+fBbY/zdd9VUkrJh3zGb6B7me6kkkMw8E713IxRAcOyO4d9woy/UD\nWturIRjdC0K29RxtoiW5LQoWEN3CZOZpyb6gRrk0BUTfVq7jNRTH9fxnMpBVHmfG\nAgB5N3d8Q9T6yC1zvoXy1Nou/LxcUQ3IwyF3UmUCgYEAlmHqMJWsNhzayse0KCyf\n2AIovFT937BvqfNxYNAAD61dlmw2cfssxn6xl7zHTkgQfimGuYfvtw+VHR8VK4oM\neBpQrsqaj70E4CsxrufAj70viWoqVpwOL4SgYRcddEe9RG6CZqH0Gy/z9Qnh0Pq2\nqd6k0C43nuf5SskmJQ193x8=\n-----END PRIVATE KEY-----\n",
+  "client_email": "chymera-b509c@appspot.gserviceaccount.com",
+  "client_id": "112609572499115838262",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/chymera-b509c%40appspot.gserviceaccount.com"
+}
