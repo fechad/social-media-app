@@ -3,6 +3,8 @@ name: Build and deploy
 on: 
   push:
     branches: [ main ]
+  pull_request:
+    branches: [ main ]
     
   #Run workflow manually
   workflow_dispatch:

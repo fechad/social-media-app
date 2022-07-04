@@ -16,6 +16,7 @@ export class HttpController {
     }
 
     private configureRouter() {
+
         //const { validate } = new Validator({});
         this.router = Router();
         
