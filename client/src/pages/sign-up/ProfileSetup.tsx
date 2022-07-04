@@ -1,4 +1,3 @@
-import React from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/ProfileSetup.css'
 import Text from '../../components/Text'
@@ -8,9 +7,9 @@ import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
 import { useNavigate } from 'react-router-dom'
+import axios from 'axios'
 
 const ProfileSetup = () => {
-  
     let navigate = useNavigate();
     function getAge(dateString:string) {
       var today = new Date();
@@ -24,14 +23,20 @@ const ProfileSetup = () => {
       return age;
     }
     const sendInfo = async () => {
+        const form = new FormData();
+        form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0].name);
+        const name: string = (document.getElementById('download') as HTMLInputElement).files![0].name;
+
+
         const profileSetupInfos = {
-          "photo" : undefined,
+          "photo" : `./assets/profile-pics/${name}`,
           "handle" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
           "birthday" : getAge((document.getElementsByClassName('DateInput')[0] as HTMLInputElement).value),
           "accountName" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
           "bio" : (document.getElementsByTagName('textarea')[0]).value,
 
         }
+        axios.post(`${environment.serverUrl}/database/image`, form);
         await fetch(`${environment.serverUrl}/database/users`, {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
@@ -51,6 +56,15 @@ const ProfileSetup = () => {
         })
     }
 
+    const uploadFile = (event: any) => {
+      const file = (document.getElementById('download') as HTMLInputElement).files![0];
+      const reader = new FileReader();
+      reader.addEventListener('load', ()=>{
+        document.getElementById('photo')?.setAttribute('src', reader.result!.toString())
+      })
+      reader.readAsDataURL(file);
+    }
+
   return (
     <div className='ProfileSetupPage'>
       <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
@@ -60,8 +74,13 @@ const ProfileSetup = () => {
         </section>
         <div className='Content'>
           <section className='PhotoInputSection'>
-            <div className='PhotoPreview'> Insert photo component here </div>
-            <Button text='Upload a photo' icon={<FiUpload color='white' size={24}/>}/>
+            <div className='PhotoPreview'> <img src="" alt="" id ='photo'/></div>
+            {/* <Button text='Upload a photo' icon={<FiUpload color='white' size={24}/>}/> */}
+            <input type = 'file' id = 'download' onChange={uploadFile}></input>
+            <label htmlFor="download">
+              <p className = 'upload'> upload a photo </p>
+              <FiUpload color='white' size = {24}/>
+            </label>
           </section>
           <section className='ProfileDetailsSection'>
             <section className='HandleSection'>
@@ -85,7 +104,5 @@ const ProfileSetup = () => {
         </div>
       </div>
     </div>
-  )
-}
-
+  )}
 export default ProfileSetup
