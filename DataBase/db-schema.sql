@@ -9,6 +9,7 @@ CREATE SCHEMA Chymera;
 -- et de : https://tableplus.com/blog/2018/04/postgresql-how-to-grant-access-to-users.html
 
 CREATE TABLE IF NOT EXISTS Users(
+	email TEXT NOT NULL,
 	handle TEXT NOT NULL,
 	profile_pic TEXT,
 	age VARCHAR(3) NOT NULL,
@@ -29,18 +30,18 @@ CREATE TABLE IF NOT EXISTS Users(
 DO $$
 	DECLARE count INT;
 	BEGIN
-		SELECT count(*) INTO count FROM pg_roles WHERE rolname = 'Oveezion';
+		SELECT count(*) INTO count FROM pg_roles WHERE rolname = 'oveezion';
 		IF count > 0 THEN
-			EXECUTE 'REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA Chymera FROM "Oveezion"';
-			EXECUTE 'REVOKE ALL PRIVILEGES ON SCHEMA Chymera FROM "Oveezion"';
+			EXECUTE 'REVOKE ALL PRIVILEGES ON ALL TABLES IN SCHEMA Chymera FROM "oveezion"';
+			EXECUTE 'REVOKE ALL PRIVILEGES ON SCHEMA Chymera FROM "oveezion"';
 		END IF;
 	END
 $$;
-DROP USER IF EXISTS "Oveezion";
+DROP USER IF EXISTS "oveezion";
 
-CREATE ROLE "Oveezion" LOGIN PASSWORD '123Oveezion';
-GRANT USAGE ON SCHEMA Chymera TO "Oveezion";
-GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA Chymera TO "Oveezion";
+CREATE ROLE "oveezion" LOGIN PASSWORD '%%oveezion%X322';
+GRANT USAGE ON SCHEMA Chymera TO "oveezion";
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA Chymera TO "oveezion";
 
 -- FIN DES DÉFINITION DE L'UTILISATEUR
 	

@@ -1,8 +1,6 @@
 
-import { DATABASE, DB_CONNECTION_NAME, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER } from '../constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER } from '../constants';
 import * as pg from 'pg';
-import * as fs from 'fs';
-import knex from 'knex';
 import 'reflect-metadata';
 import { Service } from 'typedi';
 
@@ -23,30 +21,30 @@ export class DatabaseService {
         port: PORT,
         host: HOST,
         keepAlive: KEEPALIVE,
-        application_name: 'chymera-b509c:northamerica-northeast1:chymera-db',
-        ssl: {
-            rejectUnauthorized: false,
-            ca: fs.readFileSync('app/certificates/server-ca.pem').toString(),
-            key: fs.readFileSync('app/certificates/client-key.pem').toString(),
-            cert: fs.readFileSync('app/certificates/client-cert.pem').toString(),
-          },
+        // application_name: 'chymera-b509c:northamerica-northeast1:chymera-db',
+        // ssl: {
+        //     rejectUnauthorized: false,
+        //     ca: fs.readFileSync('app/certificates/server-ca.pem').toString(),
+        //     key: fs.readFileSync('app/certificates/client-key.pem').toString(),
+        //     cert: fs.readFileSync('app/certificates/client-cert.pem').toString(),
+        //   },
     };
 
-    public async createUnixSocketPool() {
-        const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
-        // Establish a connection to the database
-        return knex({
-          client: 'pg',
-          connection: {
-            user: USER, // e.g. 'my-user'
-            password: PASSWORD, // e.g. 'my-user-password'
-            database: DATABASE, // e.g. 'my-database'
-            host: `${dbSocketPath}/${DB_CONNECTION_NAME}`,
-          },
-          // ... Specify additional properties here.
-          ...this.connectionConfig,
-        });
-      };
+    // public async createUnixSocketPool() {
+    //     const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
+    //     // Establish a connection to the database
+    //     return knex({
+    //       client: 'pg',
+    //       connection: {
+    //         user: USER, // e.g. 'my-user'
+    //         password: PASSWORD, // e.g. 'my-user-password'
+    //         database: DATABASE, // e.g. 'my-database'
+    //         host: `${dbSocketPath}/${DB_CONNECTION_NAME}`,
+    //       },
+    //       // ... Specify additional properties here.
+    //       ...this.connectionConfig,
+    //     });
+    //   };
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
     // ======= GENERIC =======
@@ -60,8 +58,8 @@ export class DatabaseService {
     }
 
     public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_ALL('users') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
-        return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
+        console.log(SELECT_ALL('users') + ' WHERE email =' + `'${handle}' ` + END_CHAR);
+        return this.query(SELECT_ALL('users') + ` WHERE email = '${handle}' ` + END_CHAR);
     }
 
     public async getTablesList(): Promise<pg.QueryResult> {

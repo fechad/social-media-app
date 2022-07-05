@@ -10,7 +10,7 @@ export class DatabaseController {
 
     public get router(): Router {
         const router: Router = Router();
-        this.databaseService.createUnixSocketPool();
+        // this.databaseService.createUnixSocketPool();
 
         const multer = require('multer');
         const storage = multer.diskStorage({
@@ -28,9 +28,9 @@ export class DatabaseController {
 
         // ======= GENERAL ROUTES =======
 
-        router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/users/:email', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                .getUSerInfos(req.params.handle)
+                .getUSerInfos(req.params.email)
                 .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);

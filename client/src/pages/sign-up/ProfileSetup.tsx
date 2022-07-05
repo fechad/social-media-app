@@ -7,9 +7,12 @@ import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
 import { useNavigate } from 'react-router-dom'
+import { AuthContext} from '../../Auth'
 import axios from 'axios'
+import { useContext } from 'react'
 
 const ProfileSetup = () => {
+    const {currentUser} = useContext(AuthContext);
     let navigate = useNavigate();
     function getAge(dateString:string) {
       var today = new Date();
@@ -41,6 +44,7 @@ const ProfileSetup = () => {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
+            "email": `${currentUser.email}`,
             "handle" : `${profileSetupInfos.handle}`,
             "profile_pic" : `${profileSetupInfos.photo}`,
             "age" : `${profileSetupInfos.birthday}`,

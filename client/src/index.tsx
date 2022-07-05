@@ -17,6 +17,7 @@ import NewOptions from './pages/sign-up/NewOptions';
 import Discover from './pages/Discover';
 import { AuthProvider } from './Auth';
 import ProtectedRoute from './ProtectedRoute';
+import UserProfile from './pages/UserProfile';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -35,6 +36,7 @@ root.render(
       <Route  path='/User/NewsOptions'  element={<ProtectedRoute outlet={<NewOptions />} />}/>
       <Route  path='/User/Discover'  element={<ProtectedRoute outlet={<Discover />} />}/>
       <Route path='/components' element={<Library/>}/>
+      <Route path = 'User/Profile' element = {<ProtectedRoute outlet = {<UserProfile/>}/>}/>
     </Routes>
     </AuthProvider>
   </BrowserRouter>
