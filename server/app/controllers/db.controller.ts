@@ -10,7 +10,6 @@ export class DatabaseController {
 
     public get router(): Router {
         const router: Router = Router();
-        this.databaseService.createUnixSocketPool();
 
         const multer = require('multer');
         const storage = multer.diskStorage({

@@ -7,10 +7,14 @@ import {VscInfo } from 'react-icons/vsc'
 import {FiUpload} from 'react-icons/fi'
 import { environment } from '../../environments/environment';
 import { useNavigate } from 'react-router-dom'
+import { useContext } from 'react'
+import { AuthContext } from '../../Auth'
 import axios from 'axios'
 
 const ProfileSetup = () => {
     let navigate = useNavigate();
+    const {currentUser} = useContext(AuthContext);
+    let name: string;
     function getAge(dateString:string) {
       var today = new Date();
       var birthDate = new Date(dateString);
@@ -22,25 +26,28 @@ const ProfileSetup = () => {
       }
       return age;
     }
+    const getPhoto = () =>{
+      const form = new FormData();
+      form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0]?.name);
+      name = (document.getElementById('download') as HTMLInputElement).files![0].name;
+      axios.post(`${environment.serverUrl}/database/image`, form);
+    }
+
     const sendInfo = async () => {
-        const form = new FormData();
-        form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0].name);
-        const name: string = (document.getElementById('download') as HTMLInputElement).files![0].name;
-
-
+        
         const profileSetupInfos = {
-          "photo" : `./assets/profile-pics/${name}`,
+          "photo" : name ? `./assets/profile-pics/${name}` : undefined,
           "handle" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
           "birthday" : getAge((document.getElementsByClassName('DateInput')[0] as HTMLInputElement).value),
           "accountName" : (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value,
           "bio" : (document.getElementsByTagName('textarea')[0]).value,
 
         }
-        axios.post(`${environment.serverUrl}/database/image`, form);
         await fetch(`${environment.serverUrl}/database/users`, {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
+            "email" : currentUser.email, 
             "handle" : `${profileSetupInfos.handle}`,
             "profile_pic" : `${profileSetupInfos.photo}`,
             "age" : `${profileSetupInfos.birthday}`,
@@ -63,6 +70,8 @@ const ProfileSetup = () => {
         document.getElementById('photo')?.setAttribute('src', reader.result!.toString())
       })
       reader.readAsDataURL(file);
+
+      getPhoto();
     }
 
   return (
