@@ -10,7 +10,6 @@ export class DatabaseController {
 
     public get router(): Router {
         const router: Router = Router();
-        this.databaseService.createUnixSocketPool();
 
         const multer = require('multer');
         const storage = multer.diskStorage({
@@ -37,6 +36,18 @@ export class DatabaseController {
                     res.status(404).json(e.stack);
                 });
         });
+
+        router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            const update = { new: req.body, old: {email: req.params.email} }
+            this.databaseService
+                .updateNewsOptions('users', update)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json('OK');
@@ -52,6 +63,8 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        
 
         /*router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
