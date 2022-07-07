@@ -12,7 +12,7 @@ const Checkbox = ({text}:{text: string}) => {
 
   return (
     <div className='CheckboxContainer'>
-        <div className={`Checkbox ${checked ? 'Checked' : ''}`} onClick={() => setCheck(!checked)}><FaCheck color='white'/></div>
+        <div className={`Checkbox ${checked || text === 'All'? 'Checked' : ''}`} onClick={() => setCheck(!checked)}><FaCheck color='white'/></div>
         <Text content={text}/>
     </div>
   )

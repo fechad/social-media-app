@@ -65,6 +65,10 @@ export class DatabaseService {
         return this.delete(tableName, obj);
     }
 
+    public async updateNewsOptions(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateDBNewsOptions(tableName, update);
+    }
+
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {
         return this.update(tableName, update);
     }
@@ -86,9 +90,18 @@ export class DatabaseService {
 
     private async update(table: string, update: Update): Promise<pg.QueryResult> {
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
-
+        console.log(query);
         return this.query(query);
     }
+
+    private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
+        /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
+	WHERE <condition>;*/
+        const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+        console.log(query);
+        return this.query(query);
+    }
+
 
     public async delete(table: string, obj: any): Promise<pg.QueryResult> {
         if (!Object.keys(obj).length) throw new Error('Invalid delete values');
