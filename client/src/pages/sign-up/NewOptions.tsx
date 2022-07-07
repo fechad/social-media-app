@@ -29,16 +29,16 @@ const NewOptions = () => {
   }
 
   const getAllSelectedNews = () => {
-    let selectedNews = '';
+    let selectedNews = 'All';
 
     const checkboxes = document.getElementsByClassName('CheckboxContainer');
     for( let i = 0; i < checkboxes.length; i++){
       let firstChild = checkboxes[i].firstChild as HTMLElement;
-      if(firstChild.classList.contains('Checked')){
+      if(firstChild.classList.contains('Checked') && checkboxes[i].children[1].textContent !== 'All'){
         selectedNews += ' ' + checkboxes[i].children[1].textContent
       }
     }
-    return selectedNews;
+    return selectedNews.length > 3 ? selectedNews.split('All')[1] : selectedNews;
   }
 
   const updateNewsINfos = async () => {
