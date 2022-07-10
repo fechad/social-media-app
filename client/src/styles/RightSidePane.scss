@@ -1,8 +1,75 @@
 .RightSidePaneContainer{
-    width: 320px;
+    width: 360px;
     height: 100vh;
     position: absolute;
     top: 0px;
     right: 0px;
     background-color: #F8F8F8;
+
+    .HeaderArea{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        width: 100%;
+
+        .SwitchContainer{
+            margin-left: 16px;
+        }
+
+        .ProfileAvatar{
+            margin-right: 16px;
+
+            &:hover{
+                cursor: pointer;
+            }
+        }
+    }
+
+    .NotificationArea,
+    .GroupChatArea{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+
+        .Header{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+
+            .SwitchContainer{
+                margin-right: 16px;
+            }
+
+            .H2{
+                margin-left: 16px;
+            }
+        }
+
+        .RecentNotifications{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            width: 100%;
+            height: 304px;
+        }
+
+        .RecentGroupConvos{
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            width: 100%;
+            height: 340px;
+            margin-top: 16px;
+
+            .GroupChatContainer{
+                &:hover{
+                    cursor: pointer;
+                    background-color: #EBEBEB;
+                }
+            }
+        }
+    }
 }

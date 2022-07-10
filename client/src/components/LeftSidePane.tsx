@@ -9,7 +9,7 @@ function LeftSidePane() {
     //TOTO: Faire une table conversations dans la DB
 
     const [conversations, setConversations] = useState([{
-        chatId: '1',
+        id: '1',
         photos: ['logo.svg'],
         names: ['Oveezion Team'],
         latest: 'Welcome to ovvezion !',
@@ -31,7 +31,7 @@ function LeftSidePane() {
                 return(
                      
                      <div className='ConversationContainer'>
-                        <ChatPreview  chatId={conversation.chatId} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} />
+                        <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
                     </div> 
                 )           
             })}

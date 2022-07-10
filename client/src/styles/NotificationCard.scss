@@ -1,0 +1,50 @@
+.NotificationCardContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 344px;
+    height: 104px;
+    background: #FFFFFF;
+    border: 1px solid #949494;
+    border-radius: 4px;
+
+    .NotificationHeader{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;
+
+        .AccountAvatars{
+            display: flex;
+            flex-direction: row;
+            width: 60px;
+        }
+
+        .TitleContainer{
+            margin-left: 40px;
+            text-align: right;
+            width: 224px;
+
+            .H3{
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+
+    .Message{
+        width: 304px;
+        margin-left: 16px;
+        .body{
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: #EBEBEB;
+    }
+}
