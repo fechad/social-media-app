@@ -4,13 +4,14 @@ import '../styles/Avatar.scss'
 interface AvatarProps { 
     photo: string,
     online: boolean,
+    inGroup?: boolean
 }
 
-const Avatar = ({photo, online}: AvatarProps) => {
+const Avatar = ({photo, online, inGroup}: AvatarProps) => {
   return (
     <div className='AvatarContainer'>
         <div>
-            <img className='AvatarImg' src={photo} alt="" />
+            <img className={`AvatarImg ${inGroup? 'InGroup' : ''}`} src={photo} alt="" />
         </div>
         {online ? <div className='OnlineIndicator' /> : ''}
     </div>

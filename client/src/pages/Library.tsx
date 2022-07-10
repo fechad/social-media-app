@@ -111,8 +111,8 @@ const Library = () => {
       <div>
         <Text type='H1' content='Group-chat Previews:' />
         <section>
-          <ChatPreview photos={['logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher']}  latest='So what are we doing on sunday ?' read={false}/>
-          <ChatPreview photos={['logo.svg', 'logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher', 'user3']}  latest='So what are we doing on sunday ?' read={true}/>
+          <ChatPreview photos={['logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher']}  latest='So what are we doing on sunday ?' read={false} groupChat={true}/>
+          <ChatPreview photos={['logo.svg', 'logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher', 'user3']}  latest='So what are we doing on sunday ?' read={true} groupChat={true}/>
         </section>
       </div>
 
