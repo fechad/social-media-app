@@ -6,11 +6,27 @@ import ChatPreview from './ChatPreview'
 import NotificationCard from './NotificationCard'
 import Switch from './Switch'
 import Text from './Text'
+import '../styles/Theme/DarkTheme.scss';
+
+function swithTheme(){
+
+    const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
+    const target = sidepane.firstChild?.firstChild?.firstChild as HTMLElement;
+    //console.log(target)
+    //console.log(target.classList)
+    if(target.classList.contains('DarkMode')){
+        //console.log('entered')
+        document.body.setAttribute('theme', 'dark');
+    } else{
+        document.body.setAttribute('theme', 'light');
+    }
+   // console.log('entered')
+}
 
 function RightSidePane() {
 
     const [groupConvos, setGroupConvos] = useState([{
-        id: '1',
+        id: '12',
         photos: ['logo.svg', 'logo.svg'],
         names: ['Étienne Aumais', 'Fedwin Chatelier'],
         latest: 'Bro on invite tu du monde à la ronde?',
@@ -18,7 +34,7 @@ function RightSidePane() {
     }])
 
     const [newNotifications, setNewNotifications] = useState([{
-        id: '1',
+        id: '11',
         photos: ['logo.svg', 'logo.svg'],
         title: 'Oveezion and others liked this post',
         message: 'This week celebrate summer with this brand new summer event.',
@@ -28,7 +44,7 @@ function RightSidePane() {
   return (
     <section className='RightSidePaneContainer'>
         <div className='HeaderArea'>
-            <Switch resp='theme'/>
+            <Switch resp='theme' role={swithTheme}/>
             <div className='ProfileAvatar'>
                 <img src='logo.svg' alt="" height="87"width="50"></img>
             </div>
@@ -52,14 +68,14 @@ function RightSidePane() {
         <div className='GroupChatArea'>
             <div className='Header'>
                 <Text type='H2' content='My Group Chats'/>
-                <Button text=''  icon={<AiOutlinePlus size={'2x'}/>} color=' '/>
+                <Button text=''  icon={<AiOutlinePlus size={30}/>} color=' '/>
             </div>
             <div className='RecentGroupConvos'>
-                {groupConvos.map((conversation)=>{
+                {groupConvos.map((group)=>{
                     return(
                         
                         <div className='GroupChatContainer'>
-                            <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} groupChat={true}/>
+                            <ChatPreview  chatId={group.id} photos={group.photos} names={group.names} latest={group.latest} read={group.read} groupChat={true}/>
                         </div> 
                     )           
                 })}
