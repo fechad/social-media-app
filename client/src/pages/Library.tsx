@@ -67,6 +67,7 @@ const Library = () => {
             <TextInput label='This is a text input' />
             <TextInput type='password' label='This is a password input' placeHolder='Enter password' />
             <TextInput icon={<FaSearch size={25} color={'#767676'}/>} />
+            <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='200px'/>
           </section>
         </div>
 
