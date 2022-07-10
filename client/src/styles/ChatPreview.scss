@@ -6,6 +6,10 @@
     width: 320px;
     height: 72px;
 
+    &:hover{
+        cursor: pointer;
+    }
+
     .PreviewAvatars{
         display: flex;
         flex-direction: row;

@@ -1,13 +1,22 @@
+
+.LibraryContainer{
+    height: 100vh;
+    overflow-x: visible;
+}
+
 .Library{
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     width: 100%;
-    height: 100vh;
+    height: 100%;
+    overflow-y: scroll;
 }
 
 .Library section{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
+    display:  grid;
+    grid-template-columns: auto auto;
+    grid-row-gap: 32px;
+    grid-column-gap: 32px;
+    
 }

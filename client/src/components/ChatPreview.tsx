@@ -4,6 +4,7 @@ import Text from './Text'
 import '../styles/ChatPreview.scss'
 
 interface ChatPreviewProps { 
+    chatId?: string,
     photos: string[],
     names: string[],
     latest: string,
@@ -13,7 +14,7 @@ interface ChatPreviewProps {
 
 }
 
-function ChatPreview({photos, names, latest, read, online, groupChat}:ChatPreviewProps) {
+function ChatPreview({chatId, photos, names, latest, read, online, groupChat}:ChatPreviewProps) {
   return (
     <div className='PreviewContainer'>
         <div className='PreviewAvatars'>
