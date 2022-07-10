@@ -9,7 +9,7 @@ import Text from '../components/Text'
 
 interface SwitchProps{
   resp: string,
-  role: Function,
+  role?: Function,
   text?: string
 }
 
@@ -19,7 +19,7 @@ const Switch = ({resp, role, text}: SwitchProps) => {
 
 
   function doYourRole(){
-    role()
+    if(role) role();
     setSwitch(!switched);
   }
     

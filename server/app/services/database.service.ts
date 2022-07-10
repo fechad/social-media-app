@@ -21,30 +21,8 @@ export class DatabaseService {
         port: PORT,
         host: HOST,
         keepAlive: KEEPALIVE,
-        // application_name: 'chymera-b509c:northamerica-northeast1:chymera-db',
-        // ssl: {
-        //     rejectUnauthorized: false,
-        //     ca: fs.readFileSync('app/certificates/server-ca.pem').toString(),
-        //     key: fs.readFileSync('app/certificates/client-key.pem').toString(),
-        //     cert: fs.readFileSync('app/certificates/client-cert.pem').toString(),
-        //   },
     };
 
-    // public async createUnixSocketPool() {
-    //     const dbSocketPath = process.env.DB_SOCKET_PATH || '/cloudsql';
-    //     // Establish a connection to the database
-    //     return knex({
-    //       client: 'pg',
-    //       connection: {
-    //         user: USER, // e.g. 'my-user'
-    //         password: PASSWORD, // e.g. 'my-user-password'
-    //         database: DATABASE, // e.g. 'my-database'
-    //         host: `${dbSocketPath}/${DB_CONNECTION_NAME}`,
-    //       },
-    //       // ... Specify additional properties here.
-    //       ...this.connectionConfig,
-    //     });
-    //   };
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
     // ======= GENERIC =======
@@ -79,11 +57,16 @@ export class DatabaseService {
     }
 
     public async create(tableName: string, obj: any): Promise<pg.QueryResult> {
+        console.log(this.objectToArray(obj));
         return this.insert(tableName, this.objectToArray(obj));
     }
 
     public async remove(tableName: string, obj: any): Promise<pg.QueryResult> {
         return this.delete(tableName, obj);
+    }
+
+    public async updateNewsOptions(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateDBNewsOptions(tableName, update);
     }
 
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {
@@ -107,9 +90,18 @@ export class DatabaseService {
 
     private async update(table: string, update: Update): Promise<pg.QueryResult> {
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
-
+        console.log(query);
         return this.query(query);
     }
+
+    private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
+        /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
+	WHERE <condition>;*/
+        const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+        console.log(query);
+        return this.query(query);
+    }
+
 
     public async delete(table: string, obj: any): Promise<pg.QueryResult> {
         if (!Object.keys(obj).length) throw new Error('Invalid delete values');
