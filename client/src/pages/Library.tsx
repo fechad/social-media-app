@@ -8,6 +8,8 @@ import Link from '../components/Link';
 import TextInput from '../components/TextInput';
 import Checkbox from '../components/Checkbox';
 import CodeInput from '../components/CodeInput';
+import Avatar from '../components/Avatar';
+import ChatPreview from '../components/ChatPreview';
 
 
 
@@ -22,7 +24,7 @@ const Library = () => {
       <div>
         <Text type='H1' content='Logo ideas:' />
         <section>
-        <img src='logo.svg' alt = ' test' height="87"width="50"></img>
+        <img src='logo.svg' alt="" height="87"width="50"></img>
         </section>
       </div>
 
@@ -74,7 +76,7 @@ const Library = () => {
       </div>
 
       <div>
-        <h1> Switches :</h1>
+        <Text type='H1' content='Switches' />
         <section>
           <Switch resp='theme' role={print}/>
           <Switch resp='notifications' role={print} />
@@ -83,9 +85,34 @@ const Library = () => {
       </div>
 
       <div>
-        <h1> Code input :</h1>
+        <Text type='H1' content='Code input:' />
         <section>
           <CodeInput role={print} />
+        </section>
+      </div>
+
+      <div>
+        <Text type='H1' content='Avatars:' />
+        <section>
+          <Avatar photo='logo.svg' online={false} />
+          <Avatar photo='logo.svg' online={true} />
+        </section>
+      </div>
+
+      <div>
+        <Text type='H1' content='Chat Previews:' />
+        <section>
+          <ChatPreview photos={['logo.svg']} names={['Fedwin Chatelier']}  latest='Hey you whats up ?' read={false}/>
+          <ChatPreview photos={['logo.svg']} names={['Fedwin Chatelier']}  latest='Hey you whats up ?' read={true}/>
+          <ChatPreview photos={['logo.svg']} names={['Fedwin Chatelier']}  latest='Hey you whats up ?' read={true} online={true}/>
+        </section>
+      </div>
+
+      <div>
+        <Text type='H1' content='Group-chat Previews:' />
+        <section>
+          <ChatPreview photos={['logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher']}  latest='So what are we doing on sunday ?' read={false}/>
+          <ChatPreview photos={['logo.svg', 'logo.svg', 'logo.svg']} names={['Fedwin Chatelier', 'Étienne Aumais-Boucher', 'user3']}  latest='So what are we doing on sunday ?' read={true}/>
         </section>
       </div>
 

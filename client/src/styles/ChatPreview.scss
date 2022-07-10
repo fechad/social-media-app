@@ -1,0 +1,64 @@
+.PreviewContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 320px;
+    height: 72px;
+
+    .PreviewAvatars{
+        display: flex;
+        flex-direction: row;
+        width: 60px;
+    }
+
+    .PreviewTextContent{
+        display: flex;
+        flex-direction: column;
+        width: 200px;
+        height: 90px;
+        margin-bottom: 16px;
+
+        .PreviewNamesContainer{
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-start;
+            overflow: hidden;
+            height: 80px;
+            
+            .PreviewNames{
+                display: flex;
+                flex-direction: row;
+                justify-content: flex-start;
+
+                .body,
+                .H3{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 200px;
+                    height: 100%;
+                    text-overflow: ellipsis;
+                }
+            }
+        }
+        
+       .PreviewMessageContainer{
+            display: flex;
+            flex-direction: row;
+            overflow: hidden;
+            margin-top: -8px;
+
+            .PreviewMessage{
+                align-items: center;
+                
+                .body,
+                .H3{
+                    white-space: nowrap;
+                    overflow: hidden;
+                    width: 200px;
+                    text-overflow: ellipsis;
+                }
+            }
+       }
+    }
+}
