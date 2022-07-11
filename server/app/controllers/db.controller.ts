@@ -37,6 +37,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/image/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getLinkPhoto(req.params.email)
+                .then((result: pg.QueryResult) => {console.log(result.rows[0].profile_pic), res.download(result.rows[0].profile_pic)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
             console.log(req.body);
             const update = { new: req.body, old: {email: req.params.email} }

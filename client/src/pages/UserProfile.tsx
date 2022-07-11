@@ -23,13 +23,16 @@ const UserProfile = () => {
             getData(infos.data[0]);
             console.log(infos.data[0]);
         })
+        axios.get(`${environment.serverUrl}/database/image/${currentUser.email}`).then((image)=>{
+            console.log(image.data);
+        })
     }
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
     return (
         <div>
-            <img src={data.profile_pic} alt="" />
+            <img id = 'test' src='' alt="" />
             {data.email}
         </div>
     )
