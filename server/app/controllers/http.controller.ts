@@ -24,6 +24,7 @@ export class HttpController {
         this.router.get('/', async (req: Request, res: Response) => {
             // Send the request to the service and send the response
             const time: string = 'Hello world';
+            console.log(req);
             res.json(time);
         });
         /*this.router.post('/user', async (req: Request, res: Response) => {

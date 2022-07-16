@@ -4,7 +4,6 @@ import { environment } from '../environments/environment'
 import { AuthContext } from '../Auth'
 
 const UserProfile = () => {
-    
     const [data, getData] = useState({
         "email": 'none',
         "handle" : 'none',
@@ -18,13 +17,8 @@ const UserProfile = () => {
         "french_language" : 'false', });
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
-        console.log('loaded');
         axios.get(`${environment.serverUrl}/database/users/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
-            console.log(infos.data[0]);
-        })
-        axios.get(`${environment.serverUrl}/database/image/${currentUser.email}`).then((image)=>{
-            console.log(image.data);
         })
     }
     // otherwise it makes an infinite amount of get request
@@ -32,7 +26,7 @@ const UserProfile = () => {
     useEffect(()=>{retrieveInfos()}, []);
     return (
         <div>
-            <img id = 'test' src='' alt="" />
+            <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='100px' height='100px'/>
             {data.email}
         </div>
     )
