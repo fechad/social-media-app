@@ -10,7 +10,7 @@ function LeftSidePane() {
 
     const [conversations, setConversations] = useState([{
         id: '10',
-        photos: ['logo.svg'],
+        photos: ['/logo.svg'],
         names: ['Oveezion Team'],
         latest: 'Welcome to ovvezion !',
         read: false,
@@ -20,7 +20,7 @@ function LeftSidePane() {
   return (
     <section className='LeftSidePaneContainer'>
         <div className='SearchArea'>
-            <img src='logo.svg' alt="" height="87"width="50"></img>
+            <img src='/logo.svg' alt="" height="87"width="50"></img>
             <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera'/>
         </div>
         <div className='LeftSidePaneTittle'>

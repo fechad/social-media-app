@@ -27,7 +27,7 @@ function RightSidePane() {
 
     const [groupConvos, setGroupConvos] = useState([{
         id: '12',
-        photos: ['logo.svg', 'logo.svg'],
+        photos: ['/logo.svg', '/logo.svg'],
         names: ['Étienne Aumais', 'Fedwin Chatelier'],
         latest: 'Bro on invite tu du monde à la ronde?',
         read: false,
@@ -35,7 +35,7 @@ function RightSidePane() {
 
     const [newNotifications, setNewNotifications] = useState([{
         id: '11',
-        photos: ['logo.svg', 'logo.svg'],
+        photos: ['/logo.svg', '/logo.svg'],
         title: 'Oveezion and others liked this post',
         message: 'This week celebrate summer with this brand new summer event.',
         read: false
@@ -46,7 +46,7 @@ function RightSidePane() {
         <div className='HeaderArea'>
             <Switch resp='theme' role={swithTheme}/>
             <div className='ProfileAvatar'>
-                <img src='logo.svg' alt="" height="87"width="50"></img>
+                <img src='/logo.svg' alt="" height="87"width="50"></img>
             </div>
         </div>
         <div className='NotificationArea'>
