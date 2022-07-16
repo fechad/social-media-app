@@ -1,12 +1,10 @@
 export const USER = 'oveezion';
-export const DATABASE = 'Social-Media-App';
+export const DATABASE = 'postgres';
 export const PASSWORD = '%%oveezion%X322';
 export const PORT = 5432;
-export const HOST = '127.0.0.1';
+export const HOST = '34.130.38.74';
 export const KEEPALIVE = true;
 export const SCHEMA_NAME = 'Chymera';
-// export const DB_CONNECTION_NAME =  'chymera-b509c:northamerica-northeast1:chymera-db';
-// export const GOOGLE_APPLICATION_CREDENTIALS ='app/certificates/chymera-b509c-f4e0403d53a0.json';
 
 export const END_CHAR = ';';
 export const INSERT = (table: string, nbValues: number) => {
