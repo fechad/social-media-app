@@ -40,6 +40,23 @@ export class DatabaseService {
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
+    public async getFriendsInfos(handle: string): Promise<any[]> {
+        console.log(SELECT_ALL('friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
+        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
+        const friendList = result[0].list.split(' ')
+        //console.log(friendList);
+        const friendInfos: any[] | PromiseLike<any[]> = [];
+        const preomise: any = await new Promise((resolve, reject) => {
+            friendList.forEach(async (handle: string) => {
+            this.getUSerInfos(handle).then((result) => {
+                friendInfos.push(result.rows);
+            });
+
+
+        })}).then(() => friendInfos)
+        return Promise.resolve(preomise);
+    }
+
     public async getTablesList(): Promise<pg.QueryResult> {
         return this.query(LIST_TABLES);
     }
