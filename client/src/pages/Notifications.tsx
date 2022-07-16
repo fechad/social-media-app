@@ -1,8 +1,12 @@
 import React from 'react'
+import NavBar from '../components/NavBar'
 
 const Notifications = () => {
   return (
-    <div>Notifications</div>
+    <div>
+      <NavBar selection='notifications' />
+      Notifications
+    </div>
   )
 }
 

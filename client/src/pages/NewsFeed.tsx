@@ -1,8 +1,12 @@
 import React from 'react'
+import NavBar from '../components/NavBar'
 
 const NewsFeed = () => {
   return (
-    <div>NewsFeed</div>
+    <div>
+      <NavBar selection='newsFeed' />
+      NewsFeed
+    </div>
   )
 }
 

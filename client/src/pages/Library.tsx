@@ -12,6 +12,7 @@ import Avatar from '../components/Avatar';
 import ChatPreview from '../components/ChatPreview';
 import LeftSidePane from '../components/LeftSidePane';
 import RightSidePane from '../components/RightSidePane';
+import NavBar from '../components/NavBar';
 
 
 
@@ -24,6 +25,7 @@ const Library = () => {
   return (
     <section className='LibraryContainer' >
       <LeftSidePane />
+      <NavBar selection='discover'/>
       <section className='Library'>
         <div>
           <Text type='H1' content='Logo ideas:' />

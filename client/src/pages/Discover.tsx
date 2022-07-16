@@ -4,6 +4,7 @@ import { getAuth, signOut  } from "firebase/auth";
 import Button from '../components/Button';
 import { app } from '../firebaseConfig';
 import { useNavigate } from "react-router-dom";
+import NavBar from '../components/NavBar';
 function  getUserEmail() {
     const auth = getAuth(app);
     const user = auth.currentUser;
@@ -29,6 +30,7 @@ const Discover = () => {
 
   return (
     <div>
+        <NavBar selection='discover' />
         <Text type='H1' content={` ${process.env.NODE_ENV}  Welcome to our app ${getUserEmail()}`} />
         <Button text='Sign out' fct={signOutOfWebsite} />
     </div>
