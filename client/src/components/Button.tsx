@@ -16,7 +16,7 @@ interface buttonProps {
 
 const Button = ({color, icon, text, textType, state, url, fct} : buttonProps) => {
   return (
-    <a style={{textDecoration: "none"}} href={url}>
+    <a style={{textDecoration: "none"}} href={url} className = 'button'>
       <div style={ state === 'disabled' ? {backgroundColor: '#D9D9D9'} : {backgroundColor: 
         color}} className='ButtonComponent' onClick = {()=>{fct()}}>
         <Text color={state === 'disabled' ? 'darkgrey' : 'white'} type={textType} content={text}/>

@@ -1,4 +1,42 @@
 .infos-container {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 16px 0px 16px 0px;
+}
+
+#test {
+    border-radius: 100%;
+    margin-right: 32px;
+}
+
+p {
+    margin: 5px;
+}
+
+.left-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.id-container{
+    display: flex;
+    flex-direction: row;
+    width: 232px;
+    justify-content: space-between;
+}
+
+.bio-container {
+    border: 1px solid black; 
+    width: 604px;
+    height: 85px;
+    border-radius: 16px;
+    padding: 4px;
+    margin: 16px 0px 16px 0px;
+}
+
+.friends {
+    margin: 32px 0px 16px 0px;
 }
