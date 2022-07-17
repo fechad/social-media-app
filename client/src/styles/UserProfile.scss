@@ -11,9 +11,7 @@
     margin-right: 32px;
 }
 
-p {
-    margin: 5px;
-}
+
 
 .left-infos {
     display: flex;
@@ -26,6 +24,9 @@ p {
     flex-direction: row;
     width: 232px;
     justify-content: space-between;
+    p {
+        margin: 5px;
+    }
 }
 
 .bio-container {
