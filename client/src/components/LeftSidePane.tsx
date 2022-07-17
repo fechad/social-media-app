@@ -8,14 +8,14 @@ import { environment } from '../environments/environment'
 
 function LeftSidePane() {
     //TOTO: Faire une table conversations dans la DB
-    const [users, setUsers] = useState([{
-        handle: '',
-        photo: '',
-        name: '',
-    }])
+    // const [users, setUsers] = useState([{
+    //     handle: '',
+    //     photo: '',
+    //     name: '',
+    // }])
     
     const getUsers = async () => {
-        const users = []
+        //const users = []
         const inputText = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
         await fetch(`${environment.serverUrl}/database/users/Search/${inputText}`, {
             method: 'GET',
@@ -23,7 +23,8 @@ function LeftSidePane() {
             console.log(result);
           })
     };
-
+    
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [conversations, setConversations] = useState([{
         id: '10',
         photos: ['/logo.svg'],

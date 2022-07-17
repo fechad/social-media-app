@@ -25,6 +25,7 @@ function swithTheme(){
 
 function RightSidePane() {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [groupConvos, setGroupConvos] = useState([{
         id: '12',
         photos: ['/logo.svg', '/logo.svg'],
@@ -32,7 +33,7 @@ function RightSidePane() {
         latest: 'Bro on invite tu du monde à la ronde?',
         read: false,
     }])
-
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [newNotifications, setNewNotifications] = useState([{
         id: '11',
         photos: ['/logo.svg', '/logo.svg'],
