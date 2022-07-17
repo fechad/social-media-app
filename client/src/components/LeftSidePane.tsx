@@ -24,11 +24,6 @@ function LeftSidePane() {
           })
     };
 
-    
-    // useEffect(() => {
-
-    // })
-
     const [conversations, setConversations] = useState([{
         id: '10',
         photos: ['/logo.svg'],

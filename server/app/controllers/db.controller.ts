@@ -64,6 +64,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .searchUsers(req.params.handle)
+                .then((result) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/friends/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getFriendsInfos(req.params.handle)

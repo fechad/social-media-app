@@ -40,6 +40,11 @@ export class DatabaseService {
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
+    public async searchUsers(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE name  or handle LIKE ' + `'%${handle}%' ` + END_CHAR);
+        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE account_name LIKE ' + `'%${handle}%'` + ' or handle LIKE ' + `'%${handle}%' ` + END_CHAR)
+    }
+
     public async getFriendsInfos(handle: string): Promise<any[]> {
         console.log(SELECT_ALL('friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
         const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
