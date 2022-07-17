@@ -1,0 +1,18 @@
+.NavBarContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: fit-content;
+    height: 56px;
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    top: 0;
+    left: 0;
+    right: 0;
+    border: 2px solid #767676;
+    border-top: 0px;
+    border-radius: 0px 0px 8px 8px;
+    background-color: white;
+    z-index: 99;
+}

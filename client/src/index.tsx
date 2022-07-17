@@ -17,6 +17,10 @@ import NewOptions from './pages/sign-up/NewOptions';
 import Discover from './pages/Discover';
 import { AuthProvider } from './Auth';
 import ProtectedRoute from './ProtectedRoute';
+import MyFeed from './pages/MyFeed';
+import NewsFeed from './pages/NewsFeed';
+import Notifications from './pages/Notifications';
+import Chats from './pages/Chats';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,6 +38,10 @@ root.render(
       <Route  path='/User/ProfileSetup'  element={<ProtectedRoute outlet={<ProfileSetup />} />}/>
       <Route  path='/User/NewsOptions'  element={<ProtectedRoute outlet={<NewOptions />} />}/>
       <Route  path='/User/Discover'  element={<ProtectedRoute outlet={<Discover />} />}/>
+      <Route  path='/User/MyFeed'  element={<ProtectedRoute outlet={<MyFeed />} />}/>
+      <Route  path='/User/NewsFeed'  element={<ProtectedRoute outlet={<NewsFeed />} />}/>
+      <Route  path='/User/Notifications'  element={<ProtectedRoute outlet={<Notifications/>} />}/>
+      <Route  path='/User/Chats'  element={<ProtectedRoute outlet={<Chats/>} />}/>
       <Route path='/components' element={<Library/>}/>
     </Routes>
     </AuthProvider>

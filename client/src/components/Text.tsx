@@ -4,12 +4,13 @@ import '../styles/Text.css'
 interface TextProps {
   type:string,
   color?:string,
-  content?:string
+  content?:string,
+  bold?: boolean
 }
 
-const Text = ({type, color, content}:TextProps) => {
+const Text = ({type, color, content, bold}:TextProps) => {
   return (
-    <p className={type} style={{color:color}}>{content ? content : type}</p>
+    <p className={type + `${bold ? ' bold' : ''}`} style={{color:color}}>{content ? content : type}</p>
   )
 }
 
