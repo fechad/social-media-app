@@ -1,0 +1,86 @@
+$back-ground-0dp: #202020;
+$back-ground-2dp: #292929;
+$back-ground-6dp: #3B3B3B;
+$back-ground-8dp: #4D4D4D;
+
+$accent-color-solid: #5CE1E6;
+
+$text-color-base: white;
+
+body[theme='dark']{
+    background-color: $back-ground-0dp;
+
+    .RightSidePaneContainer{
+        background-color:  $back-ground-2dp;
+
+        .NotificationArea{
+            p{
+                color: $text-color-base;
+            }
+
+            .NotificationCardContainer{
+                background-color:  $back-ground-6dp;
+
+                .AvatarContainer {
+                    .InGroup{
+                        border-color: $back-ground-6dp;
+
+                        &:hover{
+                            border-color: $back-ground-8dp;
+                        }
+                    }
+                }
+
+                &:hover{
+                    background-color: $back-ground-8dp;
+
+                    .AvatarContainer {
+                        .InGroup{
+                            border-color: $back-ground-8dp;
+                        }
+                    }
+                }
+            }
+        }
+
+        .GroupChatArea{
+            p{
+                color: $text-color-base;
+            }
+
+            .AvatarContainer {
+                .InGroup{
+                    border-color: $back-ground-2dp;
+                }
+            }
+
+            svg{
+                color: $text-color-base;
+            }
+        }
+    }
+
+    .LeftSidePaneContainer{
+        background-color:  $back-ground-2dp;
+        .SearchArea {
+            .inputContainer{
+                background-color: $back-ground-0dp;
+                color:  $text-color-base;
+            }
+        }
+
+        p{
+            color: $text-color-base;
+        }
+       
+    }
+
+    input{
+        background-color: $back-ground-0dp;
+        color:  $text-color-base;
+    }
+}
+
+body[theme='light']{
+    background-color: white;
+}

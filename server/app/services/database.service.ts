@@ -43,6 +43,31 @@ export class DatabaseService {
         console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + END_CHAR);
         return this.query('SELECT profile_pic FROM Chymera.users' + ` WHERE email = '${handle}' ` + END_CHAR);
     }
+
+    public async searchUsers(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE name  or handle LIKE ' + `'%${handle}%' ` + END_CHAR);
+        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE account_name LIKE ' + `'%${handle}%'` + ' or handle LIKE ' + `'%${handle}%' ` + END_CHAR)
+    }
+
+    public async getFriendsInfos(handle: string): Promise<any[]> {
+        console.log(SELECT_ALL('friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
+        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
+        const friendList = result[0].list.split(' ')
+        const friendInfos: any[] | PromiseLike<any[]> = [];
+        const promise = await new Promise<string[]>((resolve, reject) => {
+            friendList.forEach(async (handle: string, index:number, array: string[]) => {
+                this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ` WHERE handle = '${handle}' ` + END_CHAR)
+                .then((result) => {
+                    friendInfos.push(result.rows[0]);
+                    if(index === array.length - 1){
+                        resolve(friendInfos)
+                    }
+                });
+            });
+        });
+        return promise;
+    }
+
     public async getTablesList(): Promise<pg.QueryResult> {
         return this.query(LIST_TABLES);
     }

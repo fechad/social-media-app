@@ -15,7 +15,7 @@ interface TextInputProps {
 const TextInput = ({type, label, placeHolder, width, height, icon} : TextInputProps) => {
   return (
     <div>
-        <Text content={label} />
+        {label? <Text content={label} /> : ''}
         <div className='inputContainer' style={{width: width, height: height}}>
             <input className='body' type={type} placeholder={placeHolder} maxLength={type === 'password' ? 15 : 512}></input>
             <i>{icon}</i>
