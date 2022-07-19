@@ -37,14 +37,23 @@ export class DatabaseController {
                 });
         });
 
-        router.get('/image/:email', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/image/:pk', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                .getLinkPhoto(req.params.email)
-                .then((result: pg.QueryResult) => {console.log(result.rows[0].profile_pic), res.download(result.rows[0].profile_pic)})
+                .getLinkPhoto(req.params.pk)
+                .then((result: pg.QueryResult) => {
+                    console.log(result.rows[0].profile_pic);
+                    if(result.rows[0].profile_pic === 'undefined') res.download('./assets/profile-pics/logo.svg');
+                    else res.download(result.rows[0].profile_pic);
+                    
+                })
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
                 });
+        });
+
+        router.get('profile_pic/:handle', (req: Request, res: Response) => {
+            res.download(req.params.path);
         });
 
         router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {

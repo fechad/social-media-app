@@ -41,3 +41,18 @@
 .friends {
     margin: 32px 0px 16px 0px;
 }
+
+.friends-pic {
+    border-radius: 100%;
+    border: solid 2px white;
+    overflow: hidden;
+    margin-right: -16px;
+}
+
+.friends-display {
+    display: flex;
+    flex-direction: row;
+    p {
+        margin-left: 32px;
+    }
+}

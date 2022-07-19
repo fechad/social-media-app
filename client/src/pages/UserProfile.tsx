@@ -18,13 +18,27 @@ const UserProfile = () => {
         "bio" : 'none',
         "news_options" : 'All',
         "local_news" : 'false',
-        "french_language" : 'false', });
+        "french_language" : 'false', 
+    });
+    const [friendsList, setFriends] = useState([{
+        'account_name': 'none',
+        'handle': 'none',
+        'profile_pic': 'none',
+    }])
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
+            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].handle}`).then((friends)=>{
+                setFriends(friends.data);
+            })
         })
     }
+    const friends = friendsList.map((friend, index) => {
+        return (
+            <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+        )
+    })
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
@@ -48,6 +62,10 @@ const UserProfile = () => {
             </div>
             <div className = 'friends'>
                 <Text content = 'Friends List' type = 'H2'></Text>
+                <div className='friends-display'>
+                    {friends}
+                    <Text content = 'see more' color = '#0047FF'></Text>
+                </div>
             </div>
         </div>
     )
