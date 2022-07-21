@@ -9,6 +9,7 @@ import { user } from 'firebase-functions/v1/auth'
 import UserSearchPreview from './UserSearchPreview'
 
 function LeftSidePane() {
+
     //TOTO: Faire une table conversations dans la DB
     const [users, setUsers] = useState([{
         account_name: '',
@@ -16,24 +17,30 @@ function LeftSidePane() {
         profile_pic: ''
     }])
     const [searching, setSearch] = useState(false);
+    const [firstSearch, setFirstSearch] = useState(true);
     
     const getUsers = async () => {
-        //const users = []
-        setSearch(true);
-        console.log('1st')
         const inputText = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
-        console.log(inputText);
         await fetch(`${environment.serverUrl}/database/users/Search/${inputText}`, {
             method: 'GET',
           }).then(async (result) => {
+            setFirstSearch(false);
             await result.json()
             .then((data) =>{
                 setUsers(data)
             })
         });
-        
-        
     };
+
+    const reset = () => {
+        setSearch(false);
+        setUsers([{
+            account_name: '',
+            handle: '',
+            profile_pic: ''
+        }]);
+        setFirstSearch(true);
+    }
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [conversations, setConversations] = useState([{
@@ -45,26 +52,37 @@ function LeftSidePane() {
         online: true,
     }])
 
+    useEffect(() => {
+        document.getElementsByClassName('inputContainer')[0].firstChild?.addEventListener('click', () => {
+            setSearch(true);
+        });
+        (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keydown', (event) =>{
+            if(event.key === 'Enter'){
+                getUsers();
+            }
+        })
+    }, []);
+
     useEffect(() =>{
-        console.log(users);
+        
       },
       [users]
     );
 
   return (
-    <section className='LeftSidePaneContainer'>
-        <div className='SearchArea' onMouseLeave={() => setSearch(false)}>
+    <section className='LeftSidePaneContainer' onMouseLeave={() => reset()}>
+        <div className='SearchArea'>
             <img src='/logo.svg' alt="" height="87"width="50"></img>
             <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
         </div>
-        <div className='LeftSidePaneTittle'>
+        <div className={searching && !firstSearch ? '' : `LeftSidePaneTittle`}>
             {
-                searching ? '' : <Text type='H2' content='Conversations'/>
+                searching && !firstSearch ? '' : <Text type='H2' content='Conversations'/>
             }
         </div>
         <div className='ConversationsArea'>
             {
-                searching ? 
+                searching && !firstSearch ? 
 
                 users.map((match)=>{
                     return(
