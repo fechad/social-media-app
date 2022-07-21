@@ -16,12 +16,20 @@ function LeftSidePane() {
     
     const getUsers = async () => {
         //const users = []
+        console.log('1st')
         const inputText = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
+        console.log(inputText);
         await fetch(`${environment.serverUrl}/database/users/Search/${inputText}`, {
             method: 'GET',
-          }).then((result) =>{
-            console.log(result);
-          })
+          }).then(async (result) => {
+            await result.json()
+            .then((data) =>{
+                console.log(data[0]?.handle);
+
+            })
+        });
+        
+        
     };
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -34,19 +42,21 @@ function LeftSidePane() {
         online: true,
     }])
 
-    useEffect(() =>{
-        (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keydown', () =>{
-            getUsers();
-        })
-      },
-      [conversations]
-    );
+    // useEffect(() =>{
+    //     console.log('onload');
+    //     (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keydown', (event) =>{
+    //         //if(event.target)
+    //         getUsers();
+    //     })
+    //   },
+    //   []
+    // );
 
   return (
     <section className='LeftSidePaneContainer' >
         <div className='SearchArea'>
             <img src='/logo.svg' alt="" height="87"width="50"></img>
-            <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera'/>
+            <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
         </div>
         <div className='LeftSidePaneTittle'>
             <Text type='H2' content='Conversations'/>
