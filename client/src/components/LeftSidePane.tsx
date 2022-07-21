@@ -5,17 +5,21 @@ import TextInput from './TextInput'
 import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
+import { user } from 'firebase-functions/v1/auth'
+import UserSearchPreview from './UserSearchPreview'
 
 function LeftSidePane() {
     //TOTO: Faire une table conversations dans la DB
-    // const [users, setUsers] = useState([{
-    //     handle: '',
-    //     photo: '',
-    //     name: '',
-    // }])
+    const [users, setUsers] = useState([{
+        account_name: '',
+        handle: '',
+        profile_pic: ''
+    }])
+    const [searching, setSearch] = useState(false);
     
     const getUsers = async () => {
         //const users = []
+        setSearch(true);
         console.log('1st')
         const inputText = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
         console.log(inputText);
@@ -24,8 +28,7 @@ function LeftSidePane() {
           }).then(async (result) => {
             await result.json()
             .then((data) =>{
-                console.log(data[0]?.handle);
-
+                setUsers(data)
             })
         });
         
@@ -42,34 +45,47 @@ function LeftSidePane() {
         online: true,
     }])
 
-    // useEffect(() =>{
-    //     console.log('onload');
-    //     (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keydown', (event) =>{
-    //         //if(event.target)
-    //         getUsers();
-    //     })
-    //   },
-    //   []
-    // );
+    useEffect(() =>{
+        console.log(users);
+      },
+      [users]
+    );
 
   return (
-    <section className='LeftSidePaneContainer' >
-        <div className='SearchArea'>
+    <section className='LeftSidePaneContainer'>
+        <div className='SearchArea' onMouseLeave={() => setSearch(false)}>
             <img src='/logo.svg' alt="" height="87"width="50"></img>
             <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
         </div>
         <div className='LeftSidePaneTittle'>
-            <Text type='H2' content='Conversations'/>
+            {
+                searching ? '' : <Text type='H2' content='Conversations'/>
+            }
         </div>
         <div className='ConversationsArea'>
-            {conversations.map((conversation)=>{
-                return(
-                     
-                     <div className='ConversationContainer'>
-                        <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
-                    </div> 
-                )           
-            })}
+            {
+                searching ? 
+
+                users.map((match)=>{
+                    return(
+                         
+                         <div className='MatchingUsersContainer'>
+                            <UserSearchPreview  profile_pic={match.profile_pic} account_name={match.account_name} handle={match.handle} />
+                        </div> 
+                    )           
+                })
+
+                : 
+
+                conversations.map((conversation)=>{
+                    return(
+                         
+                         <div className='ConversationContainer'>
+                            <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
+                        </div> 
+                    )           
+                })
+            }
         </div>
     </section>
   )

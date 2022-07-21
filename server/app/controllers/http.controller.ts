@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { NextFunction, Router } from 'express';
 import { Service } from 'typedi';
 import { Request, Response} from 'express';
 
@@ -25,6 +25,14 @@ export class HttpController {
             // Send the request to the service and send the response
             const time: string = 'Hello world';
             res.json(time);
+        });
+
+        this.router.get('/api/image/:file', (req: Request, res: Response, next: NextFunction) => {
+            if(req.params.file !== 'undefined'){
+                res.download(`./assets/profile-pics/${req.params.file}`);
+            } else {
+                res.download(`./assets/logo/logo.svg`);
+            }
         });
         /*this.router.post('/user', async (req: Request, res: Response) => {
             
