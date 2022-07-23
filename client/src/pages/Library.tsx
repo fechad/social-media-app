@@ -13,6 +13,7 @@ import ChatPreview from '../components/ChatPreview';
 import LeftSidePane from '../components/LeftSidePane';
 import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
+import RadioButton from '../components/RadioButton';
 
 
 
@@ -56,7 +57,7 @@ const Library = () => {
           </section>
         </div>
         <div>
-        <Text type='H1' content='Link examples:' />
+          <Text type='H1' content='Link examples:' />
           <section>
             <Link />
             <Link underlined={true}/>
@@ -123,6 +124,13 @@ const Library = () => {
           </section>
         </div>
 
+        <div>
+        <Text type='H1' content='Radio buttons' />
+          <section>
+            <RadioButton text='option 1' alreadyChecked={true}/>
+            <RadioButton text='option 1' alreadyChecked={false} />
+          </section>
+        </div>
       </section>
       <RightSidePane />
       <footer> <Text content='This is the footer'></Text></footer>

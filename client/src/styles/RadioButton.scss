@@ -1,0 +1,47 @@
+.RadioContainer{
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    .OuterRadio{
+        box-sizing: border-box;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        //position: absolute;
+        width: 24px;
+        height: 24px;
+        left: 813px;
+        top: 1534px;
+
+        background: #FFFFFF;
+        border: 2px solid #B9B9B9;
+        border-radius: 100%;
+
+        &.Checked{
+            border-color:  #8773F0;
+        }
+
+    }
+
+    .InnerRadio{
+        //position: absolute;
+        width: 16px;
+        height: 16px;
+        // left: 817px;
+        // top: 1538px;
+        border-radius: 100%;
+
+        background: #FFFFFF;
+
+        &.Checked{
+            background:  #8773F0;
+        }
+
+    }
+
+    &:hover{
+        cursor: pointer;
+    }
+}
