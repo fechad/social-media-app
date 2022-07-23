@@ -28,7 +28,7 @@ const OtherUserProfile = () => {
     });
 
     const retrieveInfos = () => {
-        axios.get(`${environment.serverUrl}/database/users/search/${handle}`).then((infos)=>{
+        axios.get(`${environment.serverUrl}/database/users/${handle}`).then((infos)=>{
             getData(infos.data[0]);
         })
     };

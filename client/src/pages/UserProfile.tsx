@@ -24,7 +24,7 @@ const UserProfile = () => {
         "french_language" : 'false', });
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
-        axios.get(`${environment.serverUrl}/database/users/${currentUser.email}`).then((infos)=>{
+        axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
         })
     }
