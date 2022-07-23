@@ -6,6 +6,9 @@ import { environment } from '../environments/environment'
 import { AuthContext } from '../Auth'
 import '../styles/UserProfile.scss'
 import { FiEdit } from 'react-icons/fi'
+import LeftSidePane from '../components/LeftSidePane'
+import RightSidePane from '../components/RightSidePane'
+import NavBar from '../components/NavBar'
 
 const UserProfile = () => {
     const [data, getData] = useState({
@@ -30,6 +33,8 @@ const UserProfile = () => {
     useEffect(()=>{retrieveInfos()}, []);
     return (
         <div>
+            <div className='LeftSideContainer'><LeftSidePane /></div>
+            <NavBar selection='' />
             <div className = 'infos-container'>
                 <div className = 'left-infos'>
                     <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
@@ -49,6 +54,7 @@ const UserProfile = () => {
             <div className = 'friends'>
                 <Text content = 'Friends List' type = 'H2'></Text>
             </div>
+            <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )
 }
