@@ -1,19 +1,22 @@
 import axios from 'axios'
 import Text from '../components/Text'
 import Button from '../components/Button'
-import React, { useContext, useEffect, useState } from 'react'
+import React, {useEffect, useState } from 'react'
 import { environment } from '../environments/environment'
-import { AuthContext } from '../Auth'
-import '../styles/UserProfile.scss'
+import '../styles/OtherUserProfile.scss'
 import { FiEdit } from 'react-icons/fi'
 import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
+import { useParams } from 'react-router-dom'
 
-const UserProfile = () => {
+const OtherUserProfile = () => {
+
+    const {handle} = useParams();
+
     const [data, getData] = useState({
         "email": 'none',
-        "handle" : 'none',
+        "handle" : handle,
         "profile_pic" : 'none',
         "age" : 'none',
         "account_name" : 'none',
@@ -21,13 +24,14 @@ const UserProfile = () => {
         "bio" : 'none',
         "news_options" : 'All',
         "local_news" : 'false',
-        "french_language" : 'false', });
-    const {currentUser} = useContext(AuthContext);
+        "french_language" : 'false', 
+    });
+
     const retrieveInfos = () => {
-        axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
+        axios.get(`${environment.serverUrl}/database/users/${handle}`).then((infos)=>{
             getData(infos.data[0]);
         })
-    }
+    };
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
@@ -37,7 +41,7 @@ const UserProfile = () => {
             <NavBar selection='' />
             <div className = 'infos-container'>
                 <div className = 'left-infos'>
-                    <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                    <img id = 'test' src={`${environment.serverUrl}/image/${data.profile_pic.replace('./assets/profile-pics/', '')}`} alt="" width='72px' height='72px'/>
                     <div>
                         <div className='id-container'>
                             <Text content = {`${data.account_name}`} type = 'H3'></Text>
@@ -59,4 +63,4 @@ const UserProfile = () => {
     )
 }
 
-export default UserProfile
+export default OtherUserProfile

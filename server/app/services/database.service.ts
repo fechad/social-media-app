@@ -36,8 +36,13 @@ export class DatabaseService {
     }
 
     public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_ALL('users') + ' WHERE email =' + `'${handle}' ` + END_CHAR);
-        return this.query(SELECT_ALL('users') + ` WHERE email = '${handle}' ` + END_CHAR);
+        console.log(SELECT_ALL('users') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
+        return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
+    }
+
+    public async getMyInfos(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
+        return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
     }
     public async getLinkPhoto(handle: string): Promise<pg.QueryResult> {
         console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + END_CHAR);
