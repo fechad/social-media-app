@@ -1,0 +1,28 @@
+.UserPreviewContainer{
+    display: flex;
+    align-items: center;
+    width: 360px;
+    height: 72px;
+
+    .AvatarContainer{
+        margin: 0px 24px 0px 40px;
+    }
+
+    .PreviewName{
+        align-items: center;
+        width: 168px;
+        
+        .body,
+        .H3{
+            white-space: nowrap;
+            overflow: hidden;
+            width: 168px;
+            text-overflow: ellipsis;
+        }
+    }
+
+    &:hover{
+        cursor: pointer;
+        background-color: #EBEBEB;
+    }
+}
