@@ -6,8 +6,11 @@ import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
 import UserSearchPreview from './UserSearchPreview'
+import { useNavigate } from 'react-router-dom'
 
 function LeftSidePane() {
+
+    let navigate = useNavigate();
 
     //TOTO: Faire une table conversations dans la DB
     const [users, setUsers] = useState([{
@@ -86,7 +89,7 @@ function LeftSidePane() {
                 users.map((match)=>{
                     return(
                          
-                         <div className='MatchingUsersContainer'>
+                         <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true }); window.location.reload();}}>
                             <UserSearchPreview  profile_pic={match.profile_pic} account_name={match.account_name} handle={match.handle} />
                         </div> 
                     )           
