@@ -10,6 +10,8 @@ import Text from './Text'
 import '../styles/Theme/DarkTheme.scss';
 import { FiLogOut, FiUser } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
+import { getAuth, signOut  } from "firebase/auth";
+import { app } from '../firebaseConfig'
 
 function swithTheme(){
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
@@ -25,7 +27,19 @@ function swithTheme(){
    // console.log('entered')
 }
 
+
+
 function RightSidePane() {
+
+    function signOutOfWebsite(){
+        const auth = getAuth(app);
+        signOut(auth).then(() => {
+            // Sign-out successful.
+            navigate("/", { replace: true });
+          }).catch((error) => {
+            // An error happened.
+          });
+    }
 
     const [popupOpened, openPopup] = useState(false);
 
@@ -67,7 +81,7 @@ function RightSidePane() {
                                 <HiOutlineCog size={20} />
                                 <Text type='H3' content='Settings' />
                             </div>
-                            <div className='PopupOptions'>
+                            <div className='PopupOptions' onClick={() => signOutOfWebsite()}>
                                 <FiLogOut size={20} />
                                 <Text type='H3' content='Sign-out' />
                             </div>
