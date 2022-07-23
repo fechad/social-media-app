@@ -1,0 +1,92 @@
+.SettingsPageContainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 64px;
+    //flex-wrap: wrap;
+    width: 720px;
+    //height: 928px;
+
+    // position: absolute;
+    // top: 96px;
+    // left: 0px;
+    // right: 0px;
+
+    .AccountStatus,
+    .Language{
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        height: 96px;
+        border-bottom: solid 2px;
+        //padding-bottom: 8px;
+        .H2 {
+            position: absolute;
+        }
+        div{
+            display: inline-flex;
+            gap: 40px;
+            margin-top: 44px;
+        }
+    }
+
+
+    .NewsPreference{
+        //height: 128px;
+
+        .CheckboxesContainer{
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+    }
+
+    .Buttons{
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        height: 100px;
+        align-items: center;
+        margin-top: 20px;
+
+    }
+
+    .Management{
+        align-self: flex-start;
+        margin-top: 8px;
+        .ManagementOptions{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            width: 336px;
+
+
+            .H3{
+                margin-left: 24px;
+            }
+
+            &:hover{
+                //background-color: #EBEBEB;
+            }
+        }
+    }
+
+    .Irreversible{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 336px;
+        margin-top: 20px;
+
+        .H3{
+            margin-left: 24px;
+        }
+
+        &:hover{
+            //background-color: #EBEBEB;
+        }
+    }
+    
+}

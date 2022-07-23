@@ -77,7 +77,7 @@ function RightSidePane() {
                                 <FiUser size={20} />
                                 <Text type='H3' content='My profile' />
                             </div>
-                            <div className='PopupOptions'>
+                            <div className='PopupOptions' onClick={() => navigate("/User/Settings", { replace: true })}>
                                 <HiOutlineCog size={20} />
                                 <Text type='H3' content='Settings' />
                             </div>
