@@ -5,7 +5,6 @@ import TextInput from './TextInput'
 import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
-import { user } from 'firebase-functions/v1/auth'
 import UserSearchPreview from './UserSearchPreview'
 
 function LeftSidePane() {
