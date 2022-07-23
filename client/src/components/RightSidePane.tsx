@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
+import {HiOutlineCog} from 'react-icons/hi'
 import '../styles/RightSidePane.scss'
 import Button from './Button'
 import ChatPreview from './ChatPreview'
@@ -7,9 +8,10 @@ import NotificationCard from './NotificationCard'
 import Switch from './Switch'
 import Text from './Text'
 import '../styles/Theme/DarkTheme.scss';
+import { FiLogOut, FiUser } from 'react-icons/fi'
+import { useNavigate } from 'react-router-dom'
 
 function swithTheme(){
-
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
     const target = sidepane.firstChild?.firstChild?.firstChild as HTMLElement;
     //console.log(target)
@@ -24,6 +26,10 @@ function swithTheme(){
 }
 
 function RightSidePane() {
+
+    const [popupOpened, openPopup] = useState(false);
+
+    let navigate = useNavigate();
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [groupConvos, setGroupConvos] = useState([{
@@ -47,7 +53,28 @@ function RightSidePane() {
         <div className='HeaderArea'>
             <Switch resp='theme' role={swithTheme}/>
             <div className='ProfileAvatar'>
-                <img src='/logo.svg' alt="" height="87"width="50"></img>
+                <img src='/logo.svg' alt="" height="87"width="50" onClick={() => openPopup(!popupOpened)}></img>
+                {
+                    popupOpened ? 
+                    <div className='PopupContainer'>
+                        <div className='PopupTail'></div>
+                        <div className='PopupOptionGroup'>
+                            <div className='PopupOptions' onClick={() => navigate("/User/Profile", { replace: true })}>
+                                <FiUser size={20} />
+                                <Text type='H3' content='My profile' />
+                            </div>
+                            <div className='PopupOptions'>
+                                <HiOutlineCog size={20} />
+                                <Text type='H3' content='Settings' />
+                            </div>
+                            <div className='PopupOptions'>
+                                <FiLogOut size={20} />
+                                <Text type='H3' content='Sign-out' />
+                            </div>
+                        </div>
+                    </div>
+                    : ''
+                }
             </div>
         </div>
         <div className='NotificationArea'>

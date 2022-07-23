@@ -8,6 +8,7 @@
     background-color: #F8F8F8;
 
     .HeaderArea{
+        position: relative;
         display: flex;
         flex-direction: row;
         justify-content: space-between;
@@ -20,6 +21,69 @@
         .ProfileAvatar{
             margin-right: 16px;
 
+            &:hover{
+                cursor: pointer;
+            }
+        }
+
+        .PopupContainer{
+            position: absolute;
+            top: 88px;
+            right: 16px;
+
+            background-color: white;
+            border-radius: 8px;
+            width: 180px;
+            height: auto;
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+            .PopupTail{
+                position:fixed;
+                width: 0px;
+                height: 0px;
+                border: 20px solid;
+                border-color: transparent transparent white transparent;
+                top: -34px;
+                right: 4px;
+                z-index: -2;
+            }
+
+            .PopupOptionGroup{
+                width: inherit;
+                height: inherit;
+                overflow: hidden;
+                border-radius: 8px;
+
+                .PopupOptions{
+                    display: flex;
+                    flex-direction: row;
+                    flex-wrap: wrap;
+                    justify-content: flex-start;
+                    align-items: center;
+                    width: inherit;
+    
+                    svg{
+                        margin-left: 24px;
+                    }
+    
+                    .H3{
+                        margin-left: 24px;
+                    }
+    
+                    &:hover{
+                        background-color: #EBEBEB;
+                    }
+                }
+    
+            }
+            
             &:hover{
                 cursor: pointer;
             }
