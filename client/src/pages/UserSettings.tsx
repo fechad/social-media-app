@@ -12,6 +12,8 @@ import { FiTrash2, FiUsers } from 'react-icons/fi';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BiEnvelope } from 'react-icons/bi'
 import '../styles/UserSettings.scss'
+import RadioButton from '../components/RadioButton';
+import RadioButtonPair from '../components/RadioButtonPair';
 
 const UserSettings = () => {
 
@@ -43,17 +45,11 @@ const UserSettings = () => {
             <div className='SettingsPageContainer'>
                 <div className='AccountStatus'>
                     <Text type='H2' content='Account status'/>
-                    <div>
-                        <p>radio Public</p>
-                        <p>radio Private</p>
-                    </div>
+                    <RadioButtonPair firstText='Public' secondText='Private' firstChecked={data.private_account === 'true' ? false : true} />
                 </div>
                 <div className='Language'>
                     <Text type='H2' content='Language'/>
-                    <div>
-                        <p>radio English</p>
-                        <p>radio Français</p>
-                    </div>
+                    <RadioButtonPair firstText='English' secondText='français' firstChecked={data.french_language === 'true' ? false : true} />
                 </div>
                 <div className='NewsPreference'>
                     <Text type='H2' content='News preferences'/>
