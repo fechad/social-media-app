@@ -41,9 +41,9 @@ const RadioButtonPair = ({firstText, secondText, firstChecked} : RadioButtonPair
     },[])
 
   return (
-    <div className='RadioOptions' id={firstText}>
-        <RadioButton text={firstText} alreadyChecked={checked} />
-        <RadioButton text={secondText} alreadyChecked={!checked} />
+    <div className='RadioOptions' id={firstText}  >
+        <RadioButton key={`${firstChecked}`} text={firstText} alreadyChecked={checked} />
+        <RadioButton key={`${!firstChecked}`} text={secondText} alreadyChecked={!checked} />
     </div>
   )
 }

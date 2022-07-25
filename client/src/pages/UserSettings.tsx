@@ -12,10 +12,69 @@ import { FiTrash2, FiUsers } from 'react-icons/fi';
 import { AiOutlineLock } from 'react-icons/ai';
 import { BiEnvelope } from 'react-icons/bi'
 import '../styles/UserSettings.scss'
-import RadioButton from '../components/RadioButton';
 import RadioButtonPair from '../components/RadioButtonPair';
 
+
+interface data {
+    email: string,
+    handle : string,
+    profile_pic : string,
+    age : string,
+    account_name : string,
+    private_account : string,
+    bio : string,
+    news_options : string,
+    local_news : string,
+    french_language : string,
+}
+
 const UserSettings = () => {
+
+    
+    const {currentUser} = useContext(AuthContext);
+    const retrieveInfos = async () => {
+        await axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
+            getData(infos.data[0]);
+        })
+    }
+
+    function getCheckboxUpdate():string {
+        let result = '';
+        for(let index = 0; index < 9; index ++){
+            if((document.getElementsByClassName('CheckboxesContainer')[0].childNodes[index].firstChild as HTMLElement).classList.contains('Checked'))
+            result += `${(document.getElementsByClassName('CheckboxesContainer')[0].childNodes[index].lastChild as HTMLElement).innerText} `;
+        }
+        result.trim();
+        if(result.split(' ').length === 11) result = 'All'
+
+        return result;
+    }
+
+    function getRadiosUpdate(): string[]{
+        const result = ['', '']
+        if(!document.getElementById('Public')?.firstElementChild?.nextElementSibling?.firstElementChild?.classList.contains('Checked')) result[0] = 'false';
+        else result[0] = 'true';
+
+        if(!document.getElementById('English')?.firstElementChild?.nextElementSibling?.firstElementChild?.classList.contains('Checked')) result[1] = 'false';
+        else result[1] = 'true';
+
+        return result;
+    }
+
+
+    async function updateDB() {
+        await fetch(`${environment.serverUrl}/database/users/${currentUser.email}`, {
+            method: 'PATCH',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+              "private_account" : getRadiosUpdate()[0],
+              "news_options" : getCheckboxUpdate(),
+              "french_language" : getRadiosUpdate()[1],
+            }),
+          }).then(() =>{
+                window.location.reload();
+          })
+    }
 
     const [data, getData] = useState({
         "email": 'none',
@@ -23,50 +82,45 @@ const UserSettings = () => {
         "profile_pic" : 'none',
         "age" : 'none',
         "account_name" : 'none',
-        "private_account" : 'false',
+        "private_account" : false,
         "bio" : 'none',
-        "news_options" : 'All',
-        "local_news" : 'false',
-        "french_language" : 'false', });
-    const {currentUser} = useContext(AuthContext);
-    const retrieveInfos = () => {
-        axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
-            getData(infos.data[0]);
-        })
-    }
+        "news_options" : 'none',
+        "local_news" : 'none',
+        "french_language" : false, 
+    });
 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-    useEffect(()=>{retrieveInfos()}, []);
+    useEffect(()=>{ retrieveInfos(); console.log()}, []);
 
     return (
         <div>
             <div className='LeftSideContainer'><LeftSidePane /></div>
             <NavBar selection='' />
             <div className='SettingsPageContainer'>
-                <div className='AccountStatus'>
-                    <Text type='H2' content='Account status'/>
-                    <RadioButtonPair firstText='Public' secondText='Private' firstChecked={data.private_account === 'true' ? false : true} />
+                <div className='AccountStatus' >
+                    <Text type='H2' content='Account status' />
+                    <RadioButtonPair key={`${data.private_account}`} firstText='Public' secondText='Private' firstChecked={!data.private_account} />
                 </div>
-                <div className='Language'>
+                <div className='Language' >
                     <Text type='H2' content='Language'/>
-                    <RadioButtonPair firstText='English' secondText='français' firstChecked={data.french_language === 'true' ? false : true} />
+                    <RadioButtonPair  key={`${data.french_language}`}  firstText='English' secondText='Français' firstChecked={!data.french_language} />
                 </div>
                 <div className='NewsPreference'>
                     <Text type='H2' content='News preferences'/>
-                    <div className='CheckboxesContainer'>
-                        <Checkbox text='Sports'/>
-                        <Checkbox text='Finance'/>
-                        <Checkbox text='Technology'/>
-                        <Checkbox text='Arts'/>
-                        <Checkbox text='Cinema'/>
-                        <Checkbox text='Food'/>
-                        <Checkbox text='Odd facts'/>
-                        <Checkbox text='Politics'/>
-                        <Checkbox text='Game'/>
+                    <div className='CheckboxesContainer' key={data.news_options} >
+                        <Checkbox text='Sports' alreadyChecked={data.news_options.includes('Sports') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Finance' alreadyChecked={data.news_options.includes('Finance') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Technology' alreadyChecked={data.news_options.includes('Technology') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Arts' alreadyChecked={data.news_options.includes('Arts') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Cinema' alreadyChecked={data.news_options.includes('Cinema') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Food' alreadyChecked={data.news_options.includes('Food') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Odd facts' alreadyChecked={data.news_options.includes('Odd facts') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Politics' alreadyChecked={data.news_options.includes('Politics') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Game' alreadyChecked={data.news_options.includes('Game') || data.news_options.includes('All') ? true : false}/>
                     </div>
                 </div>
                 <div className='Buttons'>
-                    <Button text='Save' />
+                    <Button text='Save' fct={updateDB}/>
                     <Button text='Default settings' />
                 </div>
                 <div className='Management'>
