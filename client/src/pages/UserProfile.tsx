@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi'
 import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
+import Tabs from '../components/Tabs'
 
 const UserProfile = () => {
     const [data, getData] = useState({
@@ -65,13 +66,23 @@ const UserProfile = () => {
             <div className = 'bio-container'>
                 <Text content = {`${data.bio}`}></Text>
             </div>
-            <div className = 'friends'>
-                <Text content = 'Friends List' type = 'H2'></Text>
-                <div className='friends-display'>
-                    {friends}
-                    <Text content = 'see more' color = '#0047FF'></Text>
+            <div className ='avatar-list'>
+                <div className = 'friends'>
+                    <Text content = 'Friends List' type = 'H2'></Text>
+                    <div className='friends-display'>
+                        {friends}
+                        <p className = 'see-more'>see more</p>
+                    </div>
+                </div>
+                <div className = 'friends'>
+                    <Text content = 'Group List' type = 'H2'></Text>
+                    <div className='friends-display'>
+                        {friends}
+                        <p className = 'see-more'>see more</p>
+                    </div>
                 </div>
             </div>
+            <Tabs></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )

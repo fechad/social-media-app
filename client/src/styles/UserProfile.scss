@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 16px 0px 16px 0px;
+    margin: 50px 0px 16px 0px;
 }
 
 #test {
@@ -39,7 +39,7 @@
 }
 
 .friends {
-    margin: 32px 0px 16px 0px;
+    margin: 0px 0px 16px 0px;
 }
 
 .friends-pic {
@@ -55,4 +55,20 @@
     p {
         margin-left: 32px;
     }
+}
+
+.see-more {
+    color: #0047FF;
+}
+
+.modal {
+    width: 500px;
+    height: 500px;
+    background-color: #0047FF;
+}
+
+.avatar-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

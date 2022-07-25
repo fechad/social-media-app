@@ -1,0 +1,14 @@
+.post-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    p {
+        margin: 8px 16px;
+    }
+}
+
+.selector {
+    height: 3px;
+    width: 178px;
+    background-color: black;
+}
