@@ -120,8 +120,8 @@ const UserSettings = () => {
                     </div>
                 </div>
                 <div className='Buttons'>
+                    <Button text='Cancel' color='#FFBBBB' fct={() => window.location.reload()}/>
                     <Button text='Save' fct={updateDB}/>
-                    <Button text='Default settings' />
                 </div>
                 <div className='Management'>
                     <div className='ManagementOptions'>

@@ -1,7 +1,8 @@
 .SettingsPageContainer{
     display: flex;
     flex-direction: column;
-    margin-top: 64px;
+    margin-top: 104px;
+    gap: 24px;
     //flex-wrap: wrap;
     width: 720px;
     //height: 928px;
@@ -15,12 +16,15 @@
     .Language{
         display: flex;
         flex-direction: column;
-        flex-wrap: wrap;
+        //flex-wrap: wrap;
         height: 96px;
-        border-bottom: solid 2px;
         //padding-bottom: 8px;
         .H2 {
-            position: absolute;
+            //position: absolute;
+        }
+
+        .RadioOptions{
+            margin-top: -24px;
         }
         
     }
@@ -36,12 +40,15 @@
     }
 
     .Buttons{
+        position: absolute;
         display: flex;
         gap: 40px;
         justify-content: center;
         height: 100px;
         align-items: center;
         margin-top: 20px;
+        padding-left: 250px;
+        top: 600px;
 
     }
 
