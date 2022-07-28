@@ -45,8 +45,8 @@ export class DatabaseService {
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
     }
     public async getLinkPhoto(handle: string): Promise<pg.QueryResult> {
-        console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + END_CHAR);
-        return this.query('SELECT profile_pic FROM Chymera.users' + ` WHERE email = '${handle}' ` + END_CHAR);
+        console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + 'or handle =' + `'${handle}' ` + END_CHAR);
+        return this.query('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + 'or handle =' + `'${handle}' ` + END_CHAR);
     }
 
     public async searchUsers(handle: string): Promise<pg.QueryResult> {
@@ -55,9 +55,9 @@ export class DatabaseService {
     }
 
     public async getFriendsInfos(handle: string): Promise<any[]> {
-        console.log(SELECT_ALL('friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
+        console.log(SELECT_SOME(['list'],'friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
         const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
-        const friendList = result[0].list.split(' ')
+        const friendList = result[0].list.split(' ');
         const friendInfos: any[] | PromiseLike<any[]> = [];
         const promise = await new Promise<string[]>((resolve, reject) => {
             friendList.forEach(async (handle: string, index:number, array: string[]) => {

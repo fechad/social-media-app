@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 16px 0px 16px 0px;
+    margin: 50px 0px 16px 0px;
 }
 
 #test {
@@ -30,14 +30,42 @@
 }
 
 .bio-container {
-    border: 1px solid black; 
     width: 604px;
     height: 85px;
     border-radius: 16px;
-    padding: 4px;
-    margin: 16px 0px 16px 0px;
 }
 
 .friends {
-    margin: 32px 0px 16px 0px;
+    margin: 0px 0px 16px 0px;
+}
+
+.friends-pic {
+    border-radius: 100%;
+    border: solid 2px white;
+    overflow: hidden;
+    margin-right: -16px;
+}
+
+.friends-display {
+    display: flex;
+    flex-direction: row;
+    p {
+        margin-left: 32px;
+    }
+}
+
+.see-more {
+    color: #0047FF;
+}
+
+.modal {
+    width: 500px;
+    height: 500px;
+    background-color: #0047FF;
+}
+
+.avatar-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }

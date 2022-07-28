@@ -9,6 +9,7 @@ import { FiEdit } from 'react-icons/fi'
 import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
+import Tabs from '../components/Tabs'
 
 const UserProfile = () => {
     const [data, getData] = useState({
@@ -21,13 +22,29 @@ const UserProfile = () => {
         "bio" : 'none',
         "news_options" : 'All',
         "local_news" : 'false',
-        "french_language" : 'false', });
+        "french_language" : 'false', 
+    });
+    const [friendsList, setFriends] = useState([{
+        'account_name': 'none',
+        'handle': 'none',
+        'profile_pic': 'none',
+    }])
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
+            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].handle}`).then((friends)=>{
+                setFriends(friends.data);
+            })
         })
     }
+    const friends = friendsList.map((friend, index) => {
+        if(friend.handle !== 'none') {
+            return (
+                <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+            )
+        } else return undefined;
+    });
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
@@ -51,9 +68,23 @@ const UserProfile = () => {
             <div className = 'bio-container'>
                 <Text content = {`${data.bio}`}></Text>
             </div>
-            <div className = 'friends'>
-                <Text content = 'Friends List' type = 'H2'></Text>
+            <div className ='avatar-list'>
+                <div className = 'friends'>
+                    <Text content = 'Friends List' type = 'H2'></Text>
+                    <div className='friends-display'>
+                        {friends}
+                        <p className = 'see-more'>see more</p>
+                    </div>
+                </div>
+                <div className = 'friends'>
+                    <Text content = 'Group List' type = 'H2'></Text>
+                    <div className='friends-display'>
+                        {friends}
+                        <p className = 'see-more'>see more</p>
+                    </div>
+                </div>
             </div>
+            <Tabs></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )
