@@ -39,10 +39,12 @@ const UserProfile = () => {
         })
     }
     const friends = friendsList.map((friend, index) => {
-        return (
-            <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
-        )
-    })
+        if(friend.handle !== 'none') {
+            return (
+                <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+            )
+        } else return undefined;
+    });
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);

@@ -1,14 +1,28 @@
 .post-container {
     display: flex;
-    justify-content: center;
+    justify-content: space-evenly;
+    width: 100%;
     flex-direction: row;
+    .header{
+        width: var(--headerWidth);
+        display: flex;
+        justify-content: center;
+    }
     p {
         margin: 8px 16px;
     }
+    .selected{
+        border-bottom: 3px solid #8773F0;
+    }
 }
-
 .selector {
     height: 3px;
     width: 178px;
     background-color: black;
+}
+
+.html-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
 }
