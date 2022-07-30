@@ -31,7 +31,7 @@ const Tabs = ({tabs, pages} : TabsProps) => {
     return (
         <div>
             <div className='post-container'>
-                {headers}
+                {tabs !== '' ? headers : ''}
             </div>
             <div className='html-container'>
                 {pages[selected]}

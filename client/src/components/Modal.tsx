@@ -12,10 +12,10 @@ interface ModalProps {
     modalHeight: string,
     primary?: string,
     secondary?: string,
-    child?: ReactNode,
+    children?:JSX.Element,
 }
 
-const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary, secondary, child}:ModalProps) => {
+const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary, secondary, children}:ModalProps) => {
 
     const [open, openModal] = useState(false);
 
@@ -41,7 +41,7 @@ const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary,
                     <div className='ModalCloseButton' onClick={() => openModal(false)}><MdOutlineClose  size={30}/></div>
                 </div>
                 <div className='Body'>
-                    {child}
+                    {children}
                 </div>
             </div>
             <div className='ModalFooter' style={{width: modalWidth}}>

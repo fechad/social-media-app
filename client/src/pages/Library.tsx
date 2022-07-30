@@ -15,6 +15,7 @@ import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
 import Modal from '../components/Modal';
+import Tabs from '../components/Tabs';
 
 
 
@@ -22,6 +23,15 @@ function print(){
   console.log('I did my job !');
 }
 
+function modalContent(){
+
+  return(
+    <div>
+      <h1> This is an empty modal</h1>
+      <p> Add more to it</p>
+    </div>
+  )
+}
 
 const Library = () => {
   const [openEmptyModal, openEmptyModalNow] = useState(false);
@@ -138,7 +148,11 @@ const Library = () => {
 
         <div>
         <Text type='H1' content='Modals' />
-        <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px' />
+        <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px'>
+          <div>
+            <Tabs pages={[modalContent()]} tabs='' />
+          </div>
+        </Modal>
         </div>
       </section>
       <RightSidePane />
