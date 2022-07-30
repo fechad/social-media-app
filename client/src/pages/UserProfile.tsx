@@ -10,6 +10,7 @@ import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
 import Tabs from '../components/Tabs'
+import Post from '../components/Post'
 
 const UserProfile = () => {
     const [data, getData] = useState({
@@ -45,6 +46,12 @@ const UserProfile = () => {
             )
         } else return undefined;
     });
+
+    function publications(){
+        return (
+            <Post handle={data.handle} media={data.profile_pic} username={data.account_name} text_message={"j'aime ca de meme"} likes={0} date={'6 janvier'} isVideo={false} ></Post>
+        )
+    }
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
@@ -84,7 +91,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
-            <Tabs></Tabs>
+            <Tabs pages={[publications(), publications()]} ></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )
