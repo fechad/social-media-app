@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
@@ -14,6 +14,7 @@ import LeftSidePane from '../components/LeftSidePane';
 import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
+import Modal from '../components/Modal';
 
 
 
@@ -23,6 +24,9 @@ function print(){
 
 
 const Library = () => {
+  const [openEmptyModal, openEmptyModalNow] = useState(false);
+
+ 
   return (
     <section className='LibraryContainer' >
       <LeftSidePane />
@@ -130,6 +134,11 @@ const Library = () => {
             <RadioButton text='option 1' alreadyChecked={true}/>
             <RadioButton text='option 1' alreadyChecked={false} />
           </section>
+        </div>
+
+        <div>
+        <Text type='H1' content='Modals' />
+        <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px' />
         </div>
       </section>
       <RightSidePane />

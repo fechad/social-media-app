@@ -1,0 +1,69 @@
+.ModalContainer{
+    
+
+    .Modal{
+
+        position: absolute;
+        top: 0px;
+        bottom: 0px;
+        left: 0px;
+        right: 0px;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        .ModalOverlay{
+            position: absolute;
+            width: inherit;
+            height: inherit;
+            background-color: black;
+            opacity: 0.68;
+            z-index: 998;
+        }
+    
+        .ModalContent{
+            position: absolute;
+            min-width: 640px;
+            min-height: 352px;
+            background-color: white;
+            z-index: 999;
+    
+            .Header {
+                height: 100px;
+                display: flex;
+                justify-content: center;
+    
+                .ModalCloseButton{
+                    position: absolute;
+                    top: 16px;
+                    right: 16px;
+    
+                    &:hover{
+                        cursor: pointer;
+                    }
+    
+                    &:active{
+                        cursor: pointer;
+                        color: red;
+                    }
+                }
+            }
+        }
+    
+        .ModalFooter{
+            min-width: 640px;
+            height: 64px;
+            display: flex;
+            gap: 40px;
+            justify-content: flex-end;
+            align-items: center;
+        }
+    }
+    
+    .ModalHidden{
+
+        display: none;
+    }
+}
