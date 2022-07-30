@@ -25,7 +25,7 @@ function Post({handle, username, media, text_message, likes, date}:PostProps) {
                 <Text type='H3 bold' content={`${username}`}></Text>
             </div>
             <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
-            {<AiOutlineStar color = 'black' size={'24px'}/>}
+            {<AiOutlineStar color = 'black' size={'32px'}/>}
         </div>
         <img className = 'image-post' src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
         <div className = 'footer'>
