@@ -28,6 +28,7 @@
             min-width: 640px;
             min-height: 352px;
             background-color: white;
+            border-radius: 8px;
             z-index: 999;
     
             .Header {
@@ -50,15 +51,18 @@
                     }
                 }
             }
-        }
-    
-        .ModalFooter{
-            min-width: 640px;
-            height: 64px;
-            display: flex;
-            gap: 40px;
-            justify-content: flex-end;
-            align-items: center;
+
+            .Footer{
+                position: absolute;
+                bottom: 24px;
+                right: 24px;
+                min-width: 640px;
+                height: 64px;
+                display: flex;
+                gap: 20px;
+                justify-content: flex-end;
+                align-items: center;
+            }
         }
     }
     

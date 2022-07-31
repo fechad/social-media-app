@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import Text from './Text';
 import '../styles/Modal.scss';
 import Button from './Button';
@@ -11,46 +11,49 @@ interface ModalProps {
     modalWidth: string,
     modalHeight: string,
     primary?: string,
+    primaryFct?: Function,
     secondary?: string,
+    secondaryFct?: Function,
     children?:JSX.Element,
 }
 
-const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary, secondary, children}:ModalProps) => {
+const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary, primaryFct, secondary, secondaryFct, children}:ModalProps) => {
 
     const [open, openModal] = useState(false);
 
+    const modalRef = useRef<HTMLDivElement>(null);
+
     useEffect(()=>{
-        console.log(open)
         if(open){
-            document.getElementsByClassName('Modal')[0].classList.remove('ModalHidden');
-        } else{
-            document.getElementsByClassName('Modal')[0].classList.add('ModalHidden');
+            modalRef.current?.classList.remove('ModalHidden');
+        } else {
+            modalRef.current?.classList.add('ModalHidden');
         }
-    },[open, opened ]);
+    },[open]);
 
   return (
     <div className='ModalContainer'>
         <div className='ModalTrigger' onClick={() => openModal(true)}>
             {triggerElement}
         </div>
-        <div className='Modal'>
+        <div className='Modal' ref={modalRef}>
             <div className='ModalOverlay' />
             <div className='ModalContent' style={{width: modalWidth, height: modalHeight}}>
                 <div className='Header'>
-                    <Text content={`${title}`} />
+                    <Text content={`${title}`} type='H1' />
                     <div className='ModalCloseButton' onClick={() => openModal(false)}><MdOutlineClose  size={30}/></div>
                 </div>
                 <div className='Body'>
                     {children}
                 </div>
-            </div>
-            <div className='ModalFooter' style={{width: modalWidth}}>
-                {
-                    secondary ? <Button text={secondary} textType='H3'/> : ''
-                }
-                {
-                    primary ? <Button text={primary} textType='H3'/> : ''
-                }
+                <div className='Footer' style={{width: modalWidth}}>
+                    {
+                        secondary ? <Button text={secondary} textType='H3' color='darkgrey' fct={secondaryFct}/> : ''
+                    }
+                    {
+                        primary ? <Button text={primary} textType='H3' fct={primaryFct}/> : ''
+                    }
+                </div>
             </div>
         </div>
     </div>

@@ -147,12 +147,20 @@ const Library = () => {
         </div>
 
         <div>
-        <Text type='H1' content='Modals' />
-        <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px'>
-          <div>
-            <Tabs pages={[modalContent()]} tabs='' />
-          </div>
-        </Modal>
+          <Text type='H1' content='Modal examples' />
+          <section>
+            <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px'>
+              <div>
+                <Tabs pages={[modalContent()]} tabs='' />
+              </div>
+            </Modal>
+
+            <Modal triggerElement={<Button text='Open empty modal with buttons' />} title='This is a modal' modalWidth='200px' modalHeight='150px' primary='Primary' primaryFct={() => {console.log('I did my primary job')}} secondary='Secondary' secondaryFct={() => {console.log('I did my secondary job')}}>
+              <div>
+                <Tabs pages={[modalContent()]} tabs='' />
+              </div>
+            </Modal>
+          </section>
         </div>
       </section>
       <RightSidePane />
