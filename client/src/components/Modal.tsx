@@ -10,6 +10,7 @@ interface ModalProps {
     title: string,
     modalWidth: string,
     modalHeight: string,
+    destructive?: boolean,
     primary?: string,
     primaryFct?: Function,
     secondary?: string,
@@ -17,7 +18,7 @@ interface ModalProps {
     children?:JSX.Element,
 }
 
-const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary, primaryFct, secondary, secondaryFct, children}:ModalProps) => {
+const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, destructive, primary, primaryFct, secondary, secondaryFct, children}:ModalProps) => {
 
     const [open, openModal] = useState(false);
 
@@ -51,7 +52,7 @@ const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, primary,
                         secondary ? <Button text={secondary} textType='H3' color='darkgrey' fct={secondaryFct}/> : ''
                     }
                     {
-                        primary ? <Button text={primary} textType='H3' fct={primaryFct}/> : ''
+                        primary ? <Button text={primary} textType='H3' fct={primaryFct} color={ destructive ? '#FF5555' : '#8773F0'}/> : ''
                     }
                 </div>
             </div>

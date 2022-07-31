@@ -13,6 +13,9 @@ import { AiOutlineLock } from 'react-icons/ai';
 import { BiEnvelope } from 'react-icons/bi'
 import '../styles/UserSettings.scss'
 import RadioButtonPair from '../components/RadioButtonPair';
+import Modal from '../components/Modal';
+import Tabs from '../components/Tabs';
+import TextInput from '../components/TextInput';
 
 
 interface data {
@@ -89,6 +92,34 @@ const UserSettings = () => {
         "french_language" : false, 
     });
 
+    function friendsList(){
+
+        return(
+          <div>
+            <h1> My friend list</h1>
+            <p> Your friends will show here</p>
+          </div>
+        )
+    }
+    function BlockedFriends(){
+
+        return(
+          <div>
+            <h1> Blocked friends</h1>
+            <p> Your blocked friends will show here</p>
+          </div>
+        )
+    }
+    function mutedFriends(){
+
+        return(
+          <div>
+            <h1> Muted friends</h1>
+            <p> Your muted friends will show here</p>
+          </div>
+        )
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{ retrieveInfos(); console.log()}, []);
 
@@ -124,22 +155,86 @@ const UserSettings = () => {
                     <Button text='Save' fct={updateDB}/>
                 </div>
                 <div className='Management'>
-                    <div className='ManagementOptions'>
-                        <FiUsers size={20} />
-                        <Text type='H3' content='Manage friends' />
+                    <div >
+                        <Modal 
+                            triggerElement={<div className='ManagementOptions'> <FiUsers size={20} /> <Text type='H3' content='Manage friends' /> </div>}
+                            title='Friends manager'
+                            modalWidth='1088px'
+                            modalHeight='680px'
+                        >
+                            <div style={{width: '900px', marginLeft: '94px'}}>
+                                <Tabs pages={[friendsList(), BlockedFriends(), mutedFriends()]} tabs={`Friend list(); Blocked friends(); Muted friends()`} />
+                            </div>
+                        </Modal>
                     </div>
-                    <div className='ManagementOptions'>
-                        <AiOutlineLock size={20} />
-                        <Text type='H3' content='Change password' />
+                    <div >
+                        <Modal 
+                            triggerElement={<div className='ManagementOptions'> <AiOutlineLock size={20} /> <Text type='H3' content='Change password' /> </div>}
+                            title='Change password ?'
+                            modalWidth='640px'
+                            modalHeight='408px'
+                            primary='Apply'
+                            primaryFct={() => { console.log('Applied password change')}}
+                        >
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '24px'}} >
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                    <Text content='Current password:' type='H3'/>
+                                    <TextInput width='320px' height='32px' type='password' label=''/>
+                                </div>
+                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}}>
+                                    <Text content='New password:' type='H3'/>
+                                    <TextInput width='320px' height='32px' type='password' label=''/>
+                                </div>
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                    <Text content='Confirm password:' type='H3'/>
+                                    <TextInput width='320px' height='32px' type='password' label=''/>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
-                    <div className='ManagementOptions'>
-                        <BiEnvelope size={20} />
-                        <Text type='H3' content='Change email address' />
+
+                    <div >
+                        <Modal 
+                            triggerElement={<div className='ManagementOptions'> <BiEnvelope size={20} /> <Text type='H3' content='Change email address' /> </div>}
+                            title='Change email ?'
+                            modalWidth='640px'
+                            modalHeight='352px'
+                            primary='Validate'
+                            primaryFct={() => { console.log('Validated email change')}}
+                        >
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '20px'}} >
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                    <Text content='Current email:' type='H3'/>
+                                    <TextInput width='320px' height='32px' type='text' label=''/>
+                                </div>
+                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}}>
+                                    <Text content='New email:' type='H3' />
+                                    <TextInput width='320px' height='32px' type='text' label=''/>
+                                </div>
+                            </div>
+                        </Modal>
                     </div>
                 </div>
-                <div className='Irreversible'>
-                    <FiTrash2 size={20} color='#FF0000'/>
-                    <Text type='H3' content='Delete account' color='#FF0000'/>
+                <div >
+                    <Modal 
+                        triggerElement={<div className='Irreversible'> <FiTrash2 size={20} color='#FF0000'/> <Text type='H3' content='Delete account' color='#FF0000'/> </div>}
+                        title='Change email ?'
+                        modalWidth='640px'
+                        modalHeight='352px'
+                        destructive={true}
+                        primary='Delete'
+                        primaryFct={() => { console.log('Account deleted')}}
+                    >
+                        <div style={{display: 'flex', flexDirection: 'column', gap: '8px', width: 'inherit', marginTop: '-4px'}} >
+                            <div style={{display: 'flex', width: '544px', alignItems: 'center', marginLeft: '56px'}}>
+                                <Text content='Deleting account is irreversible and immediate. Please enter your account password to validate this request.' type='H3'/>
+                            </div>
+                            <div style={{display: 'flex', gap: '44px', alignItems: 'center', marginLeft: '56px'}}>
+                                <Text content='Enter password:' type='H3' />
+                                <TextInput width='320px' height='32px' type='password' label=''/>
+                            </div>
+                        </div>
+                    </Modal>
                 </div>
             </div>
             <div className ='RightSideContainer'><RightSidePane /></div>
