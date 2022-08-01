@@ -27,6 +27,7 @@ function Post({handle, username, media, text_message, likes, date}:PostProps) {
             <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
             {<AiOutlineStar color = 'black' size={'32px'}/>}
         </div>
+        <Text content={text_message}/>
         <img className = 'image-post' src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
         <div className = 'footer'>
             {<FaRegHeart color='black' size='24px'/>}

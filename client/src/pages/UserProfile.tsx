@@ -29,7 +29,18 @@ const UserProfile = () => {
         'account_name': 'none',
         'handle': 'none',
         'profile_pic': 'none',
-    }])
+    }]);
+
+    const [postList, setPost] = useState([{
+        'handle': 'none',
+        'post_id': 0,
+        'media': 'none',
+        'text_message': 'none',
+        'likes': 0,
+        'date': '00-00-00',
+        'isVideo': false,
+
+    }]);
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -37,7 +48,11 @@ const UserProfile = () => {
             axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].handle}`).then((friends)=>{
                 setFriends(friends.data);
             })
-        })
+            axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
+                console.log(posts.data);
+                setPost(posts.data);
+            })
+        })  
     }
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none') {
@@ -47,9 +62,17 @@ const UserProfile = () => {
         } else return undefined;
     });
 
+    const posts = postList.map((post, index) => {
+        return (
+            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} ></Post>
+        )
+    });
+
     function publications(){
         return (
-            <Post handle={data.handle} media={data.profile_pic} username={data.account_name} text_message={"j'aime ca de meme"} likes={0} date={'6 janvier'} isVideo={false} ></Post>
+            <div>
+                {posts}
+            </div>
         )
     }
     // otherwise it makes an infinite amount of get request
