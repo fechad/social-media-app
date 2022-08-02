@@ -33,12 +33,13 @@ const UserProfile = () => {
 
     const [postList, setPost] = useState([{
         'handle': 'none',
-        'post_id': 0,
+        'post_id': '0',
         'media': 'none',
         'text_message': 'none',
         'likes': 0,
         'date': '00-00-00',
         'isVideo': false,
+        'comments_number': 0,
 
     }]);
     const {currentUser} = useContext(AuthContext);
@@ -49,7 +50,6 @@ const UserProfile = () => {
                 setFriends(friends.data);
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
-                console.log(posts.data);
                 setPost(posts.data);
             })
         })  
@@ -64,7 +64,7 @@ const UserProfile = () => {
 
     const posts = postList.map((post, index) => {
         return (
-            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} ></Post>
+            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number}></Post>
         )
     });
 
@@ -79,7 +79,7 @@ const UserProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);
     return (
-        <div>
+        <div id = 'page-container'>
             <div className='LeftSideContainer'><LeftSidePane /></div>
             <NavBar selection='' />
             <div className = 'infos-container'>

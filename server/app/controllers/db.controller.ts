@@ -63,7 +63,7 @@ export class DatabaseController {
                 .then((result: pg.QueryResult) => {
                     console.log(result.rows[0].profile_pic);
                     if(result.rows[0].profile_pic === 'undefined') res.download('./assets/profile-pics/logo.svg');
-                    else res.download(result.rows[0].profile_pic);
+                    else if(result.rows[0].profile_pic !== 'none') res.download(result.rows[0].profile_pic);
                     
                 })
                 .catch((e: Error) => {

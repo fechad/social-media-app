@@ -23,6 +23,7 @@ import NewsFeed from './pages/NewsFeed';
 import Notifications from './pages/Notifications';
 import Chats from './pages/Chats';
 import OtherUserProfile from './pages/OtherUserProfile';
+import PostComments from './pages/PostComments';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -47,6 +48,7 @@ root.render(
       <Route path='/components' element={<Library/>}/>
       <Route path = 'User/Profile' element = {<ProtectedRoute outlet = {<UserProfile/>}/>}/>
       <Route path = 'User/Profile/:handle' element = {<ProtectedRoute outlet = {<OtherUserProfile/>}/>}/>
+      <Route path = 'Post/:PostId' element = {<ProtectedRoute outlet = {<PostComments/>}/>}/>
     </Routes>
     </AuthProvider>
   </BrowserRouter>
