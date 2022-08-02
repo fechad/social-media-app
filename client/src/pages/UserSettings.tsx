@@ -16,6 +16,9 @@ import RadioButtonPair from '../components/RadioButtonPair';
 import Modal from '../components/Modal';
 import Tabs from '../components/Tabs';
 import TextInput from '../components/TextInput';
+import { FaSearch } from 'react-icons/fa';
+import UserSearchPreview from '../components/UserSearchPreview';
+import { useNavigate } from 'react-router-dom';
 
 
 interface data {
@@ -33,11 +36,24 @@ interface data {
 
 const UserSettings = () => {
 
-    
+    let navigate = useNavigate();
+
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = async () => {
         await axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
+        })
+
+        await axios.get(`${environment.serverUrl}/database/users/MyFriends/${currentUser.email}`).then((infos)=>{
+            if(infos.data[0]) getFriends(infos.data[0]);
+        })
+
+        await axios.get(`${environment.serverUrl}/database/users/MyBlockedFriends/${currentUser.email}`).then((infos)=>{
+            if(infos.data[0]) getBlockedFriends(infos.data[0]);
+        })
+
+        await axios.get(`${environment.serverUrl}/database/users/MyMutedFriends/${currentUser.email}`).then((infos)=>{
+            if(infos.data[0]) getMutedFriends(infos.data[0]);
         })
     }
 
@@ -92,32 +108,100 @@ const UserSettings = () => {
         "french_language" : false, 
     });
 
+    const [friends, getFriends] = useState({
+        "handle" : 'none',
+        "list": 'none'
+    });
+
+    const [blockedFriends, getBlockedFriends] = useState({
+        "handle" : 'none',
+        "list": 'none'
+    });
+
+    const [mutedFriendList, getMutedFriends] = useState({
+        "handle" : 'none',
+        "list": 'none'
+    });
+
     function friendsList(){
 
         return(
           <div>
-            <h1> My friend list</h1>
-            <p> Your friends will show here</p>
+            <div className='ModalSearchArea'> 
+                <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+            </div>
+            <div>
+                {
+                    friends.list.split(' ').map((data: any)=>{
+                        return(
+                            
+                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                                <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                            </div> 
+                        )           
+                    })
+                }
+            </div>
           </div>
         )
     }
+
+    const myFriends = () => {
+
+    }
+
     function BlockedFriends(){
 
         return(
-          <div>
-            <h1> Blocked friends</h1>
-            <p> Your blocked friends will show here</p>
-          </div>
-        )
+            <div>
+              <div className='ModalSearchArea'> 
+                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+              </div>
+              <div>
+                  {
+                      blockedFriends.list.split(' ').map((data: any)=>{
+                          return(
+                              
+                              <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                                  <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                              </div> 
+                          )           
+                      })
+                  }
+              </div>
+            </div>
+          )
     }
+
+    const myBlockedFriends = () => {
+
+    }
+
     function mutedFriends(){
 
         return(
-          <div>
-            <h1> Muted friends</h1>
-            <p> Your muted friends will show here</p>
-          </div>
-        )
+            <div>
+              <div className='ModalSearchArea'> 
+                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+              </div>
+              <div>
+                  {
+                      mutedFriendList.list.split(' ').map((data: any)=>{
+                          return(
+                              
+                              <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                                  <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                              </div> 
+                          )           
+                      })
+                  }
+              </div>
+            </div>
+          )
+    }
+
+    const myMutedFriends = () => {
+
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps 

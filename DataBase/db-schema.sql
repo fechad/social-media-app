@@ -51,26 +51,28 @@ CREATE TABLE IF NOT EXISTS My_group_chats(
 );
 
 -- MAYBE MAKE LIKES function in db ?
+
 CREATE TABLE IF NOT EXISTS Post(
 	handle TEXT NOT NULL,
-	post_id int NOT NULL,
+	post_id TEXT NOT NULL,
 	media TEXT,
 	text_message TEXT NOT NULL,
 	likes int,
+	isVideo boolean,
+	comments_number int,
 	FOREIGN KEY (handle) REFERENCES Users(handle) ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY (post_id)
 );
 
 CREATE TABLE IF NOT EXISTS Post_comment(
-	comment_id int NOT NULL,
-	post_id int NOT NULL,
+	comment_id TEXT NOT NULL,
+	post_id Text NOT NULL,
 	media TEXT,
 	text_message TEXT NOT NULL,
 	likes int,
 	FOREIGN KEY (post_id) REFERENCES Post(post_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	PRIMARY KEY (comment_id)
 );
-
 
 -- FIN DES TABLES EN LIEN DIRECT AVEC UN USER
 

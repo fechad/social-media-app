@@ -44,6 +44,18 @@ export class DatabaseService {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
     }
+    public async getMyFriends(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR);
+        return this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR);
+    }
+    public async getMyBlockedFriends(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['list'],'blocked_people') + ` WHERE email = '${email}' ` + END_CHAR);
+        return this.query(SELECT_SOME(['list'],'blocked_people') + ` WHERE email = '${email}' ` + END_CHAR);
+    }
+    public async getMyMutedFriends(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['list'],'muted_people') + ` WHERE email = '${email}' ` + END_CHAR);
+        return this.query(SELECT_SOME(['list'],'muted_people') + ` WHERE email = '${email}' ` + END_CHAR);
+    }
     public async getLinkPhoto(handle: string): Promise<pg.QueryResult> {
         console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + 'or handle =' + `'${handle}' ` + END_CHAR);
         return this.query('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + 'or handle =' + `'${handle}' ` + END_CHAR);

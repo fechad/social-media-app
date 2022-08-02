@@ -1,5 +1,14 @@
 .ModalContainer{
     
+    .ModalTrigger{
+
+        width: fit-content;
+
+        &:hover{
+            cursor: pointer;
+            text-decoration: underline;
+        }
+    }
 
     .Modal{
 
