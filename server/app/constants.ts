@@ -22,6 +22,16 @@ export const DELETE = (table: string) => 'DELETE FROM ' + SCHEMA_NAME + '.' + ta
 export const SELECT_SOME = (names: string[], table: string) => 'SELECT ' + names.join(', ') + ' FROM ' + SCHEMA_NAME + '.' + table;
 export const LIST_TABLES = `SELECT table_name FROM information_schema.tables WHERE table_schema = '${SCHEMA_NAME.toLowerCase()}';`;
 
+export const SELECT_MANY = (handles: string) : string => {
+    let queryCondition = ' WHERE ';
+    const handleArray = handles.split(' ');
+    handleArray.forEach((handle, index) => {
+        queryCondition += `handle = '${handle}'`;
+        if(handleArray.length-1 !== index) queryCondition += ' or '
+    })
+    return queryCondition;
+}
+
 // Inspiré du site : https://wiki.postgresql.org/wiki/Retrieve_primary_key_columns
 export const TABLE_PRIVATE_KEYS = (table: string) =>
     `SELECT a.attname AS name 

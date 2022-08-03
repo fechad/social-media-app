@@ -45,15 +45,15 @@ const UserSettings = () => {
         })
 
         await axios.get(`${environment.serverUrl}/database/users/MyFriends/${currentUser.email}`).then((infos)=>{
-            if(infos.data[0]) getFriends(infos.data[0]);
+            if(infos.data[0]) getFriends(infos.data);
         })
 
         await axios.get(`${environment.serverUrl}/database/users/MyBlockedFriends/${currentUser.email}`).then((infos)=>{
-            if(infos.data[0]) getBlockedFriends(infos.data[0]);
+            if(infos.data[0]) getBlockedFriends(infos.data);
         })
 
         await axios.get(`${environment.serverUrl}/database/users/MyMutedFriends/${currentUser.email}`).then((infos)=>{
-            if(infos.data[0]) getMutedFriends(infos.data[0]);
+            if(infos.data[0]) getMutedFriends(infos.data);
         })
     }
 
@@ -108,20 +108,23 @@ const UserSettings = () => {
         "french_language" : false, 
     });
 
-    const [friends, getFriends] = useState({
+    const [friends, getFriends] = useState([{
         "handle" : 'none',
-        "list": 'none'
-    });
+        "profile_pic" : 'none',
+        "account_name" : 'none',
+    }]);
 
-    const [blockedFriends, getBlockedFriends] = useState({
+    const [blockedFriends, getBlockedFriends] = useState([{
         "handle" : 'none',
-        "list": 'none'
-    });
+        "profile_pic" : 'none',
+        "account_name" : 'none',
+    }]);
 
-    const [mutedFriendList, getMutedFriends] = useState({
+    const [mutedFriendList, getMutedFriends] = useState([{
         "handle" : 'none',
-        "list": 'none'
-    });
+        "profile_pic" : 'none',
+        "account_name" : 'none',
+    }]);
 
     function friendsList(){
 
@@ -132,7 +135,7 @@ const UserSettings = () => {
             </div>
             <div>
                 {
-                    friends.list.split(' ').map((data: any)=>{
+                    friends.map((data: any)=>{
                         return(
                             
                             <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
@@ -159,11 +162,11 @@ const UserSettings = () => {
               </div>
               <div>
                   {
-                      blockedFriends.list.split(' ').map((data: any)=>{
+                      blockedFriends.map((data: any)=>{
                           return(
                               
                               <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
-                                  <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                                  {/* <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} /> */}
                               </div> 
                           )           
                       })
@@ -186,7 +189,7 @@ const UserSettings = () => {
               </div>
               <div>
                   {
-                      mutedFriendList.list.split(' ').map((data: any)=>{
+                      mutedFriendList.map((data: any)=>{
                           return(
                               
                               <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
