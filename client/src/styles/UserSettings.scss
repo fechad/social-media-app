@@ -73,6 +73,48 @@
                 //background-color: #EBEBEB;
             }
         }
+        .ModalTabsContent {
+
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .header{
+            &:hover{
+                cursor: pointer;
+                border-bottom: 3px solid #8773F0;
+            }
+        }
+        .ModalSearchArea {
+            align-items: center;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .html-container{
+
+            width: 100%;
+            .MatchingUsers {
+
+                display: grid;
+                grid-template-columns: auto auto;
+                gap: 4px;
+                width: 988px;
+
+                margin-top: 32px;
+                .MatchingUsersContainer {
+                    width: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        
+                        background-color: #EBEBEB;
+                    }
+                }
+            }
+        }
     }
 
     .Irreversible{

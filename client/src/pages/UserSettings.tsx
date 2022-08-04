@@ -130,16 +130,19 @@ const UserSettings = () => {
 
         return(
           <div>
-            <div className='ModalSearchArea'> 
-                <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+            <div className='ModalSearchArea' onKeyDown={(e) => {if(e.key === 'Enter') myFriends()}}> 
+                <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
             </div>
-            <div>
+            <div className='MatchingUsers'>
                 {
                     friends.map((data: any)=>{
+                        // eslint-disable-next-line array-callback-return
+                        if(data.handle === 'none') return;
                         return(
                             
-                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true });}}>
                                 <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                                <Button text='Block'/>
                             </div> 
                         )           
                     })
@@ -150,7 +153,9 @@ const UserSettings = () => {
     }
 
     const myFriends = () => {
-
+        const inputText = (document.getElementsByClassName('ModalSearchArea')[0].firstChild?.firstChild?.firstChild as HTMLInputElement).value;
+        console.log(friends.filter(friend => friend.account_name.toLowerCase().includes(inputText.toLowerCase()) || friend.handle.includes(inputText)))
+        getFriends(friends.filter(friend => friend.account_name.toLowerCase().includes(inputText.toLowerCase()) || friend.handle.includes(inputText)));
     }
 
     function BlockedFriends(){
@@ -158,18 +163,20 @@ const UserSettings = () => {
         return(
             <div>
               <div className='ModalSearchArea'> 
-                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
               </div>
-              <div>
+              <div className='MatchingUsers'>
                   {
-                      blockedFriends.map((data: any)=>{
-                          return(
-                              
-                              <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
-                                  {/* <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} /> */}
-                              </div> 
-                          )           
-                      })
+                    blockedFriends.map((data: any)=>{
+                        // eslint-disable-next-line array-callback-return
+                        if(data.handle === 'none') return;
+                        return(
+                            
+                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                                <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                            </div> 
+                        )           
+                    })
                   }
               </div>
             </div>
@@ -185,18 +192,20 @@ const UserSettings = () => {
         return(
             <div>
               <div className='ModalSearchArea'> 
-                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
               </div>
-              <div>
-                  {
-                      mutedFriendList.map((data: any)=>{
-                          return(
-                              
-                              <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
-                                  <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
-                              </div> 
-                          )           
-                      })
+              <div className='MatchingUsers'>
+                  {   
+                    mutedFriendList.map((data: any)=>{
+                        // eslint-disable-next-line array-callback-return
+                        if(data.handle === 'none') return;
+                        return(
+                            
+                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                                <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
+                            </div> 
+                        )           
+                    })
                   }
               </div>
             </div>
@@ -208,7 +217,7 @@ const UserSettings = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-    useEffect(()=>{ retrieveInfos(); console.log()}, []);
+    useEffect(()=>{retrieveInfos()}, []);
 
     return (
         <div>
@@ -242,14 +251,14 @@ const UserSettings = () => {
                     <Button text='Save' fct={updateDB}/>
                 </div>
                 <div className='Management'>
-                    <div >
+                    <div  onClick={retrieveInfos} >
                         <Modal 
                             triggerElement={<div className='ManagementOptions'> <FiUsers size={20} /> <Text type='H3' content='Manage friends' /> </div>}
                             title='Friends manager'
                             modalWidth='1088px'
                             modalHeight='680px'
                         >
-                            <div style={{width: '900px', marginLeft: '94px'}}>
+                            <div className="ModalTabsContent">
                                 <Tabs pages={[friendsList(), BlockedFriends(), mutedFriends()]} tabs={`Friend list(); Blocked friends(); Muted friends()`} />
                             </div>
                         </Modal>
