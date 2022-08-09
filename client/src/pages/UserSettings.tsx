@@ -19,6 +19,7 @@ import TextInput from '../components/TextInput';
 import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
+import { AuthCredential, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth';
 
 
 interface data {
@@ -39,6 +40,48 @@ const UserSettings = () => {
     let navigate = useNavigate();
 
     const {currentUser} = useContext(AuthContext);
+    const [noMatch, setNoMatch] = useState(false);
+
+    const changePassword = () => {
+
+        const oldPassword = (document.getElementById('OldPassword') as HTMLElement).querySelector('input')?.value;
+        const newPassword = (document.getElementById('NewPassword') as HTMLElement).querySelector('input')?.value;
+        const newPasswordConfirmation = (document.getElementById('NewPassword') as HTMLElement).querySelector('input')?.value;;
+
+        console.log(newPassword, newPasswordConfirmation);
+        console.log(newPassword === '');
+
+        if(newPassword !== newPasswordConfirmation || newPassword === '') {
+            setNoMatch(true);
+            return;
+        }
+        setNoMatch(false);
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, currentUser.email, oldPassword?.toString()!)
+            .then((userCredential) => {
+
+                updatePassword(currentUser, newPassword?.toString()!).then(() => {
+                    signOut(auth).then(() => {
+                        // Sign-out successful.
+                        navigate("/", { replace: true });
+                      }).catch((error) => {
+                        // An error happened.
+                      });
+                  }).catch((error) => {
+                    // An error ocurred
+                    // ...
+                  });
+            })
+            .catch((error) => {
+                window.alert(error.message);
+            });
+
+
+        
+        
+    
+    }
+    
     const retrieveInfos = async () => {
         await axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
@@ -135,12 +178,12 @@ const UserSettings = () => {
             </div>
             <div className='MatchingUsers'>
                 {
-                    friends.map((data: any)=>{
+                    friends.map((data: any, index: any)=>{
                         // eslint-disable-next-line array-callback-return
                         if(data.handle === 'none') return;
                         return(
                             
-                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true });}}>
+                            <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true });}}>
                                 <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
                                 <Button text='Block'/>
                             </div> 
@@ -167,12 +210,12 @@ const UserSettings = () => {
               </div>
               <div className='MatchingUsers'>
                   {
-                    blockedFriends.map((data: any)=>{
+                    blockedFriends.map((data: any, index: any)=>{
                         // eslint-disable-next-line array-callback-return
                         if(data.handle === 'none') return;
                         return(
                             
-                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                            <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
                                 <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
                             </div> 
                         )           
@@ -196,12 +239,12 @@ const UserSettings = () => {
               </div>
               <div className='MatchingUsers'>
                   {   
-                    mutedFriendList.map((data: any)=>{
+                    mutedFriendList.map((data: any, index:any)=>{
                         // eslint-disable-next-line array-callback-return
                         if(data.handle === 'none') return;
                         return(
                             
-                            <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
+                            <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${data.handle}`, { replace: true }); window.location.reload();}}>
                                 <UserSearchPreview  profile_pic={data.profile_pic} account_name={data.account_name} handle={data.handle} />
                             </div> 
                         )           
@@ -270,25 +313,31 @@ const UserSettings = () => {
                             modalWidth='640px'
                             modalHeight='408px'
                             primary='Apply'
-                            primaryFct={() => { console.log('Applied password change')}}
+                            primaryFct={() => {changePassword()}}
                         >
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '24px'}} >
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='OldPassword'>
                                     <Text content='Current password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} id='NewPassword'>
                                     <Text content='New password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='ConfirmNewPassword'>
                                     <Text content='Confirm password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
+                                {
+                                    noMatch ? 
+                                    <div style={{display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center'}} >
+                                        <Text content='**** Entered passwords are not matching ****' type='H3' color='red'/>
+                                    </div>
+                                    : ''
+                                }
                             </div>
                         </Modal>
                     </div>
-
                     <div >
                         <Modal 
                             triggerElement={<div className='ManagementOptions'> <BiEnvelope size={20} /> <Text type='H3' content='Change email address' /> </div>}

@@ -86,10 +86,10 @@ function LeftSidePane() {
             {
                 searching && !firstSearch ? 
 
-                users.map((match)=>{
+                users.map((match, index: any)=>{
                     return(
                          
-                         <div className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true }); window.location.reload();}}>
+                         <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true }); window.location.reload();}}>
                             <UserSearchPreview  profile_pic={match.profile_pic} account_name={match.account_name} handle={match.handle} />
                         </div> 
                     )           
@@ -97,10 +97,10 @@ function LeftSidePane() {
 
                 : 
 
-                conversations.map((conversation)=>{
+                conversations.map((conversation, index: any)=>{
                     return(
                          
-                         <div className='ConversationContainer'>
+                         <div key={index} className='ConversationContainer'>
                             <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
                         </div> 
                     )           
