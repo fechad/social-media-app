@@ -60,8 +60,8 @@ export class DatabaseService {
     }
 
     public async getFriendsInfos(handle: string): Promise<any[]> {
-        console.log(SELECT_SOME(['list'],'friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
-        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
+        console.log(SELECT_SOME(['list'],'friends') + ' WHERE email =' + `'${handle}' ` + END_CHAR);
+        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${handle}' ` + END_CHAR)).rows;
         const friendList = result[0].list.split(' ');
         const friendInfos: any[] | PromiseLike<any[]> = [];
         const promise = await new Promise<string[]>((resolve, reject) => {
@@ -76,6 +76,12 @@ export class DatabaseService {
             });
         });
         return promise;
+    }
+
+    public async createFave(email: string, postId: string): Promise<pg.QueryResult> {
+        let currentPosts = this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR);
+        console.log('UPDATE chymera.favorite SET email = ' + `${email}` + ', posts=' + ` ${currentPosts}` + ` ${postId}` + ' WHERE email = ' + `${email}` + END_CHAR);
+        return this.query('UPDATE chymera.favorite SET email = ' + `${email}` + ', posts=' + ` ${currentPosts}` + ` ${postId}` + ' WHERE email = ' + `${email}` + END_CHAR);
     }
 
     public async getTablesList(): Promise<pg.QueryResult> {

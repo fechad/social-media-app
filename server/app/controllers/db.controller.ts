@@ -104,6 +104,11 @@ export class DatabaseController {
                 });
         });
 
+        router.post('/favorite/:infos', (req: Request, res: Response) => {
+            console.log(req.body);
+            this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]);
+        });
+
         router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .searchUsers(req.params.handle)

@@ -46,7 +46,7 @@ const UserProfile = () => {
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
-            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].handle}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
