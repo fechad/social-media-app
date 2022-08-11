@@ -19,7 +19,7 @@ import TextInput from '../components/TextInput';
 import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
-import { AuthCredential, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updatePassword } from 'firebase/auth';
+import { AuthCredential, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
 
 
 interface data {
@@ -40,7 +40,7 @@ const UserSettings = () => {
     let navigate = useNavigate();
 
     const {currentUser} = useContext(AuthContext);
-    const [noMatch, setNoMatch] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const changePassword = () => {
 
@@ -52,10 +52,10 @@ const UserSettings = () => {
         console.log(newPassword === '');
 
         if(newPassword !== newPasswordConfirmation || newPassword === '') {
-            setNoMatch(true);
+            setErrorMessage('');
             return;
         }
-        setNoMatch(false);
+        setErrorMessage('**** Entered passwords are not matching ****');
         const auth = getAuth();
         signInWithEmailAndPassword(auth, currentUser.email, oldPassword?.toString()!)
             .then((userCredential) => {
@@ -75,13 +75,25 @@ const UserSettings = () => {
             .catch((error) => {
                 window.alert(error.message);
             });
-
-
-        
-        
-    
     }
     
+    const changeEmail = () => {
+
+        const oldEmail = (document.getElementById('OldEmail') as HTMLElement).querySelector('input')?.value;
+        const newEmail = (document.getElementById('NewEmail') as HTMLElement).querySelector('input')?.value;
+        if(oldEmail === currentUser.email) {
+            updateEmail(currentUser, newEmail?.toString()!).then(() => {
+                // Email updated!
+                // ...
+                }).catch((error) => {
+                // An error occurred
+                // ...
+                });        
+        } else {
+            setErrorMessage("**** The current email provided doesn't match ****");
+        }
+    };
+
     const retrieveInfos = async () => {
         await axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
@@ -329,9 +341,9 @@ const UserSettings = () => {
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
                                 {
-                                    noMatch ? 
+                                    errorMessage ? 
                                     <div style={{display: 'flex', width: '100%', alignItems: 'center', justifyContent: 'center'}} >
-                                        <Text content='**** Entered passwords are not matching ****' type='H3' color='red'/>
+                                        <Text content={errorMessage} type='H3' color='red'/>
                                     </div>
                                     : ''
                                 }
@@ -348,11 +360,11 @@ const UserSettings = () => {
                             primaryFct={() => { console.log('Validated email change')}}
                         >
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '20px'}} >
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} className="OldEmail">
                                     <Text content='Current email:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='text' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}}>
+                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} className="NewEmail">
                                     <Text content='New email:' type='H3' />
                                     <TextInput width='320px' height='32px' type='text' label=''/>
                                 </div>
