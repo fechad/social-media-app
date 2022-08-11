@@ -31,6 +31,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     const {currentUser} = useContext(AuthContext);
     function faved(clicked: boolean) {
         if(clicked) {
+            console.log('vkhadvihbd');
             axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`)
             return (<AiFillStar color = '#8773F0' size={'32px'}/>);
         }

@@ -106,7 +106,7 @@ export class DatabaseController {
 
         router.post('/favorite/:infos', (req: Request, res: Response) => {
             console.log(req.body);
-            this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]);
+            this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
         });
 
         router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
