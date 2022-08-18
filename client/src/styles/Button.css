@@ -14,7 +14,7 @@
 
 .ButtonComponent:hover{
     cursor: pointer;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), #8773F0;
+    background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2));
 }
 
 .ButtonComponent:active{

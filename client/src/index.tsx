@@ -17,6 +17,13 @@ import NewOptions from './pages/sign-up/NewOptions';
 import Discover from './pages/Discover';
 import { AuthProvider } from './Auth';
 import ProtectedRoute from './ProtectedRoute';
+import UserProfile from './pages/UserProfile';
+import MyFeed from './pages/MyFeed';
+import NewsFeed from './pages/NewsFeed';
+import Notifications from './pages/Notifications';
+import Chats from './pages/Chats';
+import OtherUserProfile from './pages/OtherUserProfile';
+import UserSettings from './pages/UserSettings';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -34,7 +41,14 @@ root.render(
       <Route  path='/User/ProfileSetup'  element={<ProtectedRoute outlet={<ProfileSetup />} />}/>
       <Route  path='/User/NewsOptions'  element={<ProtectedRoute outlet={<NewOptions />} />}/>
       <Route  path='/User/Discover'  element={<ProtectedRoute outlet={<Discover />} />}/>
+      <Route  path='/User/MyFeed'  element={<ProtectedRoute outlet={<MyFeed />} />}/>
+      <Route  path='/User/NewsFeed'  element={<ProtectedRoute outlet={<NewsFeed />} />}/>
+      <Route  path='/User/Notifications'  element={<ProtectedRoute outlet={<Notifications/>} />}/>
+      <Route  path='/User/Chats'  element={<ProtectedRoute outlet={<Chats/>} />}/>
       <Route path='/components' element={<Library/>}/>
+      <Route path = 'User/Profile' element = {<ProtectedRoute outlet = {<UserProfile/>}/>}/>
+      <Route path = 'User/Profile/:handle' element = {<ProtectedRoute outlet = {<OtherUserProfile/>}/>}/>
+      <Route path = 'User/Settings' element = {<ProtectedRoute outlet = {<UserSettings/>}/>}/>
     </Routes>
     </AuthProvider>
   </BrowserRouter>

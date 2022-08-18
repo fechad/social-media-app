@@ -12,8 +12,8 @@ import { AuthContext } from '../../Auth'
 import axios from 'axios'
 
 const ProfileSetup = () => {
-    let navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
+    let navigate = useNavigate();
     let name: string;
     function getAge(dateString:string) {
       var today = new Date();
@@ -47,7 +47,7 @@ const ProfileSetup = () => {
           method: 'POST',
           headers: {'Content-type': 'application/json'},
           body: JSON.stringify({
-            "email" : currentUser.email, 
+            "email": `${currentUser.email}`,
             "handle" : `${profileSetupInfos.handle}`,
             "profile_pic" : `${profileSetupInfos.photo}`,
             "age" : `${profileSetupInfos.birthday}`,

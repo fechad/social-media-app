@@ -19,8 +19,19 @@ export const INSERT = (table: string, nbValues: number) => {
 export const SELECT_ALL = (table: string) => 'SELECT * FROM ' + SCHEMA_NAME + '.' + table;
 export const UPDATE = (table: string) => 'UPDATE ' + SCHEMA_NAME + '.' + table + ' SET ';
 export const DELETE = (table: string) => 'DELETE FROM ' + SCHEMA_NAME + '.' + table;
+export const DELETE_USER = (email: string) => 'DELETE FROM chymera.users WHERE email =' + `'${email}';`;
 export const SELECT_SOME = (names: string[], table: string) => 'SELECT ' + names.join(', ') + ' FROM ' + SCHEMA_NAME + '.' + table;
 export const LIST_TABLES = `SELECT table_name FROM information_schema.tables WHERE table_schema = '${SCHEMA_NAME.toLowerCase()}';`;
+
+export const SELECT_MANY = (handles: string) : string => {
+    let queryCondition = ' WHERE ';
+    const handleArray = handles.split(' ');
+    handleArray.forEach((handle, index) => {
+        queryCondition += `handle = '${handle}'`;
+        if(handleArray.length-1 !== index) queryCondition += ' or '
+    })
+    return queryCondition;
+}
 
 // Inspiré du site : https://wiki.postgresql.org/wiki/Retrieve_primary_key_columns
 export const TABLE_PRIVATE_KEYS = (table: string) =>

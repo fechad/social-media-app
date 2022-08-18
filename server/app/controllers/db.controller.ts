@@ -27,6 +27,56 @@ export class DatabaseController {
 
         // ======= GENERAL ROUTES =======
 
+        router.get('/users/MyInfos/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyInfos(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyInfos/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyInfos(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyBlockedFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyBlockedFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyMutedFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyMutedFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerInfos(req.params.handle)
@@ -35,6 +85,25 @@ export class DatabaseController {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
                 });
+        });
+
+        router.get('/image/:pk', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getLinkPhoto(req.params.pk)
+                .then((result: pg.QueryResult) => {
+                    console.log(result.rows[0].profile_pic);
+                    if(result.rows[0].profile_pic === 'undefined') res.download('./assets/profile-pics/logo.svg');
+                    else res.download(result.rows[0].profile_pic);
+                    
+                })
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('profile_pic/:handle', (req: Request, res: Response) => {
+            res.download(req.params.path);
         });
 
         router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
@@ -48,6 +117,30 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        router.patch('/users/update/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            const update = { new: req.body, old: {email: req.params.email} }
+            this.databaseService
+                .updateUserEmail('users', update)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.delete('/users/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .deleteUser(req.params.email)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+        
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json('OK');
@@ -64,7 +157,25 @@ export class DatabaseController {
                 });
         });
 
-        
+        router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .searchUsers(req.params.handle)
+                .then((result) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/friends/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getFriendsInfos(req.params.handle)
+                .then((result) => {res.json(result), console.log(result)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
 
         /*router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService

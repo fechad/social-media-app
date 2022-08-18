@@ -1,0 +1,138 @@
+.SettingsPageContainer{
+    display: flex;
+    flex-direction: column;
+    margin-top: 104px;
+    gap: 24px;
+    //flex-wrap: wrap;
+    width: 720px;
+    //height: 928px;
+
+    // position: absolute;
+    // top: 96px;
+    // left: 0px;
+    // right: 0px;
+
+    .AccountStatus,
+    .Language{
+        display: flex;
+        flex-direction: column;
+        //flex-wrap: wrap;
+        height: 96px;
+        //padding-bottom: 8px;
+        .H2 {
+            //position: absolute;
+        }
+
+        .RadioOptions{
+            margin-top: -24px;
+        }
+        
+    }
+
+
+    .NewsPreference{
+        //height: 128px;
+
+        .CheckboxesContainer{
+            display: grid;
+            grid-template-columns: auto auto auto;
+        }
+    }
+
+    .Buttons{
+        position: absolute;
+        display: flex;
+        gap: 40px;
+        justify-content: center;
+        height: 100px;
+        align-items: center;
+        margin-top: 20px;
+        padding-left: 250px;
+        top: 96px;
+        right: 496px;
+
+    }
+
+    .Management{
+        align-self: flex-start;
+        margin-top: 8px;
+        .ManagementOptions{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            align-items: center;
+            width: 336px;
+
+
+            .H3{
+                margin-left: 24px;
+            }
+
+            &:hover{
+                //background-color: #EBEBEB;
+            }
+        }
+        .ModalTabsContent {
+
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+        .header{
+            &:hover{
+                cursor: pointer;
+                //border-bottom: 3px solid #8773F0;
+            }
+        }
+        .ModalSearchArea {
+            align-items: center;
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+        .html-container{
+
+            width: 100%;
+            .MatchingUsers {
+
+                display: grid;
+                grid-template-columns: auto auto;
+                gap: 4px;
+                width: 988px;
+
+                margin-top: 32px;
+                .MatchingUsersContainer {
+                    width: auto;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+
+                    &:hover {
+                        
+                        background-color: #EBEBEB;
+                    }
+                }
+            }
+        }
+    }
+
+    .Irreversible{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        align-items: center;
+        width: 336px;
+        margin-top: 20px;
+
+        .H3{
+            margin-left: 24px;
+        }
+
+        &:hover{
+            //background-color: #EBEBEB;
+        }
+    }
+    
+}

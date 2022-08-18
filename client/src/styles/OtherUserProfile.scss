@@ -1,0 +1,40 @@
+.infos-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 96px 0px 16px 0px;
+}
+
+#test {
+    border-radius: 100%;
+    margin-right: 32px;
+}
+ 
+
+
+.left-infos {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.id-container{
+    display: flex;
+    flex-direction: row;
+    width: 232px;
+    justify-content: space-between;
+    p {
+        margin: 5px;
+    }
+}
+
+.bio-container {
+    width: 604px;
+    height: 85px;
+    border-radius: 16px;
+}
+
+.friends {
+    margin: 0px 0px 16px 0px;
+}
