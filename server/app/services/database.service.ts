@@ -25,6 +25,19 @@ export class DatabaseService {
 
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
+    public async reset(): Promise<void> {
+        //this.query("select pg_terminate_backend(pid) from pg_stat_activity where datname='postgres'" + END_CHAR);
+        // SELECT 
+        // pg_terminate_backend(pid) 
+        // FROM 
+        // pg_stat_activity 
+        // WHERE
+        // pid <> pg_backend_pid()
+        // -- no need to kill connections to other databases
+        // AND datname = current_database();
+        this.query("select pg_terminate_backend(pid) from pg_stat_activity where datname='db';");
+    }
+
     // ======= GENERIC =======
     public async getTable(tableName: string, filter: any = {}): Promise<pg.QueryResult> {
         console.log(SELECT_ALL(tableName) + ' WHERE name LIKE ' + `'%${filter.name}%' ` + END_CHAR);
@@ -129,6 +142,10 @@ export class DatabaseService {
         return this.updateDBNewsOptions(tableName, update);
     }
 
+    public async updateUserEmail(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateEmail(tableName, update);
+    }
+
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {
         return this.update(tableName, update);
     }
@@ -157,6 +174,12 @@ export class DatabaseService {
     private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
         /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
 	WHERE <condition>;*/
+        const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+        console.log(query);
+        return this.query(query);
+    }
+
+    private async updateEmail(table: string, update: Update): Promise<pg.QueryResult> {
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
         console.log(query);
         return this.query(query);

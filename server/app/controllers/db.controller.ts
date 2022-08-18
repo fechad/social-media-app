@@ -117,6 +117,18 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        router.patch('/users/update/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            const update = { new: req.body, old: {email: req.params.email} }
+            this.databaseService
+                .updateUserEmail('users', update)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
         
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
@@ -147,6 +159,16 @@ export class DatabaseController {
         router.get('/friends/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getFriendsInfos(req.params.handle)
+                .then((result) => {res.json(result), console.log(result)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/reset', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .reset()
                 .then((result) => {res.json(result), console.log(result)})
                 .catch((e: Error) => {
                     console.error(e.stack);

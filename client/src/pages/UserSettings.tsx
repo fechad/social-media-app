@@ -19,7 +19,7 @@ import TextInput from '../components/TextInput';
 import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
-import { AuthCredential, getAuth, reauthenticateWithCredential, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { AuthCredential, getAuth, reauthenticateWithCredential, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
 
 
 interface data {
@@ -28,7 +28,7 @@ interface data {
     profile_pic : string,
     age : string,
     account_name : string,
-    private_account : string,
+    private_account? : string,
     bio : string,
     news_options : string,
     local_news : string,
@@ -38,7 +38,7 @@ interface data {
 const UserSettings = () => {
 
     let navigate = useNavigate();
-
+    const auth = getAuth();
     const {currentUser} = useContext(AuthContext);
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -56,7 +56,6 @@ const UserSettings = () => {
             return;
         }
         setErrorMessage('**** Entered passwords are not matching ****');
-        const auth = getAuth();
         signInWithEmailAndPassword(auth, currentUser.email, oldPassword?.toString()!)
             .then((userCredential) => {
 
@@ -69,7 +68,7 @@ const UserSettings = () => {
                       });
                   }).catch((error) => {
                     // An error ocurred
-                    // ...
+                    window.alert(error.message)
                   });
             })
             .catch((error) => {
@@ -81,14 +80,46 @@ const UserSettings = () => {
 
         const oldEmail = (document.getElementById('OldEmail') as HTMLElement).querySelector('input')?.value;
         const newEmail = (document.getElementById('NewEmail') as HTMLElement).querySelector('input')?.value;
+        const password = (document.getElementById('Password') as HTMLElement).querySelector('input')?.value;
+        console.log(newEmail);
         if(oldEmail === currentUser.email) {
-            updateEmail(currentUser, newEmail?.toString()!).then(() => {
-                // Email updated!
-                // ...
-                }).catch((error) => {
-                // An error occurred
-                // ...
-                });        
+            signInWithEmailAndPassword(auth, currentUser.email, password?.toString()!)
+            .then((userCredential) => {
+                updateEmail(currentUser, newEmail?.toString()!).then(() => {
+                    // Email updated!
+
+                    fetch(`${environment.serverUrl}/database/users/update/${oldEmail}`, {
+                        method: 'PATCH',
+                        headers: {'Content-type': 'application/json'},
+                        body: JSON.stringify({
+                          "email": newEmail
+                        }),
+                      }).then(() =>{
+                            window.location.reload();
+                      })
+
+                    sendEmailVerification(currentUser)
+                    .then(() => {
+                    // Email verification sent!
+                    });
+
+                    signOut(auth).then(() => {
+                        // Sign-out successful.
+                        navigate("/", { replace: true });
+                      }).catch((error) => {
+                        // An error happened.
+                        window.alert(error.message);
+                      });
+                    
+                    }).catch((error) => {
+                    // An error occurred
+                    window.alert(error.message);
+                    });        
+            })
+            .catch((error) => {
+                window.alert(error.message);
+            });
+            
         } else {
             setErrorMessage("**** The current email provided doesn't match ****");
         }
@@ -141,7 +172,7 @@ const UserSettings = () => {
             method: 'PATCH',
             headers: {'Content-type': 'application/json'},
             body: JSON.stringify({
-              "private_account" : getRadiosUpdate()[0],
+              "private_account": getRadiosUpdate()[0],
               "news_options" : getCheckboxUpdate(),
               "french_language" : getRadiosUpdate()[1],
             }),
@@ -355,18 +386,25 @@ const UserSettings = () => {
                             triggerElement={<div className='ManagementOptions'> <BiEnvelope size={20} /> <Text type='H3' content='Change email address' /> </div>}
                             title='Change email ?'
                             modalWidth='640px'
-                            modalHeight='352px'
+                            modalHeight='492px'
                             primary='Validate'
-                            primaryFct={() => { console.log('Validated email change')}}
+                            primaryFct={() =>  {changeEmail()}}
                         >
                             <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '20px'}} >
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} className="OldEmail">
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id="OldEmail">
                                     <Text content='Current email:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='text' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} className="NewEmail">
+                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} id="NewEmail">
                                     <Text content='New email:' type='H3' />
                                     <TextInput width='320px' height='32px' type='text' label=''/>
+                                </div>
+                                <div>
+                                    <Text content='Enter password to authenticate' type='H3' />
+                                </div>
+                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='Password'>
+                                    <Text content='Password:' type='H3'/>
+                                    <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
                             </div>
                         </Modal>
@@ -375,7 +413,7 @@ const UserSettings = () => {
                 <div >
                     <Modal 
                         triggerElement={<div className='Irreversible'> <FiTrash2 size={20} color='#FF0000'/> <Text type='H3' content='Delete account' color='#FF0000'/> </div>}
-                        title='Change email ?'
+                        title='Delete Account ?'
                         modalWidth='640px'
                         modalHeight='352px'
                         destructive={true}
