@@ -19,7 +19,7 @@ import TextInput from '../components/TextInput';
 import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
-import { AuthCredential, getAuth, reauthenticateWithCredential, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { AuthCredential, deleteUser, getAuth, reauthenticateWithCredential, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
 
 
 interface data {
@@ -124,6 +124,37 @@ const UserSettings = () => {
             setErrorMessage("**** The current email provided doesn't match ****");
         }
     };
+
+    const deleteAccount = () =>  {
+        const password = (document.getElementById('DeletingPassword') as HTMLElement).querySelector('input')?.value;
+
+        signInWithEmailAndPassword(auth, currentUser.email, password?.toString()!)
+        .then((userCredential) => {
+            deleteUser(currentUser).then(() => {
+                // User deleted.
+
+                fetch(`${environment.serverUrl}/database/users/${currentUser.email}`, {
+                    method: 'DELETE'
+                  });
+
+                signOut(auth).then(() => {
+                    // Sign-out successful.
+                    navigate("/", { replace: true });
+                  }).catch((error) => {
+                    // An error happened.
+                    window.alert(error.message);
+                  });
+
+              }).catch((error) => {
+                // An error ocurred
+                window.alert(error.message);
+              });
+
+        }).catch((error) => {
+            window.alert(error.message);
+        });
+        
+    }
 
     const retrieveInfos = async () => {
         await axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -418,13 +449,13 @@ const UserSettings = () => {
                         modalHeight='352px'
                         destructive={true}
                         primary='Delete'
-                        primaryFct={() => { console.log('Account deleted')}}
+                        primaryFct={() => { deleteAccount()}}
                     >
                         <div style={{display: 'flex', flexDirection: 'column', gap: '8px', width: 'inherit', marginTop: '-4px'}} >
                             <div style={{display: 'flex', width: '544px', alignItems: 'center', marginLeft: '56px'}}>
                                 <Text content='Deleting account is irreversible and immediate. Please enter your account password to validate this request.' type='H3'/>
                             </div>
-                            <div style={{display: 'flex', gap: '44px', alignItems: 'center', marginLeft: '56px'}}>
+                            <div style={{display: 'flex', gap: '44px', alignItems: 'center', marginLeft: '56px'}} id="DeletingPassword">
                                 <Text content='Enter password:' type='H3' />
                                 <TextInput width='320px' height='32px' type='password' label=''/>
                             </div>
