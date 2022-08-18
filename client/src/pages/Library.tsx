@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
@@ -34,9 +34,7 @@ function modalContent(){
 }
 
 const Library = () => {
-  const [openEmptyModal, openEmptyModalNow] = useState(false);
 
- 
   return (
     <section className='LibraryContainer' >
       <LeftSidePane />

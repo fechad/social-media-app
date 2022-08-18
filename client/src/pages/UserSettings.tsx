@@ -19,21 +19,21 @@ import TextInput from '../components/TextInput';
 import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
-import { AuthCredential, deleteUser, getAuth, reauthenticateWithCredential, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { deleteUser, getAuth, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
 
 
-interface data {
-    email: string,
-    handle : string,
-    profile_pic : string,
-    age : string,
-    account_name : string,
-    private_account? : string,
-    bio : string,
-    news_options : string,
-    local_news : string,
-    french_language : string,
-}
+// interface data {
+//     email: string,
+//     handle : string,
+//     profile_pic : string,
+//     age : string,
+//     account_name : string,
+//     private_account? : string,
+//     bio : string,
+//     news_options : string,
+//     local_news : string,
+//     french_language : string,
+// }
 
 const UserSettings = () => {
 
@@ -300,9 +300,9 @@ const UserSettings = () => {
           )
     }
 
-    const myBlockedFriends = () => {
+    // const myBlockedFriends = () => {
 
-    }
+    // }
 
     function mutedFriends(){
 
@@ -329,9 +329,9 @@ const UserSettings = () => {
           )
     }
 
-    const myMutedFriends = () => {
+    // const myMutedFriends = () => {
 
-    }
+    // }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, []);

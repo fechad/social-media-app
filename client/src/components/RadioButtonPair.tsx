@@ -10,6 +10,7 @@ interface RadioButtonPairProps{
 
 const RadioButtonPair = ({firstText, secondText, firstChecked} : RadioButtonPairProps) => {
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [checked, setState] = useState(firstChecked)
 
     useEffect(()=>{
@@ -38,6 +39,7 @@ const RadioButtonPair = ({firstText, secondText, firstChecked} : RadioButtonPair
                 (document.getElementById(firstText)?.childNodes[1]?.previousSibling?.firstChild as HTMLElement).firstElementChild?.classList.remove('Checked');
             }
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     },[])
 
   return (

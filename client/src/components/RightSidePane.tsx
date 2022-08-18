@@ -12,7 +12,6 @@ import { FiLogOut, FiUser } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signOut  } from "firebase/auth";
 import { app } from '../firebaseConfig'
-import { environment } from '../environments/environment'
 
 function swithTheme(){
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;

@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Text from './Text';
 import '../styles/Modal.scss';
 import Button from './Button';
