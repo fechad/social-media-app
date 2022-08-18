@@ -31,7 +31,7 @@ function swithTheme(){
 
 function RightSidePane() {
 
-    function signOutOfWebsite(){
+    async function signOutOfWebsite(){
         const auth = getAuth(app);
         signOut(auth).then(() => {
             // Sign-out successful.
@@ -77,7 +77,7 @@ function RightSidePane() {
                                 <FiUser size={20} />
                                 <Text type='H3' content='My profile' />
                             </div>
-                            <div className='PopupOptions'>
+                            <div className='PopupOptions' onClick={() => navigate("/User/Settings", { replace: true })}>
                                 <HiOutlineCog size={20} />
                                 <Text type='H3' content='Settings' />
                             </div>
@@ -97,10 +97,10 @@ function RightSidePane() {
                 <Switch resp='notifications'/>
             </div>
             <div className='RecentNotifications'>
-                {newNotifications.map((notification)=>{
+                {newNotifications.map((notification, index: any)=>{
                     return(
 
-                        <div className='NotificationContainer'>
+                        <div key={index} className='NotificationContainer'>
                             <NotificationCard notificationId={notification.id} photos={notification.photos} title={notification.title} message={notification.message} read={notification.read} />
                          </div> 
                     )           
@@ -113,10 +113,10 @@ function RightSidePane() {
                 <Button text=''  icon={<AiOutlinePlus size={30}/>} color=' '/>
             </div>
             <div className='RecentGroupConvos'>
-                {groupConvos.map((group)=>{
+                {groupConvos.map((group, index: any)=>{
                     return(
                         
-                        <div className='GroupChatContainer'>
+                        <div key={index} className='GroupChatContainer'>
                             <ChatPreview  chatId={group.id} photos={group.photos} names={group.names} latest={group.latest} read={group.read} groupChat={true}/>
                         </div> 
                     )           

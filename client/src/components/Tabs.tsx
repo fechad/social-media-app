@@ -22,8 +22,8 @@ const Tabs = ({tabs, pages} : TabsProps) => {
 
     const headers = tabs.split(';').map((header, index) => {
     return (
-        <div className = 'header' id = {`${index}`} onClick={()=>{if(index !== selected)document.getElementById(selected.toString())?.classList.remove('selected'); changeSelected(index)}}>
-            <Text key = {index} content = {`${header}`} type = 'H2'></Text>
+        <div key={index} className = 'header' id = {`${index}`} onClick={()=>{if(index !== selected)document.getElementById(selected.toString())?.classList.remove('selected'); changeSelected(index)}}>
+            <Text content = {`${header}`} type = 'H2'></Text>
         </div>
     )
     });
@@ -31,7 +31,7 @@ const Tabs = ({tabs, pages} : TabsProps) => {
     return (
         <div>
             <div className='post-container'>
-                {headers}
+                {tabs !== '' ? headers : ''}
             </div>
             <div className='html-container'>
                 {pages[selected]}

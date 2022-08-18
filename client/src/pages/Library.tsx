@@ -13,6 +13,9 @@ import ChatPreview from '../components/ChatPreview';
 import LeftSidePane from '../components/LeftSidePane';
 import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
+import RadioButton from '../components/RadioButton';
+import Modal from '../components/Modal';
+import Tabs from '../components/Tabs';
 
 
 
@@ -20,8 +23,18 @@ function print(){
   console.log('I did my job !');
 }
 
+function modalContent(){
+
+  return(
+    <div>
+      <h1> This is an empty modal</h1>
+      <p> Add more to it</p>
+    </div>
+  )
+}
 
 const Library = () => {
+
   return (
     <section className='LibraryContainer' >
       <LeftSidePane />
@@ -56,7 +69,7 @@ const Library = () => {
           </section>
         </div>
         <div>
-        <Text type='H1' content='Link examples:' />
+          <Text type='H1' content='Link examples:' />
           <section>
             <Link />
             <Link underlined={true}/>
@@ -123,6 +136,30 @@ const Library = () => {
           </section>
         </div>
 
+        <div>
+        <Text type='H1' content='Radio buttons' />
+          <section>
+            <RadioButton text='option 1' alreadyChecked={true}/>
+            <RadioButton text='option 1' alreadyChecked={false} />
+          </section>
+        </div>
+
+        <div>
+          <Text type='H1' content='Modal examples' />
+          <section>
+            <Modal triggerElement={<Button text='Open empty modal' />} title='This is a modal' modalWidth='200px' modalHeight='150px'>
+              <div>
+                <Tabs pages={[modalContent()]} tabs='' />
+              </div>
+            </Modal>
+
+            <Modal triggerElement={<Button text='Open empty modal with buttons' />} title='This is a modal' modalWidth='200px' modalHeight='150px' primary='Primary' primaryFct={() => {console.log('I did my primary job')}} secondary='Secondary' secondaryFct={() => {console.log('I did my secondary job')}}>
+              <div>
+                <Tabs pages={[modalContent()]} tabs='' />
+              </div>
+            </Modal>
+          </section>
+        </div>
       </section>
       <RightSidePane />
       <footer> <Text content='This is the footer'></Text></footer>

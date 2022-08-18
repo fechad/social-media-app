@@ -6,9 +6,9 @@ import { useState } from 'react';
 
 
 
-const Checkbox = ({text}:{text: string}) => {
+const Checkbox = ({text, alreadyChecked}:{text: string, alreadyChecked?: boolean}) => {
 
-  const [checked, setCheck] = useState(false);
+  const [checked, setCheck] = useState(alreadyChecked);
 
   return (
     <div className='CheckboxContainer'>
