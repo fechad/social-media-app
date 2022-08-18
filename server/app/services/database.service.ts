@@ -25,19 +25,6 @@ export class DatabaseService {
 
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
 
-    public async reset(): Promise<void> {
-        //this.query("select pg_terminate_backend(pid) from pg_stat_activity where datname='postgres'" + END_CHAR);
-        // SELECT 
-        // pg_terminate_backend(pid) 
-        // FROM 
-        // pg_stat_activity 
-        // WHERE
-        // pid <> pg_backend_pid()
-        // -- no need to kill connections to other databases
-        // AND datname = current_database();
-        this.query("select pg_terminate_backend(pid) from pg_stat_activity where datname='db';");
-    }
-
     // ======= GENERIC =======
     public async getTable(tableName: string, filter: any = {}): Promise<pg.QueryResult> {
         console.log(SELECT_ALL(tableName) + ' WHERE name LIKE ' + `'%${filter.name}%' ` + END_CHAR);

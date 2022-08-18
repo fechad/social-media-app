@@ -166,16 +166,6 @@ export class DatabaseController {
                 });
         });
 
-        router.get('/reset', (req: Request, res: Response, next: NextFunction) => {
-            this.databaseService
-                .reset()
-                .then((result) => {res.json(result), console.log(result)})
-                .catch((e: Error) => {
-                    console.error(e.stack);
-                    res.status(404).json(e.stack);
-                });
-        });
-
         /*router.get('/tables', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getTablesList()

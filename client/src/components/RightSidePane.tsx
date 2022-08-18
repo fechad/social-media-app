@@ -33,9 +33,6 @@ function swithTheme(){
 function RightSidePane() {
 
     async function signOutOfWebsite(){
-        await fetch(`${environment.serverUrl}/database/reset`, {
-            method: 'GET',
-          });
         const auth = getAuth(app);
         signOut(auth).then(() => {
             // Sign-out successful.
