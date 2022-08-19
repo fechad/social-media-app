@@ -1,5 +1,5 @@
 
-import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER } from '../constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER } from '../constants';
 import * as pg from 'pg';
 import 'reflect-metadata';
 import { Service } from 'typedi';
@@ -70,6 +70,33 @@ export class DatabaseService {
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
+    }
+    public async getMyFriends(email: string): Promise<pg.QueryResult> {
+        const handles =  (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR));
+        if(handles.rows[0]?.list) {
+            const queryCondition = SELECT_MANY(handles.rows[0].list);
+            console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR)
+            return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR);
+        };
+        return handles;
+    }
+    public async getMyBlockedFriends(email: string): Promise<pg.QueryResult> {
+        const handles = (await this.query(SELECT_SOME(['list'],'blocked_people') + ` WHERE email = '${email}' ` + END_CHAR));
+        if(handles.rows[0]?.list) {
+            const queryCondition = SELECT_MANY(handles.rows[0].list);
+            console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR)
+            return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR);
+        };
+        return handles;
+    }
+    public async getMyMutedFriends(email: string): Promise<pg.QueryResult> {
+        const handles = (await this.query(SELECT_SOME(['list'],'muted_people') + ` WHERE email = '${email}' ` + END_CHAR));
+        if(handles.rows[0]?.list) {
+            const queryCondition = SELECT_MANY(handles.rows[0].list);
+            console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR)
+            return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + queryCondition + END_CHAR);
+        };
+        return handles;
     }
     public async getLinkPhoto(handle: string): Promise<pg.QueryResult> {
         console.log('SELECT profile_pic FROM Chymera.users' + ' WHERE email =' + `'${handle}' ` + 'or handle =' + `'${handle}' ` + END_CHAR);
@@ -157,6 +184,15 @@ export class DatabaseService {
         return this.updateDBNewsOptions(tableName, update);
     }
 
+    public async updateUserEmail(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateEmail(tableName, update);
+    }
+
+    public async deleteUser(email: string): Promise<pg.QueryResult> {
+        console.log(DELETE_USER(email));
+        return this.query(DELETE_USER(email))
+    }
+
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {
         return this.update(tableName, update);
     }
@@ -185,6 +221,12 @@ export class DatabaseService {
     private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
         /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
 	WHERE <condition>;*/
+        const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+        console.log(query);
+        return this.query(query);
+    }
+
+    private async updateEmail(table: string, update: Update): Promise<pg.QueryResult> {
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
         console.log(query);
         return this.query(query);

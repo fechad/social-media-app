@@ -41,6 +41,32 @@ export class DatabaseController {
             this.databaseService
                 . getOneFavorite(req.params.creds.split('..')[0], req.params.creds.split('..')[1])
                 .then((result: boolean) => {res.json(result), console.log(result)})
+        });
+
+        router.get('/users/MyFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyBlockedFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyBlockedFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyMutedFriends/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyMutedFriends(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
@@ -101,6 +127,29 @@ export class DatabaseController {
             const update = { new: req.body, old: {email: req.params.email} }
             this.databaseService
                 .updateNewsOptions('users', update)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.patch('/users/update/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            const update = { new: req.body, old: {email: req.params.email} }
+            this.databaseService
+                .updateUserEmail('users', update)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.delete('/users/:email', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .deleteUser(req.params.email)
                 .then((result: pg.QueryResult) => res.json(result.rowCount))
                 .catch((e: Error) => {
                     console.error(e.stack);

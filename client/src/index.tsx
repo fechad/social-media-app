@@ -24,6 +24,7 @@ import Notifications from './pages/Notifications';
 import Chats from './pages/Chats';
 import OtherUserProfile from './pages/OtherUserProfile';
 import PostComments from './pages/PostComments';
+import UserSettings from './pages/UserSettings';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -49,6 +50,7 @@ root.render(
       <Route path = 'User/Profile' element = {<ProtectedRoute outlet = {<UserProfile/>}/>}/>
       <Route path = 'User/Profile/:handle' element = {<ProtectedRoute outlet = {<OtherUserProfile/>}/>}/>
       <Route path = 'Post/:PostId' element = {<ProtectedRoute outlet = {<PostComments/>}/>}/>
+      <Route path = 'User/Settings' element = {<ProtectedRoute outlet = {<UserSettings/>}/>}/>
     </Routes>
     </AuthProvider>
   </BrowserRouter>
