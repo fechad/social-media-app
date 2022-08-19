@@ -42,6 +42,17 @@ const UserProfile = () => {
         'comments_number': 0,
 
     }]);
+    const [faveList, setFavorite] = useState([{
+        'handle': 'none',
+        'post_id': '0',
+        'media': 'none',
+        'text_message': 'none',
+        'likes': 0,
+        'date': '00-00-00',
+        'isVideo': false,
+        'comments_number': 0,
+
+    }]);
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -51,6 +62,9 @@ const UserProfile = () => {
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
                 setPost(posts.data);
+            })
+            axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].handle}`).then((favorite)=>{
+                setFavorite(favorite.data);
             })
         })  
     }
@@ -68,10 +82,24 @@ const UserProfile = () => {
         )
     });
 
+    const starred = faveList.map((post, index) => {
+        return (
+            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number}></Post>
+        )
+    });
+
     function publications(){
         return (
             <div>
                 {posts}
+            </div>
+        )
+    }
+
+    function favorites(){
+        return (
+            <div>
+                {starred}
             </div>
         )
     }
@@ -114,7 +142,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
-            <Tabs pages={[publications(), publications()]} ></Tabs>
+            <Tabs pages={[publications(), favorites()]} ></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )

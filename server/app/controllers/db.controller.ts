@@ -57,6 +57,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/users/favorite/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerFavorite(req.params.handle)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/image/:pk', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getLinkPhoto(req.params.pk)
