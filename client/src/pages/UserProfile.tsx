@@ -61,6 +61,7 @@ const UserProfile = () => {
                 setFriends(friends.data);
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
+                console.log(posts.data);
                 setPost(posts.data);
             })
             axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].handle}`).then((favorite)=>{

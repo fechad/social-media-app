@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { environment } from '../environments/environment'
 import Text from './Text'
 import '../styles/Post.scss'
@@ -22,37 +22,47 @@ interface PostProps {
 }
 
 function Post({handle, username, media, text_message, likes, date, postId, nbComments}:PostProps) {
+    let navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
 
-    const [favButton, setFave] = useState(false);
-    const [likeButton, setLike] = useState(false);
+    const [bookmarked, setBookmark] = useState(false);
+    const [liked, setLike] = useState(false);
     
-    const liked = useCallback(() => {
-        if(likeButton) return (<FaHeart color='red' size='24px'/>)
-        else return (<FaRegHeart color='black' size='24px'/>)
-    }, [likeButton])
-
-    const faved = useCallback(() => {
-        if(favButton) {
-            console.log('add');
-            axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`);
-            return (<AiFillStar color = '#8773F0' size={'32px'}/>);
+    const like = (liked: boolean) => {
+        if(liked) {
+            console.log('liked');
+            //axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`);
         }
         else {
-            console.log('delete');
-            axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`);
-            return (<AiOutlineStar color = 'black' size={'32px'}/>);
+            console.log('unLiked');
+            //axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`);
         }
-    }, [currentUser.email, favButton, postId])
-    let navigate = useNavigate();
-    const [stateLike, changeStateLike] = useState(()=>liked());
-    const [stateFave, changeStateFave] = useState(()=>faved());
+        setLike(liked);
+    }
+
+    const bookmark = (add: boolean) => {
+        if(add) {
+            
+            axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`).then(() => console.log('add'));
+        }
+        else {
+            
+            axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`).then(() => console.log('delete'));
+        }
+        setBookmark(add);
+    }
+
+   
+    // const [stateLike, changeStateLike] = useState();
+    // const [stateFave, changeStateFave] = useState();
+
     useEffect(()=>{
-            changeStateFave(()=>faved());
-        }, [favButton, faved]);
-    useEffect(()=>{
-            changeStateLike(liked());
-        }, [likeButton, liked]);
+            // changeStateFave(()=>faved());
+    }, [bookmarked, liked]);
+
+    // useEffect(()=>{
+    //         changeStateLike(liked());
+    //     }, [likeButton, liked]);
     return (
         <div className='post'>
             <div className = 'header'>
@@ -61,15 +71,15 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                     <Text type='H3 bold' content={`${username}`}></Text>
                 </div>
                 <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
-                <div onClick={() => {setFave(!favButton)}}>
-                    {stateFave}
+                <div onClick={() => {bookmark(!bookmarked)}}>
+                    {bookmarked ? <AiFillStar color = '#8773F0' size={'32px'}/> : <AiOutlineStar color = 'black' size={'32px'}/>}
                 </div>
             </div>
             <Text content={text_message}/>
             <img className = 'image-post' src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
             <div className = 'footer'>
-                <div id = 'likes' onClick={() => {setLike(!likeButton);}}>
-                    {stateLike}
+                <div id = 'likes' onClick={() => {like(!liked)}}>
+                    {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
                     <Text content = {likes.toString()}></Text>
                 </div>
                 <div id = 'comments' onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}>
