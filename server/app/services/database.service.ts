@@ -41,9 +41,7 @@ export class DatabaseService {
     }
 
     public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
-        console.log((SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR));
         const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
-        //const favorite =  'fhbefigeiugfihebcksbaicg';
         const list = favorite.split(' ');
         let query = '';
         for (let i = 1; i<list.length; i++) {
@@ -52,6 +50,16 @@ export class DatabaseService {
         query += `post_id = '${list[0]}'`
         console.log(SELECT_ALL('post') + ' WHERE ' + `${query}` + END_CHAR);
         return this.query(SELECT_ALL('post') + ' WHERE ' + `${query}` + END_CHAR);
+    }
+
+    public async getOneFavorite(email: string, postId: string): Promise<boolean> {
+        const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
+        const list = favorite.split(' ');
+        console.log(list);
+        for (let elem of list) {
+            if(elem === postId) return true;
+        }
+        return false
     }
 
     public async getUSerPost(handle: string): Promise<pg.QueryResult> {
@@ -93,7 +101,6 @@ export class DatabaseService {
     }
 
     public async createFave(email: string, postId: string): Promise<void> {
-        console.log(INSERT('favorite', 2), [email, postId]);
         this.query(INSERT('favorite', 2), [email, postId]).catch( async ()=>{
             let currentPosts = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
             let fave = currentPosts.split(' ');
@@ -109,16 +116,13 @@ export class DatabaseService {
     }
 
     public async removeFave(email: string, postId: string): Promise<void> {
-        console.log('removefave has been called');
-        console.log((await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]);
         if ((await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]) {
                 let currentPosts = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
                 let fave = currentPosts.split(' ');
                 let newPosts = '';
                 for (let elem of fave) {
-                    if (elem !== postId) newPosts += elem + ' ';
+                    if (elem !== postId && elem !== '') newPosts += elem + ' ';
                 }
-                console.log(newPosts);
                 console.log('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
                 this.query('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
             }

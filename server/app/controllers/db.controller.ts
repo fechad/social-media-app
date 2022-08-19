@@ -37,6 +37,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/isFavorite/:creds', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getOneFavorite(req.params.creds.split('..')[0], req.params.creds.split('..')[1])
+                .then((result: boolean) => {res.json(result), console.log(result)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerInfos(req.params.handle)
