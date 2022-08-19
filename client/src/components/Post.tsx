@@ -24,10 +24,13 @@ interface PostProps {
 function Post({handle, username, media, text_message, likes, date, postId, nbComments}:PostProps) {
     let navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
+    const [isStarred, setStarred] = useState(false);
     function getBookmarks(): boolean {
-        let bool: boolean = false;
-        axios.get(`${environment.serverUrl}/database/isFavorite/${currentUser.email}..${postId}`).then((res)=>{ bool = res.data[0]});
-        return bool;
+        axios.get(`${environment.serverUrl}/database/isFavorite/${currentUser.email}..${postId}`).then((res)=>{ 
+            console.log(res.data);
+            setStarred(res.data);
+        });
+        return isStarred;
     }
     const [bookmarked, setBookmark] = useState(getBookmarks());
     const [liked, setLike] = useState(false);
