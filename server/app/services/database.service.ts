@@ -40,10 +40,10 @@ export class DatabaseService {
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
-    public async getUSerFavorite(handle: string): Promise<pg.QueryResult> {
-        // console.log((await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${handle}'` + END_CHAR)).rows[0].posts);
-        // const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${handle}'` + END_CHAR)).rows[0].posts;
-        const favorite =  'fhbefigeiugfihebcksbaicg';
+    public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
+        console.log((SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR));
+        const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
+        //const favorite =  'fhbefigeiugfihebcksbaicg';
         const list = favorite.split(' ');
         let query = '';
         for (let i = 1; i<list.length; i++) {

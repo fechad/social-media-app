@@ -64,7 +64,7 @@ const UserProfile = () => {
                 console.log(posts.data);
                 setPost(posts.data);
             })
-            axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].handle}`).then((favorite)=>{
+            axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
                 setFavorite(favorite.data);
             })
         })  

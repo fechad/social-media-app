@@ -57,9 +57,9 @@ export class DatabaseController {
                 });
         });
 
-        router.get('/users/favorite/:handle', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/users/favorite/:email', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                .getUSerFavorite(req.params.handle)
+                .getUSerFavorite(req.params.email)
                 .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
