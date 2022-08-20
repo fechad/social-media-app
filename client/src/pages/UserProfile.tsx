@@ -53,6 +53,8 @@ const UserProfile = () => {
         'comments_number': 0,
 
     }]);
+
+    const [clicked, setClick] = useState(0);
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -60,13 +62,14 @@ const UserProfile = () => {
             axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             })
+            axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
+                setFavorite(favorite.data);
+            })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
                 console.log(posts.data);
                 setPost(posts.data);
             })
-            axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
-                setFavorite(favorite.data);
-            })
+           
         })  
     }
     const friends = friendsList.map((friend, index) => {
@@ -78,15 +81,33 @@ const UserProfile = () => {
     });
 
     const posts = postList.map((post, index) => {
+
+        if(post.post_id === '0') return '';
+
+        else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
+
+            console.log(faveList.filter(item=>item.post_id === post.post_id).length);
+            return (
+                <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
+            );
+        }
+        console.log(post.post_id);
         return (
-            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number}></Post>
-        )
+            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
+        );
     });
 
-    const starred = faveList.map((post, index) => {
-        return (
-            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number}></Post>
-        )
+    const starred = postList.map((post, index) => {
+        if(post.post_id === '0') return '';
+
+        else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
+
+            console.log(faveList.filter(item=>item.post_id === post.post_id).length);
+            return (
+                <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
+            );
+        }
+        return '';
     });
 
     function publications(){
@@ -106,7 +127,7 @@ const UserProfile = () => {
     }
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
-    useEffect(()=>{retrieveInfos()}, []);
+    useEffect(()=>{retrieveInfos()}, [clicked]);
     return (
         <div id = 'page-container'>
             <div className='LeftSideContainer'><LeftSidePane /></div>
@@ -143,7 +164,7 @@ const UserProfile = () => {
                     </div>
                 </div>
             </div>
-            <Tabs pages={[publications(), favorites()]} ></Tabs>
+            <Tabs pages={[publications(), favorites()]} titleFct = {()=>{setClick(clicked + 1)}}></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )

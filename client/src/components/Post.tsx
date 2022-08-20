@@ -18,22 +18,16 @@ interface PostProps {
     date: string,
     isVideo: boolean,
     postId: string,
-    nbComments: number
+    nbComments: number,
+    isFaved: boolean,
+    isLiked: boolean,
 }
 
-function Post({handle, username, media, text_message, likes, date, postId, nbComments}:PostProps) {
+function Post({handle, username, media, text_message, likes, date, postId, nbComments, isFaved, isLiked}:PostProps) {
     let navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
-    const [isStarred, setStarred] = useState(false);
-    function getBookmarks(): boolean {
-        axios.get(`${environment.serverUrl}/database/isFavorite/${currentUser.email}..${postId}`).then((res)=>{ 
-            console.log(res.data);
-            setStarred(res.data);
-        });
-        return isStarred;
-    }
-    const [bookmarked, setBookmark] = useState(getBookmarks());
-    const [liked, setLike] = useState(false);
+    const [bookmarked, setBookmark] = useState(isFaved);
+    const [liked, setLike] = useState(isLiked);
     
     const like = (liked: boolean) => {
         if(liked) {
@@ -62,14 +56,23 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
    
     // const [stateLike, changeStateLike] = useState();
     // const [stateFave, changeStateFave] = useState();
+    // useEffect(()=>{
+    //     setBookmark(isFaved);
+    // }, []);
 
     useEffect(()=>{
+        console.log(bookmarked, postId);
+        //setBookmark(isFaved);
             // changeStateFave(()=>faved());
     }, [bookmarked, liked]);
 
     // useEffect(()=>{
-    //         changeStateLike(liked());
-    //     }, [likeButton, liked]);
+    //     console.log(postId);
+    //     axios.get(`${environment.serverUrl}/database/isFavorite/${currentUser.email}..${postId}`).then((res)=>{ 
+    //         console.log(res.data);
+    //         setBookmark(res.data);
+    //     });
+    // }, []);
     return (
         <div className='post'>
             <div className = 'header'>
@@ -98,6 +101,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
         </div>
     )
 }
+
 
 
 export default Post
