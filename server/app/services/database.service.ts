@@ -176,12 +176,18 @@ export class DatabaseService {
         return this.insert(tableName, this.objectToArray(obj));
     }
 
+    // public async updateUser(update: Update): Promise<pg.QueryResult> {
+    //     const query = UPDATE('users') + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+    //     console.log(query);
+    //     return this.query(query);
+    // }
+
     public async remove(tableName: string, obj: any): Promise<pg.QueryResult> {
         return this.delete(tableName, obj);
     }
 
-    public async updateNewsOptions(tableName: string, update: Update): Promise<pg.QueryResult> {
-        return this.updateDBNewsOptions(tableName, update);
+    public async updateUser(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateDBUser(tableName, update);
     }
 
     public async updateUserEmail(tableName: string, update: Update): Promise<pg.QueryResult> {
@@ -218,7 +224,7 @@ export class DatabaseService {
         return this.query(query);
     }
 
-    private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
+    private async updateDBUser(table: string, update: Update): Promise<pg.QueryResult> {
         /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
 	WHERE <condition>;*/
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;

@@ -16,6 +16,8 @@ import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 
 const UserProfile = () => {
+    let name: string;
+
     const [data, getData] = useState({
         "email": 'none',
         "handle" : 'none',
@@ -74,6 +76,56 @@ const UserProfile = () => {
            
         })  
     }
+
+    const sendPhoto = () =>{
+       if((document.getElementById('download') as HTMLInputElement).files![0]) {
+            const form = new FormData();
+            form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0]?.name);
+            name = (document.getElementById('download') as HTMLInputElement).files![0].name;
+            axios.post(`${environment.serverUrl}/database/image`, form);
+       }
+    }
+
+    const uploadFile = () => {
+        const file = (document.getElementById('download') as HTMLInputElement).files![0];
+        const reader = new FileReader();
+        console.log(document.getElementById('test'));
+        reader.addEventListener('load', ()=>{
+          document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
+        });
+        console.log(document.getElementById('test'));
+        reader.readAsDataURL(file);
+    }
+
+    async function updateUser() {
+        sendPhoto();
+
+        const accName = ((document.getElementsByClassName('name-container')[0]).getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
+        const accNamePH = ((document.getElementsByClassName('name-container')[0]).getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).placeholder;
+
+        const bio = (document.getElementsByClassName('bio-holder')[0].getElementsByTagName('textarea')[0]).value;
+        const bioPH = (document.getElementsByClassName('bio-holder')[0].getElementsByTagName('textarea')[0]).placeholder;
+
+        const profileUpdateInfos = {
+            "photo": name ? `./assets/profile-pics/${name}` : data.profile_pic,
+            "accountName" : accName ? accName : accNamePH,
+            "bio" : bio ? bio : bioPH,
+        }
+
+        await fetch(`${environment.serverUrl}/database/users/${currentUser.email}`, {
+            method: 'PATCH',
+            headers: {'Content-type': 'application/json'},
+            body: JSON.stringify({
+                "profile_pic" : `${profileUpdateInfos.photo}`,
+                "account_name" : `${profileUpdateInfos.accountName}`,
+                "bio" : `${profileUpdateInfos.bio}`
+            }),
+          }).then(() =>{
+                window.location.reload();
+          })
+    }
+
+
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none') {
             return (
@@ -125,16 +177,6 @@ const UserProfile = () => {
         )
     }
 
-    const uploadFile = () => {
-        const file = (document.getElementById('download') as HTMLInputElement).files![0];
-        const reader = new FileReader();
-        console.log(document.getElementById('test'));
-        reader.addEventListener('load', ()=>{
-          document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
-        });
-        console.log(document.getElementById('test'));
-        reader.readAsDataURL(file);
-      }
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, [clicked]);
@@ -159,7 +201,7 @@ const UserProfile = () => {
                     modalWidth={'536px'} 
                     modalHeight={'608px'}
                     primary = {'Apply'}
-                    primaryFct = {()=>{console.log('future fct')}}
+                    primaryFct = {()=>{updateUser()}}
                 >
                     <div className='patate'>
                         <div className='horizontal height-centered'>
@@ -172,11 +214,11 @@ const UserProfile = () => {
                         </div>
                         <div className='horizontal name-container'>
                             <Text content='Name:' type = 'H3'></Text>
-                            <TextInput width='360px' height = '32px' type = 'text' label = ''></TextInput>
+                            <TextInput width='360px' height = '32px' type = 'text' label = '' placeHolder={data.account_name}></TextInput>
                         </div>
                         <div className='horizontal bio-holder'>
                             <Text content='Bio:' type = 'H3'></Text>
-                            <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder='Write a short bio !' maxLength={512} />
+                            <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
                         </div>
                     </div>
                 </Modal>
