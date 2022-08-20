@@ -44,11 +44,11 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     const bookmark = (add: boolean) => {
         if(add) {
             
-            axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`).then(() => console.log('add'));
+            axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`);
         }
         else {
             
-            axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`).then(() => console.log('delete'));
+            axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`);
         }
         setBookmark(add);
     }

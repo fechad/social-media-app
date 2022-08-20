@@ -6,11 +6,14 @@ import { environment } from '../environments/environment'
 import { AuthContext } from '../Auth'
 import '../styles/UserProfile.scss'
 import { FiEdit } from 'react-icons/fi'
+import { MdUpload } from 'react-icons/md'
 import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
 import Tabs from '../components/Tabs'
 import Post from '../components/Post'
+import Modal from '../components/Modal'
+import TextInput from '../components/TextInput'
 
 const UserProfile = () => {
     const [data, getData] = useState({
@@ -66,7 +69,6 @@ const UserProfile = () => {
                 setFavorite(favorite.data);
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
-                console.log(posts.data);
                 setPost(posts.data);
             })
            
@@ -86,12 +88,10 @@ const UserProfile = () => {
 
         else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
 
-            console.log(faveList.filter(item=>item.post_id === post.post_id).length);
             return (
                 <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
             );
         }
-        console.log(post.post_id);
         return (
             <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
         );
@@ -102,7 +102,6 @@ const UserProfile = () => {
 
         else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
 
-            console.log(faveList.filter(item=>item.post_id === post.post_id).length);
             return (
                 <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
             );
@@ -125,6 +124,17 @@ const UserProfile = () => {
             </div>
         )
     }
+
+    const uploadFile = () => {
+        const file = (document.getElementById('download') as HTMLInputElement).files![0];
+        const reader = new FileReader();
+        console.log(document.getElementById('test'));
+        reader.addEventListener('load', ()=>{
+          document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
+        });
+        console.log(document.getElementById('test'));
+        reader.readAsDataURL(file);
+      }
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, [clicked]);
@@ -143,7 +153,33 @@ const UserProfile = () => {
                         <Text content = {`@${data.handle}`} color = 'rgba(0, 0, 0, 0.5)' type='H3'></Text>
                     </div>
                 </div>
-                <Button text='edit' icon = {<FiEdit color = 'white'/>}></Button>
+               <Modal 
+                    triggerElement={ <Button text='edit' icon = {<FiEdit color = 'white'/>}></Button>} 
+                    title={'Profile editing'} 
+                    modalWidth={'536px'} 
+                    modalHeight={'608px'}
+                    primary = {'Apply'}
+                    primaryFct = {()=>{console.log('future fct')}}
+                >
+                    <div className='patate'>
+                        <div className='horizontal height-centered'>
+                            <img id = 'pic' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                            <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
+                            <label htmlFor="download" style = {{height: '32px', borderRadius: '8px', width: '232px'}}>
+                                <p className = 'upload'> Change profile picture </p>
+                                <MdUpload size={20}/>
+                            </label>
+                        </div>
+                        <div className='horizontal name-container'>
+                            <Text content='Name:' type = 'H3'></Text>
+                            <TextInput width='360px' height = '32px' type = 'text' label = ''></TextInput>
+                        </div>
+                        <div className='horizontal bio-holder'>
+                            <Text content='Bio:' type = 'H3'></Text>
+                            <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder='Write a short bio !' maxLength={512} />
+                        </div>
+                    </div>
+                </Modal>
             </div>
             <div className = 'bio-container'>
                 <Text content = {`${data.bio}`}></Text>
