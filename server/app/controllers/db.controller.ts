@@ -37,14 +37,10 @@ export class DatabaseController {
                 });
         });
 
-        router.get('/users/MyInfos/:email', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/isFavorite/:creds', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                . getMyInfos(req.params.email)
-                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
-                .catch((e: Error) => {
-                    console.error(e.stack);
-                    res.status(404).json(e.stack);
-                });
+                . getOneFavorite(req.params.creds.split('..')[0], req.params.creds.split('..')[1])
+                .then((result: boolean) => {res.json(result), console.log(result)})
         });
 
         router.get('/users/MyFriends/:email', (req: Request, res: Response, next: NextFunction) => {
@@ -87,13 +83,33 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/users/post/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerPost(req.params.handle)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/favorite/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerFavorite(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/image/:pk', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getLinkPhoto(req.params.pk)
                 .then((result: pg.QueryResult) => {
                     console.log(result.rows[0].profile_pic);
                     if(result.rows[0].profile_pic === 'undefined') res.download('./assets/profile-pics/logo.svg');
-                    else res.download(result.rows[0].profile_pic);
+                    else if(result.rows[0].profile_pic !== 'none') res.download(result.rows[0].profile_pic);
                     
                 })
                 .catch((e: Error) => {
@@ -155,6 +171,14 @@ export class DatabaseController {
                     console.error(e.stack);
                     res.status(405).json(e.stack);
                 });
+        });
+
+        router.post('/favorite/:infos', (req: Request, res: Response) => {
+            this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
+        });
+
+        router.post('/defavorite/:infos', (req: Request, res: Response) => {
+            this.databaseService.removeFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
         });
 
         router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
