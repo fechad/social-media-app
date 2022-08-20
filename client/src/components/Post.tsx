@@ -61,7 +61,6 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     // }, []);
 
     useEffect(()=>{
-        console.log(bookmarked, postId);
         //setBookmark(isFaved);
             // changeStateFave(()=>faved());
     }, [bookmarked, liked]);
