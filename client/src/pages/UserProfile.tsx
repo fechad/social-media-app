@@ -181,68 +181,70 @@ const UserProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, [clicked]);
     return (
-        <div id = 'page-container'>
+        <div>
             <div className='LeftSideContainer'><LeftSidePane /></div>
             <NavBar selection='' />
-            <div className = 'infos-container'>
-                <div className = 'left-infos'>
-                    <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
-                    <div>
-                        <div className='id-container'>
-                            <Text content = {`${data.account_name}`} type = 'H3'></Text>
-                            <Text content = {`${data.age} years old`} type = 'H3' color = 'rgba(0, 0, 0, 0.5)'></Text>
+            <div id = 'page-container'>
+                <div className = 'infos-container'>
+                    <div className = 'left-infos'>
+                        <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                        <div>
+                            <div className='id-container'>
+                                <Text content = {`${data.account_name}`} type = 'H3'></Text>
+                                <Text content = {`${data.age} years old`} type = 'H3' color = 'rgba(0, 0, 0, 0.5)'></Text>
+                            </div>
+                            <Text content = {`@${data.handle}`} color = 'rgba(0, 0, 0, 0.5)' type='H3'></Text>
                         </div>
-                        <Text content = {`@${data.handle}`} color = 'rgba(0, 0, 0, 0.5)' type='H3'></Text>
+                    </div>
+                    <Modal 
+                        triggerElement={ <Button text='edit' icon = {<FiEdit color = 'white'/>}></Button>} 
+                        title={'Profile editing'} 
+                        modalWidth={'536px'} 
+                        modalHeight={'608px'}
+                        primary = {'Apply'}
+                        primaryFct = {()=>{updateUser()}}
+                    >
+                        <div className='patate'>
+                            <div className='horizontal height-centered'>
+                                <img id = 'pic' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                                <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
+                                <label htmlFor="download" style = {{height: '32px', borderRadius: '8px', width: '232px'}}>
+                                    <p className = 'upload'> Change profile picture </p>
+                                    <MdUpload size={20}/>
+                                </label>
+                            </div>
+                            <div className='horizontal name-container'>
+                                <Text content='Name:' type = 'H3'></Text>
+                                <TextInput width='360px' height = '32px' type = 'text' label = '' placeHolder={data.account_name}></TextInput>
+                            </div>
+                            <div className='horizontal bio-holder'>
+                                <Text content='Bio:' type = 'H3'></Text>
+                                <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
+                            </div>
+                        </div>
+                    </Modal>
+                </div>
+                <div className = 'bio-container'>
+                    <Text content = {`${data.bio}`}></Text>
+                </div>
+                <div className ='avatar-list'>
+                    <div className = 'friends'>
+                        <Text content = 'Friends List' type = 'H2'></Text>
+                        <div className='friends-display'>
+                            {friends}
+                            <p className = 'see-more'>see more</p>
+                        </div>
+                    </div>
+                    <div className = 'friends'>
+                        <Text content = 'Group List' type = 'H2'></Text>
+                        <div className='friends-display'>
+                            {friends}
+                            <p className = 'see-more'>see more</p>
+                        </div>
                     </div>
                 </div>
-               <Modal 
-                    triggerElement={ <Button text='edit' icon = {<FiEdit color = 'white'/>}></Button>} 
-                    title={'Profile editing'} 
-                    modalWidth={'536px'} 
-                    modalHeight={'608px'}
-                    primary = {'Apply'}
-                    primaryFct = {()=>{updateUser()}}
-                >
-                    <div className='patate'>
-                        <div className='horizontal height-centered'>
-                            <img id = 'pic' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
-                            <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
-                            <label htmlFor="download" style = {{height: '32px', borderRadius: '8px', width: '232px'}}>
-                                <p className = 'upload'> Change profile picture </p>
-                                <MdUpload size={20}/>
-                            </label>
-                        </div>
-                        <div className='horizontal name-container'>
-                            <Text content='Name:' type = 'H3'></Text>
-                            <TextInput width='360px' height = '32px' type = 'text' label = '' placeHolder={data.account_name}></TextInput>
-                        </div>
-                        <div className='horizontal bio-holder'>
-                            <Text content='Bio:' type = 'H3'></Text>
-                            <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
-                        </div>
-                    </div>
-                </Modal>
+                <Tabs pages={[publications(), favorites()]} titleFct = {()=>{setClick(clicked + 1)}}></Tabs>
             </div>
-            <div className = 'bio-container'>
-                <Text content = {`${data.bio}`}></Text>
-            </div>
-            <div className ='avatar-list'>
-                <div className = 'friends'>
-                    <Text content = 'Friends List' type = 'H2'></Text>
-                    <div className='friends-display'>
-                        {friends}
-                        <p className = 'see-more'>see more</p>
-                    </div>
-                </div>
-                <div className = 'friends'>
-                    <Text content = 'Group List' type = 'H2'></Text>
-                    <div className='friends-display'>
-                        {friends}
-                        <p className = 'see-more'>see more</p>
-                    </div>
-                </div>
-            </div>
-            <Tabs pages={[publications(), favorites()]} titleFct = {()=>{setClick(clicked + 1)}}></Tabs>
             <div className ='RightSideContainer'><RightSidePane /></div>
         </div>
     )

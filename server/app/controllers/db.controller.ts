@@ -173,6 +173,17 @@ export class DatabaseController {
                 });
         });
 
+        router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .create('post', req.body)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
         // router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
         //     console.log(req.body);
         //     const update = { new: req.body, old: {email: req.params.email} }

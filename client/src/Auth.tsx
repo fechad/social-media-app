@@ -14,6 +14,7 @@ export function  AuthProvider({ children }:any){
       setCurrentUser(user)
       setPending(false)
     });
+
   }, []);
 
   
