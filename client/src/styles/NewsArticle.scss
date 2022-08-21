@@ -87,7 +87,7 @@
             border-radius: 100%;
             width: 40px;
             height: 40px;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(187, 187, 187, 0.8);
             position: absolute;
             top: 8px;
             right: 8px;
@@ -97,14 +97,22 @@
             animation: button-appear .5s ease-in;
             animation-direction: normal;
 
+            svg {
+                color: white;
+            }
+
             &:hover{
                 cursor: pointer;
-                background-color: rgba(0, 0, 0, 0.3);
+                background-color:  rgba(187, 187, 187, 0.6);
+
+                svg {
+                    color: rgb(0, 162, 255);
+                }
             }
 
             &:active{
                 cursor: pointer;
-                background-color: rgba(0, 0, 0, 0.7);
+                background-color: rgba(187, 187, 187, 1);
             }
 
         }
