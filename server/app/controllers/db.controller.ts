@@ -126,7 +126,7 @@ export class DatabaseController {
             console.log(req.body);
             const update = { new: req.body, old: {email: req.params.email} }
             this.databaseService
-                .updateNewsOptions('users', update)
+                .updateUser('users', update)
                 .then((result: pg.QueryResult) => res.json(result.rowCount))
                 .catch((e: Error) => {
                     console.error(e.stack);
@@ -172,6 +172,29 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .create('post', req.body)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        // router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
+        //     console.log(req.body);
+        //     const update = { new: req.body, old: {email: req.params.email} }
+        //     this.databaseService
+        //         .updateUser(update)
+        //         .then((result: pg.QueryResult) => res.json(result.rowCount))
+        //         .catch((e: Error) => {
+        //             console.error(e.stack);
+        //             res.status(405).json(e.stack);
+        //         });
+        // });
 
         router.post('/favorite/:infos', (req: Request, res: Response) => {
             this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
