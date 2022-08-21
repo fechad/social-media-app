@@ -34,6 +34,7 @@ const ProfileSetup = () => {
     }
 
     const sendInfo = async () => {
+        getPhoto();
         
         const profileSetupInfos = {
           "photo" : name ? `./assets/profile-pics/${name}` : undefined,
@@ -70,8 +71,6 @@ const ProfileSetup = () => {
         document.getElementById('photo')?.setAttribute('src', reader.result!.toString())
       })
       reader.readAsDataURL(file);
-
-      getPhoto();
     }
 
   return (

@@ -28,6 +28,18 @@ export class HttpController {
             res.json(time);
         });
 
+        this.router.delete('/removePic/:file', (req, res) => {
+            const fs = require('fs')
+
+            try {
+            fs.unlinkSync(`./assets/profile-pics/${req.params.file}`)
+            //file removed
+            } catch(err) {
+            console.error(err)
+            }
+            res.status(204);
+        });
+
         this.router.get('/api/image/:file', (req: Request, res: Response, next: NextFunction) => {
             if(req.params.file !== 'undefined' && req.params.file !== 'none'){
                 res.download(`./assets/profile-pics/${req.params.file}`);

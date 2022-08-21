@@ -83,6 +83,7 @@ const UserProfile = () => {
             form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0]?.name);
             name = (document.getElementById('download') as HTMLInputElement).files![0].name;
             axios.post(`${environment.serverUrl}/database/image`, form);
+            axios.delete(`${environment.serverUrl}/removePic/${data.profile_pic.replace('./assets/profile-pics/', '')}`);
        }
     }
 
