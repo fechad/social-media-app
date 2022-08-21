@@ -16,6 +16,7 @@ import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
 import Modal from '../components/Modal';
 import Tabs from '../components/Tabs';
+import NewsArticle from '../components/NewsArticle';
 
 
 
@@ -158,6 +159,23 @@ const Library = () => {
                 <Tabs pages={[modalContent()]} tabs='' />
               </div>
             </Modal>
+          </section>
+        </div>
+
+        <div>
+          <Text type='H1' content='NewsArticle' />
+          <section>
+            <NewsArticle title='This is a news article example,  Needs ellipsis , Need ellipsis, Need ellipsis' imageURL='https://misinforeview.hks.harvard.edu/wp-content/uploads/2022/07/fake-news-g1bc0f9637_1920-1024x576.jpg' articleUrl='https://devbeep.com/html-404-page-templates/' description='Fake news is in today !'/>
+          </section>
+          <div style={{marginBottom:'40px'}}>
+
+          </div>
+          <section>
+            <NewsArticle 
+            title='This is a news article example' 
+            imageURL='https://ichef.bbci.co.uk/news/976/cpsprodpb/14CCB/production/_95159158_fakenews.jpg' 
+            articleUrl='https://devbeep.com/html-404-page-templates/' 
+            description={`is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishin`}/>
           </section>
         </div>
       </section>

@@ -45,7 +45,7 @@ root.render(
       <Route  path='/User/NewsOptions'  element={<ProtectedRoute outlet={<NewOptions />} />}/>
       <Route  path='/User/Discover'  element={<ProtectedRoute outlet={<UserDataContext><Discover /></UserDataContext>} />}/>
       <Route  path='/User/MyFeed'  element={<ProtectedRoute outlet={<MyFeed />} />}/>
-      <Route  path='/User/NewsFeed'  element={<ProtectedRoute outlet={<NewsFeed />} />}/>
+      <Route  path='/User/NewsFeed'  element={<ProtectedRoute outlet={<UserDataContext><NewsFeed /></UserDataContext>} />}/>
       <Route  path='/User/Notifications'  element={<ProtectedRoute outlet={<Notifications/>} />}/>
       <Route  path='/User/Chats'  element={<ProtectedRoute outlet={<Chats/>} />}/>
       <Route path='/components' element={<Library/>}/>
