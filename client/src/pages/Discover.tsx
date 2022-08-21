@@ -61,7 +61,7 @@ const Discover = () => {
   }
 
   const removeFile = () => {
-    document.getElementById('previewPic')?.setAttribute('src', '');
+    document.getElementById('previewPic')?.removeAttribute('src');
     setImagePresent(false);
   }
 
@@ -90,7 +90,7 @@ const Discover = () => {
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
           'handle': data.handle,
-          'post_id': 'owppppppwdd', //add function to generate this
+          'post_id': 'odbdbppppiiiwdd', //add function to generate this
           'media':  name ? `./assets/profile-pics/${name}` : undefined,
           'text_message': message,
           'likes': '0',
