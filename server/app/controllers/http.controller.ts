@@ -1,12 +1,14 @@
 import { NextFunction, Router } from 'express';
 import { Service } from 'typedi';
 import { Request, Response} from 'express';
+import { NewsService } from '../services/news.service';
 
 @Service()
 export class HttpController {
     router!: Router;
 
     constructor(
+        private newsService: NewsService
     ) {
         this.init();
         this.configureRouter();
@@ -46,6 +48,12 @@ export class HttpController {
             } else if(req.params.file === 'undefined'){
                 res.download(`./assets/logo/logo.svg`);
             }
+        });
+
+        this.router.get('/api/news/:filters', (req: Request, res: Response, next: NextFunction) => {
+            let sample = this.newsService.getArticles(req.params.filters, req.params.filters.split(';')[0]);
+            res.json(sample), console.log(sample);
+           
         });
         /*this.router.post('/user', async (req: Request, res: Response) => {
             
