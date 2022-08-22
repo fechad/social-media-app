@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import Text from './Text'
 import '../styles/NewsArticle.scss'
-import { IoMdClose } from 'react-icons/io'
 import { FiShare2 } from 'react-icons/fi'
 
 interface ArticleProps { 
