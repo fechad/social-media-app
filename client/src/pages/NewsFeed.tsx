@@ -20,8 +20,6 @@ const NewsFeed = () => {
 
   const getArticles = async () => {
 
-    console.log(data.news_options);
-
     let url = '';
     let articleList:any[] = [];
     let sample:any[] = [];
@@ -54,7 +52,6 @@ const NewsFeed = () => {
     
               sample = articleList.map((v:any) =>({ v, sort: Math.random()*arrayList.length 
               })).sort((a, b) =>  {
-                console.log(a < b)
                 if(a.sort < b.sort) return -1;
                 if(a.sort > b.sort) return 1;
                 else return 0;
@@ -68,7 +65,6 @@ const NewsFeed = () => {
 
   const handleSwitch = () => {
     changeToLocal(!local);
-    console.log('did my job')
   }
 
   useEffect(() => {
