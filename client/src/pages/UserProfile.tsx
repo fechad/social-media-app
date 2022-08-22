@@ -59,6 +59,9 @@ const UserProfile = () => {
 
     }]);
 
+    const [liked, setLiked] = useState('');
+
+
     const [clicked, setClick] = useState(0);
     const {currentUser} = useContext(AuthContext);
     const retrieveInfos = () => {
@@ -72,6 +75,9 @@ const UserProfile = () => {
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
                 setPost(posts.data);
+            })
+            axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
+                setLiked(posts.data[0].posts);
             })
            
         })  
@@ -90,12 +96,9 @@ const UserProfile = () => {
     const uploadFile = () => {
         const file = (document.getElementById('download') as HTMLInputElement).files![0];
         const reader = new FileReader();
-        console.log(document.getElementById('test'));
         reader.addEventListener('load', ()=>{
           document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
         });
-        console.log(document.getElementById('test'));
-        console.log(`${Date.now()}${Math.round(Math.random() * 1000)}`);
         reader.readAsDataURL(file);
     }
 
@@ -137,27 +140,29 @@ const UserProfile = () => {
     });
 
     const posts = postList.map((post, index) => {
+        let postLiked = liked.split(' ');
+        let isLiked = (postLiked.filter(item=>item === post.post_id).length > 0);
+        let isFaved = (faveList.filter(item=>item.post_id === post.post_id).length > 0);
+
 
         if(post.post_id === '0') return '';
 
-        else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
+        else {
 
             return (
-                <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
+                <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
             );
         }
-        return (
-            <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
-        );
     });
 
     const starred = postList.map((post, index) => {
+        let isLiked = (liked.split(' ').filter(item=>item === post.post_id).length > 0);
         if(post.post_id === '0') return '';
 
         else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
 
             return (
-                <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {false}></Post>
+                <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
             );
         }
         return '';
