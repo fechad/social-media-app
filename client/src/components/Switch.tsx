@@ -20,13 +20,12 @@ const Switch = ({resp, role, text}: SwitchProps) => {
 
   function doYourRole(){
     setSwitch(!switched);
-    
+    role?.();
   }
 
   useEffect(() =>{
-      if(role) role();
     },
-    [switched, role]
+    [switched]
   );
     
   return (

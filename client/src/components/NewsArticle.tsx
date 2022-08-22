@@ -20,13 +20,13 @@ function NewsArticle({title, imageURL, articleUrl, description}:ArticleProps) {
     }
 
     return (
-        <div className='article'  >
-            <div className = 'header'>
+        <div className='article'>
+            <div className = 'header'onClick={() =>window.location.replace(articleUrl)} >
                 <Text content={title} type='H2'/>
             </div>
             <div className='body' style={{backgroundImage: `url(${imageURL})`}} onMouseOver={()=>setHovering(true)} onMouseLeave={()=>setHovering(false)} >
                 {hovering ? <button className='share-article'><FiShare2 size={30} onClick={share}/></button> : ''}
-                <div className='article-description'>
+                <div className='article-description' onClick={() =>window.location.replace(articleUrl)}>
                     <Text content={description} type='H3' color='white'/>
                 </div>
             </div>
