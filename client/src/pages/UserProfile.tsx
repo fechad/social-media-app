@@ -80,8 +80,8 @@ const UserProfile = () => {
     const sendPhoto = () =>{
        if((document.getElementById('download') as HTMLInputElement).files![0]) {
             const form = new FormData();
-            form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0]?.name);
-            name = (document.getElementById('download') as HTMLInputElement).files![0].name;
+            name = `${Date.now()}${Math.round(Math.random() * 1000)}.png`
+            form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name); 
             axios.post(`${environment.serverUrl}/database/image`, form);
             axios.delete(`${environment.serverUrl}/removePic/${data.profile_pic.replace('./assets/profile-pics/', '')}`);
        }
@@ -95,6 +95,7 @@ const UserProfile = () => {
           document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
         });
         console.log(document.getElementById('test'));
+        console.log(`${Date.now()}${Math.round(Math.random() * 1000)}`);
         reader.readAsDataURL(file);
     }
 
