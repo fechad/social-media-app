@@ -52,7 +52,7 @@ export class HttpController {
 
         this.router.get('/api/news/:filters', (req: Request, res: Response, next: NextFunction) => {
             let sample = this.newsService.getArticles(req.params.filters, req.params.filters.split(';')[0]);
-            res.json(sample), console.log(sample);
+            res.json(sample), console.log(sample.length);
            
         });
         /*this.router.post('/user', async (req: Request, res: Response) => {

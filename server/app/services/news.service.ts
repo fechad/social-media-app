@@ -28,6 +28,7 @@ export class NewsService {
     constructor(
     ) {
         this.init();
+        this.startInterval();
     }
 
     private init() {
@@ -37,6 +38,17 @@ export class NewsService {
         this.categories.split(';').forEach(async category => {
             if(category) await this.fetchCategoryArticles(category, true);
         });
+    }
+
+    private startInterval() {
+        setInterval(() => {
+            this.categories.split(';').forEach(async category => {
+                if(category) await this.fetchCategoryArticles(category, false);
+            });
+            this.categories.split(';').forEach(async category => {
+                if(category) await this.fetchCategoryArticles(category, true);
+            });
+        }, 14400000)
     }
 
     private getShuffledArray(list: any[]) {
