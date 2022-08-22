@@ -29,6 +29,7 @@ export function  UserDataContext({children}:any) {
       setPending(false);
     }) ;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if(pending){

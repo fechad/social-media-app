@@ -1,32 +1,20 @@
 import React, { useContext, useState } from 'react'
-import Text from '../components/Text'
-import { getAuth, signOut  } from "firebase/auth";
 import Button from '../components/Button';
-import { app } from '../firebaseConfig';
-import { useNavigate } from "react-router-dom";
 import NavBar from '../components/NavBar';
 import LeftSidePane from '../components/LeftSidePane';
 import RightSidePane from '../components/RightSidePane';
 import '../styles/Discover.scss'
 import Modal from '../components/Modal';
 import { environment } from '../environments/environment';
-import { AuthContext } from '../Auth';
 import { FaPhotoVideo } from 'react-icons/fa';
 import axios from 'axios';
 import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
 
-function  getUserEmail() {
-    const auth = getAuth(app);
-    const user = auth.currentUser;
-    return user!.email
-
-}
 const Discover = () => {
 
   //let navigate = useNavigate();
   let name: string = '0';
-  const {currentUser} = useContext(AuthContext);
   const {data} = useContext(DataContext);
   const [imagePresent, setImagePresent] = useState(false);
   const [isPhoto, setIsPhoto] = useState(false);
@@ -61,7 +49,7 @@ const Discover = () => {
   }
 
   const removeFile = () => {
-    document.getElementById('previewPic')?.setAttribute('src', '');
+    document.getElementById('previewPic')?.removeAttribute('src');
     setImagePresent(false);
   }
 
@@ -90,7 +78,7 @@ const Discover = () => {
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify({
           'handle': data.handle,
-          'post_id': 'owppppppwdd', //add function to generate this
+          'post_id': 'odbdbppppiiiwdd', //add function to generate this
           'media':  name ? `./assets/profile-pics/${name}` : undefined,
           'text_message': message,
           'likes': '0',
@@ -135,8 +123,8 @@ const Discover = () => {
                       <FaPhotoVideo size={30}/>
                     </label>
                   </div>
-                  <a></a>
-                  <a></a>
+                  {/* <a></a>
+                  <a></a> */}
                 </div>
               </div>
             </Modal>
