@@ -22,7 +22,7 @@ const NewsFeed = () => {
   const getArticles = async () => {
     
     let optionsString = local ? 'local;' : '';
-    let optionList = data.news_options.split(' ');
+    let optionList = data.news_options.trim().split(' ');
     optionList.forEach((option: string, index: number) => {
       if( index < optionList.length) {
         optionsString += option + ';';
@@ -31,6 +31,7 @@ const NewsFeed = () => {
       }
     });
 
+    console.log(optionsString);
     await fetch(`${environment.serverUrl}/news/${optionsString}`, {
       method: 'GET'
     }).then((response) =>{

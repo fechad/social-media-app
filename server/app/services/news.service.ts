@@ -1,5 +1,4 @@
 import { Service } from "typedi";
-import { request } from 'express';
 
 @Service()
 export class NewsService {
@@ -23,6 +22,8 @@ export class NewsService {
     private localSports: any[] = [];
     private technology: any[] = [];
     private localTechnology: any[] = [];
+
+    private axios = require('axios').default;
 
     constructor(
     ) {
@@ -60,13 +61,19 @@ export class NewsService {
                 '&apikey=' + this.backupNewsAPIKey;
 
         console.log(url);
-        request.url = url;
-        await fetch(request.url)
-            .then(function(response) {
-                response.json().then((data) => {
-                data.articles.forEach((article:any) => articleList.push(article));
-                })
+        
+        await this.axios
+            .get(url)
+            .then(function (data: any) {
+            console.log(`statusCode: ${data.status}`);
+            //console.log(data.data);
+            data.data.articles.forEach((article:any) => articleList.push(article));
+                //console.log(articleList)
             })
+            .catch((error: Error) => {
+                console.error(error.message);
+            });
+            
         
         if(local) {
             if(category.toLowerCase() === 'business') this.localBusiness= articleList;
@@ -115,8 +122,8 @@ export class NewsService {
     public getArticles(categories: string, local: string) {
 
         let articleList:any[] = [];
-        let arrayList = categories.split(' ');
-    
+        let arrayList = categories.split(';');
+        console.log(categories);
         arrayList.forEach(category => {
             if(local) {
                 this.getLocalCategoryArticles(category).forEach(article => articleList.push(article));
