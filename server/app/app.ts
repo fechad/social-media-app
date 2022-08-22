@@ -40,6 +40,7 @@ export class Application {
         this.app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerJSDoc.default(this.swaggerOptions)));
         this.app.use('/api', this.httpController.router);
         this.app.use('/api/database', this.dbController.router);
+        this.app.use('/api/news', this.httpController.router);
         this.app.use('/', this.httpController.router);
         this.errorHandling();
     }
