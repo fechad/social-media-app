@@ -150,7 +150,7 @@ const UserProfile = () => {
         else {
 
             return (
-                <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
+                <Post key={`${post.post_id}/${isLiked}/${isFaved}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
             );
         }
     });
@@ -162,7 +162,7 @@ const UserProfile = () => {
         else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
 
             return (
-                <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
+                <Post key={`${post.post_id}/${isLiked}/${true}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
             );
         }
         return '';
