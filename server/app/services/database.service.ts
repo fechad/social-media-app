@@ -67,6 +67,11 @@ export class DatabaseService {
         return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
+    public async getPosts(): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('post') + END_CHAR);
+        return this.query(SELECT_ALL('post') + END_CHAR);
+    }
+
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);

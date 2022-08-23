@@ -32,12 +32,12 @@ export class NewsService {
     }
 
     private init() {
-        this.categories.split(';').forEach(async category => {
-            if(category) await this.fetchCategoryArticles(category, false);
-        });
-        this.categories.split(';').forEach(async category => {
-            if(category) await this.fetchCategoryArticles(category, true);
-        });
+        // this.categories.split(';').forEach(async category => {
+        //     if(category) await this.fetchCategoryArticles(category, false);
+        // });
+        // this.categories.split(';').forEach(async category => {
+        //     if(category) await this.fetchCategoryArticles(category, true);
+        // });
     }
 
     private startInterval() {
@@ -51,7 +51,7 @@ export class NewsService {
         }, 14400000)
     }
 
-    private getShuffledArray(list: any[]) {
+    private  getShuffledArray(list: any[]) {
 
         let sample = list.map((v:any) =>({ v, sort: Math.random()*list.length 
                     })).sort((a, b) =>  {

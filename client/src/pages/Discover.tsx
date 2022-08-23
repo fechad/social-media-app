@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from '../components/Button';
 import NavBar from '../components/NavBar';
 import LeftSidePane from '../components/LeftSidePane';
@@ -10,6 +10,7 @@ import { FaPhotoVideo } from 'react-icons/fa';
 import axios from 'axios';
 import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
+import Post from '../components/Post';
 
 const Discover = () => {
 
@@ -18,6 +19,17 @@ const Discover = () => {
   const {data} = useContext(DataContext);
   const [imagePresent, setImagePresent] = useState(false);
   const [isPhoto, setIsPhoto] = useState(false);
+  const [posts, setPost] = useState([{
+    'handle': 'none',
+    'post_id': '0',
+    'media': 'none',
+    'text_message': 'none',
+    'likes': 0,
+    'date': '00-00-00',
+    'isVideo': false,
+    'comments_number': 0,
+
+  }]);
 
   const textAreaAdjust = (element: any) => {
     console.log('eeeettt')
@@ -57,21 +69,6 @@ const Discover = () => {
     sendPhoto();
 
     const message = (document.getElementsByClassName('post-message')[0] as HTMLTextAreaElement).value;
-
-    // console.log(data);
-
-    // const postInfos = {
-    //     'handle': data.handle,
-    //     'post_id': 'owodoppppd', //add function to generate this
-    //     'media':  name ? `./assets/profile-pics/${name}` : undefined,
-    //     'text_message': message,
-    //     'likes': 0,
-    //     'date': Date.now(),
-    //     'isVideo': isPhoto,
-    //     'comments_number': 0,
-    // }
-
-    // console.log(postInfos)
     
     await fetch(`${environment.serverUrl}/database/users/post`, {
         method: 'POST',
@@ -90,6 +87,21 @@ const Discover = () => {
             window.location.reload();
       })
   }
+
+  const getPosts = async () => {
+    await fetch(`${environment.serverUrl}/database/discover/post`, {
+      method: 'GET',
+    }).then(function (response: Response) {
+      response.json().then((data) => {
+        console.log(data);
+        setPost(data);
+      })
+    })
+  }
+
+  useEffect(() => {
+      getPosts();
+  }, [])
 
   return (
     <div id='page-container'>
@@ -128,6 +140,15 @@ const Discover = () => {
                 </div>
               </div>
             </Modal>
+          </div>
+          <div className='posts-container'>
+                  {
+                    posts.map((post, index) => {
+                      return (
+                        <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
+                      )
+                    })
+                  }
           </div>
         </div>
         <div className ='RightSideContainer'><RightSidePane /></div>

@@ -1,3 +1,4 @@
+import { RandomizingService } from '../services/randomizing.service';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as pg from 'pg';
 import { Service } from 'typedi';
@@ -6,7 +7,7 @@ import { DatabaseService } from '../services/database.service';
 
 @Service()
 export class DatabaseController {
-    public constructor(private databaseService: DatabaseService) {}
+    public constructor(private databaseService: DatabaseService, private randomizingService: RandomizingService) {}
 
     public get router(): Router {
         const router: Router = Router();
@@ -167,6 +168,16 @@ export class DatabaseController {
             this.databaseService
                 .create('users', req.body)
                 .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.get('/discover/post', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getPosts()
+                .then((result: pg.QueryResult) => res.json(this.randomizingService.shuffleArray(result.rows, 50)))
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(405).json(e.stack);
