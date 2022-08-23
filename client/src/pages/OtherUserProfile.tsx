@@ -4,14 +4,14 @@ import Button from '../components/Button'
 import React, {useContext, useEffect, useState } from 'react'
 import { environment } from '../environments/environment'
 import '../styles/OtherUserProfile.scss'
-import { FiEdit } from 'react-icons/fi'
+import { FiLock } from 'react-icons/fi'
 import LeftSidePane from '../components/LeftSidePane'
 import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
 import { useParams } from 'react-router-dom'
 import Post from '../components/Post'
 import Modal from '../components/Modal'
-import { MdUpload } from 'react-icons/md'
+import { MdPersonAddAlt, MdUpload } from 'react-icons/md'
 import TextInput from '../components/TextInput'
 import Tabs from '../components/Tabs'
 import { AuthContext } from '../Auth'
@@ -28,13 +28,19 @@ const OtherUserProfile = () => {
         "profile_pic" : 'none',
         "age" : 'none',
         "account_name" : 'none',
-        "private_account" : 'false',
+        "private_account" : false,
         "bio" : 'none',
         "news_options" : 'All',
         "local_news" : 'false',
         "french_language" : 'false', 
     });
     const [friendsList, setFriends] = useState([{
+        'account_name': 'none',
+        'handle': 'none',
+        'profile_pic': 'none',
+    }]);
+
+    const [userFriendsList, setUserFriends] = useState([{
         'account_name': 'none',
         'handle': 'none',
         'profile_pic': 'none',
@@ -65,23 +71,29 @@ const OtherUserProfile = () => {
 
     const [liked, setLiked] = useState('');
 
+    const {currentUser} = useContext(AuthContext);
+
 
     const [clicked, setClick] = useState(0);
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/${handle}`).then((infos)=>{
             getData(infos.data[0]);
             axios.get(`${environment.serverUrl}/database/users/liked/${infos.data[0].email}`).then((posts)=>{
-                setLiked(posts.data[0].posts);
-            })
+                if(posts.data[0]) setLiked(posts.data[0].posts);
+                else setLiked('');
+            });
             axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
-            })
+            });
+            axios.get(`${environment.serverUrl}/database/friends/${currentUser.email}`).then((friends)=>{
+                setUserFriends(friends.data);
+            });;
             axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].email}`).then((favorite)=>{
                 setFavorite(favorite.data);
-            })
+            });
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
                 setPost(posts.data);
-            })
+            });
            
         })  
     }
@@ -135,11 +147,11 @@ const OtherUserProfile = () => {
 
 
     const friends = friendsList.map((friend, index) => {
-        if(friend.handle !== 'none') {
+        if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
             return (
                 <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
             )
-        } else return undefined;
+        } else return '';
     });
 
     const posts = postList.map((post, index) => {
@@ -147,10 +159,9 @@ const OtherUserProfile = () => {
         let isLiked = (postLiked.filter(item=>item === post.post_id).length > 0);
         let isFaved = (faveList.filter(item=>item.post_id === post.post_id).length > 0);
 
-
         if(post.post_id === '0') return '';
 
-        else {
+        else{
 
             return (
                 <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
@@ -158,31 +169,17 @@ const OtherUserProfile = () => {
         }
     });
 
-    const starred = postList.map((post, index) => {
-        let isLiked = (liked.split(' ').filter(item=>item === post.post_id).length > 0);
-        if(post.post_id === '0') return '';
-
-        else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
-
-            return (
-                <Post key = {index + 'fvrjbvrebvrebvberibv'} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
-            );
-        }
-        return '';
-    });
-
     function publications(){
-        return (
+        if(!data.private_account || userFriendsList.filter(item=>item.handle === data.handle).length > 0) return (
             <div>
                 {posts}
             </div>
         )
-    }
-
-    function favorites(){
-        return (
-            <div>
-                {starred}
+        else return (
+            <div className='private-container'>
+                <FiLock size='200px' color = '#cccccc'/>
+                <Text type = 'H3' content={`This account is private`}></Text>
+                <Text type = 'H3' content={`To see account activities ask ${data.account_name} to be friends.`}></Text>
             </div>
         )
     }
@@ -207,7 +204,7 @@ const OtherUserProfile = () => {
                         </div>
                     </div>
                     <Modal 
-                        triggerElement={ <Button text='edit' icon = {<FiEdit color = 'white'/>}></Button>} 
+                        triggerElement={ <Button text='add' icon = {<MdPersonAddAlt color = 'white' size = '32px'/>}></Button>} 
                         title={'Profile editing'} 
                         modalWidth={'536px'} 
                         modalHeight={'608px'}
@@ -239,14 +236,14 @@ const OtherUserProfile = () => {
                 </div>
                 <div className ='avatar-list'>
                     <div className = 'friends'>
-                        <Text content = 'Friends List' type = 'H2'></Text>
+                        <Text content = 'Common Friends' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
                             <p className = 'see-more'>see more</p>
                         </div>
                     </div>
                     <div className = 'friends'>
-                        <Text content = 'Group List' type = 'H2'></Text>
+                        <Text content = 'Common Groups' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
                             <p className = 'see-more'>see more</p>
