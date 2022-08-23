@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Button from '../components/Button';
 import NavBar from '../components/NavBar';
 import LeftSidePane from '../components/LeftSidePane';
@@ -10,6 +10,8 @@ import { FaPhotoVideo } from 'react-icons/fa';
 import axios from 'axios';
 import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
+import Post from '../components/Post';
+import { AuthContext } from '../Auth';
 
 const Discover = () => {
 
@@ -18,9 +20,32 @@ const Discover = () => {
   const {data} = useContext(DataContext);
   const [imagePresent, setImagePresent] = useState(false);
   const [isPhoto, setIsPhoto] = useState(false);
+  const [posts, setPost] = useState([{
+    'handle': 'none',
+    'post_id': '0',
+    'media': 'none',
+    'text_message': 'none',
+    'likes': 0,
+    'date': '00-00-00',
+    'isVideo': false,
+    'comments_number': 0,
 
+  }]);
+  const [faveList, setFavorite] = useState([{
+    'handle': 'none',
+    'post_id': '0',
+    'media': 'none',
+    'text_message': 'none',
+    'likes': 0,
+    'date': '00-00-00',
+    'isVideo': false,
+    'comments_number': 0,
+
+  }]);
+  const [liked, setLiked] = useState('');
+  const {currentUser} = useContext(AuthContext);
+  
   const textAreaAdjust = (element: any) => {
-    console.log('eeeettt')
     element.style.height = "1px";
     element.style.height = (8+element.scrollHeight)+"px";
   }
@@ -37,14 +62,12 @@ const Discover = () => {
   const uploadFile = () => {
     const file = (document.getElementById('download') as HTMLInputElement).files![0];
     const reader = new FileReader();
-    console.log(document.getElementById('download'));
     reader.addEventListener('load', ()=>{
       document.getElementById('previewPic')?.setAttribute('src', reader.result!.toString())
       if(reader.result!.toString().includes('.png') || reader.result!.toString().includes('.jpg')) setIsPhoto(true) ;
       else setIsPhoto(false);
       setImagePresent(true);
     });
-    console.log(document.getElementById('download'));
     reader.readAsDataURL(file);
   }
 
@@ -57,21 +80,6 @@ const Discover = () => {
     sendPhoto();
 
     const message = (document.getElementsByClassName('post-message')[0] as HTMLTextAreaElement).value;
-
-    // console.log(data);
-
-    // const postInfos = {
-    //     'handle': data.handle,
-    //     'post_id': 'owodoppppd', //add function to generate this
-    //     'media':  name ? `./assets/profile-pics/${name}` : undefined,
-    //     'text_message': message,
-    //     'likes': 0,
-    //     'date': Date.now(),
-    //     'isVideo': isPhoto,
-    //     'comments_number': 0,
-    // }
-
-    // console.log(postInfos)
     
     await fetch(`${environment.serverUrl}/database/users/post`, {
         method: 'POST',
@@ -90,6 +98,47 @@ const Discover = () => {
             window.location.reload();
       })
   }
+
+  const getPosts = async () => {
+    await fetch(`${environment.serverUrl}/database/discover/post`, {
+      method: 'GET',
+    }).then(function (response: Response) {
+      response.json().then((data) => {
+        setPost(data);
+      })
+    })
+
+    await axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
+      setLiked(posts.data[0].posts);
+    })
+    await axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
+        setFavorite(favorite.data);
+    })
+  }
+
+  const postsList = posts.map((post, index) => {
+    let postLiked = liked.split(' ');
+    let isLiked = (postLiked.filter(item=>item === post.post_id).length > 0);
+    let isFaved = (faveList.filter(item=>item.post_id === post.post_id).length > 0);
+
+
+    if(post.post_id === '0') return '';
+
+    else {
+
+        return (
+          <Post key={`${post.post_id}/${isLiked}/${isFaved}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
+        );
+    }
+});
+
+  useEffect(() => {
+      getPosts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+  }, [liked, faveList])
 
   return (
     <div id='page-container'>
@@ -128,6 +177,11 @@ const Discover = () => {
                 </div>
               </div>
             </Modal>
+          </div>
+          <div className='posts-container'>
+                  {
+                    postsList
+                  }
           </div>
         </div>
         <div className ='RightSideContainer'><RightSidePane /></div>
