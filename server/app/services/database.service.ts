@@ -77,6 +77,16 @@ export class DatabaseService {
         return this.query(SELECT_ALL('post') + END_CHAR);
     }
 
+    public async getFeedPosts(email: string): Promise<pg.QueryResult> {
+        const handles =  (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR));
+        if(handles.rows[0]?.list) {
+            const queryCondition = SELECT_MANY(handles.rows[0].list);
+            console.log(SELECT_ALL('post') + queryCondition + 'order by post_id desc' + END_CHAR)
+            return this.query(SELECT_ALL('post') + queryCondition + 'order by post_id desc' + END_CHAR);
+        };
+        return handles;
+    }
+
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
