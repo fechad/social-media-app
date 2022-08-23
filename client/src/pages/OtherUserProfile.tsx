@@ -149,7 +149,7 @@ const OtherUserProfile = () => {
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
             return (
-                <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+                <img className = 'friends-pic' key = {`${friend.handle}`} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
             )
         } else return '';
     });
@@ -164,7 +164,7 @@ const OtherUserProfile = () => {
         else{
 
             return (
-                <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
+                <Post key = {`${post.post_id}/${isLiked}/${isFaved}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
             );
         }
     });
