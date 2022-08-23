@@ -11,6 +11,7 @@ import axios from 'axios';
 import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
 import Post from '../components/Post';
+import { AuthContext } from '../Auth';
 
 const Discover = () => {
 
@@ -30,7 +31,20 @@ const Discover = () => {
     'comments_number': 0,
 
   }]);
+  const [faveList, setFavorite] = useState([{
+    'handle': 'none',
+    'post_id': '0',
+    'media': 'none',
+    'text_message': 'none',
+    'likes': 0,
+    'date': '00-00-00',
+    'isVideo': false,
+    'comments_number': 0,
 
+  }]);
+  const [liked, setLiked] = useState('');
+  const {currentUser} = useContext(AuthContext);
+  
   const textAreaAdjust = (element: any) => {
     console.log('eeeettt')
     element.style.height = "1px";
@@ -97,11 +111,38 @@ const Discover = () => {
         setPost(data);
       })
     })
+
+    await axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
+      setLiked(posts.data[0].posts);
+    })
+    await axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
+        setFavorite(favorite.data);
+    })
   }
+
+  const postsList = posts.map((post, index) => {
+    let postLiked = liked.split(' ');
+    let isLiked = (postLiked.filter(item=>item === post.post_id).length > 0);
+    let isFaved = (faveList.filter(item=>item.post_id === post.post_id).length > 0);
+
+
+    if(post.post_id === '0') return '';
+
+    else {
+
+        return (
+          <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
+        );
+    }
+});
 
   useEffect(() => {
       getPosts();
   }, [])
+
+  useEffect(() => {
+    console.log('eefe');
+}, [liked, faveList])
 
   return (
     <div id='page-container'>
@@ -142,12 +183,15 @@ const Discover = () => {
             </Modal>
           </div>
           <div className='posts-container'>
-                  {
+                  {/* {
                     posts.map((post, index) => {
                       return (
                         <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
                       )
                     })
+                  } */}
+                  {
+                    postsList
                   }
           </div>
         </div>
