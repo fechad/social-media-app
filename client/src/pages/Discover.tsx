@@ -179,13 +179,6 @@ const Discover = () => {
             </Modal>
           </div>
           <div className='posts-container'>
-                  {/* {
-                    posts.map((post, index) => {
-                      return (
-                        <Post key = {index} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {false} isLiked = {false}></Post>
-                      )
-                    })
-                  } */}
                   {
                     postsList
                   }
