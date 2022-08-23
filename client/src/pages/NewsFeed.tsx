@@ -5,6 +5,7 @@ import NewsArticle from '../components/NewsArticle'
 import RightSidePane from '../components/RightSidePane'
 import Switch from '../components/Switch'
 import { DataContext } from '../DataContext'
+import { environment } from '../environments/environment'
 import '../styles/NewsFeed.scss'
 
 const NewsFeed = () => {
@@ -19,47 +20,22 @@ const NewsFeed = () => {
   }])
 
   const getArticles = async () => {
-
-    let url = '';
-    let articleList:any[] = [];
-    let sample:any[] = [];
-    let filters = '';
-    let arrayList = data.news_options.trim().split(' ');
-
-    arrayList.forEach(async (filter:any) => {
-      if(filter !== '') {
-        filters = `category=${filter.toLowerCase()}`
-
-        if(filter === 'All') {
-          url = 'https://newsapi.org/v2/top-headlines?' +
-                'country=ca&' +
-                'apiKey=5b227cdd668347119cb253da9ae1deae';
-        }
-        else {
-          url = 'https://newsapi.org/v2/top-headlines?' +
-                filters +
-                `${local ? '&contry=ca' : ''}` +
-                '&language=en' +
-                '&apiKey=5b227cdd668347119cb253da9ae1deae';
-        }
-        
-        let req = new Request(url);
-        await fetch(req)
-            .then(function(response) {
-              response.json().then((data) => {
-                data.articles.forEach((article:any) => articleList.push(article));
-              })
     
-              sample = articleList.map((v:any) =>({ v, sort: Math.random()*arrayList.length 
-              })).sort((a, b) =>  {
-                if(a.sort < b.sort) return -1;
-                if(a.sort > b.sort) return 1;
-                else return 0;
-              }).map((value:any) => value.v).splice(0, 20);
+    let optionsString = local ? 'local;' : '';
+    let optionList = data.news_options.trim().split(' ');
+    optionList.forEach((option: string, index: number) => {
+      if( index < optionList.length) {
+        optionsString += option + ';';
+      } else {
+        optionsString += option;
+      }
+    });
 
-              setNewsArticles(sample);
-            })
-      } 
+    console.log(optionsString);
+    await fetch(`${environment.serverUrl}/news/${optionsString}`, {
+      method: 'GET'
+    }).then((response) =>{
+      response.json().then((data) => setNewsArticles(data));
     });
   }
 
