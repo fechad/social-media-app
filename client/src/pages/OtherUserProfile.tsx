@@ -10,17 +10,13 @@ import RightSidePane from '../components/RightSidePane'
 import NavBar from '../components/NavBar'
 import { useParams } from 'react-router-dom'
 import Post from '../components/Post'
-import Modal from '../components/Modal'
-import { MdPersonAddAlt, MdUpload } from 'react-icons/md'
-import TextInput from '../components/TextInput'
+import { MdPersonAddAlt } from 'react-icons/md'
 import Tabs from '../components/Tabs'
 import { AuthContext } from '../Auth'
 
 const OtherUserProfile = () => {
 
     const {handle} = useParams();
-
-    let name: string;
 
     const [data, getData] = useState({
         "email": 'none',
@@ -98,52 +94,6 @@ const OtherUserProfile = () => {
         })  
     }
 
-    const sendPhoto = () =>{
-       if((document.getElementById('download') as HTMLInputElement).files![0]) {
-            const form = new FormData();
-            name = `${Date.now()}${Math.round(Math.random() * 1000)}.png`
-            form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name); 
-            axios.post(`${environment.serverUrl}/database/image`, form);
-            axios.delete(`${environment.serverUrl}/removePic/${data.profile_pic.replace('./assets/profile-pics/', '')}`);
-       }
-    }
-
-    const uploadFile = () => {
-        const file = (document.getElementById('download') as HTMLInputElement).files![0];
-        const reader = new FileReader();
-        reader.addEventListener('load', ()=>{
-          document.getElementById('pic')?.setAttribute('src', reader.result!.toString())
-        });
-        reader.readAsDataURL(file);
-    }
-
-    async function updateUser() {
-        sendPhoto();
-
-        const accName = ((document.getElementsByClassName('name-container')[0]).getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
-        const accNamePH = ((document.getElementsByClassName('name-container')[0]).getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).placeholder;
-
-        const bio = (document.getElementsByClassName('bio-holder')[0].getElementsByTagName('textarea')[0]).value;
-        const bioPH = (document.getElementsByClassName('bio-holder')[0].getElementsByTagName('textarea')[0]).placeholder;
-
-        const profileUpdateInfos = {
-            "photo": name ? `./assets/profile-pics/${name}` : data.profile_pic,
-            "accountName" : accName ? accName : accNamePH,
-            "bio" : bio ? bio : bioPH,
-        }
-
-        await fetch(`${environment.serverUrl}/database/users/${data.email}`, {
-            method: 'PATCH',
-            headers: {'Content-type': 'application/json'},
-            body: JSON.stringify({
-                "profile_pic" : `${profileUpdateInfos.photo}`,
-                "account_name" : `${profileUpdateInfos.accountName}`,
-                "bio" : `${profileUpdateInfos.bio}`
-            }),
-          }).then(() =>{
-                window.location.reload();
-          })
-    }
 
 
     const friends = friendsList.map((friend, index) => {
@@ -203,33 +153,7 @@ const OtherUserProfile = () => {
                             <Text content = {`@${data.handle}`} color = 'rgba(0, 0, 0, 0.5)' type='H3'></Text>
                         </div>
                     </div>
-                    <Modal 
-                        triggerElement={ <Button text='add' icon = {<MdPersonAddAlt color = 'white' size = '32px'/>}></Button>} 
-                        title={'Profile editing'} 
-                        modalWidth={'536px'} 
-                        modalHeight={'608px'}
-                        primary = {'Apply'}
-                        primaryFct = {()=>{updateUser()}}
-                    >
-                        <div className='patate'>
-                            <div className='horizontal height-centered'>
-                                <img id = 'pic' src={`${environment.serverUrl}/database/image/${data.email}`} alt="" width='72px' height='72px'/>
-                                <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
-                                <label htmlFor="download" style = {{height: '32px', borderRadius: '8px', width: '232px'}}>
-                                    <p className = 'upload'> Change profile picture </p>
-                                    <MdUpload size={20}/>
-                                </label>
-                            </div>
-                            <div className='horizontal name-container'>
-                                <Text content='Name:' type = 'H3'></Text>
-                                <TextInput width='360px' height = '32px' type = 'text' label = '' placeHolder={data.account_name}></TextInput>
-                            </div>
-                            <div className='horizontal bio-holder'>
-                                <Text content='Bio:' type = 'H3'></Text>
-                                <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
-                            </div>
-                        </div>
-                    </Modal>
+                <Button text='add' icon = {<MdPersonAddAlt color = 'white' size = '32px'/>}></Button>
                 </div>
                 <div className = 'bio-container'>
                     <Text content = {`${data.bio}`}></Text>
