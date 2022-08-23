@@ -28,15 +28,16 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     const {currentUser} = useContext(AuthContext);
     const [bookmarked, setBookmark] = useState(isFaved);
     const [liked, setLike] = useState(isLiked);
+    const [nbLikes, setLikes] = useState(likes);
     
     const like = (liked: boolean) => {
         if(liked) {
-            console.log('liked');
-            //axios.post(`${environment.serverUrl}/database/favorite/${currentUser.email}..${postId}`);
+            setLikes(nbLikes + 1);
+            axios.post(`${environment.serverUrl}/database/like/${currentUser.email}..${postId}`);
         }
         else {
-            console.log('unLiked');
-            //axios.post(`${environment.serverUrl}/database/defavorite/${currentUser.email}..${postId}`);
+            setLikes(nbLikes - 1);
+            axios.post(`${environment.serverUrl}/database/delike/${currentUser.email}..${postId}`);
         }
         setLike(liked);
     }
@@ -63,7 +64,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     useEffect(()=>{
         //setBookmark(isFaved);
             // changeStateFave(()=>faved());
-    }, [bookmarked, liked]);
+    }, [bookmarked, liked, nbLikes]);
 
     // useEffect(()=>{
     //     console.log(postId);
@@ -89,7 +90,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
             <div className = 'footer'>
                 <div id = 'likes' onClick={() => {like(!liked)}}>
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
-                    <Text content = {likes.toString()}></Text>
+                    <Text content = {nbLikes.toString()}></Text>
                 </div>
                 <div id = 'comments' onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}>
                     {<FaRegCommentDots color='black' size='24px'/>}

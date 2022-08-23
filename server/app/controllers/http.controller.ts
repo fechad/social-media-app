@@ -43,7 +43,7 @@ export class HttpController {
         });
 
         this.router.get('/api/image/:file', (req: Request, res: Response, next: NextFunction) => {
-            if(req.params.file !== 'undefined' && req.params.file !== 'none'){
+            if(req.params.file !== 'undefined' && req.params.file !== 'none' && req.params.file !== '0'){
                 res.download(`./assets/profile-pics/${req.params.file}`);
             } else if(req.params.file === 'undefined'){
                 res.download(`./assets/logo/logo.svg`);
