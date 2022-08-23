@@ -63,8 +63,13 @@ export class DatabaseService {
     }
 
     public async getUSerPost(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_ALL('post') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
-        return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ` + END_CHAR);
+        console.log(SELECT_ALL('post') + ' WHERE handle =' + `'${handle}' ORDER BY post_id DESC` + END_CHAR);
+        return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ORDER BY post_id DESC` + END_CHAR);
+    }
+
+    public async getPostLiked(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['posts'], 'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR);
+        return this.query(SELECT_SOME(['posts'], 'likes') + ` WHERE email = '${email}' ` + END_CHAR);
     }
 
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
@@ -142,6 +147,24 @@ export class DatabaseService {
         })
     }
 
+    public async createLike(email: string, postId: string): Promise<void> {
+        this.query(INSERT('likes', 2), [email, postId]).catch( async ()=>{
+            let currentPosts = (await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+            let liked = currentPosts.split(' ');
+            let flag = true
+            for (let elem of liked) {
+                if (elem === postId) flag = false;
+            }
+            if(flag) {
+                console.log('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+            }
+        })
+        let currentLikes = (await this.query(SELECT_SOME(['likes'],'post') + ' WHERE post_id =' + `'${postId}' ` + END_CHAR)).rows[0].likes;
+        console.log('UPDATE chymera.post SET likes= ' + `'${currentLikes + 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+        this.query('UPDATE chymera.post SET likes= ' + `'${currentLikes + 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+    }
+
     public async removeFave(email: string, postId: string): Promise<void> {
         if ((await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]) {
                 let currentPosts = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
@@ -152,6 +175,23 @@ export class DatabaseService {
                 }
                 console.log('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
                 this.query('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+            }
+    }
+
+    public async removeLike(email: string, postId: string): Promise<void> {
+        if ((await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]) {
+                let currentPosts = (await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+                let liked = currentPosts.split(' ');
+                let newPosts = '';
+                for (let elem of liked) {
+                    if (elem !== postId && elem !== '') newPosts += elem + ' ';
+                }
+                console.log('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+
+                let currentLikes = (await this.query(SELECT_SOME(['likes'],'post') + ' WHERE post_id =' + `'${postId}' ` + END_CHAR)).rows[0].likes;
+                console.log('UPDATE chymera.post SET likes= ' + `'${currentLikes - 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+                this.query('UPDATE chymera.post SET likes= ' + `'${currentLikes - 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
             }
     }
 
