@@ -32,23 +32,23 @@ export class NewsService {
     }
 
     private init() {
-        this.categories.split(';').forEach(async category => {
-            if(category) await this.fetchCategoryArticles(category, false);
-        });
-        this.categories.split(';').forEach(async category => {
-            if(category) await this.fetchCategoryArticles(category, true);
-        });
+        // this.categories.split(';').forEach(async category => {
+        //     if(category) await this.fetchCategoryArticles(category, false);
+        // });
+        // this.categories.split(';').forEach(async category => {
+        //     if(category) await this.fetchCategoryArticles(category, true);
+        // });
     }
 
     private startInterval() {
-        setInterval(() => {
-            this.categories.split(';').forEach(async category => {
-                if(category) await this.fetchCategoryArticles(category, false);
-            });
-            this.categories.split(';').forEach(async category => {
-                if(category) await this.fetchCategoryArticles(category, true);
-            });
-        }, 14400000)
+        // setInterval(() => {
+        //     this.categories.split(';').forEach(async category => {
+        //         if(category) await this.fetchCategoryArticles(category, false);
+        //     });
+        //     this.categories.split(';').forEach(async category => {
+        //         if(category) await this.fetchCategoryArticles(category, true);
+        //     });
+        // }, 14400000)
     }
 
     private getShuffledArray(list: any[]) {
