@@ -63,8 +63,8 @@ export class DatabaseService {
     }
 
     public async getUSerPost(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_ALL('post') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
-        return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ` + END_CHAR);
+        console.log(SELECT_ALL('post') + ' WHERE handle =' + `'${handle}' ORDER BY post_id DESC` + END_CHAR);
+        return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ORDER BY post_id DESC` + END_CHAR);
     }
 
     public async getPostLiked(email: string): Promise<pg.QueryResult> {

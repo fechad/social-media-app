@@ -67,6 +67,9 @@ const UserProfile = () => {
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
             getData(infos.data[0]);
+            axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
+                setLiked(posts.data[0].posts);
+            })
             axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             })
@@ -75,9 +78,6 @@ const UserProfile = () => {
             })
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
                 setPost(posts.data);
-            })
-            axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
-                setLiked(posts.data[0].posts);
             })
            
         })  
