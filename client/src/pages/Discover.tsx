@@ -46,7 +46,6 @@ const Discover = () => {
   const {currentUser} = useContext(AuthContext);
   
   const textAreaAdjust = (element: any) => {
-    console.log('eeeettt')
     element.style.height = "1px";
     element.style.height = (8+element.scrollHeight)+"px";
   }
@@ -63,14 +62,12 @@ const Discover = () => {
   const uploadFile = () => {
     const file = (document.getElementById('download') as HTMLInputElement).files![0];
     const reader = new FileReader();
-    console.log(document.getElementById('download'));
     reader.addEventListener('load', ()=>{
       document.getElementById('previewPic')?.setAttribute('src', reader.result!.toString())
       if(reader.result!.toString().includes('.png') || reader.result!.toString().includes('.jpg')) setIsPhoto(true) ;
       else setIsPhoto(false);
       setImagePresent(true);
     });
-    console.log(document.getElementById('download'));
     reader.readAsDataURL(file);
   }
 
@@ -107,7 +104,6 @@ const Discover = () => {
       method: 'GET',
     }).then(function (response: Response) {
       response.json().then((data) => {
-        console.log(data);
         setPost(data);
       })
     })
@@ -138,11 +134,11 @@ const Discover = () => {
 
   useEffect(() => {
       getPosts();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
-    console.log('eefe');
-}, [liked, faveList])
+  }, [liked, faveList])
 
   return (
     <div id='page-container'>
