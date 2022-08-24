@@ -80,6 +80,10 @@ const Discover = () => {
     sendPhoto();
 
     const message = (document.getElementsByClassName('post-message')[0] as HTMLTextAreaElement).value;
+    let rawDate = new Date();
+    const offset = rawDate.getTimezoneOffset();
+    rawDate = new Date(rawDate.getTime() - (offset*60*1000));
+    let date = rawDate.toISOString().split('T')[0]
     
     await fetch(`${environment.serverUrl}/database/users/post`, {
         method: 'POST',
@@ -92,7 +96,7 @@ const Discover = () => {
           'likes': '0',
           'isVideo': `${isPhoto}`,
           'comments_number': '0',
-          'date': '22-08-20'
+          'date': date
         }),
       }).then(() =>{
             window.location.reload();
