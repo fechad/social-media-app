@@ -193,6 +193,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/myFeed/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getFeedPosts(req.params.email)
+                .then((result: pg.QueryResult) => res.json(result.rows))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
         router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
             console.log(req.body);
             this.databaseService
