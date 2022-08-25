@@ -32,10 +32,37 @@
     }
 }
 
-.image-post{
-    width: 100%;
-    border-radius: 4px;
+.size-restricter {
     max-height: 240px;
+    overflow: hidden;
+    width: 600px;
+    display: flex;
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.image-post{
+    width:600px;
+    height: auto;
+    border-radius: 4px;
+    align-self: center;
+}
+
+.display {
+    position: relative;
+    max-height: 800px;
+}
+
+.background {
+    position:fixed;
+    top: 0px;
+    left: 360px;
+    width: 1190px;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.671);
+    max-height: none;
 }
 
 .footer{

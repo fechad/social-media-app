@@ -86,7 +86,17 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                 </div>
             </div>
             <Text content={text_message}/>
-            <img className = 'image-post' src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
+            <div className = 'size-restricter' id = {postId + media} onClick={()=>{
+                    if(document.getElementById(`${postId}`)?.classList.contains('display')) {
+                        document.getElementById(`${postId}`)?.classList.remove('display');
+                        document.getElementById(`${postId + media}`)?.classList.remove('background');
+                    } else {
+                        document.getElementById(`${postId}`)?.classList.add('display');
+                        document.getElementById(`${postId + media}`)?.classList.add('background');
+                    }
+                    }}>
+                <img className = 'image-post' id = {postId} src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
+            </div>
             <div className = 'footer'>
                 <div id = 'likes' onClick={() => {like(!liked)}}>
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
