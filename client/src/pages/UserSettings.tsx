@@ -176,12 +176,12 @@ const UserSettings = () => {
 
     function getCheckboxUpdate():string {
         let result = '';
-        for(let index = 0; index < 9; index ++){
+        for(let index = 0; index < 7; index ++){
             if((document.getElementsByClassName('CheckboxesContainer')[0].childNodes[index].firstChild as HTMLElement).classList.contains('Checked'))
             result += `${(document.getElementsByClassName('CheckboxesContainer')[0].childNodes[index].lastChild as HTMLElement).innerText} `;
         }
         result.trim();
-        if(result.split(' ').length === 11) result = 'All'
+        if(result.split(' ').length === 8) result = 'All'
 
         return result;
     }
@@ -352,15 +352,13 @@ const UserSettings = () => {
                 <div className='NewsPreference'>
                     <Text type='H2' content='News preferences'/>
                     <div className='CheckboxesContainer' key={data.news_options} >
+                        <Checkbox text='Business' alreadyChecked={data.news_options.includes('Business') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Entertainment' alreadyChecked={data.news_options.includes('Entertainment') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='General' alreadyChecked={data.news_options.includes('General') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Health' alreadyChecked={data.news_options.includes('Health') || data.news_options.includes('All') ? true : false}/>
+                        <Checkbox text='Science' alreadyChecked={data.news_options.includes('Science') || data.news_options.includes('All') ? true : false}/>
                         <Checkbox text='Sports' alreadyChecked={data.news_options.includes('Sports') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Finance' alreadyChecked={data.news_options.includes('Finance') || data.news_options.includes('All') ? true : false}/>
                         <Checkbox text='Technology' alreadyChecked={data.news_options.includes('Technology') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Arts' alreadyChecked={data.news_options.includes('Arts') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Cinema' alreadyChecked={data.news_options.includes('Cinema') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Food' alreadyChecked={data.news_options.includes('Food') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Odd facts' alreadyChecked={data.news_options.includes('Odd facts') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Politics' alreadyChecked={data.news_options.includes('Politics') || data.news_options.includes('All') ? true : false}/>
-                        <Checkbox text='Game' alreadyChecked={data.news_options.includes('Game') || data.news_options.includes('All') ? true : false}/>
                     </div>
                 </div>
                 <div className='Buttons'>

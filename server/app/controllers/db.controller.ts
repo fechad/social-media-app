@@ -1,3 +1,4 @@
+import { RandomizingService } from '../services/randomizing.service';
 import { NextFunction, Request, Response, Router } from 'express';
 import * as pg from 'pg';
 import { Service } from 'typedi';
@@ -6,7 +7,7 @@ import { DatabaseService } from '../services/database.service';
 
 @Service()
 export class DatabaseController {
-    public constructor(private databaseService: DatabaseService) {}
+    public constructor(private databaseService: DatabaseService, private randomizingService: RandomizingService) {}
 
     public get router(): Router {
         const router: Router = Router();
@@ -37,14 +38,10 @@ export class DatabaseController {
                 });
         });
 
-        router.get('/users/MyInfos/:email', (req: Request, res: Response, next: NextFunction) => {
+        router.get('/isFavorite/:creds', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
-                . getMyInfos(req.params.email)
-                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
-                .catch((e: Error) => {
-                    console.error(e.stack);
-                    res.status(404).json(e.stack);
-                });
+                . getOneFavorite(req.params.creds.split('..')[0], req.params.creds.split('..')[1])
+                .then((result: boolean) => {res.json(result), console.log(result)})
         });
 
         router.get('/users/MyFriends/:email', (req: Request, res: Response, next: NextFunction) => {
@@ -70,7 +67,7 @@ export class DatabaseController {
         router.get('/users/MyMutedFriends/:email', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 . getMyMutedFriends(req.params.email)
-                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
@@ -80,7 +77,37 @@ export class DatabaseController {
         router.get('/users/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerInfos(req.params.handle)
-                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/post/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerPost(req.params.handle)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/favorite/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerFavorite(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/liked/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getPostLiked(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
@@ -91,9 +118,8 @@ export class DatabaseController {
             this.databaseService
                 .getLinkPhoto(req.params.pk)
                 .then((result: pg.QueryResult) => {
-                    console.log(result.rows[0].profile_pic);
                     if(result.rows[0].profile_pic === 'undefined') res.download('./assets/profile-pics/logo.svg');
-                    else res.download(result.rows[0].profile_pic);
+                    else if(result.rows[0].profile_pic !== 'none') res.download(result.rows[0].profile_pic);
                     
                 })
                 .catch((e: Error) => {
@@ -110,7 +136,7 @@ export class DatabaseController {
             console.log(req.body);
             const update = { new: req.body, old: {email: req.params.email} }
             this.databaseService
-                .updateNewsOptions('users', update)
+                .updateUser('users', update)
                 .then((result: pg.QueryResult) => res.json(result.rowCount))
                 .catch((e: Error) => {
                     console.error(e.stack);
@@ -157,6 +183,67 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/discover/post', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getPosts()
+                .then((result: pg.QueryResult) => res.json(this.randomizingService.shuffleArray(result.rows, 50)))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.get('/myFeed/:email', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getFeedPosts(req.params.email)
+                .then((result: pg.QueryResult) => res.json(result.rows))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .create('post', req.body)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+
+        // router.patch('/users/:email', (req: Request, res: Response, next: NextFunction) => {
+        //     console.log(req.body);
+        //     const update = { new: req.body, old: {email: req.params.email} }
+        //     this.databaseService
+        //         .updateUser(update)
+        //         .then((result: pg.QueryResult) => res.json(result.rowCount))
+        //         .catch((e: Error) => {
+        //             console.error(e.stack);
+        //             res.status(405).json(e.stack);
+        //         });
+        // });
+
+        router.post('/favorite/:infos', (req: Request, res: Response) => {
+            this.databaseService.createFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
+        });
+
+        router.post('/defavorite/:infos', (req: Request, res: Response) => {
+                    this.databaseService.removeFave(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
+                });
+
+        router.post('/like/:infos', (req: Request, res: Response) => {
+            this.databaseService.createLike(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
+        });
+
+        router.post('/delike/:infos', (req: Request, res: Response) => {
+            this.databaseService.removeLike(req.params.infos.split('..')[0], req.params.infos.split('..')[1]).then(()=>res.status(200));
+        });
+
+        
+
         router.get('/users/search/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .searchUsers(req.params.handle)
@@ -170,7 +257,7 @@ export class DatabaseController {
         router.get('/friends/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getFriendsInfos(req.params.handle)
-                .then((result) => {res.json(result), console.log(result)})
+                .then((result) => {res.json(result)})
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(404).json(e.stack);

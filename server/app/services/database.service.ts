@@ -8,7 +8,7 @@ export interface Update {
     new: any;
     old: any;
   }
-  
+
 
 
 
@@ -38,6 +38,53 @@ export class DatabaseService {
     public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
+    }
+
+    public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
+        const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
+        const list = favorite.split(' ');
+        let query = '';
+        for (let i = 1; i<list.length; i++) {
+            query += `post_id = '${list[i]}' OR `
+        }
+        query += `post_id = '${list[0]}'`
+        console.log(SELECT_ALL('post') + ' WHERE ' + `${query}` + END_CHAR);
+        return this.query(SELECT_ALL('post') + ' WHERE ' + `${query}` + END_CHAR);
+    }
+
+    public async getOneFavorite(email: string, postId: string): Promise<boolean> {
+        const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
+        const list = favorite.split(' ');
+        console.log(list);
+        for (let elem of list) {
+            if(elem === postId) return true;
+        }
+        return false
+    }
+
+    public async getUSerPost(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('post') + ' WHERE handle =' + `'${handle}' ORDER BY post_id DESC` + END_CHAR);
+        return this.query(SELECT_ALL('post') + ` WHERE handle = '${handle}' ORDER BY post_id DESC` + END_CHAR);
+    }
+
+    public async getPostLiked(email: string): Promise<pg.QueryResult> {
+        console.log(SELECT_SOME(['posts'], 'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR);
+        return this.query(SELECT_SOME(['posts'], 'likes') + ` WHERE email = '${email}' ` + END_CHAR);
+    }
+
+    public async getPosts(): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('post') + END_CHAR);
+        return this.query(SELECT_ALL('post') + END_CHAR);
+    }
+
+    public async getFeedPosts(email: string): Promise<pg.QueryResult> {
+        const handles =  (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR));
+        if(handles.rows[0]?.list) {
+            const queryCondition = SELECT_MANY(handles.rows[0].list);
+            console.log(SELECT_ALL('post') + queryCondition + 'order by post_id desc' + END_CHAR)
+            return this.query(SELECT_ALL('post') + queryCondition + 'order by post_id desc' + END_CHAR);
+        };
+        return handles;
     }
 
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
@@ -82,8 +129,8 @@ export class DatabaseService {
     }
 
     public async getFriendsInfos(handle: string): Promise<any[]> {
-        console.log(SELECT_SOME(['list'],'friends') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
-        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE handle = '${handle}' ` + END_CHAR)).rows;
+        console.log(SELECT_SOME(['list'],'friends') + ' WHERE email =' + `'${handle}' ` + END_CHAR);
+        const result = (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${handle}' ` + END_CHAR)).rows;
         const friendList = result[0].list.split(' ');
         const friendInfos: any[] | PromiseLike<any[]> = [];
         const promise = await new Promise<string[]>((resolve, reject) => {
@@ -98,6 +145,69 @@ export class DatabaseService {
             });
         });
         return promise;
+    }
+
+    public async createFave(email: string, postId: string): Promise<void> {
+        this.query(INSERT('favorite', 2), [email, postId]).catch( async ()=>{
+            let currentPosts = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+            let fave = currentPosts.split(' ');
+            let flag = true
+            for (let elem of fave) {
+                if (elem === postId) flag = false;
+            }
+            if(flag) {
+                console.log('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+            }
+        })
+    }
+
+    public async createLike(email: string, postId: string): Promise<void> {
+        this.query(INSERT('likes', 2), [email, postId]).catch( async ()=>{
+            let currentPosts = (await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+            let liked = currentPosts.split(' ');
+            let flag = true
+            for (let elem of liked) {
+                if (elem === postId) flag = false;
+            }
+            if(flag) {
+                console.log('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${currentPosts} ${postId}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+            }
+        })
+        let currentLikes = (await this.query(SELECT_SOME(['likes'],'post') + ' WHERE post_id =' + `'${postId}' ` + END_CHAR)).rows[0].likes;
+        console.log('UPDATE chymera.post SET likes= ' + `'${currentLikes + 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+        this.query('UPDATE chymera.post SET likes= ' + `'${currentLikes + 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+    }
+
+    public async removeFave(email: string, postId: string): Promise<void> {
+        if ((await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]) {
+                let currentPosts = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+                let fave = currentPosts.split(' ');
+                let newPosts = '';
+                for (let elem of fave) {
+                    if (elem !== postId && elem !== '') newPosts += elem + ' ';
+                }
+                console.log('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.favorite SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+            }
+    }
+
+    public async removeLike(email: string, postId: string): Promise<void> {
+        if ((await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0]) {
+                let currentPosts = (await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;
+                let liked = currentPosts.split(' ');
+                let newPosts = '';
+                for (let elem of liked) {
+                    if (elem !== postId && elem !== '') newPosts += elem + ' ';
+                }
+                console.log('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+                this.query('UPDATE chymera.likes SET email = ' + `'${email}'` + ', posts=' + `'${newPosts}'` + ' WHERE email = ' + `'${email}'` + END_CHAR);
+
+                let currentLikes = (await this.query(SELECT_SOME(['likes'],'post') + ' WHERE post_id =' + `'${postId}' ` + END_CHAR)).rows[0].likes;
+                console.log('UPDATE chymera.post SET likes= ' + `'${currentLikes - 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+                this.query('UPDATE chymera.post SET likes= ' + `'${currentLikes - 1}'` + ' WHERE post_id = ' + `'${postId}'` + END_CHAR);
+            }
     }
 
     public async getTablesList(): Promise<pg.QueryResult> {
@@ -121,12 +231,18 @@ export class DatabaseService {
         return this.insert(tableName, this.objectToArray(obj));
     }
 
+    // public async updateUser(update: Update): Promise<pg.QueryResult> {
+    //     const query = UPDATE('users') + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;
+    //     console.log(query);
+    //     return this.query(query);
+    // }
+
     public async remove(tableName: string, obj: any): Promise<pg.QueryResult> {
         return this.delete(tableName, obj);
     }
 
-    public async updateNewsOptions(tableName: string, update: Update): Promise<pg.QueryResult> {
-        return this.updateDBNewsOptions(tableName, update);
+    public async updateUser(tableName: string, update: Update): Promise<pg.QueryResult> {
+        return this.updateDBUser(tableName, update);
     }
 
     public async updateUserEmail(tableName: string, update: Update): Promise<pg.QueryResult> {
@@ -163,7 +279,7 @@ export class DatabaseService {
         return this.query(query);
     }
 
-    private async updateDBNewsOptions(table: string, update: Update): Promise<pg.QueryResult> {
+    private async updateDBUser(table: string, update: Update): Promise<pg.QueryResult> {
         /*SET email=?, handle=?, profile_pic=?, age=?, account_name=?, private_account=?, bio=?, news_options=?, local_news=?, french_language=?
 	WHERE <condition>;*/
         const query = UPDATE(table) + this.assign(update.new, ', ') + this.where(update.old) + END_CHAR;

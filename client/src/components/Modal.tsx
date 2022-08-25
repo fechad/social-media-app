@@ -10,6 +10,7 @@ interface ModalProps {
     title: string,
     modalWidth: string,
     modalHeight: string,
+    modalMinHeight?: string,
     destructive?: boolean,
     primary?: string,
     primaryFct?: Function,
@@ -18,7 +19,7 @@ interface ModalProps {
     children?:JSX.Element,
 }
 
-const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, destructive, primary, primaryFct, secondary, secondaryFct, children}:ModalProps) => {
+const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, modalMinHeight, destructive, primary, primaryFct, secondary, secondaryFct, children}:ModalProps) => {
 
     const [open, openModal] = useState(false);
 
@@ -39,7 +40,7 @@ const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, destruct
         </div>
         <div className='Modal' ref={modalRef}>
             <div className='ModalOverlay' />
-            <div className='ModalContent' style={{width: modalWidth, height: modalHeight}}>
+            <div className='ModalContent' style={{width: modalWidth, height: modalHeight, minHeight: modalMinHeight}}>
                 <div className='Header'>
                     <Text content={`${title}`} type='H1' />
                     <div className='ModalCloseButton' onClick={() => openModal(false)}><MdOutlineClose  size={30}/></div>
@@ -47,13 +48,15 @@ const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, destruct
                 <div className='Body'>
                     {children}
                 </div>
-                <div className='Footer' style={{width: modalWidth}}>
-                    {
-                        secondary ? <Button text={secondary} textType='H3' color='darkgrey' fct={secondaryFct}/> : ''
-                    }
-                    {
-                        primary ? <Button text={primary} textType='H3' fct={primaryFct} color={ destructive ? '#FF5555' : '#8773F0'}/> : ''
-                    }
+                <div className='FooterContainer'>
+                    <div className='Footer' style={{width: modalWidth}}>
+                        {
+                            secondary ? <Button text={secondary} textType='H3' color='darkgrey' fct={secondaryFct}/> : ''
+                        }
+                        {
+                            primary ? <Button text={primary} textType='H3' fct={primaryFct} color={ destructive ? '#FF5555' : '#8773F0'}/> : ''
+                        }
+                    </div>
                 </div>
             </div>
         </div>

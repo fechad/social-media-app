@@ -6,15 +6,22 @@ import Text from '../components/Text';
 interface TabsProps { 
     tabs: string
     pages: JSX.Element[]
+    titleFct?: Function
 }
 function defaultFunction(number: number) {
     return (<div>page {number}</div>)
 }
-const Tabs = ({tabs, pages} : TabsProps) => {
+const Tabs = ({tabs, pages, titleFct} : TabsProps) => {
 
     const [selected, changeSelected] = useState(0);
 
     document.documentElement.style.setProperty("--headerWidth", 100/pages.length + "%");
+
+    function clicHandler(index: number) {
+        if(index !== selected)document.getElementById(selected.toString())?.classList.remove('selected'); 
+        changeSelected(index);
+        titleFct?.();
+    }
 
     useEffect(()=>{
         document.getElementById(selected.toString())?.classList.add('selected');
@@ -22,7 +29,7 @@ const Tabs = ({tabs, pages} : TabsProps) => {
 
     const headers = tabs.split(';').map((header, index) => {
     return (
-        <div key={index} className = 'header' id = {`${index}`} onClick={()=>{if(index !== selected)document.getElementById(selected.toString())?.classList.remove('selected'); changeSelected(index)}}>
+        <div key={index} className = 'header' id = {`${index}`} onClick={()=>{clicHandler(index)}}>
             <Text content = {`${header}`} type = 'H2'></Text>
         </div>
     )

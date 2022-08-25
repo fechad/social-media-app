@@ -7,3 +7,83 @@
     width: fit-content;
     height: fit-content;
 }
+
+#page-container{
+    overflow-y: auto;
+    padding: 80px;
+
+    #Publish .ModalTrigger .button:first-child {
+        position: absolute;
+        top: 32px;
+        right: 400px;
+    }
+
+    .ModalContent .Body {
+        position: relative;
+        display: flex;
+        justify-content: center;
+
+        .PostCreationContainer {
+            //border: 1px solid #676767;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+    
+            textarea {
+                border: none;
+                margin-top: 2px;
+                //overflow:hidden;
+                height: auto;
+    
+                &:focus-visible {
+                    outline: none;
+                }
+            }
+
+            .RemovePhoto{
+
+                border: none;
+                border-radius: 100%;
+                width: 40px;
+                height: 40px;
+                background-color: rgba(0, 0, 0, 0.5);
+                position: absolute;
+                top: 50px;
+                right: 40px;
+                display: flex;
+                align-items: center;
+
+                &:hover{
+                    cursor: pointer;
+                    background-color: rgba(0, 0, 0, 0.3);
+                }
+
+                &:active{
+                    cursor: pointer;
+                    background-color: rgba(0, 0, 0, 0.7);
+                }
+
+            }
+        }
+
+        .AdditionalOptions {
+            display: flex;
+            position: absolute;
+            bottom: -80px;
+            z-index: 80;
+            
+            label {
+
+                width: 40px;
+                height: 40px;
+                border: none;
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}
