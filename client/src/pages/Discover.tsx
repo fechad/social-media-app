@@ -12,6 +12,7 @@ import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
 import Post from '../components/Post';
 import { AuthContext } from '../Auth';
+import { Snackbar } from '@mui/material';
 
 const Discover = () => {
 
@@ -44,6 +45,7 @@ const Discover = () => {
   }]);
   const [liked, setLiked] = useState('');
   const {currentUser} = useContext(AuthContext);
+  const [published, confirmPublishing] = useState(false);
   
   const textAreaAdjust = (element: any) => {
     element.style.height = "1px";
@@ -99,7 +101,8 @@ const Discover = () => {
           'date': date
         }),
       }).then(() =>{
-            window.location.reload();
+        document.getElementById('Publish')?.remove();
+        confirmPublishing(true);
       })
   }
 
@@ -187,6 +190,16 @@ const Discover = () => {
                     postsList
                   }
           </div>
+          <Snackbar
+            open={published}
+            autoHideDuration={2000}
+            onClose={()=> window.location.reload()}
+            message="Successfully posted!"
+            security='success'
+            action={'Ok'}
+            onClick={() => window.location.reload()}
+            anchorOrigin={{vertical: 'bottom',horizontal: 'center'}}
+          />
         </div>
         <div className ='RightSideContainer'><RightSidePane /></div>
         
