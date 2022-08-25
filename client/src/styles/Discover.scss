@@ -87,3 +87,31 @@
         }
     }
 }
+
+.MuiSnackbar-anchorOriginBottomCenter{
+
+    .MuiPaper-root {
+
+        width: 400px;
+    }
+
+    .MuiSnackbarContent-message {
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 24px;
+    }
+
+    .MuiSnackbarContent-action {
+        color: #8773F0;
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 24px;
+
+        &:hover {
+            cursor: pointer;
+            color: #bdb3f1;
+        }
+
+        &:active {
+            color: #604cc7;
+        }
+    }
+}
