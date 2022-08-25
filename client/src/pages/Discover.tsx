@@ -53,7 +53,9 @@ const Discover = () => {
   const sendPhoto = () =>{
     if((document.getElementById('download') as HTMLInputElement).files![0]) {
       const form = new FormData();
-      name = `${Date.now()}${Math.round(Math.random() * 1000)}.png`
+      name = `${Date.now()}${Math.round(Math.random() * 1000)}`
+      if ((document.getElementById('download') as HTMLInputElement).files![0].name.slice(-3) === 'mp4') name += '.mp4'
+      else name += '.png'
       form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name); 
       axios.post(`${environment.serverUrl}/database/image`, form);
     }
@@ -63,8 +65,15 @@ const Discover = () => {
     const file = (document.getElementById('download') as HTMLInputElement).files![0];
     const reader = new FileReader();
     reader.addEventListener('load', ()=>{
-      document.getElementById('previewPic')?.setAttribute('src', reader.result!.toString())
-      if(reader.result!.toString().includes('.png') || reader.result!.toString().includes('.jpg')) setIsPhoto(true) ;
+      if(file.name.slice(-3) === 'mp4') {
+        document.getElementById('previewPic')?.insertAdjacentHTML('afterend', `<video id= 'previewVid' src = '${reader.result!.toString()}' width = '576' height='240' controls></video>`);
+        document.getElementById('previewPic')?.removeAttribute('src');
+      }
+      else {
+        document.getElementById('previewPic')?.setAttribute('src', reader.result!.toString());
+        document.getElementById('previewVid')?.remove();
+      }
+      if(file.name.includes('.png') || file.name.includes('.jpg')) setIsPhoto(true) ;
       else setIsPhoto(false);
       setImagePresent(true);
     });
@@ -73,6 +82,7 @@ const Discover = () => {
 
   const removeFile = () => {
     document.getElementById('previewPic')?.removeAttribute('src');
+    document.getElementById('previewVid')?.remove();
     setImagePresent(false);
   }
 
@@ -91,10 +101,10 @@ const Discover = () => {
         body: JSON.stringify({
           'handle': data.handle,
           'post_id': `${Date.now()}${Math.round(Math.random() * 1000)}`,
-          'media':  name ? `./assets/profile-pics/${name}` : undefined,
+          'media':  name ? isPhoto ? `./assets/profile-pics/${name}` : `./assets/videos/${name}` : undefined,
           'text_message': message,
           'likes': '0',
-          'isVideo': `${isPhoto}`,
+          'isVideo': isPhoto,
           'comments_number': '0',
           'date': date
         }),

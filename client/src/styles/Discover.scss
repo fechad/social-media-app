@@ -54,6 +54,7 @@
                 right: 40px;
                 display: flex;
                 align-items: center;
+                z-index: 10000;
 
                 &:hover{
                     cursor: pointer;

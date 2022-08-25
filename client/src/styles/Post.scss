@@ -12,7 +12,12 @@
         border-radius: 100%;
     }
 }
-
+.video-container {
+    width: 600px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+}
 .post {
     margin-bottom: 32px;
     padding: 8px;

@@ -15,7 +15,8 @@ export class DatabaseController {
         const multer = require('multer');
         const storage = multer.diskStorage({
             destination:function(req:any, file:any, cb:any) {
-            cb(null, './assets/profile-pics')
+                if(file.originalname.slice(-3) === 'mp4') cb(null, './assets/videos');
+                else cb(null, './assets/profile-pics');
             },
             filename: function(req:any, file:any, cb:any) {
                 cb(null, file.originalname)
@@ -126,6 +127,16 @@ export class DatabaseController {
                     console.error(e.stack);
                     res.status(404).json(e.stack);
                 });
+        });
+
+        router.get('/video', (req: Request, res: Response, next: NextFunction) => {
+            try {
+                res.download('./assets/videos/test.mp4')}
+            catch {
+                (e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                }};
         });
 
         router.get('profile_pic/:handle', (req: Request, res: Response) => {

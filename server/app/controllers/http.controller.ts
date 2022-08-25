@@ -50,6 +50,12 @@ export class HttpController {
             }
         });
 
+        this.router.get('/api/video/:file', (req: Request, res: Response, next: NextFunction) => {
+            if(req.params.file !== 'undefined' && req.params.file !== 'none' && req.params.file !== '0'){
+                res.download(`./assets/videos/${req.params.file}`);
+            }
+        });
+
         this.router.get('/api/news/:filters', (req: Request, res: Response, next: NextFunction) => {
             let sample = this.newsService.getArticles(req.params.filters, req.params.filters.split(';')[0]);
             res.json(sample), console.log(sample.length);
