@@ -17,7 +17,7 @@ switch(process.env.NODE_ENV) {
 export const environment = {
 
     production: production,
-    serverUrl: `${production ? 'http://34.121.126.169:3000/api' : 'http://localhost:3000/api'}`,
+    serverUrl: `${production ? 'https://server.chymera.ca/api' : 'http://localhost:3000/api'}`,
     socketUrl: `${production ? 'http://34.121.126.169:3000/' : 'http://localhost:3000'}`,
 };
 
