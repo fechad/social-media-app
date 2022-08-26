@@ -3,6 +3,7 @@ import './App.scss';
 import Text from '../src/components/Text';
 import Link from './components/Link';
 import { BiCopyright } from 'react-icons/bi';
+import Button from './components/Button';
 
 
 
@@ -21,7 +22,19 @@ function App() {
         </section>
       </section>
       <section className='app-summary'>
-        <Text type='H1' content='Welcome to our website !' />
+        <div className='app-modal'>
+          <div className='app-modal-header'>
+            <p style={{fontSize: '60px', fontWeight: 'Bold'}}>Welcome to Chymera</p>
+          </div>
+          <div className='app-modal-content'>
+            <p style={{fontSize: '35px'}}>This is a social media website project designed to allow users to share their opinions and moments, interact with others through chats and get informed on the latest news updates.</p>
+          </div>
+          <div className='app-modal-footer'>
+            <Button color='#5CE1E6' text='Login' textType='H2'/>
+            <Button text='Sign up' textType='H2'/>
+          </div>
+        </div>
+        <img className='summary-logo' src='/logo.svg' alt="" height="288px"width="288px"></img>
       </section>
       <section className='app-sample'>
         <Text type='H1' content='Welcome to our website !' />

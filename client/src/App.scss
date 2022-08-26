@@ -95,7 +95,7 @@ p {
   
     
     a.body {
-
+      
       padding-left: 200px;
     }
   }
@@ -103,9 +103,61 @@ p {
   .app-summary {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
     width: 1288px;
     height: 500px;
     padding-top: 120px;
+    gap: 120px;
+
+    .app-modal {
+
+      width: 856px;
+      height: 488px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+
+      background: white;
+      border: 1px solid rgba(0, 0, 0, 0.3);
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+      border-radius: 4px;
+
+      .app-modal-header {
+
+        width: 800px;
+        height: fit-content;
+        
+
+        p {
+          margin: 24px 24px 24px 0px;
+        }
+      }
+
+      .app-modal-content {
+
+        width: 800px;
+        height: 200px;
+
+        p {
+          margin: 0%;
+        }
+      }
+
+      .app-modal-footer {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        gap: 24px;
+        width: 800px;
+      }
+    }
+
+    .summary-logo {
+
+      animation: App-logo-spin infinite 20s linear;
+    }
   }
 
   .app-sample {
@@ -153,7 +205,7 @@ p {
 }
 
 
-/*
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -162,4 +214,4 @@ p {
     transform: rotate(360deg);
   }
 }
-*/
+
