@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/Credentials.css'
 import Text from '../../components/Text'
@@ -66,6 +66,14 @@ const Credentials = () => {
 }
 
   const { currentUser } = useContext(AuthContext);
+
+  useEffect(() => {
+    (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            collectInfos();
+        }
+    })
+}, []);
 
   if (currentUser) {
       return <Navigate to="/User/Discover" />;
