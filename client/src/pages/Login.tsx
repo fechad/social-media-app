@@ -65,13 +65,14 @@ const Login = () => {
     }
 
     const { currentUser } = useContext(AuthContext);
-    
+
     useEffect(() => {
         (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).addEventListener('keypress', (e) => {
             if(e.key === 'Enter') {
                 collectInfos();
             }
         })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     if (currentUser) {
