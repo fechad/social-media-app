@@ -181,7 +181,7 @@ const UserSettings = () => {
             result += `${(document.getElementsByClassName('CheckboxesContainer')[0].childNodes[index].lastChild as HTMLElement).innerText} `;
         }
         result.trim();
-        if(result.split(' ').length === 8) result = 'All'
+        //if(result.split(' ').length === 8) result = 'All'
 
         return result;
     }

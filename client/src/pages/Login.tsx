@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import Button from '../components/Button';
 import Link from '../components/Link';
 import Text from '../components/Text';
@@ -17,6 +17,7 @@ const Login = () => {
     //const [validCredentials, setCredentialsStatus] = useState(false);
     const auth = getAuth(app);
     let navigate = useNavigate();
+    
     const collectInfos = async () => {
         const loginInfos = {
             "email" : (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value,
@@ -65,10 +66,20 @@ const Login = () => {
 
     const { currentUser } = useContext(AuthContext);
 
+    useEffect(() => {
+        (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).addEventListener('keypress', (e) => {
+            if(e.key === 'Enter') {
+                collectInfos();
+            }
+        })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     if (currentUser) {
         return <Navigate to="/User/Discover" />;
     }
 
+  
   return (
     <div className='LoginPage'>
         <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>

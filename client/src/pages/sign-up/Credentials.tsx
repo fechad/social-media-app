@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import '../../styles/Credentials.css'
 import Text from '../../components/Text'
@@ -67,6 +67,15 @@ const Credentials = () => {
 
   const { currentUser } = useContext(AuthContext);
 
+  useEffect(() => {
+    (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).addEventListener('keypress', (e) => {
+        if(e.key === 'Enter') {
+            collectInfos();
+        }
+    })
+// eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
+
   if (currentUser) {
       return <Navigate to="/User/Discover" />;
   }
@@ -81,7 +90,7 @@ const Credentials = () => {
         </section>
         <TextInput label='Please enter your email address:' placeHolder='ex: JohnDoe@domainName.com'/>
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
-        <div className='ProgressBarSection'> Insert progress bar component here</div>
+        {/* <div className='ProgressBarSection'> Insert progress bar component here</div> */}
         <section className='Separator'>
                 <hr />
                 <Text type='H2' content='OR'/>
