@@ -14,8 +14,20 @@
 
     #Publish .ModalTrigger .button:first-child {
         position: absolute;
-        top: 32px;
-        right: 400px;
+        bottom: 48px;
+        right: 440px;
+
+        .ButtonComponent {
+
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+
+            p.body {
+                font-size: 70px;
+                margin: 0%;
+            }
+        }
     }
 
     .ModalContent .Body {

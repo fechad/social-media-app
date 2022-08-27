@@ -154,7 +154,7 @@ const Discover = () => {
           <NavBar selection='discover' />
           <div id='Publish'>
             <Modal 
-              triggerElement={<Button text='Post'/>} 
+              triggerElement={<Button text='+'/>} 
               title={'Post on Chymera ?'} 
               modalWidth={'624px'} 
               modalHeight={'auto'}
@@ -202,9 +202,6 @@ const Discover = () => {
           />
         </div>
         <div className ='RightSideContainer'><RightSidePane /></div>
-        
-        
-        
     </div>
   )
 }

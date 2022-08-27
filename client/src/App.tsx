@@ -49,7 +49,7 @@ function App() {
             <p style={{fontSize: '35px'}}>This is a social media website project designed to allow users to share their opinions and moments, interact with others through chats and get informed on the latest news updates.</p>
           </div>
           <div className='app-modal-footer'>
-            <Button color='#5CE1E6' text='Login' textType='H2' fct={() => navigate('/login', {replace: true})}/>
+            <Button color='#5CE1E6' text='Login' textType='H2' fct={() => {navigate('/login', {replace: true})}}/>
             <Button text='Sign up' textType='H2'fct={() => navigate('/Sign-up', {replace: true})}/>
           </div>
         </div>
