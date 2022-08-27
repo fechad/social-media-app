@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.scss';
 import Link from './components/Link';
 import { BiCopyright } from 'react-icons/bi';
@@ -11,6 +11,8 @@ import { useNavigate } from 'react-router-dom';
 
 function App() {
   let navigate = useNavigate();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [beta, setBetaVersion] = useState(true);
   AOS.init({once: false, mirror: true})
   return (
     <div className='App'>
@@ -32,7 +34,16 @@ function App() {
           data-aos-once="false"
         >
           <div className='app-modal-header'>
-            <p style={{fontSize: '60px', fontWeight: 'Bold'}}>Welcome to Chymera</p>
+            <div className='app-modal-header-title'>
+              <p style={{fontSize: '60px', fontWeight: 'Bold'}}>Welcome to Chymera</p>
+            </div>
+            {
+              beta ? 
+              <div className='app-modal-beta'>
+                <p style={{fontSize: '30px', fontWeight: 'Bold', color:'white'}}>Beta v1.3</p>
+              </div>
+              : ''
+            }
           </div>
           <div className='app-modal-content'>
             <p style={{fontSize: '35px'}}>This is a social media website project designed to allow users to share their opinions and moments, interact with others through chats and get informed on the latest news updates.</p>
