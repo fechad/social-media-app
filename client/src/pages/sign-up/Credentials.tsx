@@ -74,7 +74,7 @@ const Credentials = () => {
 
   return (
     <div className='CredentialsPage'>
-      <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/login'><BsArrowLeft size={40}/></a>
       <div className='CredentialsContainer'>
         <section className='CredentialsContainerTitle'>
           <Text type='H1' content="Welcome to 'Name of app'" />

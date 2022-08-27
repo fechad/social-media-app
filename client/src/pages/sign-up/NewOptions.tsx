@@ -59,7 +59,7 @@ const NewOptions = () => {
 
   return (
     <div className='NewsOptionsPage'>
-      <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/login'><BsArrowLeft size={40}/></a>
       <a className='SkipLink H2' href='/User/Discover'> Skip</a>
       <div className='NewsOptionsContainer'>
         <section className='NewsOptionsContainerTitle'>

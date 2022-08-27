@@ -28,12 +28,13 @@ const ProfileSetup = () => {
     }
     const getPhoto = () =>{
       const form = new FormData();
-      form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], (document.getElementById('download') as HTMLInputElement).files![0]?.name);
-      name = (document.getElementById('download') as HTMLInputElement).files![0].name;
+      name = `${Date.now()}${Math.round(Math.random() * 1000)}.png`
+      form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name);
       axios.post(`${environment.serverUrl}/database/image`, form);
     }
 
     const sendInfo = async () => {
+        getPhoto();
         
         const profileSetupInfos = {
           "photo" : name ? `./assets/profile-pics/${name}` : undefined,
@@ -70,8 +71,6 @@ const ProfileSetup = () => {
         document.getElementById('photo')?.setAttribute('src', reader.result!.toString())
       })
       reader.readAsDataURL(file);
-
-      getPhoto();
     }
 
   return (
