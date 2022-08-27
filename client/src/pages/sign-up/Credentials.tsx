@@ -81,7 +81,7 @@ const Credentials = () => {
         </section>
         <TextInput label='Please enter your email address:' placeHolder='ex: JohnDoe@domainName.com'/>
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
-        <div className='ProgressBarSection'> Insert progress bar component here</div>
+        {/* <div className='ProgressBarSection'> Insert progress bar component here</div> */}
         <section className='Separator'>
                 <hr />
                 <Text type='H2' content='OR'/>
