@@ -19,7 +19,7 @@ import NoContent from '../components/NoContent'
 
 const UserProfile = () => {
     let name: string;
-
+    const [searching, setSearch] = useState(false);
     const [data, getData] = useState({
         "email": 'none',
         "handle" : 'none',
@@ -60,6 +60,8 @@ const UserProfile = () => {
         'comments_number': 0,
 
     }]);
+
+    const [users, setUsers] = useState(friendsList);
 
     const [liked, setLiked] = useState('');
 
@@ -138,7 +140,7 @@ const UserProfile = () => {
             return (
                 <img className = 'friends-pic' key = {friend.handle} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
             )
-        } else return undefined;
+        } else return '';
     });
 
     const moreFriends = friendsList.map((friend, index) => {
@@ -149,7 +151,7 @@ const UserProfile = () => {
                     <Text content = {`${friend.account_name}`}></Text>
                 </div>
             )
-        } else return undefined;
+        }  else return '';
     });
 
 
@@ -182,6 +184,25 @@ const UserProfile = () => {
         return '';
     });
 
+    const selected = users.map((user, index) => {
+        return (
+            <div key = {user.handle} className = 'friends-displayer'>
+                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user.handle}`} alt="" width='48px' height = '48px'/>
+                <Text content = {`${user.account_name}`}></Text>
+            </div>
+        )
+    });
+
+    const reset = () => {
+        setSearch(false);
+    }
+
+    const selectFriends = () => {
+        const inputText = (document.getElementsByClassName('inputContainer')[2].firstChild as HTMLInputElement).value;
+        const request = friendsList.filter(item=>item.account_name.toLowerCase().includes(`${inputText.toLowerCase()}`) || item.handle.toLowerCase().includes(`${inputText.toLowerCase()}`));
+        setUsers(request);
+    }
+
     function publications(){
         return (
             <div>
@@ -201,6 +222,16 @@ const UserProfile = () => {
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, [clicked]);
+    useEffect(()=>{
+        (document.getElementsByClassName('inputContainer')[2].firstChild as HTMLInputElement).addEventListener('keyup', () =>{
+            setSearch(true);
+            let text = (document.getElementsByClassName('inputContainer')[2].firstChild as HTMLInputElement).value;
+            if(text === ''){
+                reset();
+            }
+        })
+    }, []);
+    useEffect(()=>{}, [users, searching]);
     return (
         <div>
             <div className='LeftSideContainer'><LeftSidePane /></div>
@@ -260,9 +291,9 @@ const UserProfile = () => {
                                 modalHeight={'600px'}
                             >
                                 <div>
-                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
-                                    <div style={{margin: '24px'}}>
-                                        {moreFriends}
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
+                                    <div className = 'search-displayer' style={{margin: '24px'}}>
+                                        {searching ? selected : moreFriends}
                                     </div>
                                 </div>
                             </Modal>
@@ -272,19 +303,7 @@ const UserProfile = () => {
                         <Text content = 'Group List' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <Modal 
-                                triggerElement={ <p className = 'see-more'>see more</p>} 
-                                title={'Friends list'} 
-                                modalWidth={'300px'} 
-                                modalHeight={'600px'}
-                            >
-                                <div>
-                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
-                                    <div style={{margin: '24px'}}>
-                                        {moreFriends}
-                                    </div>
-                                </div>
-                            </Modal>
+                            <p className = 'see-more' style = {{color: '#cccccc', cursor: 'not-allowed'}}>see more</p>
                         </div>
                     </div>
                 </div>
