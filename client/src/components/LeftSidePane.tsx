@@ -25,7 +25,6 @@ function LeftSidePane() {
         await fetch(`${environment.serverUrl}/database/users/Search/${inputText}`, {
             method: 'GET',
           }).then(async (result) => {
-            //setFirstSearch(false);
             await result.json()
             .then((data) =>{
                 setUsers(data)
