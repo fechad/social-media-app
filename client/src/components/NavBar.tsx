@@ -30,7 +30,7 @@ const NavBar = ({selection}: NavBarProps) => {
     }
 
     const navigateChats= () => {
-        navigate("/User/Chats", { replace: true });
+        //navigate("/User/Chats", { replace: true });
     }
 
   return (
@@ -39,7 +39,7 @@ const NavBar = ({selection}: NavBarProps) => {
         <Button text='' color='' fct={navigateMyFeed} icon={<FiUsers className='NavBarUsers' size={30} color={selection === 'myFeed' ? '#8773F0' : ''}/>} />
         <Button text='' color='' fct={navigateNewsFeed} icon={<BsNewspaper className='NavBarNews' size={30} color={selection === 'newsFeed' ? '#8773F0' : ''}/>} />
         <Button text='' color='' fct={navigateNotifications} icon={<FiBell className='NavBarBell' size={30} color={selection === 'notifications' ? '#8773F0' : ''}/>} />
-        <Button text='' color='' fct={navigateChats} icon={<BsChatDots className='NavBarBubbles' size={30} color={selection === 'chats' ? '#8773F0' : ''}/>} />
+        <Button text='' color='' fct={navigateChats} icon={<BsChatDots className='NavBarBubbles' size={30} color='grey'/*{selection === 'chats' ? '#8773F0' : ''}*//>} />
     </div>
   )
 }
