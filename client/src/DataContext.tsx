@@ -23,10 +23,23 @@ export function  UserDataContext({children}:any) {
     "french_language" : 'false', 
   });
 
+  const [notifications, getNotifications] = useState([{
+    notificationId: '',
+    photos: '',
+    title: '',
+    description: '',
+    seen: '',
+    destination_handle: '',
+    url: '',
+  }]);
+
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
       getData(infos.data[0]);
-      setPending(false);
+      axios.get(`${environment.serverUrl}/database/users/MyInfos/notifications/${infos.data[0].handle}`).then((notifications)=>{
+        getNotifications(notifications.data);
+        setPending(false);
+      }) ;
     }) ;
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -38,7 +51,7 @@ export function  UserDataContext({children}:any) {
 
   return (
     <DataContext.Provider
-    value={{data}}
+    value={{data,notifications}}
   >
     {children}
   </DataContext.Provider>

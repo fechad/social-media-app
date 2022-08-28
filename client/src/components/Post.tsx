@@ -76,12 +76,12 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     return (
         <div className='post'>
             <div className = 'header'>
-                <div className = 'poster'>
+                <div className = 'poster' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
                     <img src={`${environment.serverUrl}/database/image/${handle}`} alt="" />
                     <Text type='H3 bold' content={`${username}`}></Text>
                 </div>
                 <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
-                <div onClick={() => {bookmark(!bookmarked)}}>
+                <div onClick={() => {bookmark(!bookmarked)}} className='bookmark-area'>
                     {bookmarked ? <AiFillStar color = '#8773F0' size={'32px'}/> : <AiOutlineStar color = 'black' size={'32px'}/>}
                 </div>
             </div>
@@ -109,11 +109,11 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
                     <Text content = {nbLikes.toString()}></Text>
                 </div>
-                <div id = 'comments' onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}>
-                    {<FaRegCommentDots color='black' size='24px'/>}
-                    <Text content = {nbComments.toString()}></Text>
+                <div id = 'comments' /*onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}*/>
+                    {<FaRegCommentDots color='grey' size='24px'/>}
+                    <Text color='grey' content = {nbComments.toString()}></Text>
                 </div>
-                {<FiShare2 color='black' size='24px'/>}
+                {<FiShare2 className='share-area' color='grey' size='24px'/>}
             </div>
         </div>
     )
