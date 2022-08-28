@@ -3,8 +3,8 @@ import { Service } from "typedi";
 @Service()
 export class NewsService {
 
-    //private newsAPIKey = '5b227cdd668347119cb253da9ae1deae';
-    private backupNewsAPIKey = '5f0ec7a11fba4aedb2f9a99c6ed47ac9';
+    private newsAPIKey = '5b227cdd668347119cb253da9ae1deae';
+    //private backupNewsAPIKey = '5f0ec7a11fba4aedb2f9a99c6ed47ac9';
 
     public categories = 'business;entertainment;general;health;science;sports;technology'
 
@@ -70,7 +70,7 @@ export class NewsService {
                 `category=${category}` +
                 `${local ? '&country=ca' : ''}` +
                 '&language=en' +
-                '&apikey=' + this.backupNewsAPIKey;
+                '&apikey=' + this.newsAPIKey;
 
         console.log(url);
         

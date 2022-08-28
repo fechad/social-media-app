@@ -15,6 +15,7 @@ import Post from '../components/Post'
 import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 import { FaSearch } from 'react-icons/fa'
+import NoContent from '../components/NoContent'
 
 const UserProfile = () => {
     let name: string;
@@ -184,7 +185,7 @@ const UserProfile = () => {
     function publications(){
         return (
             <div>
-                {posts}
+                {posts.length !== 0 ? posts : <NoContent reason='current publications'/>}
             </div>
         )
     }
@@ -192,7 +193,7 @@ const UserProfile = () => {
     function favorites(){
         return (
             <div>
-                {starred}
+                {starred.length !== 0 ? starred : <NoContent reason='favorite posts to show'/>}
             </div>
         )
     }

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import LeftSidePane from '../components/LeftSidePane'
 import NavBar from '../components/NavBar'
+import NoContent from '../components/NoContent'
 import NotificationCard from '../components/NotificationCard'
 import RightSidePane from '../components/RightSidePane'
 import Tabs from '../components/Tabs'
@@ -32,7 +33,7 @@ const Notifications = () => {
   function requests(){
     return (
       <div>
-          starred
+        <NoContent reason='new notifications'/>
       </div>
     )
   }
@@ -40,7 +41,7 @@ const Notifications = () => {
   function likes(){
     return (
       <div>
-          starred
+        <NoContent reason='new notifications'/>
       </div>
     )
   }
@@ -48,7 +49,7 @@ const Notifications = () => {
   function mentions(){
     return (
       <div>
-          starred
+        <NoContent reason='new notifications'/>
       </div>
     )
   }
