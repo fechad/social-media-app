@@ -11,6 +11,14 @@
         width: 32px;
         border-radius: 100%;
     }
+
+    .bookmark-area {
+
+        &:hover {
+
+            cursor: pointer;
+        }
+    }
 }
 
 .post {
@@ -30,6 +38,11 @@
     p{
         margin: 0px;
     }
+
+    &:hover {
+
+        cursor: pointer;
+    }
 }
 
 .size-restricter {
@@ -48,6 +61,11 @@
     height: auto;
     border-radius: 4px;
     align-self: center;
+
+    &:hover {
+
+        cursor: pointer;
+    }
 }
 
 .display {
@@ -72,6 +90,14 @@
     justify-content: space-between;
     align-items: center;
     height: 40px;
+
+    .share-area {
+
+        &:hover {
+
+            cursor: not-allowed;
+        }
+    }
 }
 
 #likes, #comments{
@@ -80,5 +106,21 @@
     align-items: center;
     p{
         margin-left: 8px;
+    }
+}
+
+#likes {
+    
+    &:hover {
+
+        cursor: pointer;
+    }
+}
+
+#comments {
+    
+    &:hover {
+
+        cursor: not-allowed;
     }
 }
