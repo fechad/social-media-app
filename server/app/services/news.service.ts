@@ -32,12 +32,12 @@ export class NewsService {
     }
 
     private init() {
-        // this.categories.split(';').forEach(async category => {
-        //     if(category) await this.fetchCategoryArticles(category, false);
-        // });
-        // this.categories.split(';').forEach(async category => {
-        //     if(category) await this.fetchCategoryArticles(category, true);
-        // });
+        this.categories.split(';').forEach(async category => {
+            if(category) await this.fetchCategoryArticles(category, false);
+        });
+        this.categories.split(';').forEach(async category => {
+            if(category) await this.fetchCategoryArticles(category, true);
+        });
     }
 
     private startInterval() {
