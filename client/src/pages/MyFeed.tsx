@@ -12,6 +12,7 @@ import { IoMdClose } from 'react-icons/io'
 import { DataContext } from '../DataContext';
 import Post from '../components/Post';
 import { AuthContext } from '../Auth';
+import NoContent from '../components/NoContent';
 
 const MyFeed = () => {
 
@@ -180,7 +181,7 @@ const MyFeed = () => {
           </div>
           <div className='posts-container'>
                   {
-                    postsList
+                    postsList.length !== 0 ? postsList : <NoContent reason='posts to show'/>
                   }
           </div>
         </div>
