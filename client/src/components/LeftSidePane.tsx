@@ -19,14 +19,13 @@ function LeftSidePane() {
         profile_pic: ''
     }])
     const [searching, setSearch] = useState(false);
-    const [firstSearch, setFirstSearch] = useState(true);
     
     const getUsers = async () => {
         const inputText = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
         await fetch(`${environment.serverUrl}/database/users/Search/${inputText}`, {
             method: 'GET',
           }).then(async (result) => {
-            setFirstSearch(false);
+            //setFirstSearch(false);
             await result.json()
             .then((data) =>{
                 setUsers(data)
@@ -41,7 +40,6 @@ function LeftSidePane() {
             handle: '',
             profile_pic: ''
         }]);
-        setFirstSearch(true);
     }
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -55,12 +53,11 @@ function LeftSidePane() {
     }])
 
     useEffect(() => {
-        document.getElementsByClassName('inputContainer')[0].firstChild?.addEventListener('click', () => {
+        (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keyup', () =>{
             setSearch(true);
-        });
-        (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).addEventListener('keydown', (event) =>{
-            if(event.key === 'Enter'){
-                getUsers();
+            let text = (document.getElementsByClassName('inputContainer')[0].firstChild as HTMLInputElement).value;
+            if(text === ''){
+                reset();
             }
         })
     }, []);
@@ -72,27 +69,29 @@ function LeftSidePane() {
     );
 
   return (
-    <section className='LeftSidePaneContainer' onMouseLeave={() => reset()}>
+    <section className='LeftSidePaneContainer'>
         <div className='SearchArea'>
             <img src='/logo.svg' alt="" height="87"width="50"></img>
-            <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
+            <TextInput icon={<FaSearch size={25} color={'#CCCCCC'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
         </div>
-        <div className={searching && !firstSearch ? '' : `LeftSidePaneTittle`}>
+        <div className={searching ? '' : `LeftSidePaneTittle`}>
             {
-                searching && !firstSearch ? '' : <Text type='H2' content='Conversations'/>
+                searching ? '' : <Text type='H2' content='Conversations'/>
             }
         </div>
         <div className='ConversationsArea'>
             {
-                searching && !firstSearch ? 
+                searching ? 
 
                 users.map((match, index: any)=>{
+                    if(match.account_name !== '')
                     return(
                          
                          <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true }); window.location.reload();}}>
                             <UserSearchPreview  profile_pic={match.profile_pic} account_name={match.account_name} handle={match.handle} />
                         </div> 
-                    )           
+                    );  
+                    else return '';         
                 })
 
                 : 
