@@ -91,6 +91,12 @@ export class DatabaseService {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
     }
+
+    public async getMyNotifications(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
+        return this.query(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
+    }
+
     public async getMyFriends(email: string): Promise<pg.QueryResult> {
         const handles =  (await this.query(SELECT_SOME(['list'],'friends') + ` WHERE email = '${email}' ` + END_CHAR));
         if(handles.rows[0]?.list) {

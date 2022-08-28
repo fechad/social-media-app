@@ -1,21 +1,31 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import LeftSidePane from '../components/LeftSidePane'
 import NavBar from '../components/NavBar'
 import NotificationCard from '../components/NotificationCard'
 import RightSidePane from '../components/RightSidePane'
 import Tabs from '../components/Tabs'
+import { DataContext } from '../DataContext'
 import '../styles/Notifications.scss'
 
 const Notifications = () => {
 
   const [clicked, setClick] = useState(0);
-
+  let {notifications} = useContext(DataContext);
+  let navigate = useNavigate();
   
   function all(){
     return (
-      <div>
-        <NotificationCard notificationId='0' photos={['../logo.svg']} title='Welcome to Chymera' message='This is the beta version 1.3. Chat and comments are still disabled for now. Chat and comments are still disabled for now.' read={false}/>
-      </div>
+     <div>
+        {notifications.map((notification:any, index: any)=>{
+          return(
+
+            <div key={index} className='NotificationContainer' onClick={() => navigate("/User/Notifications", { replace: true })}>
+              <NotificationCard notificationId={notification.notificationId} photos={notification.photos.split(';')} title={notification.title} message={notification.description} read={notification.seen=== 'true' ? true : false} />
+            </div> 
+          )})
+        } 
+    </div>
     )
   }
 
@@ -58,7 +68,6 @@ const Notifications = () => {
         <NavBar selection='notifications' />
         <div className='notification-page-container'>
           <Tabs tabs='All;Requests;Likes;Mentions' pages={[all(), requests(), likes(), mentions()]} titleFct = {()=>{setClick(clicked + 1)}}></Tabs>
-
         </div>
       </div>
       <div className ='RightSideContainer'><RightSidePane /></div>
