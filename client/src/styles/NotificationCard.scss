@@ -18,6 +18,7 @@
             display: flex;
             flex-direction: row;
             width: 60px;
+            padding-left: 8px;
 
             .AvatarContainer:nth-child(1) .AvatarImg{
                 z-index: 2;
@@ -26,7 +27,7 @@
 
         .TitleContainer{
             margin-left: 40px;
-            text-align: right;
+            text-align: left;
             width: 224px;
 
             .H3{

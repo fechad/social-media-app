@@ -87,7 +87,7 @@ const ProfileSetup = () => {
             <input type = 'file' id = 'download' onChange={uploadFile}></input>
             <label htmlFor="download">
               <p className = 'upload'> upload a photo </p>
-              <FiUpload color='white' size = {24}/>
+              <FiUpload color='black' size = {24}/>
             </label>
           </section>
           <section className='ProfileDetailsSection'>

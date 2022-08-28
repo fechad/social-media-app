@@ -14,6 +14,8 @@ import Tabs from '../components/Tabs'
 import Post from '../components/Post'
 import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
+import { FaSearch } from 'react-icons/fa'
+import NoContent from '../components/NoContent'
 
 const UserProfile = () => {
     let name: string;
@@ -70,7 +72,7 @@ const UserProfile = () => {
             axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
                 setLiked(posts.data[0].posts);
             })
-            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/users/MyFriends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             })
             axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
@@ -134,10 +136,22 @@ const UserProfile = () => {
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none') {
             return (
-                <img className = 'friends-pic' key = {index} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+                <img className = 'friends-pic' key = {friend.handle} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
             )
         } else return undefined;
     });
+
+    const moreFriends = friendsList.map((friend, index) => {
+        if(friend.handle !== 'none') {
+            return (
+                <div key = {friend.handle} className = 'friends-displayer'>
+                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='48px' height = '48px'/>
+                    <Text content = {`${friend.account_name}`}></Text>
+                </div>
+            )
+        } else return undefined;
+    });
+
 
     const posts = postList.map((post, index) => {
         let postLiked = liked.split(' ');
@@ -171,7 +185,7 @@ const UserProfile = () => {
     function publications(){
         return (
             <div>
-                {posts}
+                {posts.length !== 0 ? posts : <NoContent reason='current publications'/>}
             </div>
         )
     }
@@ -179,7 +193,7 @@ const UserProfile = () => {
     function favorites(){
         return (
             <div>
-                {starred}
+                {starred.length !== 0 ? starred : <NoContent reason='favorite posts to show'/>}
             </div>
         )
     }
@@ -239,14 +253,38 @@ const UserProfile = () => {
                         <Text content = 'Friends List' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <Modal 
+                                triggerElement={ <p className = 'see-more'>see more</p>} 
+                                title={'Friends list'} 
+                                modalWidth={'300px'} 
+                                modalHeight={'600px'}
+                            >
+                                <div>
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
+                                    <div style={{margin: '24px'}}>
+                                        {moreFriends}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                     <div className = 'friends'>
                         <Text content = 'Group List' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <Modal 
+                                triggerElement={ <p className = 'see-more'>see more</p>} 
+                                title={'Friends list'} 
+                                modalWidth={'300px'} 
+                                modalHeight={'600px'}
+                            >
+                                <div>
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
+                                    <div style={{margin: '24px'}}>
+                                        {moreFriends}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>

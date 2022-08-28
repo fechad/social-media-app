@@ -11,7 +11,11 @@
     margin-right: 32px;
 }
  
-
+.friends-displayer{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
 
 .left-infos {
     display: flex;
@@ -134,14 +138,18 @@
     margin: 0px;
     font-size: large;
   }
-  #download + label {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
-    width: 180px;
-    height: 40px; 
-    background-color: white ;
-    border-radius: 8px;
-    border: 1px solid #676767;
+  
+  .patate {
+
+    #download + label {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      width: 180px;
+      height: 40px; 
+      background-color: white ;
+      border-radius: 8px;
+      border: 1px solid #676767;
+    }
   }

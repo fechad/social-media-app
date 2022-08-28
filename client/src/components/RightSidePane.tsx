@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { AiOutlinePlus } from 'react-icons/ai'
 import {HiOutlineCog} from 'react-icons/hi'
 import '../styles/RightSidePane.scss'
 import Button from './Button'
-import ChatPreview from './ChatPreview'
+//import ChatPreview from './ChatPreview'
 import NotificationCard from './NotificationCard'
 import Switch from './Switch'
 import Text from './Text'
@@ -12,6 +12,7 @@ import { FiLogOut, FiUser } from 'react-icons/fi'
 import { useNavigate } from 'react-router-dom'
 import { getAuth, signOut  } from "firebase/auth";
 import { app } from '../firebaseConfig'
+import { DataContext } from '../DataContext'
 
 function swithTheme(){
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
@@ -44,6 +45,7 @@ function RightSidePane() {
     const [popupOpened, openPopup] = useState(false);
 
     let navigate = useNavigate();
+    let {notifications} = useContext(DataContext);
 
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [groupConvos, setGroupConvos] = useState([{
@@ -56,10 +58,10 @@ function RightSidePane() {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [newNotifications, setNewNotifications] = useState([{
         id: '11',
-        photos: ['/logo.svg', '/logo.svg'],
-        title: 'Oveezion and others liked this post',
-        message: 'This week celebrate summer with this brand new summer event.',
-        read: false
+        photos: ['/logo.svg'],
+        title: 'Welcome to Chymera',
+        message: 'This is the beta version 1.3. Chat and comments are still disabled for now.',
+        read: 'false'
     }])
     
   return (
@@ -97,11 +99,11 @@ function RightSidePane() {
                 <Switch resp='notifications'/>
             </div>
             <div className='RecentNotifications'>
-                {newNotifications.map((notification, index: any)=>{
+                {notifications.map((notification:any, index: any)=>{
                     return(
 
-                        <div key={index} className='NotificationContainer'>
-                            <NotificationCard notificationId={notification.id} photos={notification.photos} title={notification.title} message={notification.message} read={notification.read} />
+                        <div key={index} className='NotificationContainer' onClick={() => navigate("/User/Notifications", { replace: true })}>
+                            <NotificationCard notificationId={notification.notificationId} photos={notification.photos.split(';')} title={notification.title} message={notification.description} read={notification.seen=== 'true' ? true : false} />
                          </div> 
                     )           
                 })} 
@@ -110,17 +112,17 @@ function RightSidePane() {
         <div className='GroupChatArea'>
             <div className='Header'>
                 <Text type='H2' content='My Group Chats'/>
-                <Button text=''  icon={<AiOutlinePlus size={30}/>} color=' '/>
+                <Button text='' fct={()=> {}}  icon={<AiOutlinePlus color='grey' size={30}/>} color=' '/>
             </div>
             <div className='RecentGroupConvos'>
-                {groupConvos.map((group, index: any)=>{
+                {/* {groupConvos.map((group, index: any)=>{
                     return(
                         
                         <div key={index} className='GroupChatContainer'>
                             <ChatPreview  chatId={group.id} photos={group.photos} names={group.names} latest={group.latest} read={group.read} groupChat={true}/>
                         </div> 
                     )           
-                })}
+                })} */}
             </div>
         </div>
     </section>

@@ -23,11 +23,12 @@
     flex-direction: column;
     align-items: center;
     align-self: center;
-    width: 576px;
-    min-width: 476px;
-    height: auto;
+    width: 776px;
+    height: 600px;
     margin-top: 200px;
-    
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border-radius: 8px
 }
 
 .NewsOptionsContainerTitle{
@@ -36,18 +37,20 @@
 }
 
 .NewsOptionsContainer .Description{
-    margin-top: -240px;
+    text-align: center;
 }
 
-.NewsOptionsContainer p:nth-child(3){
+.NewsOptionsContainer p:nth-child(2){
     align-self: flex-start;
+    border-color: aqua;
 }
 
-.CheckboxesSection{
+.CheckboxesSection .options{
     display: grid;
     grid-template-columns: 180px 180px 180px;
     justify-content: space-evenly;
     align-self: flex-start;
+    align-self: center;
 }
 
 .LocalNewsOptionSection{
@@ -67,7 +70,7 @@
 }
 
 .NewsOptionsContainer .ButtonComponent{
-    margin-top: 104px;
+    margin-top: 80px;
     margin-left: 32px;
     width: 392px;
 }

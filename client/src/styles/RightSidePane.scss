@@ -137,4 +137,14 @@
             }
         }
     }
+
+    .GroupChatArea {
+
+        .ButtonComponent{
+
+            &:hover {
+                cursor: not-allowed;
+            }
+        }
+    }
 }
