@@ -14,8 +14,20 @@
 
     #Publish .ModalTrigger .button:first-child {
         position: absolute;
-        top: 32px;
-        right: 400px;
+        bottom: 48px;
+        right: 440px;
+
+        .ButtonComponent {
+
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+
+            p.body {
+                font-size: 70px;
+                margin: 0%;
+            }
+        }
     }
 
     .ModalContent .Body {
@@ -85,6 +97,34 @@
                     cursor: pointer;
                 }
             }
+        }
+    }
+}
+
+.MuiSnackbar-anchorOriginBottomCenter{
+
+    .MuiPaper-root {
+
+        width: 400px;
+    }
+
+    .MuiSnackbarContent-message {
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 24px;
+    }
+
+    .MuiSnackbarContent-action {
+        color: #8773F0;
+        font-family: 'Open Sans', sans-serif; 
+        font-size: 24px;
+
+        &:hover {
+            cursor: pointer;
+            color: #bdb3f1;
+        }
+
+        &:active {
+            color: #604cc7;
         }
     }
 }

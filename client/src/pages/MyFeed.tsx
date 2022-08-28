@@ -147,7 +147,7 @@ const MyFeed = () => {
           <NavBar selection='myFeed' />
           <div id='Publish'>
             <Modal 
-              triggerElement={<Button text='Post'/>} 
+              triggerElement={<Button text='+'/>} 
               title={'Post on Chymera ?'} 
               modalWidth={'624px'} 
               modalHeight={'auto'}
