@@ -13,6 +13,9 @@ import Post from '../components/Post'
 import { MdPersonAddAlt } from 'react-icons/md'
 import Tabs from '../components/Tabs'
 import { AuthContext } from '../Auth'
+import Modal from '../components/Modal'
+import TextInput from '../components/TextInput'
+import { FaSearch } from 'react-icons/fa'
 
 const OtherUserProfile = () => {
 
@@ -74,17 +77,17 @@ const OtherUserProfile = () => {
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/${handle}`).then((infos)=>{
             getData(infos.data[0]);
-            axios.get(`${environment.serverUrl}/database/users/liked/${infos.data[0].email}`).then((posts)=>{
+            axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
                 if(posts.data[0]) setLiked(posts.data[0].posts);
                 else setLiked('');
             });
-            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/users/MyFriends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             });
-            axios.get(`${environment.serverUrl}/database/friends/${currentUser.email}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/users/MyFriends/${currentUser.email}`).then((friends)=>{
                 setUserFriends(friends.data);
             });;
-            axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].email}`).then((favorite)=>{
+            axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
                 setFavorite(favorite.data);
             });
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
@@ -102,6 +105,17 @@ const OtherUserProfile = () => {
                 <img className = 'friends-pic' key = {`${friend.handle}`} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
             )
         } else return '';
+    });
+
+    const moreFriends = friendsList.map((friend, index) => {
+        if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
+            return (
+                <div key = {friend.handle} className = 'friends-displayer'>
+                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='48px' height = '48px'/>
+                    <Text content = {`${friend.account_name}`}></Text>
+                </div>
+            )
+        } else return undefined;
     });
 
     const posts = postList.map((post, index) => {
@@ -163,14 +177,38 @@ const OtherUserProfile = () => {
                         <Text content = 'Common Friends' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <Modal 
+                                triggerElement={ <p className = 'see-more'>see more</p>} 
+                                title={'Friends list'} 
+                                modalWidth={'300px'} 
+                                modalHeight={'600px'}
+                            >
+                                <div>
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
+                                    <div style={{margin: '24px'}}>
+                                        {moreFriends}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                     <div className = 'friends'>
                         <Text content = 'Common Groups' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <Modal 
+                                triggerElement={ <p className = 'see-more'>see more</p>} 
+                                title={'Friends list'} 
+                                modalWidth={'300px'} 
+                                modalHeight={'600px'}
+                            >
+                                <div>
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends'/>
+                                    <div style={{margin: '24px'}}>
+                                        {moreFriends}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                 </div>
