@@ -74,6 +74,17 @@ CREATE TABLE IF NOT EXISTS Post_comment(
 	PRIMARY KEY (comment_id)
 );
 
+CREATE TABLE IF NOT EXISTS chymera.notification (
+    notificationId text NOT NULL,
+    photos text,
+    title text NOT NULL,
+	description text NOT NULL,
+	seen text NOT NULL,
+	destination_handle text NOT NULL,
+	url text,
+	
+	Primary key (notificationId)
+);
 -- FIN DES TABLES EN LIEN DIRECT AVEC UN USER
 
 -- DÉFINITION DE L'UTILISATEUR POUR LA COMMUNICATION AVEC L'APPLICATION

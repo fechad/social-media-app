@@ -76,37 +76,44 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     return (
         <div className='post'>
             <div className = 'header'>
-                <div className = 'poster'>
+                <div className = 'poster' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
                     <img src={`${environment.serverUrl}/database/image/${handle}`} alt="" />
                     <Text type='H3 bold' content={`${username}`}></Text>
                 </div>
                 <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
-                <div onClick={() => {bookmark(!bookmarked)}}>
+                <div onClick={() => {bookmark(!bookmarked)}} className='bookmark-area'>
                     {bookmarked ? <AiFillStar color = '#8773F0' size={'32px'}/> : <AiOutlineStar color = 'black' size={'32px'}/>}
                 </div>
             </div>
             <Text content={text_message}/>
+            {media.slice(-3) === 'mp4' ? 
+            <div className='video-container'>
+                <video width="600" height="300" controls src={`${environment.serverUrl}/video/${media.replace('./assets/videos/', '')}`}></video> 
+            </div>
+            :
+
             <div className = 'size-restricter' id = {postId + media} onClick={()=>{
-                    if(document.getElementById(`${postId}`)?.classList.contains('display')) {
-                        document.getElementById(`${postId}`)?.classList.remove('display');
-                        document.getElementById(`${postId + media}`)?.classList.remove('background');
-                    } else {
-                        document.getElementById(`${postId}`)?.classList.add('display');
-                        document.getElementById(`${postId + media}`)?.classList.add('background');
-                    }
-                    }}>
+                if(document.getElementById(`${postId}`)?.classList.contains('display')) {
+                    document.getElementById(`${postId}`)?.classList.remove('display');
+                    document.getElementById(`${postId + media}`)?.classList.remove('background');
+                } else {
+                    document.getElementById(`${postId}`)?.classList.add('display');
+                    document.getElementById(`${postId + media}`)?.classList.add('background');
+                }
+                }}>
                 <img className = 'image-post' id = {postId} src= {`${environment.serverUrl}/image/${media.replace('./assets/profile-pics/', '')}`} alt="" />
             </div>
+            }
             <div className = 'footer'>
                 <div id = 'likes' onClick={() => {like(!liked)}}>
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
                     <Text content = {nbLikes.toString()}></Text>
                 </div>
-                <div id = 'comments' onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}>
-                    {<FaRegCommentDots color='black' size='24px'/>}
-                    <Text content = {nbComments.toString()}></Text>
+                <div id = 'comments' /*onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}*/>
+                    {<FaRegCommentDots color='grey' size='24px'/>}
+                    <Text color='grey' content = {nbComments.toString()}></Text>
                 </div>
-                {<FiShare2 color='black' size='24px'/>}
+                {<FiShare2 className='share-area' color='grey' size='24px'/>}
             </div>
         </div>
     )
