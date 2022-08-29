@@ -38,7 +38,7 @@ const Library = () => {
 
   return (
     <section className='LibraryContainer' >
-      <LeftSidePane />
+      {/* <LeftSidePane /> */}
       <NavBar selection='discover'/>
       <section className='Library'>
         <div>
@@ -179,7 +179,7 @@ const Library = () => {
           </section>
         </div>
       </section>
-      <RightSidePane />
+      {/* <RightSidePane /> */}
       <footer> <Text content='This is the footer'></Text></footer>
     </section>
   )
