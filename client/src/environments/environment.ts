@@ -17,8 +17,8 @@ switch(process.env.NODE_ENV) {
 export const environment = {
 
     production: production,
-    serverUrl: `${production ? 'https://server.chymera.ca/api' : 'http://localhost:3000/api'}`,
-    socketUrl: `${production ? 'https://server.chymera.ca' : 'http://localhost:3000'}`,
+    serverUrl: `${production ? 'https://chymera-b509c.nn.r.appspot.com/api' : 'http://localhost:3000/api'}`,
+    socketUrl: `${production ? 'https://chymera-b509c.nn.r.appspot.com' : 'http://localhost:3000'}`,
 };
 
 
