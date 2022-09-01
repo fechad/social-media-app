@@ -1,9 +1,3 @@
 runtime: nodejs16 
 env: standard
 
-env_variables:
-    DB_USER: oveezion
-    DB_PASSWORD: '%%oveezion%X322'
-    DB_NAME: postgres
-    DB_CONNECTION_NAME: chymera-b509c:northamerica-northeast1:chymera-db
-    INSTANCE_UNIX_SOCKET: /cloudsql/chymera-b509c:northamerica-northeast1:chymera-db

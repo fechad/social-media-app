@@ -20,7 +20,7 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
     let navigate = useNavigate();
 
   return (
-    <section className={`message-section${sender ? ' sender' : ' receiver'}`}>
+    <div className={`message-section${sender ? '-sender' : '-receiver'}`}>
         <div className='message-avatar-section' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
             <Avatar inGroup={false} online={false} photo={profile_pic} />
         </div>
@@ -60,7 +60,7 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
                 </div>
             </div>
        </div>
-    </section>
+    </div>
   )
 }
 
