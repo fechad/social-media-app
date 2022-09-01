@@ -33,6 +33,10 @@
     }
 }
 
+.search-displayer {
+  overflow-y: auto;
+}
+
 .bio-container {
     width: 604px;
     height: 85px;
@@ -45,7 +49,7 @@
 
 .friends-pic {
     border-radius: 100%;
-    border: solid 2px white;
+    border: solid 2px rgb(255, 255, 255);
     overflow: hidden;
     margin-right: -16px;
 }

@@ -17,7 +17,9 @@
     margin-right: 32px;
 }
  
-
+.search-displayer {
+    overflow-y: auto;
+}
 
 .left-infos {
     display: flex;

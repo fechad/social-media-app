@@ -130,7 +130,7 @@ export class DatabaseService {
     }
 
     public async searchUsers(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE name  or handle LIKE ' + `'%${handle}%' ` + END_CHAR);
+        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(name)  or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
         return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE account_name LIKE ' + `'%${handle}%'` + ' or handle LIKE ' + `'%${handle}%' ` + END_CHAR)
     }
 
