@@ -29,7 +29,7 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
         </div>
         <div className='message-bubble-and-tooltip-container'>
             <div className='message-bubble-container-tail'></div>
-            <div className='message-bubble-container' onClick={() => setShowTooltips(true)}>
+            <div className='message-bubble-container' onMouseOver={() => setShowTooltips(true)}>
                 {
                     showTooltips? 
                     <div className='message-hover-container'>
