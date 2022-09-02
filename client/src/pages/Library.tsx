@@ -18,6 +18,7 @@ import Modal from '../components/Modal';
 import Tabs from '../components/Tabs';
 import NewsArticle from '../components/NewsArticle';
 import Message from '../components/Message';
+import MessageBar from '../components/MessageBar';
 
 
 
@@ -190,6 +191,14 @@ const Library = () => {
             <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
             <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
             <Message message='This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
+          </section>
+        </div>
+        <div style={{marginBottom:'40px'}}>
+        </div>
+        <div>
+          <Text type='H1' content='Message Bar' />
+          <section style={{display: 'flex', flexDirection: 'column'}}>
+            <MessageBar />
           </section>
         </div>
       </section>
