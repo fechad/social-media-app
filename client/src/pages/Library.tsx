@@ -183,8 +183,10 @@ const Library = () => {
         </div>
         <div>
           <Text type='H1' content='Message examples' />
-          <section>
-            <Message message='This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+          <section style={{display: 'flex', flexDirection: 'column'}}>
+            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
           </section>
         </div>
       </section>

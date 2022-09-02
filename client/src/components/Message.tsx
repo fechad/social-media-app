@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { BiPencil, BiTrash } from 'react-icons/bi'
 import { BsFillPinAngleFill } from 'react-icons/bs'
 import { HiReply } from 'react-icons/hi'
@@ -18,45 +18,83 @@ interface MessageProps {
 const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
 
     let navigate = useNavigate();
+    const [showTooltips, setShowTooltips] = useState(false)
+    const [show, setShow] = useState('');
+
 
   return (
-    <div className={`message-section${sender ? '-sender' : '-receiver'}`}>
+    <div className={`message-section${sender ? '-sender' : '-receiver'}`} onMouseLeave={() => setShowTooltips(false)}>
         <div className='message-avatar-section' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
             <Avatar inGroup={false} online={false} photo={profile_pic} />
         </div>
         <div className='message-bubble-and-tooltip-container'>
-            <div className='message-hover-container'>
-               <div className='message-edit'>
-                    <div className='message-edit-tooltip'>
-                        <p>Delete</p>
+            <div className='message-bubble-container-tail'></div>
+            <div className='message-bubble-container' onClick={() => setShowTooltips(true)}>
+                {
+                    showTooltips? 
+                    <div className='message-hover-container'>
+                        <div className='message-edit' onMouseOver={() => setShow('Delete')} onMouseOut={() => setShow('')}>
+                            {
+                                show === 'Delete'? 
+                                <div className='message-edit-tooltip-container'>
+                                    <div className='message-edit-tooltip'>
+                                    <div className='message-edit-tooltip-tail'/>
+                                        <p>Delete</p>
+                                    </div>
+                                </div>
+                                : ''
+                            }
+                            <BiTrash size={20} />
+                        </div>
+                        <div className='message-edit' onMouseOver={() => setShow('Pin')} onMouseOut={() => setShow('')}>
+                            {
+                                show === 'Pin' ? 
+                                <div className='message-edit-tooltip-container'>
+                                    <div className='message-edit-tooltip'>
+                                    <div className='message-edit-tooltip-tail'/>
+                                        <p>Pin</p>
+                                    </div>
+                                </div>
+                                : ''
+                            }
+                            <BsFillPinAngleFill size={20} />
+                        </div>
+                        <div className='message-edit' onMouseOver={() => setShow('Edit')} onMouseOut={() => setShow('')}>
+                            {
+                                show === 'Edit' ? 
+                                <div className='message-edit-tooltip-container'>
+                                    <div className='message-edit-tooltip'>
+                                    <div className='message-edit-tooltip-tail'/>
+                                        <p>Edit</p>
+                                    </div>
+                                </div>
+                                : ''
+                            }
+                            <BiPencil size={20} />
+                        </div>
+                        <div className='message-edit' onMouseOver={() => setShow('Reply')} onMouseOut={() => setShow('')}>
+                            {
+                                show === 'Reply' ? 
+                                <div className='message-edit-tooltip-container'>
+                                    <div className='message-edit-tooltip'>
+                                    <div className='message-edit-tooltip-tail'/>
+                                        <p>Reply</p>
+                                    </div>
+                                </div>
+                                : ''
+                            }
+                            <HiReply size={20} />
+                        </div>
                     </div>
-                    <BiTrash />
-               </div>
-               <div className='message-edit'>
-                    <div className='message-edit-tooltip'>
-                        <p>Pin</p>
+                    : ''
+                }
+                <div className={`message-container${sender ? '-sender' : '-receiver'}`}>
+                    <div className='message-time'>
+                        <p> {time}</p>
                     </div>
-                    <BsFillPinAngleFill />
-               </div>
-                <div className='message-edit'>
-                    <div className='message-edit-tooltip'>
-                        <p>Edit</p>
+                    <div className='message-message'>
+                        <p>{message}</p>
                     </div>
-                    <BiPencil />
-                </div>
-                <div className='message-edit'>
-                    <div className='message-edit-tooltip'>
-                        <p>Reply</p>
-                    </div>
-                    <HiReply />
-                </div>
-            </div>
-            <div className={`message-bubble-container${sender ? '-sender' : '-receiver'}`}>
-                <div className='message-time'>
-                    <p> {time}</p>
-                </div>
-                <div className='message-message'>
-                    <p>{message}</p>
                 </div>
             </div>
        </div>

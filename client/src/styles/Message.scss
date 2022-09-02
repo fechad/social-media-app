@@ -2,11 +2,132 @@
 .message-section-sender{
 
     width: 760px;
+    height: fit-content;
+    padding: 40px 0px 0px 0px;
     display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 40px;
+   
+    .message-avatar-section{
 
+        align-self: flex-start;
+        margin-top: 0px;
+    }
+
+    
+    .message-bubble-and-tooltip-container {
+
+        background-color: #F3F0FF;
+        display: flex;
+        min-width: 104px;
+        max-width: 464px;
+        height: fit-content;
+        background: #F3F0FF;
+        border: 1px solid #868686;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        position: relative;
+
+        .message-bubble-container-tail {
+
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border: 20px solid;
+            border-color: transparent transparent  transparent #F3F0FF;
+            top: 0px;
+            right: -40px;
+            z-index: -2;
+        }
+
+       .message-bubble-container {
+
+            min-width: 104px;
+            max-width: 464px;
+            padding: 8px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+       }
+    
+    }
 }
 
-.sender {
+
+.message-hover-container {
+
+    width: 140px;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 16px;
+    padding: 1px;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), #F8F8F8;
+    border-radius: 8px;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    margin-left: -75px;
+
+    .message-edit {
+
+        &:hover {
+
+            cursor: pointer;
+
+            svg {
+
+                color: #8d8d8d;
+            }
+        }
+
+        &:active {
+
+            cursor: pointer;
+
+            svg {
+
+                color: #3f3f3f;
+            }
+        }
+
+        .message-edit-tooltip-container {
+
+            position: absolute;
+
+            .message-edit-tooltip-tail {
+
+                position: absolute;
+                width: 0px;
+                height: 0px;
+                border: 8px solid;
+                border-color: #D9D9D9 transparent transparent  transparent ;
+                bottom: -14px;
+                right: 14px;
+                z-index: 2;
     
-   
+            }
+            .message-edit-tooltip {
+    
+                background: #D9D9D9;
+                border-radius: 8px;
+                position: absolute;
+                width: 48px;
+                height: 24px;
+                text-align: center;
+                top: -32px;
+                left: -16px;
+    
+                p {
+                    margin: 0%;
+                }
+            }
+
+        }
+    }
 }
