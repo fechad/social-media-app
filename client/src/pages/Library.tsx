@@ -187,6 +187,9 @@ const Library = () => {
             <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
             <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
             <Message message='This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
           </section>
         </div>
       </section>
