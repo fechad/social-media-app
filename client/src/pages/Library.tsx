@@ -41,7 +41,12 @@ const Library = () => {
   useEffect(()=>{
     (document.getElementsByClassName('LibraryContainer')[0])?.addEventListener('sendMessage', (e: any) => {
       console.log(e.detail)
+    });
+
+    (document.getElementsByClassName('LibraryContainer')[0])?.addEventListener('messageAction', (e: any) => {
+      console.log(e.detail)
     })
+
   }, [])
   
 

@@ -12,14 +12,22 @@ interface MessageProps {
     sender: boolean, //The sender is always the user. aka purple box
     profile_pic: string,
     handle: string, //will be used to implement the onClick => send to user profile
+    chatID ?: string
 
 }
 
-const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
+const Message = ({message, time, sender, profile_pic, handle, chatID}:MessageProps) => {
 
     let navigate = useNavigate();
     const [showTooltips, setShowTooltips] = useState(false)
     const [show, setShow] = useState('');
+
+    const handleClick = (e: any, action: string) => {
+
+        const messageAction = new CustomEvent('messageAction', {bubbles: true, detail: {purpose: action, id: chatID, message: message}});
+
+        e.target.dispatchEvent(messageAction);
+    }
 
 
   return (
@@ -33,12 +41,12 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
                 {
                     showTooltips? 
                     <div className='message-hover-container'>
-                        <div className='message-edit' onMouseOver={() => setShow('Delete')} onMouseOut={() => setShow('')}>
+                        <div className='message-edit' onMouseOver={() => setShow('Delete')} onMouseOut={() => setShow('')}  onClick={(e) => handleClick(e, 'Delete')}>
                             {
                                 show === 'Delete'? 
                                 <div className='message-edit-tooltip-container'>
                                     <div className='message-edit-tooltip'>
-                                    <div className='message-edit-tooltip-tail'/>
+                                        <div className='message-edit-tooltip-tail'/>
                                         <p>Delete</p>
                                     </div>
                                 </div>
@@ -46,12 +54,12 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
                             }
                             <BiTrash size={20} />
                         </div>
-                        <div className='message-edit' onMouseOver={() => setShow('Pin')} onMouseOut={() => setShow('')}>
+                        <div className='message-edit' onMouseOver={() => setShow('Pin')} onMouseOut={() => setShow('')}  onClick={(e) => handleClick(e, 'Pin')}>
                             {
                                 show === 'Pin' ? 
                                 <div className='message-edit-tooltip-container'>
                                     <div className='message-edit-tooltip'>
-                                    <div className='message-edit-tooltip-tail'/>
+                                        <div className='message-edit-tooltip-tail'/>
                                         <p>Pin</p>
                                     </div>
                                 </div>
@@ -59,12 +67,12 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
                             }
                             <BsFillPinAngleFill size={20} />
                         </div>
-                        <div className='message-edit' onMouseOver={() => setShow('Edit')} onMouseOut={() => setShow('')}>
+                        <div className='message-edit' onMouseOver={() => setShow('Edit')} onMouseOut={() => setShow('')} onClick={(e) => handleClick(e, 'Edit')}>
                             {
                                 show === 'Edit' ? 
                                 <div className='message-edit-tooltip-container'>
                                     <div className='message-edit-tooltip'>
-                                    <div className='message-edit-tooltip-tail'/>
+                                        <div className='message-edit-tooltip-tail'/>
                                         <p>Edit</p>
                                     </div>
                                 </div>
@@ -72,12 +80,12 @@ const Message = ({message, time, sender, profile_pic, handle}:MessageProps) => {
                             }
                             <BiPencil size={20} />
                         </div>
-                        <div className='message-edit' onMouseOver={() => setShow('Reply')} onMouseOut={() => setShow('')}>
+                        <div className='message-edit' onMouseOver={() => setShow('Reply')} onMouseOut={() => setShow('')}  onClick={(e) => handleClick(e, 'Reply')}>
                             {
                                 show === 'Reply' ? 
                                 <div className='message-edit-tooltip-container'>
                                     <div className='message-edit-tooltip'>
-                                    <div className='message-edit-tooltip-tail'/>
+                                        <div className='message-edit-tooltip-tail'/>
                                         <p>Reply</p>
                                     </div>
                                 </div>
