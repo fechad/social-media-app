@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
@@ -38,8 +38,15 @@ function modalContent(){
 
 const Library = () => {
 
+  useEffect(()=>{
+    (document.getElementsByClassName('LibraryContainer')[0])?.addEventListener('sendMessage', (e: any) => {
+      console.log(e.detail)
+    })
+  }, [])
+  
+
   return (
-    <section className='LibraryContainer' >
+    <section className='LibraryContainer'>
       {/* <LeftSidePane /> */}
       <NavBar selection='discover'/>
       <section className='Library'>

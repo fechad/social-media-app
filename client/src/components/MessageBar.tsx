@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import EventEmitter from 'events';
+import React, { useEffect, useState } from 'react'
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { FaPhotoVideo } from 'react-icons/fa'
@@ -10,7 +11,7 @@ const MessageBar = () => {
 
     const [imagePresent, setImagePresent] = useState(false);
     const [isPhoto, setIsPhoto] = useState(false);
-
+    
     const uploadFile = () => {
         const file = (document.getElementById('download') as HTMLInputElement).files![0];
         const reader = new FileReader();
@@ -39,6 +40,18 @@ const MessageBar = () => {
     const textAreaAdjust = (element: any) => {
         element.style.height = "1px";
         element.style.height = (8+element.scrollHeight)+"px";
+        //window.scrollTo({left: 0, top: 2});
+    }
+
+    const handleKey = (event: any) => {
+        if( !event.shiftKey) {
+            if(event.key === 'Enter' && event.target.value.trim() !== '') {
+
+                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: event.target.value.trim()});
+
+                event.target.dispatchEvent(submit);
+            }
+        }
     }
 
   return (
@@ -71,7 +84,7 @@ const MessageBar = () => {
             </div>
         </div>
         <div className='message-writing-container'>
-            <textarea style={{resize: 'none'}} maxLength={512} placeholder='Type your message' onKeyUp={(e) => textAreaAdjust(e.target)}/>
+            <textarea style={{resize: 'none'}} maxLength={512} placeholder='Type your message' onKeyPress={(e) => handleKey(e)} onKeyUp={(e) => textAreaAdjust(e.target)}/>
         </div>
     </div>
   )
