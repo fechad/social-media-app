@@ -71,6 +71,7 @@ const Discover = () => {
     const reader = new FileReader();
     reader.addEventListener('load', ()=>{
       if(file.name.slice(-3) === 'mp4') {
+        document.getElementById('previewVid')?.remove();
         document.getElementById('previewPic')?.insertAdjacentHTML('afterend', `<video id= 'previewVid' src = '${reader.result!.toString()}' width = '576' height='240' controls></video>`);
         document.getElementById('previewPic')?.removeAttribute('src');
       }
