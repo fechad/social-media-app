@@ -20,6 +20,7 @@ export const SELECT_ALL = (table: string) => 'SELECT * FROM ' + SCHEMA_NAME + '.
 export const UPDATE = (table: string) => 'UPDATE ' + SCHEMA_NAME + '.' + table + ' SET ';
 export const DELETE = (table: string) => 'DELETE FROM ' + SCHEMA_NAME + '.' + table;
 export const DELETE_USER = (email: string) => 'DELETE FROM chymera.users WHERE email =' + `'${email}';`;
+export const DELETE_POST = (id: string) => 'DELETE FROM chymera.post WHERE post_id =' + `'${id}';`;
 export const SELECT_SOME = (names: string[], table: string) => 'SELECT ' + names.join(', ') + ' FROM ' + SCHEMA_NAME + '.' + table;
 export const LIST_TABLES = `SELECT table_name FROM information_schema.tables WHERE table_schema = '${SCHEMA_NAME.toLowerCase()}';`;
 

@@ -187,6 +187,17 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        router.delete('/removePost/:id', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .deletePost(req.params.id)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
         
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
