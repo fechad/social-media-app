@@ -64,14 +64,14 @@
 
 .message-hover-container {
 
-    width: 140px;
+    max-width: 140px;
     height: 32px;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
     gap: 16px;
-    padding: 1px;
+    padding: 1px 8px;
     text-align: center;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), #F8F8F8;
     border-radius: 8px;

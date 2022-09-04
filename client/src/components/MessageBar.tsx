@@ -7,6 +7,7 @@ import { IoMdClose } from 'react-icons/io';
 import { createPicker } from 'picmo';
 import ReactGiphySearchbox from 'perfect-giphy-searchbox'
 import '../styles/MessageBar.scss'
+import eventBus from './eventBus';
 
 
 const MessageBar = () => {
@@ -150,6 +151,14 @@ const MessageBar = () => {
             (document.getElementsByClassName('message-writing-container')[0].querySelector('textarea') as HTMLTextAreaElement ).value += `${event.emoji}`;
         });
     }, [picker])
+
+    useEffect(()=>{
+        eventBus.on('messageAction', (e: any) => {
+            if(e.detail.purpose === 'Reply') {
+                console.log('MessageBar has a reply')
+            }
+         });
+    }, [])
 
   return (
     <div className='message-bar-container'>

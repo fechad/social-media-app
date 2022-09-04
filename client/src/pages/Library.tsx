@@ -19,7 +19,7 @@ import Tabs from '../components/Tabs';
 import NewsArticle from '../components/NewsArticle';
 import Message from '../components/Message';
 import MessageBar from '../components/MessageBar';
-
+import eventBus from '../components/eventBus';
 
 
 function print(){
@@ -39,14 +39,14 @@ function modalContent(){
 const Library = () => {
 
   useEffect(()=>{
-    (document.getElementsByClassName('LibraryContainer')[0])?.addEventListener('sendMessage', (e: any) => {
+    
+    eventBus.on('sendMessage', (e: any) => {
       console.log(e.detail)
     });
 
-    (document.getElementsByClassName('LibraryContainer')[0])?.addEventListener('messageAction', (e: any) => {
-      console.log(e.detail)
-    })
-
+    eventBus.on('messageAction', (e: any) => {
+       console.log(e.detail, 'Library')
+    });
   }, [])
   
 
