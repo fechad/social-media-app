@@ -207,9 +207,9 @@ const Library = () => {
         </div>
         <div style={{marginBottom:'40px'}}>
         </div>
-        <div>
+        <div style={{height: 'auto'}}>
           <Text type='H1' content='Message Bar' />
-          <section style={{display: 'flex', flexDirection: 'column'}}>
+          <section style={{display: 'flex', flexDirection: 'column', height: 'auto',position: 'relative'}}>
             <MessageBar />
           </section>
         </div>

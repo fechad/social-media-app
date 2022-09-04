@@ -134,7 +134,7 @@
     margin-bottom: 16px;
   }
 
-  #download {
+  #download, #download-file {
     display: none;
   }
   .upload{
@@ -145,7 +145,7 @@
   
   .patate {
 
-    #download + label {
+    #download + label, #download-file + label {
       display: flex;
       flex-direction: row;
       align-items: center;
