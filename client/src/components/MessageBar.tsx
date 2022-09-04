@@ -1,11 +1,10 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsEmojiSmile } from 'react-icons/bs';
 import { FaPhotoVideo } from 'react-icons/fa'
 import { FiPaperclip } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
-import { environment } from '../environments/environment';
+import { createPicker } from 'picmo';
 import '../styles/MessageBar.scss'
 
 const MessageBar = () => {
@@ -14,7 +13,9 @@ const MessageBar = () => {
     const [filePresent, setFilePresent] = useState(false);
     const [filename, setFileName] = useState('');
     const [fileURL, setFileURL] = useState<any>();
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [isPhoto, setIsPhoto] = useState(false);
+
     
     const uploadMediaFile = (type?: string) => {
         const file = (document.getElementById('download') as HTMLInputElement).files![0];
@@ -107,6 +108,31 @@ const MessageBar = () => {
         };
     };
 
+    //let picker: EmojiPicker;
+    const [picker, setEmojiPicker] = useState<any>()
+
+    const loadPicker = () => {
+        // (document.getElementsByClassName('pickerContainer')[0] as HTMLElement).style.setProperty('display', '')
+        // The picker must have a root element to insert itself into
+        const rootElement = document.getElementById('pickerContainer') as HTMLElement;
+
+        // Create the picker
+        setEmojiPicker(createPicker({ rootElement }));
+       
+    };
+
+    const removePicker = () => {
+        picker?.destroy();
+        setEmojiPicker(null);
+    };
+
+    useEffect(() => {
+        // The picker emits an event when an emoji is selected. Do with it as you will!
+        picker?.addEventListener('emoji:select', (event:any) => {
+            //console.log('Emoji selected:', event.emoji);
+            (document.getElementsByClassName('message-writing-container')[0].querySelector('textarea') as HTMLTextAreaElement ).value += `${event.emoji}`;
+        });
+    }, [picker])
 
   return (
     <div className='message-bar-container'>
@@ -141,8 +167,11 @@ const MessageBar = () => {
                 <div className='message-option gif-box'>
                     <AiOutlineGif size={30}/>
                 </div>
-                <div className='message-option'>
-                    <BsEmojiSmile size={30}/>
+                <div className='message-option emoji-option' >
+                    <div id='pickerContainer' onMouseLeave={()=>removePicker()}/>
+                    <div onClick={() => picker ? removePicker() : loadPicker()}>
+                        <BsEmojiSmile size={30}/>
+                    </div>
                 </div>
             </div>
             <div className='message-writing-container'>

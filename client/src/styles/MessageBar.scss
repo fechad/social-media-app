@@ -165,3 +165,16 @@
         }
     }
 }
+
+.emoji-option {
+
+    position: relative;
+
+    #pickerContainer {
+
+        position: absolute;
+        left: 42px;
+        bottom: 72px;
+        width: fit-content;
+    }
+}
