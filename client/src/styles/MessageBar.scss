@@ -166,7 +166,7 @@
     }
 }
 
-.emoji-option {
+.emoji-option, .gif-box {
 
     position: relative;
 
@@ -176,5 +176,27 @@
         left: 42px;
         bottom: 72px;
         width: fit-content;
+    }
+
+    #giphy-pickerContainer {
+
+        position: absolute;
+        left: 82px;
+        bottom: 72px;
+        width: 200px;
+
+        .giphy-search-box {
+            min-width: fit-content;
+            background-color: white;
+            border: 1px solid #272727;
+            border-radius: 8px;
+            padding: 8px;
+            padding-right: 0px;
+
+            .reactGiphySearchbox-searchForm-form{
+                
+                margin-right: 8px;
+            }
+        }
     }
 }

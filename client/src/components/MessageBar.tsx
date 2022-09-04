@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { AiOutlineGif } from 'react-icons/ai';
 import { BsEmojiSmile } from 'react-icons/bs';
-import { FaPhotoVideo } from 'react-icons/fa'
+import { FaImage, FaPhotoVideo } from 'react-icons/fa'
 import { FiPaperclip } from 'react-icons/fi';
 import { IoMdClose } from 'react-icons/io';
 import { createPicker } from 'picmo';
+import ReactGiphySearchbox from 'perfect-giphy-searchbox'
 import '../styles/MessageBar.scss'
+
 
 const MessageBar = () => {
 
@@ -24,13 +26,11 @@ const MessageBar = () => {
           setImagePresent(true);
           setFilePresent(false);
           if(file.name.slice(-3) === 'mp4') {
-            document.getElementById('message-bar-previewPic')?.insertAdjacentHTML('afterend', `<video id= 'message-bar-previewVid' src = '${reader.result!.toString()}' width = '576' height='240' controls></video>`);
-            document.getElementById('message-bar-previewPic')?.removeAttribute('src');
+            setImagePresent(false);
+            return;
           }
-          else {
-            document.getElementById('message-bar-previewPic')?.setAttribute('src', reader.result!.toString());
-            document.getElementById('message-bar-previewVid')?.remove();
-          }
+          document.getElementById('message-bar-previewPic')?.setAttribute('src', reader.result!.toString());
+          document.getElementById('message-bar-previewVid')?.remove();
           if(file.name.includes('.png') || file.name.includes('.jpg')) setIsPhoto(true) ;
           else setIsPhoto(false);
         });
@@ -54,20 +54,23 @@ const MessageBar = () => {
 
     const removeFile = () => {
         document.getElementById('message-bar-previewPic')?.removeAttribute('src');
-        document.getElementById('message-bar-previewVid')?.remove();
+        document.getElementById('message-bar-previewVid')?.removeAttribute('src');
         setImagePresent(false);
         setFilePresent(false);
     };
 
-    let name: string = '';
+
+    let mediaName: string = '';
+    let fsName: string = '';
+
     const sendPhoto = () =>{
         if((document.getElementById('download') as HTMLInputElement).files![0]) {
           const form = new FormData();
-          name = `${Date.now()}${Math.round(Math.random() * 1000)}`
-          if ((document.getElementById('download') as HTMLInputElement).files![0].name.slice(-3) === 'mp4') name += '.mp4'
-          else name += '.png'
-          form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name); 
-          console.log('photo sent with name:', name);
+          mediaName = `${Date.now()}${Math.round(Math.random() * 1000)}`
+          if ((document.getElementById('download') as HTMLInputElement).files![0].name.slice(-3) === 'mp4') mediaName += '.mp4'
+          else mediaName += '.png'
+          form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], mediaName); 
+          console.log('photo sent with name:', mediaName);
           //axios.post(`${environment.serverUrl}/database/image`, form);
         };
     };
@@ -75,10 +78,10 @@ const MessageBar = () => {
     const sendFile = () =>{
         if((document.getElementById('download-file') as HTMLInputElement).files![0]) {
           const form = new FormData();
-          name = `${Date.now()}${Math.round(Math.random() * 1000)}`
-          name += '.' + (document.getElementById('download-file') as HTMLInputElement).files![0].name.slice(-3)
-          form.append('file', (document.getElementById('download-file') as HTMLInputElement).files![0], name); 
-          console.log('file sent with name:', name);
+          fsName = `${Date.now()}${Math.round(Math.random() * 1000)}`
+          fsName += '.' + (document.getElementById('download-file') as HTMLInputElement).files![0].name.slice(-3)
+          form.append('file', (document.getElementById('download-file') as HTMLInputElement).files![0], fsName); 
+          console.log('file sent with name:', fsName);
           //axios.post(`${environment.serverUrl}/database/image`, form);
         };
     };
@@ -94,11 +97,12 @@ const MessageBar = () => {
             const content = (document.getElementById('message-bar-previewPic') as HTMLImageElement).src;
             if(event.key === 'Enter' && (event.target.value.trim() !== '' || content !== '' || filePresent)) {
                 
-                const fileName = (document.getElementsByClassName('message-file-preview')[0]?.firstChild as HTMLParagraphElement)?.innerText
-                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: { message: event.target.value.trim(), data: content, file: fileName}});
-
                 if(imagePresent) sendPhoto();
                 if(filePresent) sendFile();
+                
+                const fileName = (document.getElementsByClassName('message-file-preview')[0]?.firstChild as HTMLParagraphElement)?.innerText
+                // if gif is sent, use data because serverMedia will be empty
+                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: { message: event.target.value.trim(), data: content, file: fileName, serverMediaName: mediaName, serverFsName: fsName}});
 
                 event.target.dispatchEvent(submit);
                 event.target.value = '';
@@ -108,8 +112,8 @@ const MessageBar = () => {
         };
     };
 
-    //let picker: EmojiPicker;
-    const [picker, setEmojiPicker] = useState<any>()
+    const [picker, setEmojiPicker] = useState<any>();
+    const [giphyPicker, setGiphyPicker] = useState(false);
 
     const loadPicker = () => {
         // (document.getElementsByClassName('pickerContainer')[0] as HTMLElement).style.setProperty('display', '')
@@ -121,9 +125,22 @@ const MessageBar = () => {
        
     };
 
+    const loadGiphyPicker = () => {
+       setGiphyPicker(true);
+    };
+
     const removePicker = () => {
         picker?.destroy();
         setEmojiPicker(null);
+    };
+
+    const removeGiphyPicker = () => {
+        setGiphyPicker(false);
+    };
+
+    const handleGiphySelect = (item: any) => {
+        setImagePresent(true);
+        document.getElementById('message-bar-previewPic')?.setAttribute('src', item.images.preview_gif.url);
     };
 
     useEffect(() => {
@@ -158,14 +175,28 @@ const MessageBar = () => {
                 </div>
                 <div className='message-option'>
                     <div className='UploadButton'>
-                        <input type = 'file' id = 'download' accept="image/png, image/jpeg, video/*" onChange={()=>{uploadMediaFile()}}></input>
+                        <input type = 'file' id = 'download' accept="image/png, image/jpeg" onChange={()=>{uploadMediaFile()}}></input>
                         <label htmlFor="download">
-                            <FaPhotoVideo size={30}/>
+                            <FaImage size={30}/>
                         </label>
                     </div>
                 </div>
                 <div className='message-option gif-box'>
-                    <AiOutlineGif size={30}/>
+                    <div id='giphy-pickerContainer' onMouseLeave={()=>removeGiphyPicker()}>
+                        {
+                            giphyPicker ?
+                            <ReactGiphySearchbox
+                                wrapperClassName='giphy-search-box'
+                                id={Date.now()}
+                                apiKey="ZZWcsoCprUpUTZI7bWEsiTSwSLgKR9Xm" // Required: get your on https://developers.giphy.com
+                                onSelect={(item:any) => handleGiphySelect(item)}
+                            />
+                            : ''
+                        }
+                    </div>
+                    <div onClick={() => giphyPicker ? removeGiphyPicker() : loadGiphyPicker()}>
+                        <AiOutlineGif size={30}/>
+                    </div>
                 </div>
                 <div className='message-option emoji-option' >
                     <div id='pickerContainer' onMouseLeave={()=>removePicker()}/>
