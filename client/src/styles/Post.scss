@@ -26,6 +26,11 @@
     display: flex;
     justify-content: center;
 }
+
+.remove{
+    display: none;
+}
+
 .post {
     margin-bottom: 32px;
     padding: 8px;
@@ -33,6 +38,13 @@
     box-shadow: 2px 2px 5px #C3C1C1;
     border-radius: 8px;
     border: solid #C3C1C1 2px
+}
+.trash {
+    color: rgb(255, 57, 57);
+}
+.trash:hover {
+    color: rgb(255, 0, 0);
+    transition: transform 0.5s ease-in-out;
 }
 
 .poster{
