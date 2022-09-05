@@ -109,13 +109,14 @@ const MessageBar = () => {
                 
                 const fileName = (document.getElementsByClassName('message-file-preview')[0]?.firstChild as HTMLParagraphElement)?.innerText
                 // if gif is sent, use data because serverMedia will be empty
-                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: { message: event.target.value.trim(), data: content, file: fileName, serverMediaName: `${gifPresent ? '' : mediaName}`, serverFsName: fsName}});
+                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: { message: event.target.value.trim(), data: content, file: fileName, serverMediaName: `${gifPresent ? '' : mediaName}`, serverFsName: fsName, replyTo: replyingTo}});
 
                 eventBus.dispatch('sendMessage', submit)
                 event.target.value = '';
                 event.preventDefault();
                 removeFile();
                 setGifPresent(false);
+                setReplyingTo({id: '', message: '', handle: ''});
             };
         };
     };

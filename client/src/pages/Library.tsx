@@ -10,7 +10,9 @@ import Checkbox from '../components/Checkbox';
 import CodeInput from '../components/CodeInput';
 import Avatar from '../components/Avatar';
 import ChatPreview from '../components/ChatPreview';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import LeftSidePane from '../components/LeftSidePane';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
