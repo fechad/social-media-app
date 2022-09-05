@@ -55,5 +55,9 @@
   "devDependencies": {
     "@types/aos": "^3.0.4",
     "sass": "^1.53.0"
+  },
+  "resolutions": {
+    "**/react": "16.14.0",
+    "**/react-dom": "16.14.0"
   }
 }
