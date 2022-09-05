@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../Auth'
 import { DataContext } from '../DataContext'
+import Modal from './Modal'
 
 interface PostProps { 
     handle: string,
@@ -72,24 +73,9 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
             window.location.reload();
         }
     }
-    // const [stateLike, changeStateLike] = useState();
-    // const [stateFave, changeStateFave] = useState();
-    // useEffect(()=>{
-    //     setBookmark(isFaved);
-    // }, []);
 
-    useEffect(()=>{
-        //setBookmark(isFaved);
-            // changeStateFave(()=>faved());
-    }, [bookmarked, liked, nbLikes]);
+    useEffect(()=>{}, [bookmarked, liked, nbLikes]);
 
-    // useEffect(()=>{
-    //     console.log(postId);
-    //     axios.get(`${environment.serverUrl}/database/isFavorite/${currentUser.email}..${postId}`).then((res)=>{ 
-    //         console.log(res.data);
-    //         setBookmark(res.data);
-    //     });
-    // }, []);
     return (
         <div className='post' id = {postId}>
             <div className = 'header'>
@@ -132,10 +118,18 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
                     <Text content = {nbLikes.toString()}></Text>
                 </div>
-                <div id = 'comments' /*onClick={() => {navigate(`/Post/${postId}`, { replace: true }); window.location.reload();}}*/>
-                    {<FaRegCommentDots color='grey' size='24px'/>}
-                    <Text color='grey' content = {nbComments.toString()}></Text>
-                </div>
+                <Modal triggerElement={
+                    <div id = 'comments'>
+                        {<FaRegCommentDots size='24px'/>}
+                        <Text content = {nbComments.toString()}></Text>
+                    </div>} 
+                    title={'Comments'} 
+                    modalWidth={'800px'} 
+                    modalHeight={'800px'}>
+                        <div>
+                            <div>{postId}</div>
+                        </div>
+                </Modal>
                 {<FiShare2 className='share-area' color='grey' size='24px'/>}
             </div>
         </div>
