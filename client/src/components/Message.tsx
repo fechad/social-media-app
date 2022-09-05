@@ -18,7 +18,7 @@ interface MessageProps {
 
 }
 
-const Message = ({message, time, sender, profile_pic, handle, chatID}:MessageProps) => {
+const Message = ({message, time, sender, profile_pic, handle, chatID, messageID}:MessageProps) => {
 
     let navigate = useNavigate();
     const [showTooltips, setShowTooltips] = useState(false)
@@ -26,7 +26,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID}:MessagePro
 
     const handleClick = (e: any, action: string) => {
 
-        const messageAction = new CustomEvent('messageAction', {bubbles: true, composed: true,  detail: {purpose: action, id: chatID, message: message}});
+        const messageAction = new CustomEvent('messageAction', {bubbles: true, composed: true,  detail: {purpose: action, chatId: chatID, messageId: messageID, message: message, handle: handle}});
 
         eventBus.dispatch('messageAction', messageAction)
     }

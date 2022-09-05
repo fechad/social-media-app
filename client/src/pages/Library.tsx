@@ -39,7 +39,7 @@ function modalContent(){
 const Library = () => {
 
   useEffect(()=>{
-    
+
     eventBus.on('sendMessage', (e: any) => {
       console.log(e.detail)
     });
@@ -198,11 +198,11 @@ const Library = () => {
           <Text type='H1' content='Message examples' />
           <section style={{display: 'flex', flexDirection: 'column'}}>
             <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble ' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble ' time='11:59' sender={false} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
           </section>
         </div>
         <div style={{marginBottom:'40px'}}>

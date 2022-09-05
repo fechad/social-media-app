@@ -97,6 +97,56 @@
         }
     }
 
+    .message-reply-preview {
+
+        position: relative;
+        bottom: 16px;
+        left: 156px;
+        width: fit-content;
+        padding-right: 48px;
+        max-width: 470px;
+        max-height: 80px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #272727;
+        border-radius: 16px;
+        padding-left: 8px;
+
+        #reply-message {
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .RemovePhoto {
+
+            position: absolute;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #525151;
+            background-color: rgba(17, 17, 17, 0.65);
+
+            &:hover {
+
+                cursor: pointer;
+                background-color: rgba(10, 10, 10, 0.65);
+            }
+
+            &:active {
+
+                cursor: pointer;
+                background-color: rgba(39, 39, 39, 0.65);
+            }
+        }
+        
+    }
     .actual-bar {
 
         display: flex;
