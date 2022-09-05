@@ -171,17 +171,16 @@ const UserProfile = () => {
         }
     });
 
-    const starred = postList.map((post, index) => {
+    const starred = faveList.map((post, index) => {
         let isLiked = (liked.split(' ').filter(item=>item === post.post_id).length > 0);
         if(post.post_id === '0') return '';
 
-        else if(faveList.filter(item=>item.post_id === post.post_id).length > 0) {
+        else {
 
             return (
-                <Post key={`${post.post_id}/${isLiked}/${true}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
+                <Post key={`${post.post_id}/${isLiked}/${true}/${post.likes}`} handle={post.handle} media={post.media} username={post.handle} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {true} isLiked = {isLiked}></Post>
             );
         }
-        return '';
     });
 
     const selected = users.map((user, index) => {

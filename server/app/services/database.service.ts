@@ -1,5 +1,5 @@
 
-import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER } from '../constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER, DELETE_POST } from '../constants';
 import * as pg from 'pg';
 import 'reflect-metadata';
 import { Service } from 'typedi';
@@ -130,8 +130,8 @@ export class DatabaseService {
     }
 
     public async searchUsers(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(name)  or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
-        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE account_name LIKE ' + `'%${handle}%'` + ' or handle LIKE ' + `'%${handle}%' ` + END_CHAR)
+        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(account_name) LIKE' + ` UPPER('%${handle}%')` + ' or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
+        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(account_name) LIKE' + ` UPPER('%${handle}%')` + ' or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
     }
 
     public async getFriendsInfos(handle: string): Promise<any[]> {
@@ -258,6 +258,11 @@ export class DatabaseService {
     public async deleteUser(email: string): Promise<pg.QueryResult> {
         console.log(DELETE_USER(email));
         return this.query(DELETE_USER(email))
+    }
+
+    public async deletePost(id: string): Promise<pg.QueryResult> {
+        console.log(DELETE_POST(id));
+        return this.query(DELETE_POST(id));
     }
 
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {

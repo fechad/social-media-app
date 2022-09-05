@@ -34,7 +34,8 @@ export class HttpController {
             const fs = require('fs')
 
             try {
-            fs.unlinkSync(`./assets/profile-pics/${req.params.file}`)
+                if(req.params.file.slice(-3) === 'mp4') fs.unlinkSync(`./assets/videos/${req.params.file}`);
+                else fs.unlinkSync(`./assets/profile-pics/${req.params.file}`);
             //file removed
             } catch(err) {
             console.error(err)

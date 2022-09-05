@@ -53,13 +53,16 @@ const Discover = () => {
   }
 
   const sendPhoto = () =>{
+    const header = {
+      headers: {'Content-type': 'multipart/form-data'},
+    }
     if((document.getElementById('download') as HTMLInputElement).files![0]) {
       const form = new FormData();
       name = `${Date.now()}${Math.round(Math.random() * 1000)}`
       if ((document.getElementById('download') as HTMLInputElement).files![0].name.slice(-3) === 'mp4') name += '.mp4'
       else name += '.png'
       form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], name); 
-      axios.post(`${environment.serverUrl}/database/image`, form);
+      axios.post(`${environment.serverUrl}/database/image`, form, header);
     }
   }
 
@@ -68,6 +71,7 @@ const Discover = () => {
     const reader = new FileReader();
     reader.addEventListener('load', ()=>{
       if(file.name.slice(-3) === 'mp4') {
+        document.getElementById('previewVid')?.remove();
         document.getElementById('previewPic')?.insertAdjacentHTML('afterend', `<video id= 'previewVid' src = '${reader.result!.toString()}' width = '576' height='240' controls></video>`);
         document.getElementById('previewPic')?.removeAttribute('src');
       }
