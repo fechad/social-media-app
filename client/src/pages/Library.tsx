@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
@@ -10,14 +10,18 @@ import Checkbox from '../components/Checkbox';
 import CodeInput from '../components/CodeInput';
 import Avatar from '../components/Avatar';
 import ChatPreview from '../components/ChatPreview';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import LeftSidePane from '../components/LeftSidePane';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RightSidePane from '../components/RightSidePane';
 import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
 import Modal from '../components/Modal';
 import Tabs from '../components/Tabs';
 import NewsArticle from '../components/NewsArticle';
-
+import Message from '../components/Message';
+import MessageBar from '../components/MessageBar';
+import eventBus from '../components/eventBus';
 
 
 function print(){
@@ -36,9 +40,21 @@ function modalContent(){
 
 const Library = () => {
 
+  useEffect(()=>{
+
+    eventBus.on('sendMessage', (e: any) => {
+      console.log(e.detail)
+    });
+
+    eventBus.on('messageAction', (e: any) => {
+       console.log(e.detail, 'Library')
+    });
+  }, [])
+  
+
   return (
-    <section className='LibraryContainer' >
-      <LeftSidePane />
+    <section className='LibraryContainer'>
+      {/* <LeftSidePane /> */}
       <NavBar selection='discover'/>
       <section className='Library'>
         <div>
@@ -178,8 +194,29 @@ const Library = () => {
             description={`is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishin`}/>
           </section>
         </div>
+        <div style={{marginBottom:'40px'}}>
+        </div>
+        <div>
+          <Text type='H1' content='Message examples' />
+          <section style={{display: 'flex', flexDirection: 'column'}}>
+            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+          </section>
+        </div>
+        <div style={{marginBottom:'40px'}}>
+        </div>
+        <div style={{height: 'auto'}}>
+          <Text type='H1' content='Message Bar' />
+          <section style={{display: 'flex', flexDirection: 'column', height: 'auto',position: 'relative'}}>
+            <MessageBar />
+          </section>
+        </div>
       </section>
-      <RightSidePane />
+      {/* <RightSidePane /> */}
       <footer> <Text content='This is the footer'></Text></footer>
     </section>
   )
