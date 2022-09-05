@@ -34,7 +34,8 @@ export class HttpController {
             const fs = require('fs')
 
             try {
-            fs.unlinkSync(`./assets/profile-pics/${req.params.file}`)
+                if(req.params.file.slice(-3) === 'mp4') fs.unlinkSync(`./assets/videos/${req.params.file}`);
+                else fs.unlinkSync(`./assets/profile-pics/${req.params.file}`);
             //file removed
             } catch(err) {
             console.error(err)
@@ -47,6 +48,12 @@ export class HttpController {
                 res.download(`./assets/profile-pics/${req.params.file}`);
             } else if(req.params.file === 'undefined'){
                 res.download(`./assets/logo/logo.svg`);
+            }
+        });
+
+        this.router.get('/api/video/:file', (req: Request, res: Response, next: NextFunction) => {
+            if(req.params.file !== 'undefined' && req.params.file !== 'none' && req.params.file !== '0'){
+                res.download(`./assets/videos/${req.params.file}`);
             }
         });
 

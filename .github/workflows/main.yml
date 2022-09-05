@@ -20,6 +20,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@main
       - name: Install dependencies
+        run: npm config set legacy-peer-deps true
         run: npm i
       - name: Continuous integretion dependencies
         run: npm ci

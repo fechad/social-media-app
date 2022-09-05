@@ -1,0 +1,51 @@
+.notification-page-container {
+
+    margin-top: 100px;
+
+    .post-container {
+
+        width: 600px;
+
+        &:hover {
+
+            cursor: pointer;
+        }
+    }
+
+    .html-container {
+
+        height: 740px;
+        overflow-x: hidden;
+    }
+
+    .NotificationCardContainer {
+
+        width: 600px;
+        min-height: 120px;
+        height: fit-content;
+        padding-bottom: 16px;
+
+        .NotificationHeader{
+            width: 100%;
+
+            .AccountAvatars {
+
+                padding-left: 8px;
+            }
+
+            .TitleContainer {
+                text-align: left;
+                width: 435px;
+            }
+        }
+
+        .Message {
+            width: 94.5%;
+            height: fit-content;
+            
+            p.body {
+                white-space: pre-wrap;
+            }
+        }
+    }
+}

@@ -13,10 +13,15 @@ import Post from '../components/Post'
 import { MdPersonAddAlt } from 'react-icons/md'
 import Tabs from '../components/Tabs'
 import { AuthContext } from '../Auth'
+import Modal from '../components/Modal'
+import TextInput from '../components/TextInput'
+import { FaSearch } from 'react-icons/fa'
 
 const OtherUserProfile = () => {
 
     const {handle} = useParams();
+
+    const [searching, setSearch] = useState(false);
 
     const [data, getData] = useState({
         "email": 'none',
@@ -74,17 +79,17 @@ const OtherUserProfile = () => {
     const retrieveInfos = () => {
         axios.get(`${environment.serverUrl}/database/users/${handle}`).then((infos)=>{
             getData(infos.data[0]);
-            axios.get(`${environment.serverUrl}/database/users/liked/${infos.data[0].email}`).then((posts)=>{
+            axios.get(`${environment.serverUrl}/database/users/liked/${currentUser.email}`).then((posts)=>{
                 if(posts.data[0]) setLiked(posts.data[0].posts);
                 else setLiked('');
             });
-            axios.get(`${environment.serverUrl}/database/friends/${infos.data[0].email}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/users/MyFriends/${infos.data[0].email}`).then((friends)=>{
                 setFriends(friends.data);
             });
-            axios.get(`${environment.serverUrl}/database/friends/${currentUser.email}`).then((friends)=>{
+            axios.get(`${environment.serverUrl}/database/users/MyFriends/${currentUser.email}`).then((friends)=>{
                 setUserFriends(friends.data);
             });;
-            axios.get(`${environment.serverUrl}/database/users/favorite/${infos.data[0].email}`).then((favorite)=>{
+            axios.get(`${environment.serverUrl}/database/users/favorite/${currentUser.email}`).then((favorite)=>{
                 setFavorite(favorite.data);
             });
             axios.get(`${environment.serverUrl}/database/users/post/${infos.data[0].handle}`).then((posts)=>{
@@ -94,8 +99,6 @@ const OtherUserProfile = () => {
         })  
     }
 
-
-
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
             return (
@@ -103,6 +106,31 @@ const OtherUserProfile = () => {
             )
         } else return '';
     });
+
+    const moreFriends = friendsList.map((friend, index) => {
+        if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
+            return (
+                <div key = {friend.handle} className = 'friends-displayer'>
+                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='48px' height = '48px'/>
+                    <Text content = {`${friend.account_name}`}></Text>
+                </div>
+            )
+        } else return undefined;
+    });
+
+    const commonFriends = friendsList.map((friend)=>{
+        if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) return friend;
+        else return undefined;
+    });
+
+    const [users, setUsers] = useState(commonFriends);
+
+    const selectFriends = () => {
+        const inputText = (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value;
+        const request = commonFriends.filter(item=>item?.account_name.toLowerCase().includes(`${inputText.toLowerCase()}`) || item?.handle.toLowerCase().includes(`${inputText.toLowerCase()}`));
+        setUsers(request);
+    }
+
 
     const posts = postList.map((post, index) => {
         let postLiked = liked.split(' ');
@@ -117,6 +145,15 @@ const OtherUserProfile = () => {
                 <Post key = {`${post.post_id}/${isLiked}/${isFaved}/${post.likes}`} handle={post.handle} media={post.media} username={data.account_name} text_message={post.text_message} likes={post.likes} date={post.date} isVideo={post.isVideo} postId = {post.post_id} nbComments = {post.comments_number} isFaved = {isFaved} isLiked = {isLiked}></Post>
             );
         }
+    });
+
+    const selected = users.map((user, index) => {
+        return (
+            <div key = {user?.handle} className = 'friends-displayer'>
+                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user?.handle}`} alt="" width='48px' height = '48px'/>
+                <Text content = {`${user?.account_name}`}></Text>
+            </div>
+        )
     });
 
     function publications(){
@@ -137,6 +174,16 @@ const OtherUserProfile = () => {
     // otherwise it makes an infinite amount of get request
     // eslint-disable-next-line react-hooks/exhaustive-deps 
     useEffect(()=>{retrieveInfos()}, [clicked]);
+    useEffect(()=>{
+        (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).addEventListener('keyup', () =>{
+            setSearch(true);
+            let text = (document.getElementsByClassName('inputContainer')[1].firstChild as HTMLInputElement).value;
+            if(text === ''){
+                setSearch(false);
+            }
+        })
+    }, []);
+    useEffect(()=>{}, [users, searching]);
     return (
         <div>
             <div className='LeftSideContainer'><LeftSidePane /></div>
@@ -163,14 +210,26 @@ const OtherUserProfile = () => {
                         <Text content = 'Common Friends' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <Modal 
+                                triggerElement={ <p className = 'see-more'>see more</p>} 
+                                title={'Friends list'} 
+                                modalWidth={'300px'} 
+                                modalHeight={'600px'}
+                            >
+                                <div>
+                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
+                                    <div className = 'search-displayer' style={{margin: '24px'}}>
+                                        {searching ? selected : moreFriends}
+                                    </div>
+                                </div>
+                            </Modal>
                         </div>
                     </div>
                     <div className = 'friends'>
                         <Text content = 'Common Groups' type = 'H2'></Text>
                         <div className='friends-display'>
                             {friends}
-                            <p className = 'see-more'>see more</p>
+                            <p className = 'see-more' style = {{color: '#cccccc', cursor: 'not-allowed'}}>see more</p>
                         </div>
                     </div>
                 </div>

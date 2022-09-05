@@ -16,6 +16,7 @@
         position: absolute;
         bottom: 48px;
         right: 440px;
+        z-index: 99;
 
         .ButtonComponent {
 
@@ -66,6 +67,7 @@
                 right: 40px;
                 display: flex;
                 align-items: center;
+                z-index: 10000;
 
                 &:hover{
                     cursor: pointer;

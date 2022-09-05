@@ -15,7 +15,9 @@ export class DatabaseController {
         const multer = require('multer');
         const storage = multer.diskStorage({
             destination:function(req:any, file:any, cb:any) {
-            cb(null, './assets/profile-pics')
+                if(file.originalname.slice(-3) === 'mp4') cb(null, './assets/videos');
+                if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
+                else cb(null, './assets/profile-pics');
             },
             filename: function(req:any, file:any, cb:any) {
                 cb(null, file.originalname)
@@ -31,6 +33,16 @@ export class DatabaseController {
         router.get('/users/MyInfos/:email', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 . getMyInfos(req.params.email)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyInfos/notifications/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyNotifications(req.params.handle)
                 .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
@@ -128,6 +140,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/video', (req: Request, res: Response, next: NextFunction) => {
+            try {
+                res.download('./assets/videos/test.mp4')}
+            catch {
+                (e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                }};
+        });
+
         router.get('profile_pic/:handle', (req: Request, res: Response) => {
             res.download(req.params.path);
         });
@@ -166,9 +188,24 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
+
+        router.delete('/removePost/:id', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .deletePost(req.params.id)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
         
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).json('OK');
+        });
+
+        router.post('/file', upload.single('file'), (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json('OK');
         });
         
