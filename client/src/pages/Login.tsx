@@ -91,7 +91,7 @@ const Login = () => {
             <TextInput label='Email' placeHolder='ex: jDoe@gmail.com'/>
             <section className='PasswordSection'>
                 <Link underlined={false} content='Forgot password?'/>
-                <TextInput type='password' placeHolder='Enter password'/>
+                <TextInput type='password' label='Password' placeHolder='Enter password'/>
             </section>
             <section className='Separator'>
                 <hr />
