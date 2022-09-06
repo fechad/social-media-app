@@ -1,0 +1,29 @@
+.chat-page-content {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    align-items: center;
+
+    .chat-page-messages-container {
+        
+        padding-top: 100px;
+        min-height: 700px;
+        min-width: 700px;
+        overflow-x: hidden;
+
+        display: flex;
+        flex-direction: column-reverse;
+        justify-content: flex-end;
+    }
+
+    .chat-page-bar-container {
+
+        position: fixed;
+        bottom: 0px;
+
+        width: fit-content ;
+        height: fit-content;
+    }
+}

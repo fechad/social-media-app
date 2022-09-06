@@ -33,7 +33,7 @@ const NavBar = ({selection}: NavBarProps) => {
     }
 
     const navigateChats= () => {
-        navigate(`/User/Chat/${chats[0].chatId}`, { replace: true });
+        navigate(`/User/Chat/${chats[0].chatid}`, { replace: true });
     }
 
   return (

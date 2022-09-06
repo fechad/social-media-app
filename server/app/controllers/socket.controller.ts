@@ -18,38 +18,43 @@ export class SocketController {
 
     init(): void {
         this.dataBaseService.getChats().then((result)=>{
-            result.rows.forEach((id) => this.rooms.push(id));
-            console.log(this.rooms);
+            result.rows.forEach((room) => this.rooms.push(room.chatid));
+            console.log('current rooms:', this.rooms)
+            this.initRooms();
         })
-        this.initRooms();
     }
 
     private initRooms(): void {
+        let init = true;
         const socketRooms = this.io.of('/');
 
-        this.rooms.forEach(room => {
-            // this.io.of("/").adapter.rooms.set().on("create-room", (room) => {
-            //     console.log(`room ${room} was created`);
-            // });
-
-            socketRooms.use((socket, next ) => {
-                socket.data.room = room;
-            });
+        socketRooms.use((socket, next ) => {
+            //socket.data.room = socket.id;
+            next();
         });
 
-        socketRooms.on('connection', (socket) => {
-            const room =  socket.data.room.chatId;
-            socket.join(`room-${room}`);
+        socketRooms.on('connect', (socket) => {
 
-            console.log('Room joined')
+           if(init) {
+                this.rooms.forEach(room => {
+                    socket.data.room = room;
+                    socket.join(`room-${room}`);
+                    socket.emit('connected', ` Joined room-${socket.data.room}`);
+                    console.log('socket rooms:', socket.rooms, 'my room:', socket.data.room)
+                });
+                init = false;
+           }
+            
+           
 
-            socket.on('message', (message: any) => {
-                console.log(message);
-            });
+            
+
+            const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', message)]];
+            events.forEach(([name, handler]) => socket.on(name, handler));
 
             socket.on('disconnect', () => {
                 
-                
+                socket.disconnect();
             });
 
         });

@@ -106,6 +106,27 @@ export class DatabaseController {
                 });
         });
 
+
+        router.get('/photoUrl/:handles', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerPhotos(req.params.handles)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/message/:messageIds', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getMessages(req.params.messageIds)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/users/post/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerPost(req.params.handle)

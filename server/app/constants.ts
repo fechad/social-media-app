@@ -24,12 +24,12 @@ export const DELETE_POST = (id: string) => 'DELETE FROM chymera.post WHERE post_
 export const SELECT_SOME = (names: string[], table: string) => 'SELECT ' + names.join(', ') + ' FROM ' + SCHEMA_NAME + '.' + table;
 export const LIST_TABLES = `SELECT table_name FROM information_schema.tables WHERE table_schema = '${SCHEMA_NAME.toLowerCase()}';`;
 
-export const SELECT_MANY = (handles: string) : string => {
+export const SELECT_MANY = (ids: string, splitPoint ?: string, identifier ?: string) : string => {
     let queryCondition = ' WHERE ';
-    const handleArray = handles.split(' ');
-    handleArray.forEach((handle, index) => {
-        queryCondition += `handle = '${handle}'`;
-        if(handleArray.length-1 !== index) queryCondition += ' or '
+    const idsArray = splitPoint ? ids.split(splitPoint) : ids.split(' ');
+    idsArray.forEach((id, index) => {
+        queryCondition += `${identifier ? identifier : 'handle'} = '${id}'`;
+        if(idsArray.length-1 !== index) queryCondition += ' or '
     })
     return queryCondition;
 }

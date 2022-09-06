@@ -40,6 +40,18 @@ export class DatabaseService {
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
     }
 
+    public async getUSerPhotos(handles: string): Promise<pg.QueryResult> {
+        const condition = SELECT_MANY(handles, ';');
+        console.log('SELECT handle, profile_pic FROM ' + SCHEMA_NAME + '.users' + condition + END_CHAR);
+        return this.query('SELECT handle, profile_pic FROM ' + SCHEMA_NAME + '.users' + condition + END_CHAR);
+    }
+
+    public async getMessages(ids: string): Promise<pg.QueryResult> {
+        const condition = SELECT_MANY(ids, ';', 'messageid');
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
+    }
+
     public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
         const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
         const list = favorite.split(' ');

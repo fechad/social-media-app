@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/Message.scss'
 import Avatar from './Avatar'
 import eventBus from '../components/eventBus';
+import { environment } from '../environments/environment'
 
 interface MessageProps {
     message: string,
@@ -35,7 +36,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID}
   return (
     <div className={`message-section${sender ? '-sender' : '-receiver'}`} onMouseLeave={() => setShowTooltips(false)}>
         <div className='message-avatar-section' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
-            <Avatar inGroup={false} online={false} photo={profile_pic} />
+            <Avatar inGroup={false} online={false} photo={`${environment.serverUrl}/image/` + profile_pic.replace('./assets/profile-pics/', '')} />
         </div>
         <div className='message-bubble-and-tooltip-container'>
             <div className='message-bubble-container-tail'></div>

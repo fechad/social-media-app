@@ -109,7 +109,7 @@ function LeftSidePane() {
                     if(match.account_name !== '')
                     return(
                          
-                         <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true }); window.location.reload();}}>
+                         <div key={index} className='MatchingUsersContainer' onClick={() => {navigate(`/User/Profile/${match.handle}`, { replace: true });}}>
                             <UserSearchPreview  profile_pic={match.profile_pic} account_name={match.account_name} handle={match.handle} />
                         </div> 
                     );  
@@ -126,7 +126,7 @@ function LeftSidePane() {
                     // console.log(current, conversation, id)
                     return(
                          
-                         <div key={index} className='ConversationContainer' style={{backgroundColor: `${current ? 'darkgray' : ''}`}} onClick={()=> navigate(`/User/Chat/${conversation.id}`, {replace: true})}>
+                         <div key={index} className='ConversationContainer' style={{backgroundColor: `${current ? 'darkgray' : ''}`}} onClick={()=> {navigate(`/User/Chat/${conversation.id}`, {replace: true}); window.location.reload()}}>
                             <ChatPreview chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
                         </div> 
                     )           
