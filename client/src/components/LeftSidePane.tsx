@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { FaSearch } from 'react-icons/fa'
 import '../styles/LeftSidePane.scss'
 import TextInput from './TextInput'
@@ -6,11 +6,13 @@ import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
 import UserSearchPreview from './UserSearchPreview'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { DataContext } from '../DataContext'
 
 function LeftSidePane() {
 
     let navigate = useNavigate();
+    const { id } = useParams();
 
     //TOTO: Faire une table conversations dans la DB
     const [users, setUsers] = useState([{
@@ -40,10 +42,13 @@ function LeftSidePane() {
             profile_pic: ''
         }]);
     }
+
+    const { chats } = useContext(DataContext);
+    const { data } = useContext(DataContext);
     
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [conversations, setConversations] = useState([{
-        id: '10',
+        id: '',
         photos: ['/logo.svg'],
         names: ['Oveezion Team'],
         latest: 'Welcome to ovvezion !',
@@ -59,6 +64,24 @@ function LeftSidePane() {
                 reset();
             }
         })
+        let convos: any = [];
+
+        chats.forEach((chat: any) => {
+            let handles: string[] = chat.members.split(';');
+            handles = handles.filter(name => name !== data.handle);
+
+            let messages = chat.message_log.split(';');
+            convos.push({
+                id: chat.chatid,
+                photos: ['/logo.svg'],
+                names: handles,
+                latest: messages[messages.length-1],
+                read: false,
+                online: true,
+            })
+        });
+
+        setConversations(convos);
     }, []);
 
     useEffect(() =>{
@@ -96,10 +119,15 @@ function LeftSidePane() {
                 : 
 
                 conversations.map((conversation, index: any)=>{
+
+                    let current = false;
+                    if(id === conversation.id) current = true;
+
+                    // console.log(current, conversation, id)
                     return(
                          
-                         <div key={index} className='ConversationContainer'>
-                            <ChatPreview  chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
+                         <div key={index} className='ConversationContainer' style={{backgroundColor: `${current ? 'darkgray' : ''}`}} onClick={()=> navigate(`/User/Chat/${conversation.id}`, {replace: true})}>
+                            <ChatPreview chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
                         </div> 
                     )           
                 })

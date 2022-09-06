@@ -85,6 +85,30 @@ CREATE TABLE IF NOT EXISTS chymera.notification (
 	
 	Primary key (notificationId)
 );
+
+Create table if not exists Chymera.Chat(
+
+	chatId TEXT NOT NULL,
+	message_log TEXT,
+	members TEXT NOT NULL,
+	
+	Primary Key (chatId)
+);
+
+Create table if not exists Chymera.Message(
+	
+	messageId TEXT NOT NULL,
+	chatId TEXT NOT NULL,
+	replyId TEXT,
+	messageTime TEXT NOT NULL,
+	handle TEXT NOT NULL,
+	textMessage TEXT,
+	
+	Primary Key (messageId),
+	Foreign Key (chatId) References Chymera.chat (chatId) On Update Cascade On Delete Cascade,
+	Foreign Key (replyId) References Chymera.message (messageId) On Update Cascade On Delete Cascade
+	
+);
 -- FIN DES TABLES EN LIEN DIRECT AVEC UN USER
 
 -- DÉFINITION DE L'UTILISATEUR POUR LA COMMUNICATION AVEC L'APPLICATION

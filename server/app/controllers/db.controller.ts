@@ -50,6 +50,16 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/users/MyInfos/chats/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyChats(req.params.handle)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
         router.get('/isFavorite/:creds', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 . getOneFavorite(req.params.creds.split('..')[0], req.params.creds.split('..')[1])

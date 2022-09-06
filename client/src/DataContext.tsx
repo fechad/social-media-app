@@ -33,11 +33,21 @@ export function  UserDataContext({children}:any) {
     url: '',
   }]);
 
+  const [chats, getChats] = useState([{
+    chatid: '0',
+    message_log: '',
+    members: 'oveezion;users/*',
+  }]);
+
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
       getData(infos.data[0]);
       axios.get(`${environment.serverUrl}/database/users/MyInfos/notifications/${infos.data[0].handle}`).then((notifications)=>{
         getNotifications(notifications.data);
+      }) ;
+
+      axios.get(`${environment.serverUrl}/database/users/MyInfos/chats/${infos.data[0].handle}`).then((result)=>{
+        getChats(result.data);
         setPending(false);
       }) ;
     }) ;
@@ -51,7 +61,7 @@ export function  UserDataContext({children}:any) {
 
   return (
     <DataContext.Provider
-    value={{data,notifications}}
+    value={{data,notifications,chats}}
   >
     {children}
   </DataContext.Provider>

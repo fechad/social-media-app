@@ -1,5 +1,5 @@
 
-import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER, DELETE_POST } from '../constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER, DELETE_POST, SCHEMA_NAME } from '../constants';
 import * as pg from 'pg';
 import 'reflect-metadata';
 import { Service } from 'typedi';
@@ -87,6 +87,11 @@ export class DatabaseService {
         return handles;
     }
 
+    public async getChats(): Promise<pg.QueryResult> {
+        console.log('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+        return this.query('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+    }
+
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
@@ -95,6 +100,11 @@ export class DatabaseService {
     public async getMyNotifications(handle: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
         return this.query(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
+    }
+
+    public async getMyChats(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
+        return this.query(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
     }
 
     public async getMyFriends(email: string): Promise<pg.QueryResult> {
