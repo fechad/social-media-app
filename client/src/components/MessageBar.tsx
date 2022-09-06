@@ -77,7 +77,7 @@ const MessageBar = () => {
           else mediaName += '.png'
           form.append('image', (document.getElementById('download') as HTMLInputElement).files![0], mediaName); 
           // console.log('photo sent with name:', mediaName);
-          axios.post(`${environment.serverUrl}/database/image`, form);
+          //axios.post(`${environment.serverUrl}/database/image`, form);
         };
     };
 
@@ -89,7 +89,7 @@ const MessageBar = () => {
           fsName += '.' + nameRead.split('.')[1];
           form.append('file', (document.getElementById('download-file') as HTMLInputElement).files![0], fsName); 
           // console.log('file sent with name:', fsName);
-          axios.post(`${environment.serverUrl}/database/file`, form);
+          //axios.post(`${environment.serverUrl}/database/file`, form);
         };
     };
 

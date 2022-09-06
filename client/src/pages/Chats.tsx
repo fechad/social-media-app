@@ -10,6 +10,7 @@ import axios from 'axios'
 import { DataContext } from '../DataContext'
 import Message from '../components/Message'
 import '../styles/Chats.scss'
+import eventBus from '../components/eventBus'
 
 const Chats = () => {
 
@@ -57,6 +58,37 @@ const Chats = () => {
 
   }, [socket.id])
 
+
+  useEffect(()=>{
+
+    eventBus.on('sendMessage', (e: any) => {
+      console.log(e.detail)
+      const offset = new Date().getTimezoneOffset();
+      let yourDate = new Date(new Date().getTime() - (offset*60*1000));
+      let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
+
+      console.log(messages)
+
+      let updatedMessages = messages.map(message => message);
+      let newMessage = {
+        messageid: `${Date.now()}`,
+        chatid: id!,
+        replyid: e.detail.replyTo.id,  
+        messagetime: `${dateTime}`,
+        handle: data.handle,
+        textmessage: e.detail.message
+      }
+      updatedMessages.push(newMessage);
+
+      console.log(updatedMessages)
+      setMessages(updatedMessages);
+    });
+
+    eventBus.on('messageAction', (e: any) => {
+       console.log(e.detail, 'Library')
+    });
+  }, [messages])
+
   return (
     <div>
       <div className='LeftSideContainer'><LeftSidePane /></div>
@@ -66,7 +98,6 @@ const Chats = () => {
           <div className='chat-page-messages-container'>
             {
               messages.map((message) => {
-                console.log(membersPhoto)
                   if(message.messageid === '') return ''
                   else return (
                     <Message key={message.messageid} message={message.textmessage} time={message.messagetime} sender={message.handle === data.handle} profile_pic={membersPhoto.filter(member => member.handle === message.handle)[0].profile_pic} handle={message.handle} chatID={message.chatid} />
