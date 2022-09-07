@@ -16,8 +16,8 @@ export class DatabaseController {
         const storage = multer.diskStorage({
             destination:function(req:any, file:any, cb:any) {
                 if(file.originalname.slice(-3) === 'mp4') cb(null, './assets/videos');
-                if(file.originalname.slice(0,6) === 'image-') cb(null, './assets/images');
-                if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
+                else if(file.originalname.slice(0,6) === 'image-') cb(null, './assets/images');
+                else if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
                 else cb(null, './assets/profile-pics');
             },
             filename: function(req:any, file:any, cb:any) {
