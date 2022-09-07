@@ -16,15 +16,19 @@ const Chats = () => {
 
   const { chats } = useContext(DataContext);
   const { data } = useContext(DataContext);
+  const { socket } = useContext(DataContext);
 
   const { id } = useParams();
 
-  const socket = io(`${environment.socketUrl}`);
-
   socket.id = id ? id : '0';
+
+  socket.emit('join room', id, function(response: any) {
+    console.log(response);
+  })
   
-  socket.on('connected', (message) => console.log(message));
-  socket.on('message', (message) => console.log(message));
+  socket.on('connected', (message: any) => console.log(message));
+
+  socket.on('message', (message: any) => console.log(message));
 
 
   const [messages, setMessages] = useState([{
@@ -47,10 +51,6 @@ const Chats = () => {
 
   useEffect(() => {
     console.log(socket.id);
-    socket.connect();
-    socket.emit('message', 'lolloo');
-
-    
 
     axios.get(`${environment.serverUrl}/database/photoUrl/${chats.filter((chat: any) => chat.chatid === id)[0].members.replace('users/*', `${data.handle}`)}`).then((result)=>{
       setMembersPhoto(result.data);
@@ -89,8 +89,11 @@ const Chats = () => {
       updatedMessages.push(newMessage);
 
       console.log(updatedMessages)
-      socket.emit('message', newMessage);
       setMessages(updatedMessages);
+
+      socket.emit('message', 'lolloo');
+      socket.emit('message', newMessage);
+
     });
 
     document.getElementsByClassName('chat-page-messages-container')[0].scrollTop = document.getElementsByClassName('chat-page-messages-container')[0].scrollHeight;

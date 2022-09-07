@@ -2,7 +2,7 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import { environment } from "./environments/environment";
 import { AuthContext } from "./Auth";
-
+import { io } from 'socket.io-client'
 
 export const DataContext = createContext<any>(null);
 
@@ -39,9 +39,25 @@ export function  UserDataContext({children}:any) {
     members: 'oveezion;users/*',
   }]);
 
+  const[activeUsers, setActiveUsers] = useState([{
+    handle: ''
+  }])
+
+  const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
+
+  socket.connect();
+
+  socket.on('current active users', users => {
+    let userList = users.filter((user: any) => user.handle !== 'none');
+    console.log(userList);
+    setActiveUsers(userList);
+  })
+ 
+
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
       getData(infos.data[0]);
+
       axios.get(`${environment.serverUrl}/database/users/MyInfos/notifications/${infos.data[0].handle}`).then((notifications)=>{
         getNotifications(notifications.data);
       }) ;
@@ -55,13 +71,23 @@ export function  UserDataContext({children}:any) {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+
+    socket.emit('join server', data, function(response: any) {
+      let userList = response.filter((user: any) => user.handle !== 'none');
+      console.log(userList);
+      setActiveUsers(userList);
+    });
+
+  }, [data, socket])
+
   if(pending){
     return <> Loading</>
   }
 
   return (
     <DataContext.Provider
-    value={{data,notifications,chats}}
+    value={{data,notifications,chats, socket}}
   >
     {children}
   </DataContext.Provider>

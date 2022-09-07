@@ -3,11 +3,18 @@ import * as io from 'socket.io';
 import * as http from 'http';
 import { DatabaseService } from "../services/database.service";
 
+interface User {
+    email: string,
+    handle : string,
+    socketId: string
+}
+
 @Service()
 export class SocketController {
 
     private io: io.Server;
     private rooms: string[] = [];
+    private users: User[] = []
     private dataBaseService: DatabaseService = new DatabaseService();
 
     constructor(
@@ -25,7 +32,7 @@ export class SocketController {
     }
 
     private initRooms(): void {
-        let init = true;
+        // let init = true;
         const socketRooms = this.io.of('/');
 
         socketRooms.use((socket, next ) => {
@@ -35,18 +42,40 @@ export class SocketController {
 
         socketRooms.on('connect', (socket) => {
 
-           if(init) {
-                this.rooms.forEach(room => {
-                    socket.data.room = room;
-                    socket.join(`room-${room}`);
-                    socket.emit('connected', ` Joined room-${socket.data.room}`);
-                    console.log('socket rooms:', socket.rooms, 'my room:', socket.data.room)
-                });
-                init = false;
-           }
-            
-           
+            //    if(init) {
+            //         this.rooms.forEach(room => {
+            //             socket.data.room = room;
+            //             socket.join(`room-${room}`);
+            //             socket.emit('connected', ` Joined room-${socket.data.room}`);
+            //             console.log('socket rooms:', socket.rooms, 'my room:', socket.data.room)
+            //         });
+            //         init = false;
+            //    }
+            socket.on('join server', (userData, callBack) => {
 
+                const user: User = {
+                    email: userData.email,
+                    handle : userData.handle,
+                    socketId: socket.id
+                };
+
+                const alreadyJoined = this.users.find(currentUser => currentUser.handle === user.handle);
+
+                if(!alreadyJoined) this.users.push(user);
+
+                callBack(this.users);
+            });
+           
+            socket.on('join room', (room, callBack) => {
+                
+                if(this.rooms.find(availableRoom => availableRoom === room)) {
+                    socket.join(room);
+                    callBack(`Success: You joined room ${room}`);
+                } else {
+                    callBack(`Failed: Room ${room} doesn't exist or is not available at this time`);
+                }
+                
+            })
             
 
             const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', `new message : ${message}`)]];
@@ -54,7 +83,9 @@ export class SocketController {
 
             socket.on('disconnect', () => {
                 
-                socket.disconnect();
+                this.users = this.users.filter(user => user.socketId !== socket.id);
+
+                socketRooms.emit('current active users', this.users);
             });
 
         });
