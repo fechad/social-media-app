@@ -33,7 +33,9 @@ const Chats = () => {
       replyid: '',
       messagetime: '',
       handle: '',
-      textmessage: ''
+      textmessage: '',
+      media: '',
+      file_name: '',
   }]);
 
   const [membersPhoto, setMembersPhoto] = useState([
@@ -73,10 +75,12 @@ const Chats = () => {
       let newMessage = {
         messageid: `${Date.now()}`,
         chatid: id!,
-        replyid: e.detail.replyTo.id,  
+        replyid: e.detail.replyTo.id, 
         messagetime: `${dateTime}`,
         handle: data.handle,
-        textmessage: e.detail.message
+        textmessage: e.detail.message,
+        media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
+        file_name: e.detail.serverFsName,
       }
       updatedMessages.push(newMessage);
 
@@ -100,7 +104,7 @@ const Chats = () => {
               messages.map((message) => {
                   if(message.messageid === '') return ''
                   else return (
-                    <Message key={message.messageid} message={message.textmessage} time={message.messagetime} sender={message.handle === data.handle} profile_pic={membersPhoto.filter(member => member.handle === message.handle)[0].profile_pic} handle={message.handle} chatID={message.chatid} />
+                    <Message key={message.messageid} messageID={message.messageid} message={message.textmessage} time={message.messagetime} sender={message.handle === data.handle} profile_pic={membersPhoto.filter(member => member.handle === message.handle)[0].profile_pic} handle={message.handle} chatID={message.chatid} media={message.media} file={message.file_name} replyId={message.replyid} replyMessage={messages.find(mesg => mesg.messageid === message.replyid)?.textmessage} />
                   )
               })
             }

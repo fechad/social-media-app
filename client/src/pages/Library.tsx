@@ -55,7 +55,7 @@ const Library = () => {
   return (
     <section className='LibraryContainer'>
       {/* <LeftSidePane /> */}
-      <NavBar selection='discover'/>
+      {/* <NavBar selection='discover'/> */}
       <section className='Library'>
         <div>
           <Text type='H1' content='Logo ideas:' />
@@ -199,12 +199,28 @@ const Library = () => {
         <div>
           <Text type='H1' content='Message examples' />
           <section style={{display: 'flex', flexDirection: 'column'}}>
-            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
-            <Message message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-1' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message messageID='message-2' message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-3' message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-4' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-5' message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-6' message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <div style={{marginBottom:'40px'}}></div>
+            <Message replyId='message-3' replyMessage='This is a normal reply message capiccino galcééée oleola' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a shot reply ' message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a long reply message reply message reply message reply message reply message reply message reply message' message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a normal reply message capiccino galcééée oleola' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a shot reply ' message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a long reply message reply message reply message reply message reply message reply message reply message' message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <div style={{marginBottom:'40px'}}></div>
+            <Message media='166130035770138.png' message='Media photo + This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message media='1661448810578232.mp4' message='Media video + This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message media='1661137612434703.png' message='Media photo + This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message file='Log20_IA_ScDonnees (3).pdf' message=' File + This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Text type='H2' content='Media only' />
+            <Message media='1661448810578232.mp4' message='' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Text type='H2' content='File only' />
+            <Message file='Log20_IA_ScDonnees (3).pdf' message='' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
           </section>
         </div>
         <div style={{marginBottom:'40px'}}>
