@@ -50,6 +50,8 @@ const Chats = () => {
     socket.connect();
     socket.emit('message', 'lolloo');
 
+    
+
     axios.get(`${environment.serverUrl}/database/photoUrl/${chats.filter((chat: any) => chat.chatid === id)[0].members.replace('users/*', `${data.handle}`)}`).then((result)=>{
       setMembersPhoto(result.data);
     }) ;
@@ -62,6 +64,8 @@ const Chats = () => {
 
 
   useEffect(()=>{
+
+    
 
     eventBus.on('sendMessage', (e: any) => {
       console.log(e.detail)
@@ -85,8 +89,11 @@ const Chats = () => {
       updatedMessages.push(newMessage);
 
       console.log(updatedMessages)
+      socket.emit('message', newMessage);
       setMessages(updatedMessages);
     });
+
+    document.getElementsByClassName('chat-page-messages-container')[0].scrollTop = document.getElementsByClassName('chat-page-messages-container')[0].scrollHeight;
 
     eventBus.on('messageAction', (e: any) => {
        console.log(e.detail, 'Library')

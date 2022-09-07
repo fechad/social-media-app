@@ -49,7 +49,7 @@ export class SocketController {
 
             
 
-            const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', message)]];
+            const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', `new message : ${message}`)]];
             events.forEach(([name, handler]) => socket.on(name, handler));
 
             socket.on('disconnect', () => {
