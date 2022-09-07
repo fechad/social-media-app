@@ -42,15 +42,6 @@ export class SocketController {
 
         socketRooms.on('connect', (socket) => {
 
-            //    if(init) {
-            //         this.rooms.forEach(room => {
-            //             socket.data.room = room;
-            //             socket.join(`room-${room}`);
-            //             socket.emit('connected', ` Joined room-${socket.data.room}`);
-            //             console.log('socket rooms:', socket.rooms, 'my room:', socket.data.room)
-            //         });
-            //         init = false;
-            //    }
             socket.on('join server', (userData, callBack) => {
 
                 const user: User = {
@@ -76,10 +67,19 @@ export class SocketController {
                 }
                 
             })
-            
 
-            const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', `new message : ${message}`)]];
-            events.forEach(([name, handler]) => socket.on(name, handler));
+            // const events: [string, (id: any, data: any) => void][] = [['message', (socketId, message) => socket.to(socketId).emit('message', `new message : ${message}`)]];
+            // events.forEach(([name, handler]) => socket.on(name, handler));
+
+            socket.on("send message", (message, room) => {
+
+                console.log('room  is',room, 'message is', message);
+
+                if(this.rooms.find(availableRoom => availableRoom === room)) {
+                    
+                    socketRooms.to(room).emit('new message', message);
+                };
+            });
 
             socket.on('disconnect', () => {
                 

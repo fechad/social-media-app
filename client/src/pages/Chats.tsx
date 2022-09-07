@@ -28,8 +28,14 @@ const Chats = () => {
   
   socket.on('connected', (message: any) => console.log(message));
 
-  socket.on('message', (message: any) => console.log(message));
+  socket.on('new message', (message: any) => {
+    console.log(message)
 
+    let updatedMessages = messages.map(message => message);
+    updatedMessages.push(message);
+
+    setMessages(updatedMessages);
+  });
 
   const [messages, setMessages] = useState([{
       messageid: '',
@@ -63,19 +69,16 @@ const Chats = () => {
   }, [socket.id])
 
 
-  useEffect(()=>{
-
-    
+  useEffect(() => {
 
     eventBus.on('sendMessage', (e: any) => {
-      console.log(e.detail)
+      //console.log(e.detail)
       const offset = new Date().getTimezoneOffset();
       let yourDate = new Date(new Date().getTime() - (offset*60*1000));
       let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
 
-      console.log(messages)
+      // console.log(messages)
 
-      let updatedMessages = messages.map(message => message);
       let newMessage = {
         messageid: `${Date.now()}`,
         chatid: id!,
@@ -86,22 +89,18 @@ const Chats = () => {
         media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
         file_name: e.detail.serverFsName,
       }
-      updatedMessages.push(newMessage);
 
-      console.log(updatedMessages)
-      setMessages(updatedMessages);
-
-      socket.emit('message', 'lolloo');
-      socket.emit('message', newMessage);
-
+      //console.log(updatedMessages)
+      console.log(id)
+      socket.emit('send message', newMessage, id);
     });
 
     document.getElementsByClassName('chat-page-messages-container')[0].scrollTop = document.getElementsByClassName('chat-page-messages-container')[0].scrollHeight;
 
     eventBus.on('messageAction', (e: any) => {
-       console.log(e.detail, 'Library')
+       //console.log(e.detail, 'Library')
     });
-  }, [messages])
+  }, [])
 
   return (
     <div>

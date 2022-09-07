@@ -3,6 +3,7 @@ import axios from "axios";
 import { environment } from "./environments/environment";
 import { AuthContext } from "./Auth";
 import { io } from 'socket.io-client'
+import eventBus from "./components/eventBus";
 
 export const DataContext = createContext<any>(null);
 
@@ -64,6 +65,7 @@ export function  UserDataContext({children}:any) {
 
       axios.get(`${environment.serverUrl}/database/users/MyInfos/chats/${infos.data[0].handle}`).then((result)=>{
         getChats(result.data);
+        console.log(chats)
         setPending(false);
       }) ;
     }) ;
