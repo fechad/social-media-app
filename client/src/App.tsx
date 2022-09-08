@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './App.scss';
 import Link from './components/Link';
 import { BiCopyright } from 'react-icons/bi';
@@ -6,7 +6,7 @@ import Button from './components/Button';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 import { useNavigate } from 'react-router-dom';
-
+import { screenRatio } from './ScreenRatio'
 
 
 function App() {
@@ -14,6 +14,11 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [beta, setBetaVersion] = useState(true);
   AOS.init({once: false, mirror: true})
+
+  useEffect(()=>{
+    screenRatio.calculate();
+  },[]);
+
   return (
     <div className='App'>
       <section className='page-header'>
