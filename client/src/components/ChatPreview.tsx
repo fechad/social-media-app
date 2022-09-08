@@ -2,6 +2,7 @@ import React from 'react'
 import Avatar from './Avatar'
 import Text from './Text'
 import '../styles/ChatPreview.scss'
+import { environment } from '../environments/environment'
 
 interface ChatPreviewProps { 
     chatId?: string,
@@ -18,9 +19,9 @@ function ChatPreview({chatId, photos, names, latest, read, online, groupChat}:Ch
   return (
     <div className='PreviewContainer'>
         <div className='PreviewAvatars'>
-            <Avatar photo={photos[0]} online={ photos.length === 1 ? online! : false} inGroup={groupChat}/>
+            <Avatar photo={`${environment.serverUrl}/image/${photos[0]}`} online={ photos.length === 1 ? online! : false} inGroup={groupChat}/>
             {
-                photos[1] ? <Avatar photo={photos[1]} online={false} inGroup={groupChat} /> : ''
+                photos[1] ? <Avatar photo={`${environment.serverUrl}/image/${photos[1]}`} online={false} inGroup={groupChat} /> : ''
             }
         </div>
         <div className='PreviewTextContent'>

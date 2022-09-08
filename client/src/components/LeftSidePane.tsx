@@ -8,6 +8,7 @@ import { environment } from '../environments/environment'
 import UserSearchPreview from './UserSearchPreview'
 import { useNavigate, useParams } from 'react-router-dom'
 import { DataContext } from '../DataContext'
+import axios from 'axios'
 
 function LeftSidePane() {
 
@@ -64,24 +65,42 @@ function LeftSidePane() {
                 reset();
             }
         })
-        let convos: any = [];
 
-        chats.forEach((chat: any) => {
-            let handles: string[] = chat.members.split(';');
-            handles = handles.filter(name => name !== data.handle);
+        axios.get(`${environment.serverUrl}/database/users/MyFriends/${data.email}`).then((users)=>{
+            
+            
+            let messages = ''
+            chats.map((chat: any) => chat.message_log.split(';')).forEach((msg: any) => {
+                messages += msg + ';'
+            });
 
-            let messages = chat.message_log.split(';');
-            convos.push({
-                id: chat.chatid,
-                photos: ['/logo.svg'],
-                names: handles,
-                latest: messages[messages.length-1],
-                read: false,
-                online: true,
-            })
+            axios.get(`${environment.serverUrl}/database/message/${messages}`).then((result)=>{
+                
+                let convos: any = [];
+
+                chats.forEach((chat: any) => {
+                    let handles: string[] = chat.members.split(';');
+                    handles = handles.filter(name => name !== data.handle);
+                    let photo: string = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))?.profile_pic.replace('./assets/profile-pics/', '')
+                    if(!photo) photo = 'Oveezion.png'
+                    console.log(handles, photo);
+                    let nameList = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))
+                    convos.push({
+                        id: chat.chatid,
+                        photos: [photo],
+                        names: handles,
+                        latest: result.data.find((message: any) => message.chatid === chat.chatid).textmessage,
+                        read: false,
+                        online: true,
+                    })
+                });
+                
+                //console.log(convos)
+                setConversations(convos);
+            });
         });
 
-        setConversations(convos);
+       
     }, []);
 
     useEffect(() =>{
@@ -119,7 +138,7 @@ function LeftSidePane() {
                 : 
 
                 conversations.map((conversation, index: any)=>{
-
+                    console.log(conversation)
                     let current = false;
                     if(id === conversation.id) current = true;
 
