@@ -13,8 +13,11 @@ import { DataContext } from '../DataContext';
 import Post from '../components/Post';
 import { AuthContext } from '../Auth';
 import { Snackbar } from '@mui/material';
+import { screenRatio } from '../ScreenRatio';
 
 const Discover = () => {
+
+  screenRatio.calculate()
 
   //let navigate = useNavigate();
   let name: string = '0';
