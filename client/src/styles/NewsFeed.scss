@@ -2,34 +2,34 @@
 
     height: 80vh;
     overflow-y: auto;
-    padding: 80px;
-    margin-top: 40px;
+    padding: calc(Var(--adjustedRatio)*80px);
+    margin-top: calc(Var(--adjustedRatio)*40px);
     display: flex;
     flex-direction: column;
-    gap: 40px;
+    gap: calc(Var(--adjustedRatio)*40px);
 }
 
 .local-switch{
 
-    width: 100px;
+    width: calc(Var(--adjustedRatio)*100px);
     position: absolute;
-    right: 400px;
-    top: 20px;
+    right: calc(Var(--adjustedRatio)*400px);
+    top: calc(Var(--adjustedRatio)*20px);
 }
 
 #Publish .ModalTrigger .button:first-child {
     position: absolute;
-    bottom: 48px;
-    right: 440px;
+    bottom: calc(Var(--adjustedRatio)*48px);
+    right: calc(Var(--adjustedRatio)*440px);
 
     .ButtonComponent {
 
-        width: 100px;
-        height: 100px;
+        width: calc(Var(--adjustedRatio)*100px);
+        height: calc(Var(--adjustedRatio)*100px);
         border-radius: 50%;
 
         p.body {
-            font-size: 70px;
+            font-size: calc(Var(--adjustedRatio)*70px);
             margin: 0%;
         }
     }
@@ -42,15 +42,15 @@
 
     .PostCreationContainer {
         //border: 1px solid #676767;
-        border-radius: 8px;
+        border-radius: calc(Var(--adjustedRatio)*8px);
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 8px;
+        gap: calc(Var(--adjustedRatio)*8px);
 
         textarea {
             border: none;
-            margin-top: 2px;
+            margin-top: calc(Var(--adjustedRatio)*2px);
             //overflow:hidden;
             height: auto;
 
@@ -63,12 +63,12 @@
 
             border: none;
             border-radius: 100%;
-            width: 40px;
-            height: 40px;
+            width: calc(Var(--adjustedRatio)*40px);
+            height: calc(Var(--adjustedRatio)*40px);
             background-color: rgba(0, 0, 0, 0.5);
             position: absolute;
-            top: 50px;
-            right: 40px;
+            top: calc(Var(--adjustedRatio)*50px);
+            right: calc(Var(--adjustedRatio)*40px);
             display: flex;
             align-items: center;
 
@@ -88,13 +88,13 @@
     .AdditionalOptions {
         display: flex;
         position: absolute;
-        bottom: -80px;
+        bottom: calc(Var(--adjustedRatio)* -80px);
         z-index: 80;
 
         label {
 
-            width: 40px;
-            height: 40px;
+            width: calc(Var(--adjustedRatio)*40px);
+            height: calc(Var(--adjustedRatio)*40px);
             border: none;
            
 

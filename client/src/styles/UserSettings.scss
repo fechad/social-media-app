@@ -1,10 +1,10 @@
 .SettingsPageContainer{
     display: flex;
     flex-direction: column;
-    margin-top: 104px;
-    gap: 24px;
+    margin-top: calc(Var(--adjustedRatio)*104px);;
+    gap: calc(Var(--adjustedRatio)*24px);
     //flex-wrap: wrap;
-    width: 720px;
+    width: calc(Var(--adjustedRatio)*720px);
     //height: 928px;
 
     // position: absolute;
@@ -17,14 +17,14 @@
         display: flex;
         flex-direction: column;
         //flex-wrap: wrap;
-        height: 96px;
+        height: calc(Var(--adjustedRatio)*96px);
         //padding-bottom: 8px;
         .H2 {
             //position: absolute;
         }
 
         .RadioOptions{
-            margin-top: -24px;
+            margin-top: calc(Var(--adjustedRatio)* -24px);
         }
         
     }
@@ -42,31 +42,31 @@
     .Buttons{
         position: absolute;
         display: flex;
-        gap: 40px;
+        gap: calc(Var(--adjustedRatio)*40px);
         justify-content: center;
-        height: 100px;
+        height: calc(Var(--adjustedRatio)*100px);
         align-items: center;
-        margin-top: 20px;
-        padding-left: 250px;
-        top: 96px;
-        right: 496px;
+        margin-top: calc(Var(--adjustedRatio)*20px);
+        padding-left: calc(Var(--adjustedRatio)*250px);
+        top: calc(Var(--adjustedRatio)*96px);
+        right: calc(Var(--adjustedRatio)*496px);
 
     }
 
     .Management{
         align-self: flex-start;
-        margin-top: 8px;
+        margin-top: calc(Var(--adjustedRatio)*8px);
         .ManagementOptions{
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
             justify-content: flex-start;
             align-items: center;
-            width: 336px;
+            width: calc(Var(--adjustedRatio)*336px);
 
 
             .H3{
-                margin-left: 24px;
+                margin-left: calc(Var(--adjustedRatio)*24px);
             }
 
             &:hover{
@@ -98,10 +98,10 @@
 
                 display: grid;
                 grid-template-columns: auto auto;
-                gap: 4px;
-                width: 988px;
+                gap: calc(Var(--adjustedRatio)*4px);
+                width: calc(Var(--adjustedRatio)*988px);
 
-                margin-top: 32px;
+                margin-top: calc(Var(--adjustedRatio)*32px);
                 .MatchingUsersContainer {
                     width: auto;
                     display: flex;
@@ -123,11 +123,11 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         align-items: center;
-        width: 336px;
-        margin-top: 20px;
+        width: calc(Var(--adjustedRatio)*336px);
+        margin-top: calc(Var(--adjustedRatio)*20px);
 
         .H3{
-            margin-left: 24px;
+            margin-left: calc(Var(--adjustedRatio)*24px);
         }
 
         &:hover{

@@ -9,10 +9,10 @@
         justify-content: center;
     }
     p {
-        margin: 8px 16px;
+        margin: calc(Var(--adjustedRatio)*8px) calc(Var(--adjustedRatio)*16px);
     }
     .selected{
-        border-bottom: 3px solid #8773F0;
+        border-bottom: calc(Var(--adjustedRatio)*3px) solid #8773F0;
     }
 
     &:hover {
@@ -20,14 +20,14 @@
     }
 }
 .selector {
-    height: 3px;
-    width: 178px;
+    height: calc(Var(--adjustedRatio)*3px);
+    width: calc(Var(--adjustedRatio)*178px);
     background-color: black;
 }
 
 .html-container{
     display: flex;
     justify-content: center;
-    margin-top: 24px;
+    margin-top: calc(Var(--adjustedRatio)*24px);
     overflow-y: auto;
 }

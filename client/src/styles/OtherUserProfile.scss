@@ -3,7 +3,7 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 0px 0px 16px 0px;
+    margin: 0px 0px calc(Var(--adjustedRatio)*16px) 0px;
 }
 
 .private-container {
@@ -14,7 +14,7 @@
 
 #test {
     border-radius: 100%;
-    margin-right: 32px;
+    margin-right: calc(Var(--adjustedRatio)*32px);
 }
  
 .search-displayer {
@@ -30,19 +30,19 @@
 .id-container{
     display: flex;
     flex-direction: row;
-    width: 232px;
+    width: calc(Var(--adjustedRatio)*232px);
     justify-content: space-between;
     p {
-        margin: 5px;
+        margin: calc(Var(--adjustedRatio)*5px);
     }
 }
 
 .bio-container {
-    width: 604px;
-    height: 85px;
-    border-radius: 16px;
+    width: calc(Var(--adjustedRatio)*604px);
+    height: calc(Var(--adjustedRatio)*85px);
+    border-radius: calc(Var(--adjustedRatio)*16px);
 }
 
 .friends {
-    margin: 0px 0px 16px 0px;
+    margin: 0px 0px calc(Var(--adjustedRatio)*16px) 0px;
 }
