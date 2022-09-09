@@ -1,5 +1,5 @@
 import React, { ReactElement, useEffect, useState } from 'react'
-import '../styles/TextInput.css'
+import '../styles/TextInput.scss'
 import Text from '../components/Text';
 import { IconBaseProps } from 'react-icons';
 
