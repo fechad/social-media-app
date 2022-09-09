@@ -16,8 +16,12 @@ import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 import { FaSearch } from 'react-icons/fa'
 import NoContent from '../components/NoContent'
+import { screenRatio } from '../ScreenRatio'
 
 const UserProfile = () => {
+
+    screenRatio.calculate()
+
     let name: string;
     const [searching, setSearch] = useState(false);
     const [data, getData] = useState({

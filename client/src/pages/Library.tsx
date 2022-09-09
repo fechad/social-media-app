@@ -22,6 +22,7 @@ import NewsArticle from '../components/NewsArticle';
 import Message from '../components/Message';
 import MessageBar from '../components/MessageBar';
 import eventBus from '../components/eventBus';
+import { screenRatio } from '../ScreenRatio';
 
 
 function print(){
@@ -39,6 +40,8 @@ function modalContent(){
 }
 
 const Library = () => {
+
+  screenRatio.calculate()
 
   useEffect(()=>{
 

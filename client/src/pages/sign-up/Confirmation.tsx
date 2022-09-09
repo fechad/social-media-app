@@ -6,9 +6,12 @@ import '../../styles/Confirmation.css'
 import {app} from '../../firebaseConfig'
 import {getAuth, sendEmailVerification} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
+import { screenRatio } from '../../ScreenRatio'
 
 
 const Confirmation = () => {
+
+  screenRatio.calculate()
   
   function  getUserEmail() {
     const auth = getAuth(app);

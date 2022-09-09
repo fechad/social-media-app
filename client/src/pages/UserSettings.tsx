@@ -20,6 +20,7 @@ import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser, getAuth, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { screenRatio } from '../ScreenRatio';
 
 
 // interface data {
@@ -36,6 +37,8 @@ import { deleteUser, getAuth, sendEmailVerification, signInWithEmailAndPassword,
 // }
 
 const UserSettings = () => {
+
+    screenRatio.calculate()
 
     let navigate = useNavigate();
     const auth = getAuth();

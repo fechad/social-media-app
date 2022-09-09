@@ -10,8 +10,12 @@ import { useNavigate } from 'react-router-dom'
 import { useContext } from 'react'
 import { AuthContext } from '../../Auth'
 import axios from 'axios'
+import { screenRatio } from '../../ScreenRatio'
 
 const ProfileSetup = () => {
+
+    screenRatio.calculate()
+
     const {currentUser} = useContext(AuthContext);
     let navigate = useNavigate();
     let name: string;

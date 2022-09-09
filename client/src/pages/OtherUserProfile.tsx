@@ -16,8 +16,11 @@ import { AuthContext } from '../Auth'
 import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 import { FaSearch } from 'react-icons/fa'
+import { screenRatio } from '../ScreenRatio'
 
 const OtherUserProfile = () => {
+
+    screenRatio.calculate()
 
     const {handle} = useParams();
 

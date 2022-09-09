@@ -9,8 +9,11 @@ import {app} from '../../firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../Auth'
+import { screenRatio } from '../../ScreenRatio'
 
 const Credentials = () => {
+
+  screenRatio.calculate()
 
   const auth = getAuth(app);
   let navigate = useNavigate();

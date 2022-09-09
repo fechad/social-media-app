@@ -15,11 +15,11 @@
         width: 100%;
 
         .SwitchContainer{
-            margin-left: 16px;
+            margin-left: calc(Var(--adjustedRatio)*16px);
         }
 
         .ProfileAvatar{
-            margin-right: 16px;
+            margin-right: calc(Var(--adjustedRatio)*16px);
 
             &:hover{
                 cursor: pointer;

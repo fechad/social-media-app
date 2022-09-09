@@ -10,8 +10,11 @@ import { useNavigate } from 'react-router-dom'
 import { environment } from '../../environments/environment';
 import { useContext } from 'react'
 import { AuthContext } from '../../Auth'
+import { screenRatio } from '../../ScreenRatio'
 
 const NewOptions = () => {
+
+  screenRatio.calculate()
 
   const {currentUser} = useContext(AuthContext);
   let navigate = useNavigate();

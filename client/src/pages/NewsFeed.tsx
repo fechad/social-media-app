@@ -13,8 +13,11 @@ import { DataContext } from '../DataContext'
 import { environment } from '../environments/environment'
 import '../styles/NewsFeed.scss'
 import { Snackbar } from '@mui/material';
+import { screenRatio } from '../ScreenRatio'
 
 const NewsFeed = () => {
+
+  screenRatio.calculate()
 
   let name: string = '0';
   const [imagePresent, setImagePresent] = useState(false);

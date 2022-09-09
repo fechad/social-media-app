@@ -13,8 +13,11 @@ import { DataContext } from '../DataContext';
 import Post from '../components/Post';
 import { AuthContext } from '../Auth';
 import NoContent from '../components/NoContent';
+import { screenRatio } from '../ScreenRatio';
 
 const MyFeed = () => {
+
+  screenRatio.calculate()
 
   //let navigate = useNavigate();
   let name: string = '0';
