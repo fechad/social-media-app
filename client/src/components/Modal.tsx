@@ -48,7 +48,7 @@ const Modal = ({opened, triggerElement, title, modalWidth, modalHeight, modalMin
                 <div className='Body'>
                     {children}
                 </div>
-                <div className='FooterContainer'>
+                <div className='FooterContainer' style={!secondary && !primary ? {display: 'none'}: {}}>
                     <div className='Footer' style={{width: modalWidth}}>
                         {
                             secondary ? <Button text={secondary} textType='H3' color='darkgrey' fct={secondaryFct}/> : ''

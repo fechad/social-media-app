@@ -168,6 +168,20 @@ export class DatabaseService {
         })
     }
 
+    public async pushMessage(obj: any): Promise<void> {
+        this.create('message', obj);
+    }
+
+    public async createPost(obj: any): Promise<void> {
+        const chatInfos = {
+            chatid: obj.post_id,
+            message_log: '',
+            members: '',
+        }
+        this.create('post', obj);
+        this.create('chat', chatInfos);
+    }
+
     public async createLike(email: string, postId: string): Promise<void> {
         this.query(INSERT('likes', 2), [email, postId]).catch( async ()=>{
             let currentPosts = (await this.query(SELECT_SOME(['posts'],'likes') + ' WHERE email =' + `'${email}' ` + END_CHAR)).rows[0].posts;

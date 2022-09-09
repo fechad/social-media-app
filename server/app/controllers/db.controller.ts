@@ -16,7 +16,7 @@ export class DatabaseController {
         const storage = multer.diskStorage({
             destination:function(req:any, file:any, cb:any) {
                 if(file.originalname.slice(-3) === 'mp4') cb(null, './assets/videos');
-                if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
+                else if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
                 else cb(null, './assets/profile-pics');
             },
             filename: function(req:any, file:any, cb:any) {
@@ -199,7 +199,15 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
-        
+        router.post('/addMessage', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService.pushMessage(req.body)
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.status(405).json(e.stack);
+            });
+            res.status(200).json('OK');
+        });
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json('OK');
@@ -243,8 +251,7 @@ export class DatabaseController {
         router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
             console.log(req.body);
             this.databaseService
-                .create('post', req.body)
-                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .createPost(req.body)
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(405).json(e.stack);

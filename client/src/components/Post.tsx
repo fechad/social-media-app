@@ -10,6 +10,7 @@ import axios from 'axios'
 import { AuthContext } from '../Auth'
 import { DataContext } from '../DataContext'
 import Modal from './Modal'
+import MessageBar from './MessageBar'
 
 interface PostProps { 
     handle: string,
@@ -26,12 +27,17 @@ interface PostProps {
 }
 
 function Post({handle, username, media, text_message, likes, date, postId, nbComments, isFaved, isLiked}:PostProps) {
+
     let navigate = useNavigate();
     const {data} = useContext(DataContext);
     const {currentUser} = useContext(AuthContext);
     const [bookmarked, setBookmark] = useState(isFaved);
     const [liked, setLike] = useState(isLiked);
     const [nbLikes, setLikes] = useState(likes);
+    const [messages, setMessages] = useState((null) as any);
+
+    function getComments() {
+    }
     
     const like = (liked: boolean) => {
         if(liked) {
@@ -73,6 +79,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
             window.location.reload();
         }
     }
+
 
     useEffect(()=>{}, [bookmarked, liked, nbLikes]);
 
@@ -118,18 +125,23 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                     {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
                     <Text content = {nbLikes.toString()}></Text>
                 </div>
+                <div className='modal-modifier'>
                 <Modal triggerElement={
-                    <div id = 'comments'>
+                    <div id = 'comments' onClick={()=>getComments()}>
                         {<FaRegCommentDots size='24px'/>}
                         <Text content = {nbComments.toString()}></Text>
                     </div>} 
                     title={'Comments'} 
                     modalWidth={'800px'} 
-                    modalHeight={'800px'}>
-                        <div>
+                    modalHeight={'784px'}>
+                        <div className='comments'>
                             <div>{postId}</div>
+                            <div>
+                                <MessageBar target={postId}></MessageBar>
+                            </div>
                         </div>
                 </Modal>
+                </div>
                 {<FiShare2 className='share-area' color='grey' size='24px'/>}
             </div>
         </div>
