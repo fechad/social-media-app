@@ -2,8 +2,8 @@ import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import { environment } from "./environments/environment";
 import { AuthContext } from "./Auth";
+import { io } from 'socket.io-client'
 import eventBus from "./components/eventBus";
-
 
 export const DataContext = createContext<any>(null);
 
@@ -53,6 +53,26 @@ export function  UserDataContext({children}:any) {
     console.log(message);
     axios.post(`${environment.serverUrl}/database/addMessage`, message);
   }
+  const [chats, getChats] = useState([{
+    chatid: '0',
+    message_log: '',
+    members: 'oveezion;users/*',
+  }]);
+
+  const[activeUsers, setActiveUsers] = useState([{
+    handle: ''
+  }])
+
+  const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
+
+  socket.connect();
+
+  socket.on('current active users', (users:any) => {
+    let userList = users.filter((user: any) => user.handle !== 'none');
+    console.log(userList);
+    setActiveUsers(userList);
+  })
+ 
 
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -61,6 +81,11 @@ export function  UserDataContext({children}:any) {
       handle = infos.data[0].handle;
       axios.get(`${environment.serverUrl}/database/users/MyInfos/notifications/${infos.data[0].handle}`).then((notifications)=>{
         getNotifications(notifications.data);
+      }) ;
+
+      axios.get(`${environment.serverUrl}/database/users/MyInfos/chats/${infos.data[0].handle}`).then((result)=>{
+        getChats(result.data);
+        console.log(chats)
         setPending(false);
       }) ;
     }) ;
@@ -76,6 +101,15 @@ export function  UserDataContext({children}:any) {
     });
 // eslint-disable-next-line react-hooks/exhaustive-deps
 }, [])
+  useEffect(() => {
+
+    socket.emit('join server', data, function(response: any) {
+      let userList = response.filter((user: any) => user.handle !== 'none');
+      console.log(userList);
+      setActiveUsers(userList);
+    });
+
+  }, [data, socket])
 
   if(pending){
     return <> Loading</>
@@ -83,7 +117,7 @@ export function  UserDataContext({children}:any) {
 
   return (
     <DataContext.Provider
-    value={{data,notifications}}
+    value={{data,notifications,chats, socket}}
   >
     {children}
   </DataContext.Provider>
