@@ -52,6 +52,11 @@ export class DatabaseService {
         return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
     }
 
+    public async getComments(chatId: string): Promise<pg.QueryResult> {
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.message WHERE chatid =' + `'${chatId}'`  + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message WHERE chatid =' + `'${chatId}'`  + END_CHAR);
+    }
+
     public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
         const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
         const list = favorite.split(' ');

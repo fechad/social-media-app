@@ -50,7 +50,7 @@ export function  UserDataContext({children}:any) {
       media: messageInfo.serverMediaName,
       file_name: messageInfo.serverFsName,
     };
-    console.log(message);
+    document.getElementById('comments-' + message.chatid)!.innerHTML += `<div class = "stub-comment">${message.textmessage}</div>`;
     axios.post(`${environment.serverUrl}/database/addMessage`, message);
   }
   const [chats, getChats] = useState([{

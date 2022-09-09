@@ -107,6 +107,11 @@
     z-index: 100;
 }
 
+.comments-holder{
+    display: flex;
+    flex-direction: column;
+}
+
 .footer{
     margin-top: 8px;
     display: flex;

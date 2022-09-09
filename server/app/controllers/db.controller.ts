@@ -128,6 +128,17 @@ export class DatabaseController {
                 });
         });
 
+        router.get('/comments/:chatId', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getComments(req.params.chatId)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+
         router.get('/users/post/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 .getUSerPost(req.params.handle)

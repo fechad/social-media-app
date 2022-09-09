@@ -34,10 +34,29 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     const [bookmarked, setBookmark] = useState(isFaved);
     const [liked, setLike] = useState(isLiked);
     const [nbLikes, setLikes] = useState(likes);
-    const [messages, setMessages] = useState((null) as any);
+    const [messages, setMessages] = useState([(null) as any]);
 
     function getComments() {
+        const elems = Array.from(document.getElementsByClassName('stub-comment'));
+        elems.forEach(item=>item.remove());
+
+        axios.get(`${environment.serverUrl}/database/comments/${postId}`).then(
+            (messageLog)=>{
+                setMessages(messageLog.data);
+                console.log(document.getElementById('comments-' + postId));
+            }
+        );
     }
+
+    const commentList = messages.map((comment)=>{
+        if (comment)
+            return (
+                <div key = {comment.textmessage}>
+                    {comment.textmessage}
+                </div>
+            );
+        else return '';
+    })
     
     const like = (liked: boolean) => {
         if(liked) {
@@ -81,7 +100,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     }
 
 
-    useEffect(()=>{}, [bookmarked, liked, nbLikes]);
+    useEffect(()=>{}, [bookmarked, liked, nbLikes, messages]);
 
     return (
         <div className='post' id = {postId}>
@@ -136,6 +155,9 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                     modalHeight={'784px'}>
                         <div className='comments'>
                             <div>{postId}</div>
+                            <div className='comments-holder' id = {'comments-' + postId}>
+                                {commentList}
+                            </div>
                             <div>
                                 <MessageBar target={postId}></MessageBar>
                             </div>
