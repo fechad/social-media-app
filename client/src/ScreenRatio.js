@@ -1,3 +1,4 @@
+
 export const screenRatio = {
 
     calculate () {
@@ -17,6 +18,15 @@ export const screenRatio = {
             console.log('old correct ratio:', normalRatio, 'adjusted ratio:', adjustedRatio)
             root.style.setProperty('--adjustedRatio', `${adjustedRatio}`)
         }
-    }
+    },
 
+    getRatio() {
+        let width = window.screen.width;
+        let height = window.screen.height;
+        let normalRatio = 1920 / 1080;
+        
+        let adjustedRatio = (width / height) / normalRatio;
+
+        return adjustedRatio;
+    }
 };
