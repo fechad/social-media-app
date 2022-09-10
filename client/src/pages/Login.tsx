@@ -5,7 +5,7 @@ import Text from '../components/Text';
 import TextInput from '../components/TextInput';
 import { FcGoogle} from "react-icons/fc";
 import {BsArrowLeft} from "react-icons/bs"
-import '../styles/Login.css'
+import '../styles/Login.scss'
 import {app} from '../firebaseConfig'
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";

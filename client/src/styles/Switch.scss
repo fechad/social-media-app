@@ -7,17 +7,17 @@
 }
 
 .SwitchContainer p{
-    margin-left: 16px;
+    margin-left: calc(Var(--adjustedRatio)*16px);
 }
 
 .Switch {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 80px;
-    height: 32px;
-    border-radius: 16px;
-    border: 1px solid #A1A1A1;
+    width: calc(Var(--adjustedRatio)*80px);
+    height: calc(Var(--adjustedRatio)*32px);
+    border-radius: calc(Var(--adjustedRatio)*16px);
+    border: calc(Var(--adjustedRatio)*1px) solid #A1A1A1;
 }
 
 .Switch:hover{
@@ -37,27 +37,27 @@
 
 .DarkMode{
     background-color: #202020;
-    border: 1px solid #FFFFFF;
+    border: calc(Var(--adjustedRatio)*1px) solid #FFFFFF;
 }
 
 .closed-thumb,
 .opened-thumb{  
-    width: 24px;
-    height: 24px;
-    border-radius: 100px;
+    width: calc(Var(--adjustedRatio)*24px);
+    height: calc(Var(--adjustedRatio)*24px);
+    border-radius: calc(Var(--adjustedRatio)*100px);
 }
 
 .closed-thumb {
     animation: thumb-close .5s;
     animation-direction: normal;
     background-color: #8773F0;
-    margin-left: 8px;
+    margin-left: calc(Var(--adjustedRatio)*8px);
 }
 
 .opened-thumb {
     animation: thumb-open .5s;
     animation-direction: normal;
-    margin-right: 8px;
+    margin-right: calc(Var(--adjustedRatio)*8px);
     background-color: #ffffff;
 }
 
@@ -68,30 +68,29 @@
 .Icon-left{
     animation: icon .2s;
     animation-direction: normal;
-    margin-left: 8px;
+    margin-left: calc(Var(--adjustedRatio)*8px);
 }
 
 .Icon-right{
-    margin-right: 8px;
+    margin-right: calc(Var(--adjustedRatio)*8px);
 }
 
 .Moon{
     animation: icon .2s;
     animation-direction: normal;
-    margin-left: 8px;
+    margin-left: calc(Var(--adjustedRatio)*8px);
     color: white;
 }
 
 
 @keyframes thumb-open {
-    0% {left:0px; margin-right: 24px}
-    100% {left:0px; margin-left: 24px; margin-right: 8px;} 
+    0% {left:0px; margin-right: calc(Var(--adjustedRatio)*24px)}
+    100% {left:0px; margin-left: calc(Var(--adjustedRatio)*24px); margin-right: calc(Var(--adjustedRatio)*8px);} 
 }
 
 @keyframes thumb-close {
-    0% {left:0px; margin-left: 24px; margin-right: 8px;} 
-    100% {left:0px; margin-right: 24px}
-    
+    0% {left:0px; margin-left: calc(Var(--adjustedRatio)*24px); margin-right: calc(Var(--adjustedRatio)*8px);} 
+    100% {left:0px; margin-right: calc(Var(--adjustedRatio)*24px)}
 }
 
 @keyframes icon {

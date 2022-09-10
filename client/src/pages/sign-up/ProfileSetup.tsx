@@ -1,5 +1,5 @@
 import { BsArrowLeft } from 'react-icons/bs'
-import '../../styles/ProfileSetup.css'
+import '../../styles/ProfileSetup.scss'
 import Text from '../../components/Text'
 import Button from '../../components/Button'
 import TextInput from '../../components/TextInput'

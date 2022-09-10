@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
-import '../../styles/Credentials.css'
+import '../../styles/Credentials.scss'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import Button from '../../components/Button'

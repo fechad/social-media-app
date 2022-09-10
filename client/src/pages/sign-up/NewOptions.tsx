@@ -5,7 +5,7 @@ import Button from '../../components/Button'
 import Checkbox from '../../components/Checkbox'
 import Switch from '../../components/Switch'
 import Text from '../../components/Text'
-import '../../styles/NewsOptions.css'
+import '../../styles/NewsOptions.scss'
 import { useNavigate } from 'react-router-dom'
 import { environment } from '../../environments/environment';
 import { useContext } from 'react'

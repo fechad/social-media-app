@@ -1,0 +1,32 @@
+.body, 
+.H1, 
+.H2, 
+.H3, 
+.PH{
+    font-family: 'Open Sans', sans-serif; 
+}
+
+.body {
+    font-size: calc(Var(--adjustedRatio)*16px);
+}
+
+.H1{
+    font-size: calc(Var(--adjustedRatio)*30px);
+}
+
+.H2{
+    font-size: calc(Var(--adjustedRatio)*24px);
+}
+
+.H3{
+    font-size: calc(Var(--adjustedRatio)*18px);
+}
+
+.PH{
+    font-size: calc(Var(--adjustedRatio)*14px);
+    color: #949494;
+}
+
+.bold{
+    font-weight: bold;
+}

@@ -2,7 +2,7 @@ import React from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import Button from '../../components/Button'
 import Text from '../../components/Text'
-import '../../styles/Confirmation.css'
+import '../../styles/Confirmation.scss'
 import {app} from '../../firebaseConfig'
 import {getAuth, sendEmailVerification} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'

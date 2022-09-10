@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/Link.css'
+import '../styles/Link.scss'
 
 interface LinkProps {
     underlined?: boolean, 

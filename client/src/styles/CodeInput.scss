@@ -1,0 +1,15 @@
+.CodeInputContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: calc(Var(--adjustedRatio)*464px);
+    height: calc(Var(--adjustedRatio)*64px);
+}
+
+.CodeBox{
+    width: calc(Var(--adjustedRatio)*64px);
+    height: calc(Var(--adjustedRatio)*64px);
+    border: calc(Var(--adjustedRatio)*1px) solid #4c4c4c;
+    border-radius: calc(Var(--adjustedRatio)*8px);
+    text-align: center;
+}

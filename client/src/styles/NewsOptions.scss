@@ -1,0 +1,76 @@
+.NewsOptionsPage{
+    width: 100%;
+    height: 85vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.ArrowBack{
+    left: calc(Var(--adjustedRatio)*72px);
+    top: calc(Var(--adjustedRatio)*48px);
+    position: absolute;
+}
+
+.SkipLink{
+    right: calc(Var(--adjustedRatio)*72px);
+    top: calc(Var(--adjustedRatio)*48px);
+    position: absolute;
+}
+
+.NewsOptionsContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: center;
+    width: calc(Var(--adjustedRatio)*776px);
+    height: calc(Var(--adjustedRatio)*600px);
+    margin-top: calc(Var(--adjustedRatio)*200px);
+    border: calc(Var(--adjustedRatio)*1px) solid rgba(0, 0, 0, 0.3);
+    box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25), 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+    border-radius: calc(Var(--adjustedRatio)*8px);
+}
+
+.NewsOptionsContainerTitle{
+    position:absolute;
+    top: calc(Var(--adjustedRatio)*48px);
+}
+
+.NewsOptionsContainer .Description{
+    text-align: center;
+}
+
+.NewsOptionsContainer p:nth-child(2){
+    align-self: flex-start;
+    border-color: aqua;
+}
+
+.CheckboxesSection .options{
+    display: grid;
+    grid-template-columns: calc(Var(--adjustedRatio)*180px) calc(Var(--adjustedRatio)*180px) calc(Var(--adjustedRatio)*180px);
+    justify-content: space-evenly;
+    align-self: flex-start;
+    align-self: center;
+}
+
+.LocalNewsOptionSection{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    margin-top: calc(Var(--adjustedRatio)*40px);
+}
+
+.LocalNewsOptionSection .SwitchContainer{
+    margin-left: calc(Var(--adjustedRatio)*24px);
+}
+
+.LocalNewsOptionSection .InfoIcon{
+    margin-left: calc(Var(--adjustedRatio)*16px);
+}
+
+.NewsOptionsContainer .ButtonComponent{
+    margin-top: calc(Var(--adjustedRatio)*80px);
+    margin-left: calc(Var(--adjustedRatio)*32px);
+    width: calc(Var(--adjustedRatio)*392px);
+}

@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
-import '../styles/Library.css'
+import '../styles/Library.scss'
 import Text from '../components/Text';
 import Switch from '../components/Switch';
 import Link from '../components/Link';

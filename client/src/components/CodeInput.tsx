@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import '../styles/CodeInput.css'
+import '../styles/CodeInput.scss'
 
 interface CodeInputProps {
     role: Function
