@@ -7,9 +7,12 @@ import NotificationCard from '../components/NotificationCard'
 import RightSidePane from '../components/RightSidePane'
 import Tabs from '../components/Tabs'
 import { DataContext } from '../DataContext'
+import { screenRatio } from '../ScreenRatio'
 import '../styles/Notifications.scss'
 
 const Notifications = () => {
+
+  screenRatio.calculate()
 
   const [clicked, setClick] = useState(0);
   let {notifications} = useContext(DataContext);

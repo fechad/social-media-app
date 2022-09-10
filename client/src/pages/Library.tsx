@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
-import '../styles/Library.css'
+import '../styles/Library.scss'
 import Text from '../components/Text';
 import Switch from '../components/Switch';
 import Link from '../components/Link';
@@ -22,6 +22,7 @@ import NewsArticle from '../components/NewsArticle';
 import Message from '../components/Message';
 import MessageBar from '../components/MessageBar';
 import eventBus from '../components/eventBus';
+import { screenRatio } from '../ScreenRatio';
 
 
 function print(){
@@ -39,6 +40,8 @@ function modalContent(){
 }
 
 const Library = () => {
+
+  screenRatio.calculate()
 
   useEffect(()=>{
 

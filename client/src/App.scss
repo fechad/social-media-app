@@ -42,8 +42,8 @@ p {
 
 .App {
 
-  max-width: 1920px;
-  min-height: 1080px;
+  max-width: calc(Var(--adjustedRatio)*1920px);
+  min-height: calc(Var(--adjustedRatio)*1080px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -63,8 +63,8 @@ p {
 
   .nav-bar {
 
-    width: 1440px;
-    height: 120px;
+    width: calc(Var(--adjustedRatio)*1440px);
+    height: calc(Var(--adjustedRatio)*120px);
     display: flex;
     align-items: center;
     z-index: 2000;
@@ -72,7 +72,7 @@ p {
 
     img {
 
-      margin-left: 24px;
+      margin-left: calc(Var(--adjustedRatio)*24px);
 
       &:hover {
 
@@ -84,11 +84,11 @@ p {
     .nav-bar-sections {
       
       display: flex;
-      gap: 180px;
-      width: 984px;
-      padding-left: 124px;
+      gap: calc(Var(--adjustedRatio)*180px);
+      width: calc(Var(--adjustedRatio)*984px);
+      padding-left: calc(Var(--adjustedRatio)*124px);
       z-index: 2001;
-      font-size: 35px;
+      font-size: calc(Var(--adjustedRatio)*35px);
       
       
       p {
@@ -102,7 +102,7 @@ p {
       }
 
       p:nth-child(3){
-        margin-right: 100px;
+        margin-right: calc(Var(--adjustedRatio)*100px);
       }
 
     }
@@ -110,7 +110,7 @@ p {
     
     a.body {
       
-      padding-left: 200px;
+      padding-left: calc(Var(--adjustedRatio)*200px);
     }
   }
 
@@ -118,27 +118,27 @@ p {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    width: 1288px;
-    height: 500px;
-    padding-top: 240px;
-    margin-bottom: 200px;
-    gap: 120px;
+    width: calc(Var(--adjustedRatio)*1288px);
+    height: calc(Var(--adjustedRatio)*500px);
+    padding-top: calc(Var(--adjustedRatio)*240px);
+    margin-bottom: calc(Var(--adjustedRatio)*200px);
+    gap: calc(Var(--adjustedRatio)*120px);
     z-index: 1;
 
     .app-modal {
 
-      width: 856px;
-      height: 488px;
+      width: calc(Var(--adjustedRatio)*856px);
+      height: calc(Var(--adjustedRatio)*488px);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 24px;
+      gap: calc(Var(--adjustedRatio)*24px);
       
 
       background: white;
-      border: 1px solid rgba(0, 0, 0, 0.3);
-      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-      border-radius: 4px;
+      border: calc(Var(--adjustedRatio)*1px) solid rgba(0, 0, 0, 0.3);
+      box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25), 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+      border-radius: calc(Var(--adjustedRatio)*4px);
 
       .app-modal-header {
 
@@ -151,22 +151,22 @@ p {
         .app-modal-beta{
 
           height: fit-content;
-          width: 144px;
+          width: calc(Var(--adjustedRatio)*144px);
           background: linear-gradient(180deg, #D9D9D9 0%, #F073C3 0.01%, #8773F0 100%);
-          box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-          border-radius: 0px 4px 0px 0px;
+          box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+          border-radius: 0px calc(Var(--adjustedRatio)*4px) 0px 0px;
           text-align: center;
 
           p {
-            margin: 8px 0px 8px 0px;
+            margin: calc(Var(--adjustedRatio)*8px) 0px calc(Var(--adjustedRatio)*8px) 0px;
           }
         }
 
         .app-modal-header-title {
 
           p {
-            margin: 24px 24px 24px 0px;
-            padding-left: 24px;
+            margin: calc(Var(--adjustedRatio)*24px) calc(Var(--adjustedRatio)*24px) calc(Var(--adjustedRatio)*24px) 0px;
+            padding-left: calc(Var(--adjustedRatio)*24px);
           }
         }
         
@@ -174,8 +174,8 @@ p {
 
       .app-modal-content {
 
-        width: 800px;
-        height: 200px;
+        width: calc(Var(--adjustedRatio)*800px);
+        height: calc(Var(--adjustedRatio)*200px);
 
         p {
           margin: 0%;
@@ -187,15 +187,15 @@ p {
         display: flex;
         flex-direction: row;
         justify-content: flex-end;
-        gap: 24px;
-        width: 800px;
+        gap: calc(Var(--adjustedRatio)*24px);
+        width: calc(Var(--adjustedRatio)*800px);
       }
     }
 
     .summary-logo-circle {
-      width: 186px;
-      height: 186px;
-      border: 15px solid #5CE1E6;
+      width: calc(Var(--adjustedRatio)*186px);
+      height: calc(Var(--adjustedRatio)*186px);
+      border: calc(Var(--adjustedRatio)*15px) solid #5CE1E6;
       border-radius: 50%;
       animation: App-logo-circle infinite 5s ease-in-out;
 
@@ -210,23 +210,21 @@ p {
     display: inline-flex;
     justify-content: space-between;
     align-items: center;
-    width: 1224px;
-    height: 640px;
-    padding: 104px;
+    width: calc(Var(--adjustedRatio)*1224px);
+    height: calc(Var(--adjustedRatio)*640px);
+    padding: calc(Var(--adjustedRatio)*104px);
 
 
     .sample-image {
 
-      width: 528px;
-      height: 400px;
+      width: calc(Var(--adjustedRatio)*528px);
+      height: calc(Var(--adjustedRatio)*400px);
       overflow: hidden;
-      
     }
 
     .sample-description {
 
-      width: 560px;
-
+      width: calc(Var(--adjustedRatio)*560px);
       display: flex;
       flex-direction: column;
       text-align: right;
@@ -234,8 +232,7 @@ p {
 
     .sample-description-reverse {
 
-      width: 560px;
-
+      width: calc(Var(--adjustedRatio)*560px);
       display: flex;
       flex-direction: column;
     }
@@ -254,8 +251,8 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 1288px;
-    padding: 20px 0px 140px 0px;
+    width: calc(Var(--adjustedRatio)*1288px);
+    padding: calc(Var(--adjustedRatio)*20px) 0px calc(Var(--adjustedRatio)*140px) 0px;
 
     .team-bios-title {
 
@@ -263,7 +260,7 @@ p {
       text-align: center;
 
       p {
-        font-size: 60px;
+        font-size: calc(Var(--adjustedRatio)*60px);
         margin-bottom: 0%;
 
       }
@@ -274,8 +271,8 @@ p {
       display: inline-flex;
       justify-content: space-between;
       width: 100%;
-      padding-top: 80px;
-      gap: 40px;
+      padding-top: calc(Var(--adjustedRatio)*80px);
+      gap: calc(Var(--adjustedRatio)*40px);
 
       .team-member,
       .team-member-2 {
@@ -283,10 +280,10 @@ p {
         display: flex;
         flex-direction: column;
         align-items: center;
-        width: 620px;
-        height: 820px;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25), 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 8px;
+        width: calc(Var(--adjustedRatio)*620px);
+        height: calc(Var(--adjustedRatio)*820px);
+        box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25), 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+        border-radius: calc(Var(--adjustedRatio)*8px);
         
       }
 
@@ -305,33 +302,33 @@ p {
         .team-member-photo {
 
           border-radius: 100%;
-          margin-top: 24px;
+          margin-top: calc(Var(--adjustedRatio)*24px);
         }
       }
 
       .team-member-name {
 
         p {
-          font-size: 30px;
+          font-size: calc(Var(--adjustedRatio)*30px);
         }
       }
       .team-member-description {
 
-        width: 480px;
+        width: calc(Var(--adjustedRatio)*480px);
         p {
-          font-size: 20px;
+          font-size: calc(Var(--adjustedRatio)*20px);
           text-align: center;
         }
       }
 
       .team-member-contact-info {
 
-        width: 480px;
-        padding-top: 24px;
+        width: calc(Var(--adjustedRatio)*480px);
+        padding-top: calc(Var(--adjustedRatio)*24px);
         p {
-          font-size: 16px;
+          font-size: calc(Var(--adjustedRatio)*16px);
           text-align: center;
-          line-height: 24pt;
+          line-height: calc(Var(--adjustedRatio)*24pt);
         }
       }
     }
@@ -342,23 +339,23 @@ p {
     margin: 0 auto;
 
     width: 99.9vw;
-    height: 240px;
+    height: calc(Var(--adjustedRatio)*240px);
     background-color: #3A3A3A;
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 40px;
+    gap: calc(Var(--adjustedRatio)*40px);
 
     p:nth-child(1) {
 
       color:white;
-      font-size: 20px;
+      font-size: calc(Var(--adjustedRatio)*20px);
     }
 
     p:nth-child(2) {
 
       color: #AAAAAA;
-      font-size: 20px;
+      font-size: calc(Var(--adjustedRatio)*20px);
     }
   }
 }

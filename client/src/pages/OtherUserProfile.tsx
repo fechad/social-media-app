@@ -16,8 +16,11 @@ import { AuthContext } from '../Auth'
 import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 import { FaSearch } from 'react-icons/fa'
+import { screenRatio } from '../ScreenRatio'
 
 const OtherUserProfile = () => {
+
+    screenRatio.calculate()
 
     const {handle} = useParams();
 
@@ -102,7 +105,7 @@ const OtherUserProfile = () => {
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
             return (
-                <img className = 'friends-pic' key = {`${friend.handle}`} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+                <img className = 'friends-pic' key = {`${friend.handle}`} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*32px)', height: 'calc(Var(--adjustedRatio)*32px)'}}/>
             )
         } else return '';
     });
@@ -111,7 +114,7 @@ const OtherUserProfile = () => {
         if(friend.handle !== 'none' && userFriendsList.filter(item => item.handle === friend.handle).length > 0) {
             return (
                 <div key = {friend.handle} className = 'friends-displayer'>
-                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='48px' height = '48px'/>
+                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*48px)', height: 'calc(Var(--adjustedRatio)*48px)'}}/>
                     <Text content = {`${friend.account_name}`}></Text>
                 </div>
             )
@@ -150,7 +153,7 @@ const OtherUserProfile = () => {
     const selected = users.map((user, index) => {
         return (
             <div key = {user?.handle} className = 'friends-displayer'>
-                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user?.handle}`} alt="" width='48px' height = '48px'/>
+                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user?.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*48px)', height: 'calc(Var(--adjustedRatio)*48px)'}}/>
                 <Text content = {`${user?.account_name}`}></Text>
             </div>
         )
@@ -164,7 +167,7 @@ const OtherUserProfile = () => {
         )
         else return (
             <div className='private-container'>
-                <FiLock size='200px' color = '#cccccc'/>
+                <FiLock size={200*(screenRatio.getRatio())} color = '#cccccc'/>
                 <Text type = 'H3' content={`This account is private`}></Text>
                 <Text type = 'H3' content={`To see account activities ask ${data.account_name} to be friends.`}></Text>
             </div>
@@ -191,7 +194,7 @@ const OtherUserProfile = () => {
             <div id = 'page-container'>
                 <div className = 'infos-container'>
                     <div className = 'left-infos'>
-                        <img id = 'test' src={`${environment.serverUrl}/database/image/${data.email}`} alt="" width='72px' height='72px'/>
+                        <img id = 'test' src={`${environment.serverUrl}/database/image/${data.email}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*72px)', height: 'calc(Var(--adjustedRatio)*72px)'}}/>
                         <div>
                             <div className='id-container'>
                                 <Text content = {`${data.account_name}`} type = 'H3'></Text>
@@ -200,7 +203,7 @@ const OtherUserProfile = () => {
                             <Text content = {`@${data.handle}`} color = 'rgba(0, 0, 0, 0.5)' type='H3'></Text>
                         </div>
                     </div>
-                <Button text='add' icon = {<MdPersonAddAlt color = 'white' size = '32px'/>}></Button>
+                <Button text='add' icon = {<MdPersonAddAlt color = 'white' size={32*(screenRatio.getRatio())} />}></Button>
                 </div>
                 <div className = 'bio-container'>
                     <Text content = {`${data.bio}`}></Text>
@@ -217,8 +220,8 @@ const OtherUserProfile = () => {
                                 modalHeight={'600px'}
                             >
                                 <div>
-                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
-                                    <div className = 'search-displayer' style={{margin: '24px'}}>
+                                    <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
+                                    <div className = 'search-displayer' style={{margin: 'calc(Var(--adjustedRatio)*24px)'}}>
                                         {searching ? selected : moreFriends}
                                     </div>
                                 </div>

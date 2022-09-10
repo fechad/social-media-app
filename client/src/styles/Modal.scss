@@ -34,21 +34,21 @@
     
         .ModalContent{
             position: absolute;
-            min-width: 640px;
-            min-height: 352px;
+            min-width: calc(Var(--adjustedRatio)*640px);
+            min-height: calc(Var(--adjustedRatio)*352px);
             background-color: white;
-            border-radius: 8px;
+            border-radius: calc(Var(--adjustedRatio)*8px);
             z-index: 999;
     
             .Header {
-                height: 100px;
+                height: calc(Var(--adjustedRatio)*100px);
                 display: flex;
                 justify-content: center;
     
                 .ModalCloseButton{
                     position: absolute;
-                    top: 16px;
-                    right: 16px;
+                    top: calc(Var(--adjustedRatio)*16px);
+                    right: calc(Var(--adjustedRatio)*16px);
     
                     &:hover{
                         cursor: pointer;
@@ -65,14 +65,14 @@
                 position: relative;
                 display: flex;
                 align-items: center;
-                height: 112px;
+                height: calc(Var(--adjustedRatio)*112px);
                 .Footer{
                     position: absolute;
-                    right: 24px;
-                    min-width: 640px;
-                    height: 64px;
+                    right: calc(Var(--adjustedRatio)*24px);
+                    min-width: calc(Var(--adjustedRatio)*640px);
+                    height: calc(Var(--adjustedRatio)*64px);
                     display: flex;
-                    gap: 20px;
+                    gap: calc(Var(--adjustedRatio)*20px);
                     justify-content: flex-end;
                     align-items: center;
                 }

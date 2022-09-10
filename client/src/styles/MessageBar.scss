@@ -7,23 +7,23 @@
     .message-photo-preview{
 
         position: relative;
-        bottom: 16px;
-        left: 156px;
-        width: 200px;
-        height: 200px;
+        bottom: calc(Var(--adjustedRatio)*16px);
+        left: calc(Var(--adjustedRatio)*156px);
+        width: calc(Var(--adjustedRatio)*200px);
+        height: calc(Var(--adjustedRatio)*200px);
         
         .RemovePhoto {
 
             position: absolute;
-            top: 8px;
-            right: 8px;
-            width: 40px;
-            height: 40px;
+            top: calc(Var(--adjustedRatio)*8px);
+            right: calc(Var(--adjustedRatio)*8px);
+            width: calc(Var(--adjustedRatio)*40px);
+            height: calc(Var(--adjustedRatio)*40px);
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 1px solid #525151;
+            border: calc(Var(--adjustedRatio)*1px) solid #525151;
             background-color: rgba(17, 17, 17, 0.65);
 
             &:hover {
@@ -43,12 +43,12 @@
     .message-file-preview {
 
         position: relative;
-        bottom: 8px;
-        left: 156px;
+        bottom: calc(Var(--adjustedRatio)*8px);
+        left: calc(Var(--adjustedRatio)*156px);
         width: fit-content;
-        padding-right: 48px;
-        max-width: 600px;
-        height: 40px;
+        padding-right: calc(Var(--adjustedRatio)*48px);
+        max-width: calc(Var(--adjustedRatio)*600px);
+        height: calc(Var(--adjustedRatio)*40px);
         display: flex;
         align-items: center;
 
@@ -73,14 +73,14 @@
         .RemovePhoto {
 
             position: absolute;
-            right: 8px;
-            width: 24px;
-            height: 24px;
+            right: calc(Var(--adjustedRatio)*8px);
+            width: calc(Var(--adjustedRatio)*24px);
+            height: calc(Var(--adjustedRatio)*24px);
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 1px solid #525151;
+            border: calc(Var(--adjustedRatio)*1px) solid #525151;
             background-color: rgba(17, 17, 17, 0.65);
 
             &:hover {
@@ -100,18 +100,18 @@
     .message-reply-preview {
 
         position: relative;
-        bottom: 16px;
-        left: 156px;
+        bottom: calc(Var(--adjustedRatio)*16px);
+        left: calc(Var(--adjustedRatio)*156px);
         width: fit-content;
-        padding-right: 48px;
-        max-width: 470px;
-        max-height: 80px;
-        min-height: 40px;
+        padding-right: calc(Var(--adjustedRatio)*48px);
+        max-width: calc(Var(--adjustedRatio)*470px);
+        max-height: calc(Var(--adjustedRatio)*80px);
+        min-height: calc(Var(--adjustedRatio)*40px);
         display: flex;
         align-items: center;
-        border: 1px solid #272727;
-        border-radius: 16px;
-        padding-left: 8px;
+        border: calc(Var(--adjustedRatio)*1px) solid #272727;
+        border-radius: calc(Var(--adjustedRatio)*16px);
+        padding-left: calc(Var(--adjustedRatio)*8px);
 
         #reply-message {
 
@@ -123,14 +123,14 @@
         .RemovePhoto {
 
             position: absolute;
-            right: 8px;
-            width: 24px;
-            height: 24px;
+            right: calc(Var(--adjustedRatio)*8px);
+            width: calc(Var(--adjustedRatio)*24px);
+            height: calc(Var(--adjustedRatio)*24px);
             display: flex;
             justify-content: center;
             align-items: center;
             border-radius: 50%;
-            border: 1px solid #525151;
+            border: calc(Var(--adjustedRatio)*1px) solid #525151;
             background-color: rgba(17, 17, 17, 0.65);
 
             &:hover {
@@ -151,18 +151,18 @@
 
         display: flex;
         align-items: center;
-        padding: auto 8px;
-        width: 776px;
-        min-height: 72px;
-        gap: 8px;
+        padding: auto calc(Var(--adjustedRatio)*8px);
+        width: calc(Var(--adjustedRatio)*776px);
+        min-height: calc(Var(--adjustedRatio)*72px);
+        gap: calc(Var(--adjustedRatio)*8px);
         position: relative;
-        bottom: 20px;
+        bottom: calc(Var(--adjustedRatio)*20px);
 
 
         .message-options {
 
-            width: 148px;
-            height: 40px;
+            width: calc(Var(--adjustedRatio)*148px);
+            height: calc(Var(--adjustedRatio)*40px);
             display: flex;
             justify-content: space-evenly;
             align-items: center;
@@ -195,7 +195,7 @@
     
         .message-writing-container {
     
-            width: 616px;
+            width: calc(Var(--adjustedRatio)*616px);
             align-self: flex-end;
     
             textarea{
@@ -204,11 +204,11 @@
                 min-height: 100%;
                 max-height: auto;;
                 background-color: #F8F8F8;
-                border-radius: 8px;
-                padding: 4px;
+                border-radius: calc(Var(--adjustedRatio)*8px);
+                padding: calc(Var(--adjustedRatio)*4px);
     
                 font-family: 'Oswald', sans-serif;
-                font-size: 16px;
+                font-size: calc(Var(--adjustedRatio)*16px);
     
     
             }
@@ -223,29 +223,29 @@
     #pickerContainer {
 
         position: absolute;
-        left: 42px;
-        bottom: 72px;
+        left: calc(Var(--adjustedRatio)*42px);
+        bottom: calc(Var(--adjustedRatio)*72px);
         width: fit-content;
     }
 
     #giphy-pickerContainer {
 
         position: absolute;
-        left: 82px;
-        bottom: 72px;
-        width: 200px;
+        left: calc(Var(--adjustedRatio)*82px);
+        bottom: calc(Var(--adjustedRatio)*72px);
+        width: calc(Var(--adjustedRatio)*200px);
 
         .giphy-search-box {
             min-width: fit-content;
             background-color: white;
-            border: 1px solid #272727;
-            border-radius: 8px;
-            padding: 8px;
+            border: calc(Var(--adjustedRatio)*1px) solid #272727;
+            border-radius: calc(Var(--adjustedRatio)*8px);
+            padding: calc(Var(--adjustedRatio)*8px);
             padding-right: 0px;
 
             .reactGiphySearchbox-searchForm-form{
                 
-                margin-right: 8px;
+                margin-right: calc(Var(--adjustedRatio)*8px);
             }
         }
     }

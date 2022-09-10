@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import '../styles/Switch.css'
+import '../styles/Switch.scss'
 import {RiNotificationFill, RiNotificationOffFill} from 'react-icons/ri'
 import { BsMoonFill, BsSun } from "react-icons/bs"
 import { FaGlobe} from 'react-icons/fa'

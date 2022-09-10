@@ -1,7 +1,7 @@
 .RadioContainer{
     display: flex;
     align-items: center;
-    gap: 16px;
+    gap: calc(Var(--adjustedRatio)*16px);
     width: fit-content;
 
     .OuterRadio{
@@ -11,13 +11,13 @@
         align-items: center;
 
         //position: absolute;
-        width: 24px;
-        height: 24px;
-        left: 813px;
-        top: 1534px;
+        width: calc(Var(--adjustedRatio)*24px);
+        height: calc(Var(--adjustedRatio)*24px);
+        left: calc(Var(--adjustedRatio)*813px);
+        top: calc(Var(--adjustedRatio)*1534px);
 
         background: #FFFFFF;
-        border: 2px solid #B9B9B9;
+        border: calc(Var(--adjustedRatio)*2px) solid #B9B9B9;
         border-radius: 100%;
 
         &.Checked{
@@ -28,8 +28,8 @@
 
     .InnerRadio{
         //position: absolute;
-        width: 16px;
-        height: 16px;
+        width: calc(Var(--adjustedRatio)*16px);
+        height: calc(Var(--adjustedRatio)*16px);
         // left: 817px;
         // top: 1538px;
         border-radius: 100%;

@@ -3,18 +3,18 @@
     flex-direction: row;
     justify-content: space-between;
     width: fit-content;
-    height: 56px;
+    height: calc(Var(--adjustedRatio)*56px);
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     top: 0;
     left: 0;
     right: 0;
-    border-width: 0px 1px 1px 1px;
+    border-width: 0px calc(Var(--adjustedRatio)*1px) calc(Var(--adjustedRatio)*1px) calc(Var(--adjustedRatio)*1px);
     border-style: solid;
     border-color: rgba(118, 118, 118, 0.3);
-    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
-    border-radius: 0px 0px 8px 8px;
+    filter: drop-shadow(0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25));
+    border-radius: 0px 0px calc(Var(--adjustedRatio)*8px) calc(Var(--adjustedRatio)*8px);
 
     background-color: white;
     z-index: 99;

@@ -1,22 +1,23 @@
 .UserPreviewContainer{
     display: flex;
     align-items: center;
-    width: 360px;
-    height: 72px;
+    width: calc(Var(--adjustedRatio)*360px);
+    height: calc(Var(--adjustedRatio)*72px);;
 
     .AvatarContainer{
-        margin: 0px 24px 0px 40px;
+        
+        margin: 0px calc(Var(--adjustedRatio)*24px) 0px calc(Var(--adjustedRatio)*40px);
     }
 
     .PreviewName{
         align-items: center;
-        width: 168px;
+        width: calc(Var(--adjustedRatio)*168px);
         
         .body,
         .H3{
             white-space: nowrap;
             overflow: hidden;
-            width: 168px;
+            width: calc(Var(--adjustedRatio)*168px);;
             text-overflow: ellipsis;
         }
     }

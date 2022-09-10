@@ -1,10 +1,10 @@
 .notification-page-container {
 
-    margin-top: 100px;
+    margin-top: calc(Var(--adjustedRatio)*100px);
 
     .post-container {
 
-        width: 600px;
+        width: calc(Var(--adjustedRatio)*600px);
 
         &:hover {
 
@@ -14,28 +14,28 @@
 
     .html-container {
 
-        height: 740px;
+        height: calc(Var(--adjustedRatio)*740px);
         overflow-x: hidden;
     }
 
     .NotificationCardContainer {
 
-        width: 600px;
-        min-height: 120px;
+        width: calc(Var(--adjustedRatio)*600px);
+        min-height: calc(Var(--adjustedRatio)*120px);
         height: fit-content;
-        padding-bottom: 16px;
+        padding-bottom: calc(Var(--adjustedRatio)*16px);
 
         .NotificationHeader{
             width: 100%;
 
             .AccountAvatars {
 
-                padding-left: 8px;
+                padding-left: calc(Var(--adjustedRatio)*8px);
             }
 
             .TitleContainer {
                 text-align: left;
-                width: 435px;
+                width: calc(Var(--adjustedRatio)*435px);
             }
         }
 

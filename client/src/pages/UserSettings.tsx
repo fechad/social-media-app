@@ -20,6 +20,7 @@ import { FaSearch } from 'react-icons/fa';
 import UserSearchPreview from '../components/UserSearchPreview';
 import { useNavigate } from 'react-router-dom';
 import { deleteUser, getAuth, sendEmailVerification, signInWithEmailAndPassword, signOut, updateEmail, updatePassword } from 'firebase/auth';
+import { screenRatio } from '../ScreenRatio';
 
 
 // interface data {
@@ -36,6 +37,8 @@ import { deleteUser, getAuth, sendEmailVerification, signInWithEmailAndPassword,
 // }
 
 const UserSettings = () => {
+
+    screenRatio.calculate()
 
     let navigate = useNavigate();
     const auth = getAuth();
@@ -248,7 +251,7 @@ const UserSettings = () => {
         return(
           <div>
             <div className='ModalSearchArea' onKeyDown={(e) => {if(e.key === 'Enter') myFriends()}}> 
-                <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
+                <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
             </div>
             <div className='MatchingUsers'>
                 {
@@ -280,7 +283,7 @@ const UserSettings = () => {
         return(
             <div>
               <div className='ModalSearchArea'> 
-                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
+                  <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' />
               </div>
               <div className='MatchingUsers'>
                   {
@@ -309,7 +312,7 @@ const UserSettings = () => {
         return(
             <div>
               <div className='ModalSearchArea'> 
-                  <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
+                  <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#767676'}/>} width='552px' label='' placeHolder='Search Chymera' specialFtc={myFriends}/>
               </div>
               <div className='MatchingUsers'>
                   {   
@@ -368,7 +371,7 @@ const UserSettings = () => {
                 <div className='Management'>
                     <div  onClick={retrieveInfos} >
                         <Modal 
-                            triggerElement={<div className='ManagementOptions'> <FiUsers size={20} /> <Text type='H3' content='Manage friends' /> </div>}
+                            triggerElement={<div className='ManagementOptions'> <FiUsers size={20*(screenRatio.getRatio())} /> <Text type='H3' content='Manage friends' /> </div>}
                             title='Friends manager'
                             modalWidth='1088px'
                             modalHeight='680px'
@@ -380,23 +383,23 @@ const UserSettings = () => {
                     </div>
                     <div >
                         <Modal 
-                            triggerElement={<div className='ManagementOptions'> <AiOutlineLock size={20} /> <Text type='H3' content='Change password' /> </div>}
+                            triggerElement={<div className='ManagementOptions'> <AiOutlineLock size={20*(screenRatio.getRatio())} /> <Text type='H3' content='Change password' /> </div>}
                             title='Change password ?'
                             modalWidth='640px'
                             modalHeight='408px'
                             primary='Apply'
                             primaryFct={() => {changePassword()}}
                         >
-                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '24px'}} >
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='OldPassword'>
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: 'calc(Var(--adjustedRatio)*24px)'}} >
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*20px)', alignItems: 'center'}} id='OldPassword'>
                                     <Text content='Current password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} id='NewPassword'>
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*44px)', alignItems: 'center'}} id='NewPassword'>
                                     <Text content='New password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='ConfirmNewPassword'>
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*20px)', alignItems: 'center'}} id='ConfirmNewPassword'>
                                     <Text content='Confirm password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
@@ -412,26 +415,26 @@ const UserSettings = () => {
                     </div>
                     <div >
                         <Modal 
-                            triggerElement={<div className='ManagementOptions'> <BiEnvelope size={20} /> <Text type='H3' content='Change email address' /> </div>}
+                            triggerElement={<div className='ManagementOptions'> <BiEnvelope size={20*(screenRatio.getRatio())} /> <Text type='H3' content='Change email address' /> </div>}
                             title='Change email ?'
                             modalWidth='640px'
                             modalHeight='492px'
                             primary='Validate'
                             primaryFct={() =>  {changeEmail()}}
                         >
-                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: '20px'}} >
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id="OldEmail">
+                            <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', width: 'inherit', marginTop: 'calc(Var(--adjustedRatio)*20px)'}} >
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*20px)', alignItems: 'center'}} id="OldEmail">
                                     <Text content='Current email:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='text' label=''/>
                                 </div>
-                                <div style={{display: 'flex', gap: '44px', alignItems: 'center'}} id="NewEmail">
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*44px)', alignItems: 'center'}} id="NewEmail">
                                     <Text content='New email:' type='H3' />
                                     <TextInput width='320px' height='32px' type='text' label=''/>
                                 </div>
                                 <div>
                                     <Text content='Enter password to authenticate' type='H3' />
                                 </div>
-                                <div style={{display: 'flex', gap: '20px', alignItems: 'center'}} id='Password'>
+                                <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*20px)', alignItems: 'center'}} id='Password'>
                                     <Text content='Password:' type='H3'/>
                                     <TextInput width='320px' height='32px' type='password' label=''/>
                                 </div>
@@ -441,7 +444,7 @@ const UserSettings = () => {
                 </div>
                 <div >
                     <Modal 
-                        triggerElement={<div className='Irreversible'> <FiTrash2 size={20} color='#FF0000'/> <Text type='H3' content='Delete account' color='#FF0000'/> </div>}
+                        triggerElement={<div className='Irreversible'> <FiTrash2 size={20*(screenRatio.getRatio())} color='#FF0000'/> <Text type='H3' content='Delete account' color='#FF0000'/> </div>}
                         title='Delete Account ?'
                         modalWidth='640px'
                         modalHeight='352px'
@@ -449,11 +452,11 @@ const UserSettings = () => {
                         primary='Delete'
                         primaryFct={() => { deleteAccount()}}
                     >
-                        <div style={{display: 'flex', flexDirection: 'column', gap: '8px', width: 'inherit', marginTop: '-4px'}} >
-                            <div style={{display: 'flex', width: '544px', alignItems: 'center', marginLeft: '56px'}}>
+                        <div style={{display: 'flex', flexDirection: 'column', gap: 'calc(Var(--adjustedRatio)*8px)', width: 'inherit', marginTop: 'calc(Var(--adjustedRatio)* -4px)'}} >
+                            <div style={{display: 'flex', width: 'calc(Var(--adjustedRatio)*544px)', alignItems: 'center', marginLeft: 'calc(Var(--adjustedRatio)*56px)'}}>
                                 <Text content='Deleting account is irreversible and immediate. Please enter your account password to validate this request.' type='H3'/>
                             </div>
-                            <div style={{display: 'flex', gap: '44px', alignItems: 'center', marginLeft: '56px'}} id="DeletingPassword">
+                            <div style={{display: 'flex', gap: 'calc(Var(--adjustedRatio)*44px)', alignItems: 'center', marginLeft: 'calc(Var(--adjustedRatio)*56px)'}} id="DeletingPassword">
                                 <Text content='Enter password:' type='H3' />
                                 <TextInput width='320px' height='32px' type='password' label=''/>
                             </div>

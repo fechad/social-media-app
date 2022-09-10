@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/Text.css'
+import '../styles/Text.scss'
 
 interface TextProps {
   type:string,

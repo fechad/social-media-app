@@ -1,0 +1,21 @@
+
+.LibraryContainer{
+    height: 100vh;
+    overflow-x: visible;
+}
+
+.Library{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+.Library section{
+    display:  grid;
+    grid-template-columns: auto auto;
+    grid-row-gap: calc(Var(--adjustedRatio)*32px);
+    grid-column-gap: calc(Var(--adjustedRatio)*32px);
+}

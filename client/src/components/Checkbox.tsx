@@ -1,5 +1,5 @@
 import React from 'react'
-import '../styles/Checkbox.css'
+import '../styles/Checkbox.scss'
 import Text from '../components/Text';
 import { FaCheck } from 'react-icons/fa';
 import { useState } from 'react';

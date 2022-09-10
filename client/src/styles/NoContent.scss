@@ -3,8 +3,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 400px;
-    padding-top: 40px;
+    width: calc(Var(--adjustedRatio)*400px);
+    padding-top: calc(Var(--adjustedRatio)*40px);
 
     p {
         margin: 0%;

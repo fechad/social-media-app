@@ -2,13 +2,16 @@ import React from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
 import Button from '../../components/Button'
 import Text from '../../components/Text'
-import '../../styles/Confirmation.css'
+import '../../styles/Confirmation.scss'
 import {app} from '../../firebaseConfig'
 import {getAuth, sendEmailVerification} from "firebase/auth"
 import { useNavigate } from 'react-router-dom'
+import { screenRatio } from '../../ScreenRatio'
 
 
 const Confirmation = () => {
+
+  screenRatio.calculate()
   
   function  getUserEmail() {
     const auth = getAuth(app);
@@ -49,7 +52,7 @@ const Confirmation = () => {
 
   return (
     <div className='ConfirmationPage'>
-      <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='ConfirmationContainer'>
         <section className='ConfirmationContainerTitle'>
           <Text type='H1' content="Email validation" />

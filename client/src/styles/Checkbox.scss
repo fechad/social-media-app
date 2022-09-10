@@ -1,0 +1,32 @@
+.CheckboxContainer{
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(Var(--adjustedRatio)*20px);
+    width: calc(Var(--adjustedRatio)*20px);
+    margin-right: calc(Var(--adjustedRatio)*8px);
+    border: calc(Var(--adjustedRatio)*1px) solid rgb(68, 68, 68);
+}
+
+.Checkbox:hover{
+    cursor: pointer;
+}
+
+.Checked{
+    background: #8773F0;
+}
+
+.CheckboxContainer input{
+    width: calc(Var(--adjustedRatio)*16px);
+    height: calc(Var(--adjustedRatio)*16px);
+    color: '#8773F0';
+}
+
