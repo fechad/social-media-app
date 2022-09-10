@@ -1,16 +1,11 @@
 .SettingsPageContainer{
     display: flex;
     flex-direction: column;
-    margin-top: calc(Var(--adjustedRatio)*104px);;
+    margin-top: calc(Var(--adjustedRatio)*96px);;
     gap: calc(Var(--adjustedRatio)*24px);
-    //flex-wrap: wrap;
     width: calc(Var(--adjustedRatio)*720px);
-    //height: 928px;
-
-    // position: absolute;
-    // top: 96px;
-    // left: 0px;
-    // right: 0px;
+    height: calc(Var(--adjustedRatio)*776px);
+    overflow-y: scroll;
 
     .AccountStatus,
     .Language{
@@ -55,7 +50,7 @@
 
     .Management{
         align-self: flex-start;
-        margin-top: calc(Var(--adjustedRatio)*8px);
+        margin-top: calc(Var(--adjustedRatio)*4px);
         .ManagementOptions{
             display: flex;
             flex-direction: row;
@@ -124,7 +119,7 @@
         justify-content: flex-start;
         align-items: center;
         width: calc(Var(--adjustedRatio)*336px);
-        margin-top: calc(Var(--adjustedRatio)*20px);
+        //margin-top: calc(Var(--adjustedRatio)*8px);
 
         .H3{
             margin-left: calc(Var(--adjustedRatio)*24px);

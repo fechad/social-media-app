@@ -89,7 +89,7 @@ const Credentials = () => {
       <a className='ArrowBack' href='/login'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='CredentialsContainer'>
         <section className='CredentialsContainerTitle'>
-          <Text type='H1' content="Welcome to 'Name of app'" />
+          <Text type='H1' content="Welcome to Chymera" />
         </section>
         <TextInput label='Please enter your email address:' placeHolder='ex: JohnDoe@domainName.com'/>
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
