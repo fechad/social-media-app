@@ -3,12 +3,12 @@
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    margin: 50px 0px 16px 0px;
+    margin: calc(Var(--adjustedRatio)*50px) 0px calc(Var(--adjustedRatio)*16px) 0px;
 }
 
 #test, #pic {
     border-radius: 100%;
-    margin-right: 32px;
+    margin-right: calc(Var(--adjustedRatio)*32px);
 }
  
 .friends-displayer{
@@ -26,10 +26,10 @@
 .id-container{
     display: flex;
     flex-direction: row;
-    width: 232px;
+    width: calc(Var(--adjustedRatio)*232px);
     justify-content: space-between;
     p {
-        margin: 5px;
+        margin: calc(Var(--adjustedRatio)*5px);
     }
 }
 
@@ -38,27 +38,27 @@
 }
 
 .bio-container {
-    width: 604px;
-    height: 85px;
-    border-radius: 16px;
+    width: calc(Var(--adjustedRatio)*604px);
+    height: calc(Var(--adjustedRatio)*85px);
+    border-radius: calc(Var(--adjustedRatio)*16px);
 }
 
 .friends {
-    margin: 0px 0px 16px 0px;
+    margin: 0px 0px calc(Var(--adjustedRatio)*16px) 0px;
 }
 
 .friends-pic {
     border-radius: 100%;
-    border: solid 2px rgb(255, 255, 255);
+    border: solid calc(Var(--adjustedRatio)*2px) rgb(255, 255, 255);
     overflow: hidden;
-    margin-right: -16px;
+    margin-right: calc(Var(--adjustedRatio)* -16px);
 }
 
 .friends-display {
     display: flex;
     flex-direction: row;
     p {
-        margin-left: 32px;
+        margin-left: calc(Var(--adjustedRatio)*32px);
     }
 }
 
@@ -67,8 +67,8 @@
 }
 
 .modal {
-    width: 500px;
-    height: 500px;
+    width: calc(Var(--adjustedRatio)*500px);
+    height: calc(Var(--adjustedRatio)*500px);
     background-color: #0047FF;
 }
 
@@ -81,11 +81,11 @@
 #page-container{
     height: 80vh;
     overflow-y: auto;
-    padding: 80px
+    padding: calc(Var(--adjustedRatio)*80px);
 }
 
 ::-webkit-scrollbar {
-    width: 8px;
+    width: calc(Var(--adjustedRatio)*8px);
   }
   
   /* Track */
@@ -96,7 +96,7 @@
   /* Handle */
   ::-webkit-scrollbar-thumb {
     background: rgb(177, 177, 177);
-    border-radius: 4px;
+    border-radius: calc(Var(--adjustedRatio)*4px);
   }
   
   /* Handle on hover */
@@ -113,7 +113,7 @@
   .horizontal {
     display: flex;
     flex-direction: row;
-    width: 424px;
+    width: calc(Var(--adjustedRatio)*424px);
     justify-content: space-between;
   }
 
@@ -130,8 +130,8 @@
 
   .height-centered {
     align-items: center;
-    width: 328px;
-    margin-bottom: 16px;
+    width: calc(Var(--adjustedRatio)*328px);
+    margin-bottom: calc(Var(--adjustedRatio)*16px);;
   }
 
   #download, #download-file {
@@ -150,10 +150,10 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-around;
-      width: 180px;
-      height: 40px; 
+      width: calc(Var(--adjustedRatio)*180px);
+      height: calc(Var(--adjustedRatio)*40px);
       background-color: white ;
-      border-radius: 8px;
-      border: 1px solid #676767;
+      border-radius: calc(Var(--adjustedRatio)*8px);
+      border: calc(Var(--adjustedRatio)*1px) solid #676767;
     }
   }

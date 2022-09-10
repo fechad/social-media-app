@@ -16,8 +16,12 @@ import Modal from '../components/Modal'
 import TextInput from '../components/TextInput'
 import { FaSearch } from 'react-icons/fa'
 import NoContent from '../components/NoContent'
+import { screenRatio } from '../ScreenRatio'
 
 const UserProfile = () => {
+
+    screenRatio.calculate()
+
     let name: string;
     const [searching, setSearch] = useState(false);
     const [data, getData] = useState({
@@ -138,7 +142,7 @@ const UserProfile = () => {
     const friends = friendsList.map((friend, index) => {
         if(friend.handle !== 'none') {
             return (
-                <img className = 'friends-pic' key = {friend.handle} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='32px' height = '32px'/>
+                <img className = 'friends-pic' key = {friend.handle} src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*32px)', height: 'calc(Var(--adjustedRatio)*32px)'}}/>
             )
         } else return '';
     });
@@ -147,7 +151,7 @@ const UserProfile = () => {
         if(friend.handle !== 'none') {
             return (
                 <div key = {friend.handle} className = 'friends-displayer'>
-                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" width='48px' height = '48px'/>
+                    <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${friend.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*48px)', height: 'calc(Var(--adjustedRatio)*48px)'}}/>
                     <Text content = {`${friend.account_name}`}></Text>
                 </div>
             )
@@ -186,7 +190,7 @@ const UserProfile = () => {
     const selected = users.map((user, index) => {
         return (
             <div key = {user.handle} className = 'friends-displayer'>
-                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user.handle}`} alt="" width='48px' height = '48px'/>
+                <img className = 'friends-pic'  src={`${environment.serverUrl}/database/image/${user.handle}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*48px)', height: 'calc(Var(--adjustedRatio)*48px)'}}/>
                 <Text content = {`${user.account_name}`}></Text>
             </div>
         )
@@ -238,7 +242,7 @@ const UserProfile = () => {
             <div id = 'page-container'>
                 <div className = 'infos-container'>
                     <div className = 'left-infos'>
-                        <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                        <img id = 'test' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*72px)', height: 'calc(Var(--adjustedRatio)*72px)'}}/>
                         <div>
                             <div className='id-container'>
                                 <Text content = {`${data.account_name}`} type = 'H3'></Text>
@@ -257,11 +261,11 @@ const UserProfile = () => {
                     >
                         <div className='patate'>
                             <div className='horizontal height-centered'>
-                                <img id = 'pic' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" width='72px' height='72px'/>
+                                <img id = 'pic' src={`${environment.serverUrl}/database/image/${currentUser.email}`} alt="" style={{width: 'calc(Var(--adjustedRatio)*72px)', height: 'calc(Var(--adjustedRatio)*72px)'}}/>
                                 <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
-                                <label htmlFor="download" style = {{height: '32px', borderRadius: '8px', width: '232px'}}>
+                                <label htmlFor="download" style = {{height: 'calc(Var(--adjustedRatio)*32px)', borderRadius: 'calc(Var(--adjustedRatio)*8px)', width: 'calc(Var(--adjustedRatio)*232px)'}}>
                                     <p className = 'upload'> Change profile picture </p>
-                                    <MdUpload size={20}/>
+                                    <MdUpload size={20*(screenRatio.getRatio())}/>
                                 </label>
                             </div>
                             <div className='horizontal name-container'>
@@ -270,7 +274,7 @@ const UserProfile = () => {
                             </div>
                             <div className='horizontal bio-holder'>
                                 <Text content='Bio:' type = 'H3'></Text>
-                                <textarea style = {{width:'360px', height:'256px', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
+                                <textarea style = {{width:'calc(Var(--adjustedRatio)*360px)', height:'calc(Var(--adjustedRatio)*256px)', resize: 'none'}} placeholder={data.bio} maxLength={512}/>
                             </div>
                         </div>
                     </Modal>
@@ -290,8 +294,8 @@ const UserProfile = () => {
                                 modalHeight={'600px'}
                             >
                                 <div>
-                                    <TextInput icon={<FaSearch size={25} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
-                                    <div className = 'search-displayer' style={{margin: '24px'}}>
+                                    <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#767676'}/>} width='218px' label='' placeHolder='Search friends' specialFtc={selectFriends}/>
+                                    <div className = 'search-displayer' style={{margin: 'calc(Var(--adjustedRatio)*24px)'}}>
                                         {searching ? selected : moreFriends}
                                     </div>
                                 </div>

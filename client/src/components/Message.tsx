@@ -8,6 +8,7 @@ import Avatar from './Avatar'
 import eventBus from '../components/eventBus';
 import { environment } from '../environments/environment'
 import { style } from '@mui/system'
+import { screenRatio } from '../ScreenRatio'
 
 interface MessageProps {
     message: string,

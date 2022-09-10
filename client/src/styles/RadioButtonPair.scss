@@ -1,5 +1,5 @@
 .RadioOptions{
     display: inline-flex;
-    gap: 40px;
-    margin-top: 44px;
+    gap: calc(Var(--adjustedRatio)*40px);
+    margin-top: calc(Var(--adjustedRatio)*44px);
 }

@@ -15,6 +15,7 @@ import { app } from '../firebaseConfig'
 import { DataContext } from '../DataContext'
 import { environment } from '../environments/environment'
 import Avatar from './Avatar'
+import { screenRatio } from '../ScreenRatio'
 
 function swithTheme(){
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
@@ -82,15 +83,15 @@ function RightSidePane() {
                         <div className='PopupTail'></div>
                         <div className='PopupOptionGroup'>
                             <div className='PopupOptions' onClick={() => navigate("/User/Profile", { replace: true })}>
-                                <FiUser size={20} />
+                                <FiUser size={20*(screenRatio.getRatio())} />
                                 <Text type='H3' content='My profile' />
                             </div>
                             <div className='PopupOptions' onClick={() => navigate("/User/Settings", { replace: true })}>
-                                <HiOutlineCog size={20} />
+                                <HiOutlineCog size={20*(screenRatio.getRatio())} />
                                 <Text type='H3' content='Settings' />
                             </div>
                             <div className='PopupOptions' onClick={() => signOutOfWebsite()}>
-                                <FiLogOut size={20} />
+                                <FiLogOut size={20*(screenRatio.getRatio())} />
                                 <Text type='H3' content='Sign-out' />
                             </div>
                         </div>
@@ -118,7 +119,7 @@ function RightSidePane() {
         <div className='GroupChatArea'>
             <div className='Header'>
                 <Text type='H2' content='My Group Chats'/>
-                <Button text='' fct={()=> {}}  icon={<AiOutlinePlus color='grey' size={30}/>} color=' '/>
+                <Button text='' fct={()=> {}}  icon={<AiOutlinePlus color='grey' size={30*(screenRatio.getRatio())}/>} color=' '/>
             </div>
             <div className='RecentGroupConvos'>
                 {/* {groupConvos.map((group, index: any)=>{

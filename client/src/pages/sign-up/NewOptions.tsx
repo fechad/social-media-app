@@ -5,13 +5,16 @@ import Button from '../../components/Button'
 import Checkbox from '../../components/Checkbox'
 import Switch from '../../components/Switch'
 import Text from '../../components/Text'
-import '../../styles/NewsOptions.css'
+import '../../styles/NewsOptions.scss'
 import { useNavigate } from 'react-router-dom'
 import { environment } from '../../environments/environment';
 import { useContext } from 'react'
 import { AuthContext } from '../../Auth'
+import { screenRatio } from '../../ScreenRatio'
 
 const NewOptions = () => {
+
+  screenRatio.calculate()
 
   const {currentUser} = useContext(AuthContext);
   let navigate = useNavigate();
@@ -59,7 +62,7 @@ const NewOptions = () => {
 
   return (
     <div className='NewsOptionsPage'>
-      <a className='ArrowBack' href='/login'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/login'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <a className='SkipLink H2' href='/User/Discover'> Skip</a>
       <div className='NewsOptionsContainer'>
         <section className='NewsOptionsContainerTitle'>
@@ -86,11 +89,10 @@ const NewOptions = () => {
           <section className='LocalNewsOptionSection'>
             <Text type='H3' content='Activate local news options:'/>
             <Switch resp='custom' role={activateLocalNews} text={'Local news'} />
-            <VscInfo className='InfoIcon' size={30}/>
+            <VscInfo className='InfoIcon' size={30*(screenRatio.getRatio())}/>
           </section>
         </section>
         <Button textType='H3' text='Continue to App' fct={updateNewsINfos} />
-         
       </div>
     </div>
   )

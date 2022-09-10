@@ -1,6 +1,6 @@
 import React, { useContext, useEffect } from 'react'
 import { BsArrowLeft } from 'react-icons/bs'
-import '../../styles/Credentials.css'
+import '../../styles/Credentials.scss'
 import Text from '../../components/Text'
 import TextInput from '../../components/TextInput'
 import Button from '../../components/Button'
@@ -9,8 +9,11 @@ import {app} from '../../firebaseConfig'
 import { getAuth, createUserWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, sendEmailVerification} from "firebase/auth";
 import { Navigate, useNavigate } from "react-router-dom";
 import { AuthContext } from '../../Auth'
+import { screenRatio } from '../../ScreenRatio'
 
 const Credentials = () => {
+
+  screenRatio.calculate()
 
   const auth = getAuth(app);
   let navigate = useNavigate();
@@ -83,20 +86,20 @@ const Credentials = () => {
 
   return (
     <div className='CredentialsPage'>
-      <a className='ArrowBack' href='/login'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/login'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='CredentialsContainer'>
         <section className='CredentialsContainerTitle'>
-          <Text type='H1' content="Welcome to 'Name of app'" />
+          <Text type='H1' content="Welcome to Chymera" />
         </section>
         <TextInput label='Please enter your email address:' placeHolder='ex: JohnDoe@domainName.com'/>
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
         {/* <div className='ProgressBarSection'> Insert progress bar component here</div> */}
         <section className='Separator'>
-                <hr />
-                <Text type='H2' content='OR'/>
-                <hr />
+          <hr />
+            <Text type='H2' content='OR'/>
+          <hr />
         </section>
-        <Button textType='H2' text='Sign up with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle}/>
+        <Button textType='H2' text='Sign up with Google' icon={<FcGoogle size={40*(screenRatio.getRatio())} />} fct={signUpWithGoogle}/>
         <section className='ContinueSection'>
           <Button textType='H2' text='Continue'  fct={collectInfos}/>
         </section>

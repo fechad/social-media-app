@@ -11,8 +11,11 @@ import { DataContext } from '../DataContext'
 import Message from '../components/Message'
 import '../styles/Chats.scss'
 import eventBus from '../components/eventBus'
+import { screenRatio } from '../ScreenRatio'
 
 const Chats = () => {
+
+  screenRatio.calculate()
 
   const { chats } = useContext(DataContext);
   const { data } = useContext(DataContext);

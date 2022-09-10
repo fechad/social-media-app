@@ -10,6 +10,7 @@ import axios from 'axios'
 import { AuthContext } from '../Auth'
 import { DataContext } from '../DataContext'
 import Modal from './Modal'
+import { screenRatio } from '../ScreenRatio'
 
 interface PostProps { 
     handle: string,
@@ -86,10 +87,10 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                 <Text content={date} color = 'rgba(0, 0, 0, 0.53)'/>
                 {handle === data.handle ? 
                     <div className='bookmark-area' onClick = {()=>{deletePost()}}>
-                        <FiTrash2 className = 'trash' size = {'28px'}/>
+                        <FiTrash2 className = 'trash' size = {28*(screenRatio.getRatio())}/>
                     </div> :
                     <div onClick={() => {bookmark(!bookmarked)}} className='bookmark-area'>
-                        {bookmarked ? <AiFillStar color = '#8773F0' size={'32px'}/> : <AiOutlineStar color = 'black' size={'32px'}/>}
+                        {bookmarked ? <AiFillStar color = '#8773F0' size={32*(screenRatio.getRatio())}/> : <AiOutlineStar color = 'black' size={32*(screenRatio.getRatio())}/>}
                     </div>
                 }
                 
@@ -97,7 +98,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
             <Text content={text_message}/>
             {media.slice(-3) === 'mp4' ? 
             <div className='video-container'>
-                <video width="600" height="300" controls src={`${environment.serverUrl}/video/${media.replace('./assets/videos/', '')}`}></video> 
+                <video style={{width: 'calc(Var(--adjustedRatio)*600px)', height: 'calc(Var(--adjustedRatio)*300px)'}} controls src={`${environment.serverUrl}/video/${media.replace('./assets/videos/', '')}`}></video> 
             </div>
             :
 
@@ -115,12 +116,12 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
             }
             <div className = 'footer'>
                 <div id = 'likes' onClick={() => {like(!liked)}}>
-                    {liked ? <FaHeart color='red' size='24px'/> : <FaRegHeart color='black' size='24px'/>}
+                    {liked ? <FaHeart color='red' size={24*(screenRatio.getRatio())}/> : <FaRegHeart color='black' size={24*(screenRatio.getRatio())}/>}
                     <Text content = {nbLikes.toString()}></Text>
                 </div>
                 <Modal triggerElement={
                     <div id = 'comments'>
-                        {<FaRegCommentDots size='24px'/>}
+                        {<FaRegCommentDots size={24*(screenRatio.getRatio())}/>}
                         <Text content = {nbComments.toString()}></Text>
                     </div>} 
                     title={'Comments'} 
@@ -130,7 +131,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                             <div>{postId}</div>
                         </div>
                 </Modal>
-                {<FiShare2 className='share-area' color='grey' size='24px'/>}
+                {<FiShare2 className='share-area' color='grey' size={24*(screenRatio.getRatio())} />}
             </div>
         </div>
     )

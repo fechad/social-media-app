@@ -10,6 +10,7 @@ import '../styles/MessageBar.scss'
 import eventBus from './eventBus';
 import { environment } from '../environments/environment';
 import axios from 'axios';
+import { screenRatio } from '../ScreenRatio';
 
 
 const MessageBar = () => {
@@ -171,25 +172,25 @@ const MessageBar = () => {
 
   return (
     <div className='message-bar-container'>
-        <div className='message-photo-preview' style={{display: `${imagePresent ? '' : 'none'}`, border: '1px solid darkGrey', borderRadius: '16px'}}>
-            <button className='RemovePhoto'><IoMdClose size={30} color='white' onClick={removeFile}/></button> 
-            <img id = 'message-bar-previewPic' src='' alt="" width='200px' style={{height:'200px', borderRadius:'16px'}}/>
+        <div className='message-photo-preview' style={{display: `${imagePresent ? '' : 'none'}`, border: 'calc(Var(--adjustedRatio)*1px) solid darkGrey', borderRadius: 'calc(Var(--adjustedRatio)*16px)'}}>
+            <button className='RemovePhoto'><IoMdClose size={30*(screenRatio.getRatio())} color='white' onClick={removeFile}/></button> 
+            <img id = 'message-bar-previewPic' src='' alt="" style={{width: 'calc(Var(--adjustedRatio)*200px)', height:'calc(Var(--adjustedRatio)*200px)', borderRadius:'calc(Var(--adjustedRatio)*16px)'}}/>
         </div>
         <div className='message-file-preview' style={{display: `${filePresent ? '' : 'none'}`}}>
             <a href={fileURL} download={filename}>
                 <p>{filename}</p>
             </a>
-            <button className='RemovePhoto'><IoMdClose size={30} color='white' onClick={removeFile}/></button> 
+            <button className='RemovePhoto'><IoMdClose size={30*(screenRatio.getRatio())} color='white' onClick={removeFile}/></button> 
         </div>
         <div className='message-reply-preview' style={{display: `${replyingTo.id === '' ? 'none' : ''}`}}>
             <div style={{width: '100%'}}>
                 <div style={{display: 'flex', alignItems: 'center'}}>
-                    <p style={{marginBottom: '0px', marginTop: '3px', fontSize: '12px', color: 'darkgray'}}>Replying to</p>
-                    <p style={{marginBottom: '4px', marginTop: '4px', marginLeft:'4px', fontSize: '16px', color: '#8773F0'}}>{replyingTo.handle}</p>
+                    <p style={{marginBottom: '0px', marginTop: 'calc(Var(--adjustedRatio)*3px)', fontSize: 'calc(Var(--adjustedRatio)*12px)', color: 'darkgray'}}>Replying to</p>
+                    <p style={{marginBottom: 'calc(Var(--adjustedRatio)*4px)', marginTop: 'calc(Var(--adjustedRatio)*4px)', marginLeft:'calc(Var(--adjustedRatio)*4px)', fontSize: 'calc(Var(--adjustedRatio)*16px)', color: '#8773F0'}}>{replyingTo.handle}</p>
                 </div>
                 <p id='reply-message' style={{marginTop: '0px'}}>{replyingTo.message}</p>
             </div>
-            <button className='RemovePhoto'><IoMdClose size={30} color='white' onClick={()=>setReplyingTo({id: '', message: '', handle: ''})}/></button> 
+            <button className='RemovePhoto'><IoMdClose size={30*(screenRatio.getRatio())} color='white' onClick={()=>setReplyingTo({id: '', message: '', handle: ''})}/></button> 
         </div>
         <div className='actual-bar'>
             <div className='message-options'>
@@ -197,7 +198,7 @@ const MessageBar = () => {
                     <div className='UploadButton'>
                         <input type = 'file' id = 'download-file' accept=".docx, .doc, .pdf, .txt" onChange={()=>{uploadDocumentFile()}}></input>
                         <label htmlFor="download-file">
-                            <FiPaperclip size={30}/>
+                            <FiPaperclip size={30*(screenRatio.getRatio())}/>
                         </label>
                     </div>
                 </div>
@@ -205,7 +206,7 @@ const MessageBar = () => {
                     <div className='UploadButton'>
                         <input type = 'file' id = 'download' accept="image/png, image/jpeg" onChange={()=>{uploadMediaFile()}}></input>
                         <label htmlFor="download">
-                            <FaImage size={30}/>
+                            <FaImage size={30*(screenRatio.getRatio())}/>
                         </label>
                     </div>
                 </div>
@@ -223,13 +224,13 @@ const MessageBar = () => {
                         }
                     </div>
                     <div onClick={() => giphyPicker ? removeGiphyPicker() : loadGiphyPicker()}>
-                        <AiOutlineGif size={30}/>
+                        <AiOutlineGif size={30*(screenRatio.getRatio())}/>
                     </div>
                 </div>
                 <div className='message-option emoji-option' >
                     <div id='pickerContainer' onMouseLeave={()=>removePicker()}/>
                     <div onClick={() => picker ? removePicker() : loadPicker()}>
-                        <BsEmojiSmile size={30}/>
+                        <BsEmojiSmile size={30*(screenRatio.getRatio())}/>
                     </div>
                 </div>
             </div>

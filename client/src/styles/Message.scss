@@ -1,14 +1,15 @@
 
 .message-section-sender{
 
-    width: 760px;
+    width: calc(Var(--adjustedRatio)*760px);
     height: fit-content;
+    //padding: calc(Var(--adjustedRatio)*40px) 0px 0px 0px;
     display: flex;
     flex-direction: row-reverse;
     align-items: center;
-    gap: 40px;
+    gap: calc(Var(--adjustedRatio)*40px);
     align-self: flex-end;
-
+    
     .message-avatar-section{
 
         align-self: flex-start;
@@ -25,13 +26,13 @@
 
         background-color: #F3F0FF;
         display: flex;
-        min-width: 104px;
-        max-width: 464px;
+        min-width: calc(Var(--adjustedRatio)*104px);
+        max-width: calc(Var(--adjustedRatio)*464px);
         height: fit-content;
         background: #F3F0FF;
-        border: 1px solid #868686;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 8px;
+        border: calc(Var(--adjustedRatio)*1px) solid #868686;
+        box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+        border-radius: calc(Var(--adjustedRatio)*8px);
         position: relative;
 
         .message-bubble-container-tail {
@@ -39,18 +40,18 @@
             position: absolute;
             width: 0px;
             height: 0px;
-            border: 20px solid;
+            border: calc(Var(--adjustedRatio)*20px) solid;
             border-color: transparent transparent  transparent #F3F0FF;
             top: 0px;
-            right: -40px;
+            right: calc(Var(--adjustedRatio)* -40px);
             z-index: -2;
         }
 
        .message-bubble-container {
 
-            min-width: 104px;
-            max-width: 464px;
-            padding: 8px;
+            min-width: calc(Var(--adjustedRatio)*104px);
+            max-width: calc(Var(--adjustedRatio)*464px);
+            padding: calc(Var(--adjustedRatio)*8px);
             position: relative;
             display: flex;
             flex-direction: row;
@@ -64,21 +65,21 @@
 
 .message-hover-container {
 
-    max-width: 140px;
-    height: 32px;
+    max-width: calc(Var(--adjustedRatio)*140px);
+    height: calc(Var(--adjustedRatio)*32px);
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-evenly;
-    gap: 16px;
-    padding: 1px 8px;
+    gap: calc(Var(--adjustedRatio)*16px);
+    padding: calc(Var(--adjustedRatio)*1px) calc(Var(--adjustedRatio)*8px);
     text-align: center;
     background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), #c5c5c5;
-    border-radius: 8px;
+    border-radius: calc(Var(--adjustedRatio)*8px);
     position: absolute;
-    top: -40px;
+    top: calc(Var(--adjustedRatio)* -40px);
     left: 50%;
-    margin-left: -75px;
+    margin-left: calc(Var(--adjustedRatio)* -75px);
 
     .message-edit {
 
@@ -111,23 +112,23 @@
                 position: absolute;
                 width: 0px;
                 height: 0px;
-                border: 8px solid;
+                border: calc(Var(--adjustedRatio)*8px) solid;
                 border-color: #D9D9D9 transparent transparent  transparent ;
-                bottom: -14px;
-                right: 14px;
+                bottom: calc(Var(--adjustedRatio)* -14px);
+                right: calc(Var(--adjustedRatio)*14px);
                 z-index: 2;
     
             }
             .message-edit-tooltip {
     
                 background: #D9D9D9;
-                border-radius: 8px;
+                border-radius: calc(Var(--adjustedRatio)*8px);
                 position: absolute;
-                width: 48px;
-                height: 24px;
+                width: calc(Var(--adjustedRatio)*48px);
+                height: calc(Var(--adjustedRatio)*24px);
                 text-align: center;
-                top: -32px;
-                left: -16px;
+                top: calc(Var(--adjustedRatio)* -32px);
+                left: calc(Var(--adjustedRatio)* -16px);
     
                 p {
                     margin: 0%;
@@ -149,12 +150,13 @@
 
 .message-section-receiver{
 
-    width: 760px;
+    width: calc(Var(--adjustedRatio)*760px);
     height: fit-content;
+    //padding: calc(Var(--adjustedRatio)*40px) 0px 0px 0px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 40px;
+    gap: calc(Var(--adjustedRatio)*40px);
    
     .message-avatar-section{
 
@@ -172,12 +174,12 @@
 
         background-color: #ffffff;
         display: flex;
-        min-width: 104px;
-        max-width: 464px;
+        min-width: calc(Var(--adjustedRatio)*104px);
+        max-width: calc(Var(--adjustedRatio)*464px);
         height: fit-content;
         border: 1px solid #868686;
-        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-        border-radius: 8px;
+        box-shadow: 0px calc(Var(--adjustedRatio)*4px) calc(Var(--adjustedRatio)*4px) rgba(0, 0, 0, 0.25);
+        border-radius: calc(Var(--adjustedRatio)*8px);
         position: relative;
 
         .message-bubble-container-tail {
@@ -185,18 +187,18 @@
             position: absolute;
             width: 0px;
             height: 0px;
-            border: 20px solid;
+            border: calc(Var(--adjustedRatio)*20px) solid;
             border-color: transparent #d4d4d4 transparent  transparent ;
-            top: 2px;
-            left: -40px;
+            top: calc(Var(--adjustedRatio)*2px);
+            left: calc(Var(--adjustedRatio)* -40px);
             z-index: -2;
         }
 
        .message-bubble-container {
 
-            min-width: 104px;
-            max-width: 464px;
-            padding: 8px;
+            min-width: calc(Var(--adjustedRatio)*104px);
+            max-width: calc(Var(--adjustedRatio)*464px);
+            padding: calc(Var(--adjustedRatio)*8px);
             position: relative;
             display: flex;
             flex-direction: row;

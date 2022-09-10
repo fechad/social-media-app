@@ -1,5 +1,5 @@
 .LeftSidePaneContainer{
-    width: 360px;
+    width: calc(Var(--adjustedRatio)*360px);
     height: 100vh;
     position: absolute;
     top: 0px;
@@ -20,12 +20,12 @@
 
     .LeftSidePaneTittle{
         width: 100%;
-        height: 60px;
+        height: calc(Var(--adjustedRatio)*60px);
         text-align: center;
     }
 
     .ConversationsArea{
-        margin-top: 16px;
+        margin-top: calc(Var(--adjustedRatio)*16px);
 
         .ConversationContainer{
             &:hover{

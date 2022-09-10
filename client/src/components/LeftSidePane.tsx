@@ -6,9 +6,14 @@ import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
 import UserSearchPreview from './UserSearchPreview'
+<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom'
 import { DataContext } from '../DataContext'
 import axios from 'axios'
+=======
+import { useNavigate } from 'react-router-dom'
+import { screenRatio } from '../ScreenRatio'
+>>>>>>> dev
 
 function LeftSidePane() {
 
@@ -112,8 +117,8 @@ function LeftSidePane() {
   return (
     <section className='LeftSidePaneContainer'>
         <div className='SearchArea'>
-            <img src='/logo.svg' alt="" height="87"width="50"></img>
-            <TextInput icon={<FaSearch size={25} color={'#CCCCCC'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
+            <img src='/logo.svg' alt="" style={{height: 'calc(Var(--adjustedRatio)*87px)', width: 'calc(Var(--adjustedRatio)*50px)'}}></img>
+            <TextInput icon={<FaSearch size={25*(screenRatio.getRatio())} color={'#CCCCCC'}/>} width='218px' label='' placeHolder='Search Chymera' specialFtc={getUsers}/>
         </div>
         <div className={searching ? '' : `LeftSidePaneTittle`}>
             {

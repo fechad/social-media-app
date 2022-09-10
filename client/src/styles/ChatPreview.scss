@@ -3,8 +3,8 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    width: 320px;
-    height: 72px;
+    width: calc(Var(--adjustedRatio)*320px);
+    height: calc(Var(--adjustedRatio)*72px);
 
     &:hover{
         cursor: pointer;
@@ -13,7 +13,7 @@
     .PreviewAvatars{
         display: flex;
         flex-direction: row;
-        width: 60px;
+        width: calc(Var(--adjustedRatio)*60px);
 
         .AvatarContainer:nth-child(1) .AvatarImg{
             z-index: 2;
@@ -23,16 +23,16 @@
     .PreviewTextContent{
         display: flex;
         flex-direction: column;
-        width: 200px;
-        height: 90px;
-        margin-bottom: 16px;
+        width: calc(Var(--adjustedRatio)*200px);
+        height: calc(Var(--adjustedRatio)*90px);
+        margin-bottom: calc(Var(--adjustedRatio)*16px);
 
         .PreviewNamesContainer{
             display: flex;
             flex-direction: row;
             justify-content: flex-start;
             overflow: hidden;
-            height: 80px;
+            height: calc(Var(--adjustedRatio)*80px);
             
             .PreviewNames{
                 display: flex;
@@ -43,7 +43,7 @@
                 .H3{
                     white-space: nowrap;
                     overflow: hidden;
-                    width: 200px;
+                    width: calc(Var(--adjustedRatio)*200px);
                     height: 100%;
                     text-overflow: ellipsis;
                 }
@@ -54,17 +54,17 @@
             display: flex;
             flex-direction: row;
             overflow: hidden;
-            margin-top: -8px;
+            margin-top: calc(Var(--adjustedRatio)* -8px);
 
             .PreviewMessage{
                 align-items: center;
-                margin-bottom: 4px;
+                margin-bottom: calc(Var(--adjustedRatio)*4px);
                 
                 .body,
                 .H3{
                     white-space: nowrap;
                     overflow: hidden;
-                    width: 200px;
+                    width: calc(Var(--adjustedRatio)*200px);
                     text-overflow: ellipsis;
                 }
             }

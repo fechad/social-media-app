@@ -1,6 +1,6 @@
 import React, { ReactElement } from 'react'
 import PropTypes from 'prop-types'
-import '../styles/Button.css'
+import '../styles/Button.scss'
 import { IconBaseProps } from 'react-icons'
 import Text from '../components/Text';
 

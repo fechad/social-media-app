@@ -2,11 +2,11 @@
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    width: 344px;
-    height: 104px;
+    width: calc(Var(--adjustedRatio)*344px);
+    height: calc(Var(--adjustedRatio)*104px);
     background: #FFFFFF;
-    border: 1px solid #949494;
-    border-radius: 4px;
+    border: calc(Var(--adjustedRatio)*1px) solid #949494;
+    border-radius: calc(Var(--adjustedRatio)*4px);
 
     .NotificationHeader{
         display: flex;
@@ -17,8 +17,8 @@
         .AccountAvatars{
             display: flex;
             flex-direction: row;
-            width: 60px;
-            padding-left: 8px;
+            width: calc(Var(--adjustedRatio)*60px);
+            padding-left: calc(Var(--adjustedRatio)*8px);
 
             .AvatarContainer:nth-child(1) .AvatarImg{
                 z-index: 2;
@@ -26,9 +26,9 @@
         }
 
         .TitleContainer{
-            margin-left: 40px;
+            margin-left: calc(Var(--adjustedRatio)*40px);
             text-align: left;
-            width: 224px;
+            width: calc(Var(--adjustedRatio)*244px);
 
             .H3{
                 white-space: nowrap;
@@ -39,8 +39,8 @@
     }
 
     .Message{
-        width: 304px;
-        margin-left: 16px;
+        width: calc(Var(--adjustedRatio)*304px);
+        margin-left: calc(Var(--adjustedRatio)*16px);
         .body{
             white-space: nowrap;
             overflow: hidden;
