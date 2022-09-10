@@ -199,15 +199,16 @@ export class DatabaseService {
         this.create('message', obj);
     }
 
-    public async createPost(obj: any): Promise<void> {
+    public async createPost(obj: any): Promise<pg.QueryResult> {
         const chatInfos = {
             chatid: obj.post_id,
             message_log: '',
             members: '',
         }
-        this.create('post', obj);
-        this.create('chat', chatInfos);
+        await this.create('post', obj);
+        return this.create('chat', chatInfos);
     }
+    
 
     public async createLike(email: string, postId: string): Promise<void> {
         this.query(INSERT('likes', 2), [email, postId]).catch( async ()=>{
@@ -303,6 +304,8 @@ export class DatabaseService {
 
     public async deletePost(id: string): Promise<pg.QueryResult> {
         console.log(DELETE_POST(id));
+        console.log('DELETE FROM chymera.chat WHERE chatid =' + `'${id}'`);
+        await this.query('DELETE FROM chymera.chat WHERE chatid =' + `'${id}'`);
         return this.query(DELETE_POST(id));
     }
 

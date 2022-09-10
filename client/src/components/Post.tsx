@@ -43,7 +43,6 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
         axios.get(`${environment.serverUrl}/database/comments/${postId}`).then(
             (messageLog)=>{
                 setMessages(messageLog.data);
-                console.log(document.getElementById('comments-' + postId));
             }
         );
     }
@@ -51,8 +50,14 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
     const commentList = messages.map((comment)=>{
         if (comment)
             return (
-                <div key = {comment.textmessage}>
-                    {comment.textmessage}
+                <div key = {`${comment.messagetime}/${comment.textmessage}`} className = 'whole-comment'>
+                    <img src={`${environment.serverUrl}/database/image/${comment.handle}`} alt="" className = 'comment-pic'/>
+                    <div>
+                        <div className = 'message-box'>
+                            <p>{comment.handle}</p>
+                            <div>{comment.textmessage}</div>
+                        </div>
+                    </div>
                 </div>
             );
         else return '';
@@ -104,7 +109,7 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
 
     return (
         <div className='post' id = {postId}>
-            <div className = 'header'>
+            <div className = 'top-div'>
                 <div className = 'poster' onClick={() => {redirect()}}>
                     <img src={`${environment.serverUrl}/database/image/${handle}`} alt="" />
                     <Text type='H3 bold' content={`${username}`}></Text>
@@ -151,16 +156,13 @@ function Post({handle, username, media, text_message, likes, date, postId, nbCom
                         <Text content = {nbComments.toString()}></Text>
                     </div>} 
                     title={'Comments'} 
-                    modalWidth={'800px'} 
+                    modalWidth={'600px'} 
                     modalHeight={'784px'}>
                         <div className='comments'>
-                            <div>{postId}</div>
                             <div className='comments-holder' id = {'comments-' + postId}>
                                 {commentList}
                             </div>
-                            <div>
                                 <MessageBar target={postId}></MessageBar>
-                            </div>
                         </div>
                 </Modal>
                 </div>

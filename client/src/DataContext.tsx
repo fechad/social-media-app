@@ -50,7 +50,17 @@ export function  UserDataContext({children}:any) {
       media: messageInfo.serverMediaName,
       file_name: messageInfo.serverFsName,
     };
-    document.getElementById('comments-' + message.chatid)!.innerHTML += `<div class = "stub-comment">${message.textmessage}</div>`;
+    console.log(`${environment.serverUrl}/database/image/${message.handle}`)
+    document.getElementById('comments-' + message.chatid)!.innerHTML += 
+    `<div class = "stub-comment whole-comment">
+      <img src="${environment.serverUrl}/database/image/${message.handle}" alt="" class = 'comment-pic'/>
+      <div>
+          <div class = 'message-box'>
+              <p>${message.handle}</p>
+              <div>${message.textmessage}</div>
+          </div>
+      </div>
+    </div>`;
     axios.post(`${environment.serverUrl}/database/addMessage`, message);
   }
   const [chats, getChats] = useState([{

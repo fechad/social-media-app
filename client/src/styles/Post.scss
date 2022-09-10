@@ -1,4 +1,4 @@
-.header{
+.top-div{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -95,7 +95,33 @@
     align-items: center;
     justify-content: space-between;
     height: 696px;
+    width: 100%;
 }
+
+.message-box {
+    height: fit-content;
+    width: fit-content;
+    max-width: 400px;
+    border: solid #C3C1C1 2px;
+    border-radius: 4px;
+    padding: 4px;
+    margin: 4px;
+    p {
+        margin: 0px;
+    }
+}
+
+.whole-comment {
+    display: flex;
+    flex-direction: row;
+}
+.comment-pic {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    padding: 8px;
+}
+
 .background {
     position:fixed;
     top: 0px;
@@ -110,6 +136,10 @@
 .comments-holder{
     display: flex;
     flex-direction: column;
+    overflow-y: auto;
+    height: 85%;
+    width: 80%;
+    padding: 0% 9%;
 }
 
 .footer{

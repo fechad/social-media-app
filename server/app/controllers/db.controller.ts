@@ -298,7 +298,7 @@ export class DatabaseController {
         router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
             console.log(req.body);
             this.databaseService
-                .createPost(req.body)
+                .createPost(req.body).then((result: pg.QueryResult) => res.json(result.rows))
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(405).json(e.stack);
