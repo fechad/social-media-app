@@ -182,18 +182,18 @@ const Discover = () => {
               // secondaryFct = {preview}
             >
               <div>
-                <div className='PostCreationContainer' style = {{width:'576px', height:'fit-content'}}>
-                  <textarea className='post-message' onKeyUp={(e) => textAreaAdjust(e.target)} style = {{width:'99%',maxHeight:'96px', resize: 'none'}} placeholder='Write your post message' maxLength={512}/>
+                <div className='PostCreationContainer' style = {{width:'calc(Var(--adjustedRatio)*576px)', height:'fit-content'}}>
+                  <textarea className='post-message' onKeyUp={(e) => textAreaAdjust(e.target)} style = {{width:'99%', maxHeight:'calc(Var(--adjustedRatio)*96px)', resize: 'none'}} placeholder='Write your post message' maxLength={512}/>
                   <div>
-                    {imagePresent ? <button className='RemovePhoto'><IoMdClose size={30} color='white' onClick={removeFile}/></button> : ''}
-                    <img id = 'previewPic' src='' alt="" width='576px' style={{maxHeight:'240px', borderRadius:'16px'}}/>
+                    {imagePresent ? <button className='RemovePhoto'><IoMdClose size={30*(screenRatio.getRatio())} color='white' onClick={removeFile}/></button> : ''}
+                    <img id = 'previewPic' src='' alt="" style={{width: 'calc(Var(--adjustedRatio)*576px)', maxHeight:'calc(Var(--adjustedRatio)*240px)', borderRadius:'calc(Var(--adjustedRatio)*16px)'}}/>
                   </div>
                 </div>
                 <div className='AdditionalOptions'>
                   <div className='UploadButton'>
                     <input type = 'file' id = 'download' onChange={()=>{uploadFile()}}></input>
                     <label htmlFor="download">
-                      <FaPhotoVideo size={30}/>
+                      <FaPhotoVideo size={30*(screenRatio.getRatio())}/>
                     </label>
                   </div>
                   {/* <a></a>
@@ -203,9 +203,9 @@ const Discover = () => {
             </Modal>
           </div>
           <div className='posts-container'>
-                  {
-                    postsList
-                  }
+            {
+              postsList
+            }
           </div>
           <Snackbar
             open={published}

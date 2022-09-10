@@ -52,7 +52,7 @@ const Confirmation = () => {
 
   return (
     <div className='ConfirmationPage'>
-      <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='ConfirmationContainer'>
         <section className='ConfirmationContainerTitle'>
           <Text type='H1' content="Email validation" />

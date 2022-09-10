@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Text from './Text'
 import '../styles/NewsArticle.scss'
 import { FiShare2 } from 'react-icons/fi'
+import { screenRatio } from '../ScreenRatio'
 
 interface ArticleProps { 
     title: string,
@@ -24,7 +25,7 @@ function NewsArticle({title, imageURL, articleUrl, description}:ArticleProps) {
                 <Text content={title} type='H2'/>
             </div>
             <div className='body' style={{backgroundImage: `url(${imageURL})`}} onMouseOver={()=>setHovering(true)} onMouseLeave={()=>setHovering(false)} >
-                {hovering ? <button className='share-article'><FiShare2 size={30} onClick={share}/></button> : ''}
+                {hovering ? <button className='share-article'><FiShare2 size={30*(screenRatio.getRatio())} onClick={share}/></button> : ''}
                 <div className='article-description' onClick={() =>window.location.replace(articleUrl)}>
                     <Text content={description} type='H3' color='white'/>
                 </div>

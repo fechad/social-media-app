@@ -79,7 +79,7 @@ const ProfileSetup = () => {
 
   return (
     <div className='ProfileSetupPage'>
-      <a className='ArrowBack' href='/Login'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/Login'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='ProfileSetupContainer'>
         <section className='ProfileSetupContainerTitle'>
           <Text type='H1' content="Let's start by setting up your profile !" />
@@ -91,20 +91,20 @@ const ProfileSetup = () => {
             <input type = 'file' id = 'download' onChange={uploadFile}></input>
             <label htmlFor="download">
               <p className = 'upload'> upload a photo </p>
-              <FiUpload color='black' size = {24}/>
+              <FiUpload color='black' size = {24*(screenRatio.getRatio())}/>
             </label>
           </section>
           <section className='ProfileDetailsSection'>
             <section className='HandleSection'>
               <Text color='red' content='*' />
               <TextInput width='392px' label='Choose your account handle:'  placeHolder='ex: @handle'/>
-              <VscInfo className='InfoIcon' size={30}/>
+              <VscInfo className='InfoIcon' size={30*(screenRatio.getRatio())}/>
             </section>
             <section className='BirthDaySection'>
               <Text color='red' content='*' />
               <Text type='H3' content='Enter your birthday:' />
               <input type={'date'} className='DateInput body'/>
-              <VscInfo className='InfoIcon' size={30}/>
+              <VscInfo className='InfoIcon' size={30*(screenRatio.getRatio())}/>
             </section>
             <TextInput label='Choose your account name:' placeHolder='ex: accountName2022' />
             <section className='BioSection'>

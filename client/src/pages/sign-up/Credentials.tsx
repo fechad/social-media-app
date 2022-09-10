@@ -86,7 +86,7 @@ const Credentials = () => {
 
   return (
     <div className='CredentialsPage'>
-      <a className='ArrowBack' href='/login'><BsArrowLeft size={40}/></a>
+      <a className='ArrowBack' href='/login'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
       <div className='CredentialsContainer'>
         <section className='CredentialsContainerTitle'>
           <Text type='H1' content="Welcome to 'Name of app'" />
@@ -95,11 +95,11 @@ const Credentials = () => {
         <TextInput label='Please choose a password:' type='password' placeHolder=' '/>
         {/* <div className='ProgressBarSection'> Insert progress bar component here</div> */}
         <section className='Separator'>
-                <hr />
-                <Text type='H2' content='OR'/>
-                <hr />
+          <hr />
+            <Text type='H2' content='OR'/>
+          <hr />
         </section>
-        <Button textType='H2' text='Sign up with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle}/>
+        <Button textType='H2' text='Sign up with Google' icon={<FcGoogle size={40*(screenRatio.getRatio())} />} fct={signUpWithGoogle}/>
         <section className='ContinueSection'>
           <Button textType='H2' text='Continue'  fct={collectInfos}/>
         </section>

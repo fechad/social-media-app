@@ -27,7 +27,7 @@ const TextInput = ({type, label, placeHolder, width, height, icon, specialFtc} :
   return (
     <div>
         {label? <Text content={label} /> : ''}
-        <div className='inputContainer' style={{width: width, height: height}}>
+        <div className='inputContainer' style={{width: `calc(Var(--adjustedRatio)*${width})`, height: `calc(Var(--adjustedRatio)*${height})`}}>
             <input className='body' onChange={e => setState(e.target.value)} value={value} type={type} placeholder={placeHolder} maxLength={type === 'password' ? 15 : 512}></input>
             <i>{icon}</i>
         </div>

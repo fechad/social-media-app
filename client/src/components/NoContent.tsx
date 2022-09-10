@@ -7,10 +7,10 @@ interface NoContentProps {
 const NoContent = ({reason}: NoContentProps) => {
   return (
     <div className='no-content-container'>
-        <p style={{fontSize: '35px'}}>
+        <p style={{fontSize: 'calc(Var(--adjustedRatio)*35px)'}}>
             Oops...
         </p>
-        <p style={{fontSize: '35px'}}>
+        <p style={{fontSize: 'calc(Var(--adjustedRatio)*35px)'}}>
             No {reason}
         </p>
     </div>

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom'
 import '../styles/Message.scss'
 import Avatar from './Avatar'
 import eventBus from '../components/eventBus';
+import { screenRatio } from '../ScreenRatio'
 
 interface MessageProps {
     message: string,
@@ -54,7 +55,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID}
                                 </div>
                                 : ''
                             }
-                            <BiTrash size={20} />
+                            <BiTrash size={20*(screenRatio.getRatio())} />
                         </div>
                         <div className='message-edit' onMouseOver={() => setShow('Pin')} onMouseOut={() => setShow('')}  onClick={(e) => handleClick(e, 'Pin')}>
                             {
@@ -67,7 +68,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID}
                                 </div>
                                 : ''
                             }
-                            <BsFillPinAngleFill size={20} />
+                            <BsFillPinAngleFill size={20*(screenRatio.getRatio())} />
                         </div>
                         {/* <div className='message-edit' onMouseOver={() => setShow('Edit')} onMouseOut={() => setShow('')} onClick={(e) => handleClick(e, 'Edit')}>
                             {
@@ -93,7 +94,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID}
                                 </div>
                                 : ''
                             }
-                            <HiReply size={20} />
+                            <HiReply size={20*(screenRatio.getRatio())} />
                         </div>
                     </div>
                     : ''

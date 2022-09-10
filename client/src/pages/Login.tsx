@@ -85,10 +85,10 @@ const Login = () => {
   
   return (
     <div className='LoginPage'>
-        <a className='ArrowBack' href='/'><BsArrowLeft size={40}/></a>
+        <a className='ArrowBack' href='/'><BsArrowLeft size={40*(screenRatio.getRatio())}/></a>
         <div className='LoginContainer'>
             <section className='LoginHeader'>
-                <img src='logo.svg' alt = ' test' height="87"width="50"></img>
+                <img src='logo.svg' alt = ' test' style={{height: 'calc(Var(--adjustedRatio)*87px)', width: 'calc(Var(--adjustedRatio)*50px)'}}></img>
                 <Text type='H3' content='Name of app'/>
             </section>
             <TextInput label='Email' placeHolder='ex: jDoe@gmail.com'/>
@@ -101,7 +101,7 @@ const Login = () => {
                 <Text type='H2' content='OR'/>
                 <hr />
             </section>
-            <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40} />} fct={signUpWithGoogle} />
+            <Button textType='H2' text='Sign in with Google' icon={<FcGoogle size={40*(screenRatio.getRatio())} />} fct={signUpWithGoogle} />
             <section className='LoginSection'>
                 <Button textType='H2' text='Login' fct={collectInfos}/>
             </section>
