@@ -85,7 +85,7 @@ function LeftSidePane() {
                     let photo: string = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))?.profile_pic.replace('./assets/profile-pics/', '')
                     if(!photo) photo = 'Oveezion.png'
                     console.log(handles, photo);
-                    let nameList = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))
+                    //let nameList = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))
                     convos.push({
                         id: chat.chatid,
                         photos: [photo],
@@ -146,7 +146,7 @@ function LeftSidePane() {
                     // console.log(current, conversation, id)
                     return(
                          
-                         <div key={index} className='ConversationContainer' style={{backgroundColor: `${current ? 'darkgray' : ''}`}} onClick={()=> {navigate(`/User/Chat/${conversation.id}`, {replace: true}); window.location.reload()}}>
+                         <div key={index} className='ConversationContainer' style={{backgroundColor: `${current ? 'darkgray' : ''}`}} onClick={()=> {navigate(`/User/Chat/${conversation.id}`, {replace: true}); /*window.location.reload()*/}}>
                             <ChatPreview chatId={conversation.id} photos={conversation.photos} names={conversation.names} latest={conversation.latest} read={conversation.read} online={conversation.online}/>
                         </div> 
                     )           
