@@ -7,13 +7,32 @@ import { Service } from 'typedi';
 export interface Update {
     new: any;
     old: any;
-  }
+}
 
+export interface Message {
+    messageid: string,
+    chatid: string,
+    replyid: string,
+    messagetime: string,
+    handle: string,
+    textmessage: string,
+    media: string,
+    file_name: string
+}
 
+export interface Room {
+    chatid: string,
+    message_log: string,
+    members: string,
+    messages: Message[]
+}
 
 
 @Service()
 export class DatabaseService {
+
+    public rooms!: Room[];
+
     public connectionConfig: pg.ConnectionConfig = {
         user: USER,
         database: DATABASE,
@@ -24,6 +43,30 @@ export class DatabaseService {
     };
 
     public pool: pg.Pool = new pg.Pool(this.connectionConfig);
+
+    constructor(){
+        this.initRooms();
+    }
+
+    public async initRooms(): Promise<void> {
+
+        this.rooms = [];
+
+        this.getAllMessages().then((dbMessages) => {
+            this.getChats().then((result)=>{
+                result.rows.forEach((room) => {
+                    let newRoom: Room = {
+                        chatid: room.chatid,
+                        message_log: room.message_log,
+                        members: room.members,
+                        messages: dbMessages.rows.filter((message) => message.chatid === room.chatid),
+                    }
+                    this.rooms.push(newRoom);
+                });
+                console.log('current rooms:', this.rooms)
+            })
+        })
+    }
 
     // ======= GENERIC =======
     public async getTable(tableName: string, filter: any = {}): Promise<pg.QueryResult> {
@@ -51,6 +94,12 @@ export class DatabaseService {
         console.log('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
         return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
     }
+
+    public async getAllMessages(): Promise<pg.QueryResult> {
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.message' + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message' + END_CHAR);
+    }
+
 
     public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
         const favorite = (await this.query(SELECT_SOME(['posts'],'favorite') + ' WHERE email =' + `'${email}'` + END_CHAR)).rows[0].posts;
@@ -100,8 +149,8 @@ export class DatabaseService {
     }
 
     public async getChats(): Promise<pg.QueryResult> {
-        console.log('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
-        return this.query('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
     }
 
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
@@ -114,9 +163,17 @@ export class DatabaseService {
         return this.query(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
     }
 
-    public async getMyChats(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
-        return this.query(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
+    public async getMyChats(handle: string): Promise<Room[]> {
+        // console.log(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
+        // return this.query(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
+     
+        let chats = this.rooms.filter((room) =>{
+            console.log(room.members)
+            if(room.members.split(';').includes(handle) || room.members.includes('users/*')) return room;
+            else return
+        });
+
+        return chats;
     }
 
     public async getMyFriends(email: string): Promise<pg.QueryResult> {

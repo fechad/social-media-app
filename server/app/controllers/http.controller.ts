@@ -73,6 +73,7 @@ export class HttpController {
             res.json(sample), console.log(sample.length);
            
         });
+
         /*this.router.post('/user', async (req: Request, res: Response) => {
             
         });

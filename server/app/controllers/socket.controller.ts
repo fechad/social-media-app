@@ -1,7 +1,7 @@
 import { Service } from "typedi";
 import * as io from 'socket.io';
 import * as http from 'http';
-import { DatabaseService } from "../services/database.service";
+import { DatabaseService, Room } from "../services/database.service";
 
 interface User {
     email: string,
@@ -9,11 +9,12 @@ interface User {
     socketId: string
 }
 
+
 @Service()
 export class SocketController {
 
     private io: io.Server;
-    private rooms: string[] = [];
+    public rooms: Room[] = [];
     private users: User[] = []
     private dataBaseService: DatabaseService = new DatabaseService();
 
@@ -21,14 +22,21 @@ export class SocketController {
         server: http.Server,
     ){
         this.io = new io.Server(server, { cors: { origin: '*', methods: ['GET', 'POST'] } });
+        this.startInterval();
     }
 
     init(): void {
-        this.dataBaseService.getChats().then((result)=>{
-            result.rows.forEach((room) => this.rooms.push(room.chatid));
-            console.log('current rooms:', this.rooms)
-            this.initRooms();
-        })
+        this.rooms = this.dataBaseService.rooms;
+        this.initRooms()
+    }
+
+    private startInterval() {
+        setInterval(() => {
+            this.dataBaseService.initRooms().then(() => {
+                this.rooms = this.dataBaseService.rooms;
+                this.initRooms();
+            })
+        }, 3600000);
     }
 
     private initRooms(): void {
@@ -59,7 +67,7 @@ export class SocketController {
            
             socket.on('join room', (room, callBack) => {
                 
-                if(this.rooms.find(availableRoom => availableRoom === room)) {
+                if(this.rooms.find(availableRoom => availableRoom.chatid === room)) {
                     socket.join(room);
                     callBack(`Success: You joined room ${room}`);
                 } else {

@@ -61,11 +61,13 @@ const Chats = () => {
   useEffect(() => {
     console.log(socket.id);
 
-    axios.get(`${environment.serverUrl}/database/photoUrl/${chats.filter((chat: any) => chat.chatid === id)[0].members.replace('users/*', `${data.handle}`)}`).then((result)=>{
+    console.log(chats)
+
+    axios.get(`${environment.serverUrl}/database/photoUrl/${chats?.filter((chat: any) => chat.chatid === id)[0]?.members.replace('users/*', `${data.handle}`)}`).then((result)=>{
       setMembersPhoto(result.data);
     }) ;
 
-    axios.get(`${environment.serverUrl}/database/message/${chats.filter((chat: any) => chat.chatid === id)[0].message_log}`).then((result)=>{
+    axios.get(`${environment.serverUrl}/database/message/${chats?.filter((chat: any) => chat.chatid === id)[0]?.message_log}`).then((result)=>{
       setMessages(result.data);
     }) ;
 
