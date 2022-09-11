@@ -50,7 +50,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID,
         </div>
         : ''
        }
-        <div className={`message-section${sender ? '-sender' : '-receiver'}`} style={replyId ? {padding: '0px 0px 0px 0px'} : {padding: '40px 0px 0px 0px'}}>
+        <div className={`message-section${sender ? '-sender' : '-receiver'}`} style={replyId ? {padding: '0px 0px 0px 0px'} : {padding: 'calc(Var(--adjustedRatio)*40px) 0px 0px 0px'}}>
             <div className='message-avatar-section' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
                 <Avatar inGroup={false} online={false} photo={`${environment.serverUrl}/image/` + profile_pic.replace('./assets/profile-pics/', '')} />
             </div>
@@ -71,7 +71,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID,
                                     </div>
                                     : ''
                                 }
-                                <BiTrash size={20} />
+                                <BiTrash size={20*(screenRatio.getRatio())} />
                             </div>
                             <div className='message-edit' onMouseOver={() => setShow('Pin')} onMouseOut={() => setShow('')}  onClick={(e) => handleClick(e, 'Pin')}>
                                 {
@@ -84,7 +84,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID,
                                     </div>
                                     : ''
                                 }
-                                <BsFillPinAngleFill size={20} />
+                                <BsFillPinAngleFill size={20*(screenRatio.getRatio())} />
                             </div>
                             {/* <div className='message-edit' onMouseOver={() => setShow('Edit')} onMouseOut={() => setShow('')} onClick={(e) => handleClick(e, 'Edit')}>
                                 {
@@ -110,7 +110,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID,
                                     </div>
                                     : ''
                                 }
-                                <HiReply size={20} />
+                                <HiReply size={20*(screenRatio.getRatio())} />
                             </div>
                         </div>
                         : ''

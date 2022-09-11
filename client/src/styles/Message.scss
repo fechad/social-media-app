@@ -9,7 +9,7 @@
     align-items: center;
     gap: calc(Var(--adjustedRatio)*40px);
     align-self: flex-end;
-    
+
     .message-avatar-section{
 
         align-self: flex-start;
@@ -214,21 +214,21 @@
     display: flex;
     height: fit-content;
     width: 100%;
-    margin-top: 40px;
-    margin-bottom: -8px;
+    margin-top: calc(Var(--adjustedRatio)*40px);
+    margin-bottom: calc(Var(--adjustedRatio)* -8px);
 
     .message-reply-bubble{
 
-        height: 40px;
-        min-width: 80px;
-        max-width: 464px;
+        height: calc(Var(--adjustedRatio)*40px);
+        min-width: calc(Var(--adjustedRatio)*80px);
+        max-width: calc(Var(--adjustedRatio)*464px);
 
         
-        padding: 8px;
+        padding: calc(Var(--adjustedRatio)*8px);
         background-color: #f3f3f3;
 
-        border: 1px solid #868686;
-        border-radius: 8px;
+        border: calc(Var(--adjustedRatio)*1px) solid #868686;
+        border-radius: calc(Var(--adjustedRatio)*8px);
         display: flex;
         align-items: center;
 
@@ -255,8 +255,8 @@
     overflow: hidden;
 
     img {
-        width: 240px;
-        height: 200px;
+        width: calc(Var(--adjustedRatio)*240px);
+        height: calc(Var(--adjustedRatio)*200px);
         &:hover {
 
             cursor: pointer;
@@ -265,7 +265,7 @@
 
     video {
 
-        width: 240px;
+        width: calc(Var(--adjustedRatio)*240px);
         height: auto;
     }
 }
@@ -279,7 +279,7 @@
     div {
         width: fit-content;
         height: fit-content;
-        max-height: 800px;
+        max-height: calc(Var(--adjustedRatio)*800px);
 
         img {
             width: fit-content;
@@ -293,15 +293,13 @@
 
         video {
 
-            width: 600px;
+            width: calc(Var(--adjustedRatio)*600px);
             height: auto;
         }
     }
 
    
 }
-
-
 
 .file-message {
 

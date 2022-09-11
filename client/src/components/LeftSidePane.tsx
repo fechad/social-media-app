@@ -6,14 +6,10 @@ import Text from './Text'
 import ChatPreview from './ChatPreview'
 import { environment } from '../environments/environment'
 import UserSearchPreview from './UserSearchPreview'
-<<<<<<< HEAD
 import { useNavigate, useParams } from 'react-router-dom'
-import { DataContext } from '../DataContext'
-import axios from 'axios'
-=======
-import { useNavigate } from 'react-router-dom'
 import { screenRatio } from '../ScreenRatio'
->>>>>>> dev
+import axios from 'axios'
+import { DataContext } from '../DataContext'
 
 function LeftSidePane() {
 

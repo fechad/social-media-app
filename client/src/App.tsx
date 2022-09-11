@@ -10,14 +10,12 @@ import { screenRatio } from './ScreenRatio'
 
 
 function App() {
+  screenRatio.calculate();
+
   let navigate = useNavigate();
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [beta, setBetaVersion] = useState(true);
   AOS.init({once: false, mirror: true})
-
-  useEffect(()=>{
-    screenRatio.calculate();
-  },[]);
 
   return (
     <div className='App'>

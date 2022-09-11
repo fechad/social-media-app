@@ -8,13 +8,13 @@
 
     .chat-page-messages-container {
         
-        padding-top: 100px;
-        min-height: 600px;
-        max-height: 700px;
-        min-width: 700px;
+        padding-top: calc(Var(--adjustedRatio)*100px);
+        min-height: calc(Var(--adjustedRatio)*600px);
+        max-height: calc(Var(--adjustedRatio)*700px);
+        min-width: calc(Var(--adjustedRatio)*700px);
         overflow-x: hidden;
         overflow-y: auto;
-        padding-right: 100px;
+        padding-right: calc(Var(--adjustedRatio)*100px);
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
