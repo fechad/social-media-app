@@ -69,7 +69,8 @@ export class SocketController {
                 
                 if(this.rooms.find(availableRoom => availableRoom.chatid === room)) {
                     socket.join(room);
-                    callBack(`Success: You joined room ${room}`);
+                    let messages = this.rooms.find((availableRoom) => availableRoom.chatid === room)?.messages
+                    callBack(messages);
                 } else {
                     callBack(`Failed: Room ${room} doesn't exist or is not available at this time`);
                 }

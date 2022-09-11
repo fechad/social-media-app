@@ -23,13 +23,34 @@ const Chats = () => {
 
   const { id } = useParams();
 
+  const [messages, setMessages] = useState([{
+    messageid: '',
+    chatid: '',
+    replyid: '',
+    messagetime: '',
+    handle: '',
+    textmessage: '',
+    media: '',
+    file_name: '',
+  }]);
+
+  const [membersPhoto, setMembersPhoto] = useState([
+    {
+      handle: '',
+      profile_pic: ''
+    }
+  ]);
+
   socket.id = id ? id : '0';
 
   socket.emit('join room', id, function(response: any) {
     console.log(response);
+    setMessages(response);
   })
   
-  socket.on('connected', (message: any) => console.log(message));
+  socket.on('connected', (message: any) => {
+    console.log(message);
+  });
 
   socket.on('new message', (message: any) => {
     console.log(message)
@@ -40,23 +61,9 @@ const Chats = () => {
     setMessages(updatedMessages);
   });
 
-  const [messages, setMessages] = useState([{
-      messageid: '',
-      chatid: '',
-      replyid: '',
-      messagetime: '',
-      handle: '',
-      textmessage: '',
-      media: '',
-      file_name: '',
-  }]);
+  useEffect(() => {
 
-  const [membersPhoto, setMembersPhoto] = useState([
-    {
-      handle: '',
-      profile_pic: ''
-    }
-  ]);
+  }, [messages])
 
   useEffect(() => {
     console.log(socket.id);
@@ -67,9 +74,9 @@ const Chats = () => {
       setMembersPhoto(result.data);
     }) ;
 
-    axios.get(`${environment.serverUrl}/database/message/${chats?.filter((chat: any) => chat.chatid === id)[0]?.message_log}`).then((result)=>{
-      setMessages(result.data);
-    }) ;
+    // axios.get(`${environment.serverUrl}/database/message/${chats?.filter((chat: any) => chat.chatid === id)[0]?.message_log}`).then((result)=>{
+    //   setMessages(result.data);
+    // }) ;
 
   }, [socket.id])
 
