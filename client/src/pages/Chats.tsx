@@ -70,9 +70,12 @@ const Chats = () => {
 
     console.log(chats)
 
-    axios.get(`${environment.serverUrl}/database/photoUrl/${chats?.filter((chat: any) => chat.chatid === id)[0]?.members.replace('users/*', `${data.handle}`)}`).then((result)=>{
-      setMembersPhoto(result.data);
-    }) ;
+    setMessages(chats?.filter((chat: any) => chat.chatid === id)[0]?.messages);
+    setMembersPhoto(chats?.filter((chat: any) => chat.chatid === id)[0]?.users)
+
+    // axios.get(`${environment.serverUrl}/database/photoUrl/${chats?.filter((chat: any) => chat.chatid === id)[0]?.members.replace('users/*', `${data.handle}`)}`).then((result)=>{
+    //   setMembersPhoto(result.data);
+    // }) ;
 
     // axios.get(`${environment.serverUrl}/database/message/${chats?.filter((chat: any) => chat.chatid === id)[0]?.message_log}`).then((result)=>{
     //   setMessages(result.data);

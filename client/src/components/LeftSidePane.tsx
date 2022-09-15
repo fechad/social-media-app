@@ -84,7 +84,7 @@ function LeftSidePane() {
                     handles = handles.filter(name => name !== data.handle);
                     let photo: string = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))?.profile_pic.replace('./assets/profile-pics/', '')
                     if(!photo) photo = 'Oveezion.png'
-                    console.log(handles, photo);
+                    //console.log(handles, photo);
                     //let nameList = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))
                     convos.push({
                         id: chat.chatid,
@@ -139,7 +139,7 @@ function LeftSidePane() {
                 : 
 
                 conversations.map((conversation, index: any)=>{
-                    console.log(conversation)
+                    // console.log(conversation)
                     let current = false;
                     if(id === conversation.id) current = true;
 

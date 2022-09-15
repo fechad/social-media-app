@@ -3,7 +3,6 @@ import axios from "axios";
 import { environment } from "./environments/environment";
 import { AuthContext } from "./Auth";
 import { io } from 'socket.io-client'
-import eventBus from "./components/eventBus";
 
 export const DataContext = createContext<any>(null);
 
@@ -38,6 +37,8 @@ export function  UserDataContext({children}:any) {
     chatid: '0',
     message_log: '',
     members: 'oveezion;users/*',
+    messages: [],
+    users: []
   }]);
 
   const[activeUsers, setActiveUsers] = useState([{

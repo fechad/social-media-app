@@ -9,6 +9,11 @@ export interface Update {
     old: any;
 }
 
+export interface Member {
+    handle: string,
+    profile_pic: string
+}
+
 export interface Message {
     messageid: string,
     chatid: string,
@@ -24,7 +29,8 @@ export interface Room {
     chatid: string,
     message_log: string,
     members: string,
-    messages: Message[]
+    messages: Message[],
+    users: (Member | undefined)[],
 }
 
 
@@ -52,20 +58,28 @@ export class DatabaseService {
 
         this.rooms = [];
 
-        this.getAllMessages().then((dbMessages) => {
-            this.getChats().then((result)=>{
-                result.rows.forEach((room) => {
-                    let newRoom: Room = {
-                        chatid: room.chatid,
-                        message_log: room.message_log,
-                        members: room.members,
-                        messages: dbMessages.rows.filter((message) => message.chatid === room.chatid),
-                    }
-                    this.rooms.push(newRoom);
-                });
-                console.log('current rooms:', this.rooms)
+       this.getAllUsers().then((users) => {
+            this.getAllMessages().then((dbMessages) => {
+                this.getChats().then((result)=>{
+                    result.rows.forEach((room) => {
+                        let newRoom: Room = {
+                            chatid: room.chatid,
+                            message_log: room.message_log,
+                            members: room.members,
+                            messages: dbMessages.rows.filter((message) => message.chatid === room.chatid),
+                            users: users.rows.map((user) => {
+                                if(room.members.split(';').includes(user.handle)) {
+                                    return {handle: user.handle, profile_pic: user.profile_pic} as Member;
+                                }
+                                else return;
+                            }).filter((member) => member),
+                        }
+                        this.rooms.push(newRoom);
+                    });
+                    console.log('current rooms:', this.rooms)
+                })
             })
-        })
+       });
     }
 
     // ======= GENERIC =======
@@ -76,6 +90,11 @@ export class DatabaseService {
             return this.query(SELECT_ALL(tableName) + 'WHERE name LIKE ' + `"%${filter.name}%" ` + END_CHAR);
         if (Object.keys(filter).length) return this.query(SELECT_ALL(tableName) + this.where(filter) + END_CHAR);
         else return this.query(SELECT_ALL(tableName) + END_CHAR);
+    }
+
+    public async getAllUsers(): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('users') + END_CHAR);
+        return this.query(SELECT_ALL('users') + END_CHAR);
     }
 
     public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
