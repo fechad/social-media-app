@@ -52,7 +52,7 @@ const Message = ({message, time, sender, profile_pic, handle, chatID, messageID,
        }
         <div className={`message-section${sender ? '-sender' : '-receiver'}`} style={replyId ? {padding: '0px 0px 0px 0px'} : {padding: 'calc(Var(--adjustedRatio)*40px) 0px 0px 0px'}}>
             <div className='message-avatar-section' onClick={() => {navigate(`/User/Profile/${handle}`, { replace: true }); window.location.reload();}}>
-                <Avatar inGroup={false} online={false} photo={`${environment.serverUrl}/image/` + profile_pic.replace('./assets/profile-pics/', '')} />
+                <Avatar inGroup={false} online={false} photo={`${environment.serverUrl}/image/` + profile_pic?.replace('./assets/profile-pics/', '')} />
             </div>
             <div className='message-bubble-and-tooltip-container'>
                 <div className='message-bubble-container-tail'></div>

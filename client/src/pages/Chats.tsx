@@ -21,7 +21,7 @@ const Chats = () => {
   const { data } = useContext(DataContext);
   const { socket } = useContext(DataContext);
 
-  const { id } = useParams();
+  let { id } = useParams();
 
   const [messages, setMessages] = useState([{
     messageid: '',
@@ -43,25 +43,45 @@ const Chats = () => {
 
   socket.id = id ? id : '0';
 
-  socket.emit('join room', id, function(response: any) {
-    console.log(response);
-    setMessages(response);
-  })
   
   socket.on('connected', (message: any) => {
     console.log(message);
   });
 
-  socket.on('new message', (message: any) => {
-    console.log(message)
+  
+  eventBus.on('sendMessage', (e: any) => {
+    //console.log(e.detail)
+    const offset = new Date().getTimezoneOffset();
+    let yourDate = new Date(new Date().getTime() - (offset*60*1000));
+    let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
 
-    let updatedMessages = messages.map(message => message);
-    updatedMessages.push(message);
+    // console.log(messages)
 
-    setMessages(updatedMessages);
+    let newMessage = {
+      messageid: `${Date.now()}`,
+      chatid: id!,
+      replyid: e.detail.replyTo.id, 
+      messagetime: `${dateTime}`,
+      handle: data?.handle,
+      textmessage: e.detail.message,
+      media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
+      file_name: e.detail.serverFsName,
+    }
+
+    //console.log(updatedMessages)
+    console.log(id)
+    socket.emit('send message', newMessage, id);
   });
 
+ 
+
+  eventBus.on('messageAction', (e: any) => {
+     //console.log(e.detail, 'Library')
+  });
+ 
+
   useEffect(() => {
+    
 
   }, [messages])
 
@@ -70,51 +90,34 @@ const Chats = () => {
 
     console.log(chats)
 
-    setMessages(chats?.filter((chat: any) => chat.chatid === id)[0]?.messages);
-    setMembersPhoto(chats?.filter((chat: any) => chat.chatid === id)[0]?.users)
+    setMembersPhoto(chats?.filter((chat: any) => chat.chatid === id)[0]?.users);
 
-    // axios.get(`${environment.serverUrl}/database/photoUrl/${chats?.filter((chat: any) => chat.chatid === id)[0]?.members.replace('users/*', `${data.handle}`)}`).then((result)=>{
-    //   setMembersPhoto(result.data);
-    // }) ;
+    socket.emit('join room', id, function(response: any) {
+    console.log(response);
+    setMessages(response);
+    })
 
-    // axios.get(`${environment.serverUrl}/database/message/${chats?.filter((chat: any) => chat.chatid === id)[0]?.message_log}`).then((result)=>{
-    //   setMessages(result.data);
-    // }) ;
+   socket.on('new message', (message: any) => {
+    console.log(message)
+
+    let updatedMessages = messages.map(message => message);
+    updatedMessages.push(message);
+
+    setMessages(updatedMessages);
+  });
 
   }, [socket.id])
 
 
   useEffect(() => {
 
-    eventBus.on('sendMessage', (e: any) => {
-      //console.log(e.detail)
-      const offset = new Date().getTimezoneOffset();
-      let yourDate = new Date(new Date().getTime() - (offset*60*1000));
-      let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
+   //setMessages(chats.filter((chat: any) => chat.chatid === id)[0].messages);
+   //setMembersPhoto(chats.filter((chat: any) => chat.chatid === id)[0].users)
+   
 
-      // console.log(messages)
-
-      let newMessage = {
-        messageid: `${Date.now()}`,
-        chatid: id!,
-        replyid: e.detail.replyTo.id, 
-        messagetime: `${dateTime}`,
-        handle: data.handle,
-        textmessage: e.detail.message,
-        media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
-        file_name: e.detail.serverFsName,
-      }
-
-      //console.log(updatedMessages)
-      console.log(id)
-      socket.emit('send message', newMessage, id);
-    });
 
     document.getElementsByClassName('chat-page-messages-container')[0].scrollTop = document.getElementsByClassName('chat-page-messages-container')[0].scrollHeight;
 
-    eventBus.on('messageAction', (e: any) => {
-       //console.log(e.detail, 'Library')
-    });
   }, [])
 
   return (
@@ -134,7 +137,7 @@ const Chats = () => {
             }
           </div>
           <div className='chat-page-bar-container'>
-              <MessageBar />
+            <MessageBar />
           </div>
         </div>
       </div>

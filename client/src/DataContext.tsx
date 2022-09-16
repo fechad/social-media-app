@@ -49,12 +49,6 @@ export function  UserDataContext({children}:any) {
 
   socket.connect();
 
-  socket.on('current active users', users => {
-    let userList = users.filter((user: any) => user.handle !== 'none');
-    console.log(userList);
-    setActiveUsers(userList);
-  })
- 
 
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
@@ -66,11 +60,15 @@ export function  UserDataContext({children}:any) {
 
       axios.get(`${environment.serverUrl}/database/users/MyInfos/chats/${infos.data[0].handle}`).then((result)=>{
         getChats(result.data);
-        console.log(chats)
         setPending(false);
       }) ;
     }) ;
 
+    socket.on('current active users', users => {
+      let userList = users.filter((user: any) => user.handle !== 'none');
+      console.log(userList);
+      setActiveUsers(userList);
+    })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

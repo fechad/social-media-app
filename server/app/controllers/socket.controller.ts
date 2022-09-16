@@ -70,6 +70,7 @@ export class SocketController {
                 if(this.rooms.find(availableRoom => availableRoom.chatid === room)) {
                     socket.join(room);
                     let messages = this.rooms.find((availableRoom) => availableRoom.chatid === room)?.messages
+                    console.log('Joined room')
                     callBack(messages);
                 } else {
                     callBack(`Failed: Room ${room} doesn't exist or is not available at this time`);
@@ -85,7 +86,7 @@ export class SocketController {
                 console.log('room  is',room, 'message is', message);
 
                 if(this.rooms.find(availableRoom => availableRoom === room)) {
-                    
+                    console.log('Available')
                     socketRooms.to(room).emit('new message', message);
                 };
             });
