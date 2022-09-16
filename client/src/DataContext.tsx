@@ -49,7 +49,6 @@ export function  UserDataContext({children}:any) {
 
   socket.connect();
 
-
   useEffect(() => {
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
       getData(infos.data[0]);
@@ -67,7 +66,7 @@ export function  UserDataContext({children}:any) {
     socket.on('current active users', users => {
       let userList = users.filter((user: any) => user.handle !== 'none');
       console.log(userList);
-      setActiveUsers(userList);
+      setActiveUsers(userList => userList);
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
