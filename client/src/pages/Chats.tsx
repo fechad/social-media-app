@@ -16,12 +16,14 @@ import { screenRatio } from '../ScreenRatio'
 const Chats = () => {
 
   screenRatio.calculate()
+  console.log('rerendered')
 
   const { chats } = useContext(DataContext);
   const { data } = useContext(DataContext);
   const { socket } = useContext(DataContext);
 
-  let { id } = useParams();
+  let { id } =useParams();
+
 
   const [messages, setMessages] = useState([{
     messageid: '',
@@ -41,44 +43,30 @@ const Chats = () => {
     }
   ]);
 
-  socket.id = id ? id : '0';
+  //const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
+  //let socket = io(`${environment.socketUrl}`)
+
+  socket.id = useParams() as unknown as string;
 
   
   socket.on('connected', (message: any) => {
     console.log(message);
   });
 
+  socket.on('new message', (message: any) => {
+    console.log('new message',message)
+
+    let updatedMessages = messages.map(message => message);
+    updatedMessages.push(message);
+
+    setMessages(updatedMessages);
+  });
+ 
   
-  eventBus.on('sendMessage', (e: any) => {
-    //console.log(e.detail)
-    const offset = new Date().getTimezoneOffset();
-    let yourDate = new Date(new Date().getTime() - (offset*60*1000));
-    let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
+  useEffect(() => {
+    
 
-    // console.log(messages)
-
-    let newMessage = {
-      messageid: `${Date.now()}`,
-      chatid: id!,
-      replyid: e.detail.replyTo.id, 
-      messagetime: `${dateTime}`,
-      handle: data?.handle,
-      textmessage: e.detail.message,
-      media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
-      file_name: e.detail.serverFsName,
-    }
-
-    //console.log(updatedMessages)
-    console.log(id)
-    socket.emit('send message', newMessage, id);
-  });
-
- 
-
-  eventBus.on('messageAction', (e: any) => {
-     //console.log(e.detail, 'Library')
-  });
- 
+  }, [useParams()])
 
   useEffect(() => {
     
@@ -97,23 +85,40 @@ const Chats = () => {
     setMessages(response);
     })
 
-   socket.on('new message', (message: any) => {
-    console.log(message)
-
-    let updatedMessages = messages.map(message => message);
-    updatedMessages.push(message);
-
-    setMessages(updatedMessages);
-  });
+   
 
   }, [socket.id])
 
+  
 
   useEffect(() => {
+    //setMessages(chats.filter((chat: any) => chat.chatid === id)[0].messages);
+    //setMembersPhoto(chats.filter((chat: any) => chat.chatid === id)[0].users)
+    eventBus.on('sendMessage', (e: any) => {
+      //console.log(e.detail)
+      if(e.detail.target !== id) return
+      console.log(e.detail)
+      const offset = new Date().getTimezoneOffset();
+      let yourDate = new Date(new Date().getTime() - (offset*60*1000));
+      let dateTime = yourDate.toISOString().split('T')[1].padStart(2, '0');
+      let newMessage = {
+        messageid: `${Date.now()}`,
+        chatid: id!,
+        replyid: e.detail.replyTo.id, 
+        messagetime: `${dateTime}`,
+        handle: data?.handle,
+        textmessage: e.detail.message,
+        media: e.detail.data.includes('.gif') ? e.detail.data : e.detail.serverMediaName,
+        file_name: e.detail.serverFsName,
+      }
+  
+      //console.log(updatedMessages)
+      socket.emit('send message', newMessage, id);
+    });
 
-   //setMessages(chats.filter((chat: any) => chat.chatid === id)[0].messages);
-   //setMembersPhoto(chats.filter((chat: any) => chat.chatid === id)[0].users)
-   
+    eventBus.on('messageAction', (e: any) => {
+      //console.log(e.detail, 'Library')
+    });
 
 
     document.getElementsByClassName('chat-page-messages-container')[0].scrollTop = document.getElementsByClassName('chat-page-messages-container')[0].scrollHeight;
@@ -137,7 +142,7 @@ const Chats = () => {
             }
           </div>
           <div className='chat-page-bar-container'>
-            <MessageBar />
+            <MessageBar target={id} />
           </div>
         </div>
       </div>

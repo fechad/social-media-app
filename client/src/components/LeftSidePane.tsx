@@ -123,11 +123,11 @@ function LeftSidePane() {
        
     }, []);
 
-    useEffect(() =>{
+    // useEffect(() =>{
         
-      },
-      [users]
-    );
+    //   },
+    //   [users]
+    // );
 
   return (
     <section className='LeftSidePaneContainer'>

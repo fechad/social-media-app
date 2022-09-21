@@ -47,9 +47,17 @@ export function  UserDataContext({children}:any) {
 
   const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
 
-  socket.connect();
+  //const socket = io(`${environment.socketUrl}`);
+
+  socket.on('current active users', users => {
+    let userList = users.filter((user: any) => user.handle !== 'none');
+    console.log('activeUsers :', userList);
+    setActiveUsers(userList => userList);
+  })
 
   useEffect(() => {
+    socket.connect();
+
     axios.get(`${environment.serverUrl}/database/users/MyInfos/${currentUser.email}`).then((infos)=>{
       getData(infos.data[0]);
 
@@ -62,14 +70,8 @@ export function  UserDataContext({children}:any) {
         setPending(false);
       }) ;
     }) ;
-
-    socket.on('current active users', users => {
-      let userList = users.filter((user: any) => user.handle !== 'none');
-      console.log(userList);
-      setActiveUsers(userList => userList);
-    })
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  
+  }, [currentUser.email, socket]);
 
   useEffect(() => {
 

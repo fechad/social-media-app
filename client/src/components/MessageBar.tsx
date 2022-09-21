@@ -12,8 +12,11 @@ import { environment } from '../environments/environment';
 import axios from 'axios';
 import { screenRatio } from '../ScreenRatio';
 
+interface MessageBarProps {
+    target?: string;
+}
 
-const MessageBar = () => {
+const MessageBar = ({target}: MessageBarProps) => {
 
     const [imagePresent, setImagePresent] = useState(false);
     const [filePresent, setFilePresent] = useState(false);
@@ -110,7 +113,7 @@ const MessageBar = () => {
                 
                 const fileName = (document.getElementsByClassName('message-file-preview')[0]?.firstChild as HTMLParagraphElement)?.innerText
                 // if gif is sent, use data because serverMedia will be empty
-                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: { message: event.target.value.trim(), data: content, file: fileName, serverMediaName: `${gifPresent ? '' : mediaName}`, serverFsName: fsName, replyTo: replyingTo}});
+                const submit = new CustomEvent('sendMessage', {bubbles: true, detail: {target: target, message: event.target.value.trim(), data: content, file: fileName, serverMediaName: `${gifPresent ? '' : mediaName}`, serverFsName: fsName, replyTo: replyingTo}});
 
                 eventBus.dispatch('sendMessage', submit)
                 event.target.value = '';
