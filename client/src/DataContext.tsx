@@ -89,7 +89,7 @@ export function  UserDataContext({children}:any) {
 
   return (
     <DataContext.Provider
-    value={{data,notifications,chats, socket}}
+    value={{data,notifications,chats}}
   >
     {children}
   </DataContext.Provider>

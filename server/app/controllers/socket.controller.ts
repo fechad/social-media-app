@@ -85,9 +85,12 @@ export class SocketController {
 
                 console.log('room  is',room, 'message is', message);
 
-                if(this.rooms.find(availableRoom => availableRoom.chatid === room)) {
+                let currentRoom = this.rooms.find(availableRoom => availableRoom.chatid === room);
+
+                if(currentRoom) {
                     console.log('Available')
-                    socketRooms.to(room).emit('new message', message);
+                    currentRoom.messages.push(message)
+                    socketRooms.to(room).emit('new message', currentRoom.messages);
                 };
             });
 

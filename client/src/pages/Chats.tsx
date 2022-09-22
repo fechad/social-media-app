@@ -12,6 +12,7 @@ import Message from '../components/Message'
 import '../styles/Chats.scss'
 import eventBus from '../components/eventBus'
 import { screenRatio } from '../ScreenRatio'
+import { Socket } from 'dgram'
 
 const Chats = () => {
 
@@ -20,7 +21,7 @@ const Chats = () => {
 
   const { chats } = useContext(DataContext);
   const { data } = useContext(DataContext);
-  const { socket } = useContext(DataContext);
+  //const { socket } = useContext(DataContext);
 
   let { id } =useParams();
 
@@ -43,7 +44,7 @@ const Chats = () => {
     }
   ]);
 
-  //const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
+  const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
   //let socket = io(`${environment.socketUrl}`)
 
   socket.id = useParams() as unknown as string;
@@ -53,15 +54,13 @@ const Chats = () => {
     console.log(message);
   });
 
-  socket.on('new message', (message: any) => {
-    console.log('new message',message)
+  /* Having it here doesn't replace the entire chat */
+  
+  socket.on('new message', (messages: any) => {
+    console.log('new message',messages)
 
-    let updatedMessages = messages.map(message => message);
-    updatedMessages.push(message);
-
-    setMessages(updatedMessages);
+    setMessages(messages);
   });
- 
   
   useEffect(() => {
     
@@ -76,16 +75,12 @@ const Chats = () => {
   useEffect(() => {
     console.log(socket.id);
 
-    console.log(chats)
-
     setMembersPhoto(chats?.filter((chat: any) => chat.chatid === id)[0]?.users);
 
     socket.emit('join room', id, function(response: any) {
-    console.log(response);
-    setMessages(response);
+      console.log(response);
+      setMessages(response);
     })
-
-   
 
   }, [socket.id])
 
@@ -94,8 +89,9 @@ const Chats = () => {
   useEffect(() => {
     //setMessages(chats.filter((chat: any) => chat.chatid === id)[0].messages);
     //setMembersPhoto(chats.filter((chat: any) => chat.chatid === id)[0].users)
+    //setSocket(io(`${environment.socketUrl}`));
+    
     eventBus.on('sendMessage', (e: any) => {
-      //console.log(e.detail)
       if(e.detail.target !== id) return
       console.log(e.detail)
       const offset = new Date().getTimezoneOffset();
@@ -115,6 +111,15 @@ const Chats = () => {
       //console.log(updatedMessages)
       socket.emit('send message', newMessage, id);
     });
+
+    // socket.on('new message', (messages: any) => {
+    //   console.log('new message',messages)
+  
+    //   // let updatedMessages = messages.map(message => message);
+    //   // updatedMessages.push(message);
+  
+    //   setMessages(messages);
+    // });
 
     eventBus.on('messageAction', (e: any) => {
       //console.log(e.detail, 'Library')
@@ -136,7 +141,7 @@ const Chats = () => {
               messages.map((message) => {
                   if(message.messageid === '') return ''
                   else return (
-                    <Message key={message.messageid} messageID={message.messageid} message={message.textmessage} time={message.messagetime} sender={message.handle === data.handle} profile_pic={membersPhoto.filter(member => member.handle === message.handle)[0].profile_pic} handle={message.handle} chatID={message.chatid} media={message.media} file={message.file_name} replyId={message.replyid} replyMessage={messages.find(mesg => mesg.messageid === message.replyid)?.textmessage} />
+                    <Message key={message.messageid} messageID={message.messageid} message={message.textmessage} time={message.messagetime} sender={message.handle === data.handle} profile_pic={membersPhoto?.filter(member => member.handle === message.handle)[0]?.profile_pic} handle={message.handle} chatID={message.chatid} media={message.media} file={message.file_name} replyId={message.replyid} replyMessage={messages.find(mesg => mesg.messageid === message.replyid)?.textmessage} />
                   )
               })
             }
