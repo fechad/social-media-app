@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import LeftSidePane from '../components/LeftSidePane'
 import NavBar from '../components/NavBar'
 import RightSidePane from '../components/RightSidePane'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { io } from 'socket.io-client'
 import { environment } from '../environments/environment'
 import { useParams } from 'react-router-dom'
@@ -66,6 +67,7 @@ const Chats = () => {
       setMessages(result.data);
     }) ;
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [socket.id])
 
 
@@ -100,6 +102,7 @@ const Chats = () => {
     eventBus.on('messageAction', (e: any) => {
        //console.log(e.detail, 'Library')
     });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
