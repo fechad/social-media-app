@@ -1,8 +1,8 @@
 export const USER = 'oveezion';
-export const DATABASE = 'postgres';
+export const DATABASE = 'chymera';
 export const PASSWORD = '%%oveezion%X322';
 export const PORT = 5432;
-export const HOST = '34.130.38.74';
+export const HOST = '127.0.0.1';
 export const KEEPALIVE = true;
 export const SCHEMA_NAME = 'Chymera';
 
