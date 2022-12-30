@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Button from '../components/Button';
 import { FaEdit, FaSearch, FaUserPlus } from "react-icons/fa";
 import '../styles/Library.css'
@@ -10,14 +10,19 @@ import Checkbox from '../components/Checkbox';
 import CodeInput from '../components/CodeInput';
 import Avatar from '../components/Avatar';
 import ChatPreview from '../components/ChatPreview';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import LeftSidePane from '../components/LeftSidePane';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import RightSidePane from '../components/RightSidePane';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import NavBar from '../components/NavBar';
 import RadioButton from '../components/RadioButton';
 import Modal from '../components/Modal';
 import Tabs from '../components/Tabs';
 import NewsArticle from '../components/NewsArticle';
-
+import Message from '../components/Message';
+import MessageBar from '../components/MessageBar';
+import eventBus from '../components/eventBus';
 
 
 function print(){
@@ -36,10 +41,22 @@ function modalContent(){
 
 const Library = () => {
 
+  useEffect(()=>{
+
+    eventBus.on('sendMessage', (e: any) => {
+      console.log(e.detail)
+    });
+
+    eventBus.on('messageAction', (e: any) => {
+       console.log(e.detail, 'Library')
+    });
+  }, [])
+  
+
   return (
-    <section className='LibraryContainer' >
-      <LeftSidePane />
-      <NavBar selection='discover'/>
+    <section className='LibraryContainer'>
+      {/* <LeftSidePane /> */}
+      {/* <NavBar selection='discover'/> */}
       <section className='Library'>
         <div>
           <Text type='H1' content='Logo ideas:' />
@@ -178,8 +195,45 @@ const Library = () => {
             description={`is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishin`}/>
           </section>
         </div>
+        <div style={{marginBottom:'40px'}}>
+        </div>
+        <div>
+          <Text type='H1' content='Message examples' />
+          <section style={{display: 'flex', flexDirection: 'column'}}>
+            <Message messageID='message-1' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message messageID='message-2' message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-3' message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-4' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-5' message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message messageID='message-6' message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <div style={{marginBottom:'40px'}}></div>
+            <Message replyId='message-3' replyMessage='This is a normal reply message capiccino galcééée oleola' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a shot reply ' message='This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a long reply message reply message reply message reply message reply message reply message reply message' message='This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a normal reply message capiccino galcééée oleola' message='This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a shot reply ' message='This is a message bubble This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <Message replyId='message-3' replyMessage='This is a long reply message reply message reply message reply message reply message reply message reply message' message='This is a message bubble ' time='11:59' sender={false} handle='oveezion' profile_pic='logo.svg'/>
+            <div style={{marginBottom:'40px'}}></div>
+            <Message media='166130035770138.png' message='Media photo + This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble This is a message bubble' time='11:59' sender={true} handle='' profile_pic='logo.svg'/>
+            <Message media='1661448810578232.mp4' message='Media video + This is a message bubble This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message media='1661137612434703.png' message='Media photo + This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Message file='Log20_IA_ScDonnees (3).pdf' message=' File + This is a message bubble ' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Text type='H2' content='Media only' />
+            <Message media='1661448810578232.mp4' message='' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+            <Text type='H2' content='File only' />
+            <Message file='Log20_IA_ScDonnees (3).pdf' message='' time='11:59' sender={true} handle='oveezion' profile_pic='logo.svg'/>
+          </section>
+        </div>
+        <div style={{marginBottom:'40px'}}>
+        </div>
+        <div style={{height: 'auto'}}>
+          <Text type='H1' content='Message Bar' />
+          <section style={{display: 'flex', flexDirection: 'column', height: 'auto',position: 'relative'}}>
+            <MessageBar />
+          </section>
+        </div>
       </section>
-      <RightSidePane />
+      {/* <RightSidePane /> */}
       <footer> <Text content='This is the footer'></Text></footer>
     </section>
   )

@@ -16,6 +16,8 @@ export class DatabaseController {
         const storage = multer.diskStorage({
             destination:function(req:any, file:any, cb:any) {
                 if(file.originalname.slice(-3) === 'mp4') cb(null, './assets/videos');
+                else if(file.originalname.slice(0,6) === 'image-') cb(null, './assets/images');
+                else if(file.originalname.slice(-3) === 'pdf' || file.originalname.slice(-3) === 'doc' || file.originalname.slice(-4) === 'docx' || file.originalname.slice(-3) === 'txt') cb(null, './assets/files');
                 else cb(null, './assets/profile-pics');
             },
             filename: function(req:any, file:any, cb:any) {
@@ -42,6 +44,16 @@ export class DatabaseController {
         router.get('/users/MyInfos/notifications/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
                 . getMyNotifications(req.params.handle)
+                .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/users/MyInfos/chats/:handle', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                . getMyChats(req.params.handle)
                 .then((result: pg.QueryResult) => {res.json(result.rows), console.log(result.rows)})
                 .catch((e: Error) => {
                     console.error(e.stack);
@@ -94,6 +106,38 @@ export class DatabaseController {
                     res.status(404).json(e.stack);
                 });
         });
+
+
+        router.get('/photoUrl/:handles', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getUSerPhotos(req.params.handles)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/message/:messageIds', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getMessages(req.params.messageIds)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
+        router.get('/comments/:chatId', (req: Request, res: Response, next: NextFunction) => {
+            this.databaseService
+                .getComments(req.params.chatId)
+                .then((result: pg.QueryResult) => {res.json(result.rows)})
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(404).json(e.stack);
+                });
+        });
+
 
         router.get('/users/post/:handle', (req: Request, res: Response, next: NextFunction) => {
             this.databaseService
@@ -187,9 +231,36 @@ export class DatabaseController {
                     res.status(405).json(e.stack);
                 });
         });
-        
+
+        router.delete('/removePost/:id', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService
+                .deletePost(req.params.id)
+                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .catch((e: Error) => {
+                    console.error(e.stack);
+                    res.status(405).json(e.stack);
+                });
+        });
+        router.post('/addMessage', (req: Request, res: Response, next: NextFunction) => {
+            console.log(req.body);
+            this.databaseService.pushMessage(req.body)
+            .catch((e: Error) => {
+                console.error(e.stack);
+                res.status(405).json(e.stack);
+            });
+            res.status(200).json('OK');
+        });
         
         router.post('/image', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).json('OK');
+        });
+
+        router.post('/images', upload.single('image'), (req: Request, res: Response, next: NextFunction) => {
+            res.status(200).json('OK');
+        });
+
+        router.post('/file', upload.single('file'), (req: Request, res: Response, next: NextFunction) => {
             res.status(200).json('OK');
         });
         
@@ -227,8 +298,7 @@ export class DatabaseController {
         router.post('/users/post', (req: Request, res: Response, next: NextFunction) => {
             console.log(req.body);
             this.databaseService
-                .create('post', req.body)
-                .then((result: pg.QueryResult) => res.json(result.rowCount))
+                .createPost(req.body).then((result: pg.QueryResult) => res.json(result.rows))
                 .catch((e: Error) => {
                     console.error(e.stack);
                     res.status(405).json(e.stack);

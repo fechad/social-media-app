@@ -1,5 +1,5 @@
 
-import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER } from '../constants';
+import { DATABASE, DELETE, END_CHAR, HOST, INSERT, KEEPALIVE, LIST_TABLES, PASSWORD, PORT, SELECT_ALL, SELECT_SOME, SELECT_MANY, TABLE_COLUMNS_TYPES, TABLE_FOREIGN_KEYS, TABLE_PRIVATE_KEYS, UPDATE, USER, DELETE_USER, DELETE_POST, SCHEMA_NAME } from '../constants';
 import * as pg from 'pg';
 import 'reflect-metadata';
 import { Service } from 'typedi';
@@ -38,6 +38,23 @@ export class DatabaseService {
     public async getUSerInfos(handle: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE handle =' + `'${handle}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE handle = '${handle}' ` + END_CHAR);
+    }
+
+    public async getUSerPhotos(handles: string): Promise<pg.QueryResult> {
+        const condition = SELECT_MANY(handles, ';');
+        console.log('SELECT handle, profile_pic FROM ' + SCHEMA_NAME + '.users' + condition + END_CHAR);
+        return this.query('SELECT handle, profile_pic FROM ' + SCHEMA_NAME + '.users' + condition + END_CHAR);
+    }
+
+    public async getMessages(ids: string): Promise<pg.QueryResult> {
+        const condition = SELECT_MANY(ids, ';', 'messageid');
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message' + condition + END_CHAR);
+    }
+
+    public async getComments(chatId: string): Promise<pg.QueryResult> {
+        console.log('SELECT * FROM ' + SCHEMA_NAME + '.message WHERE chatid =' + `'${chatId}'`  + END_CHAR);
+        return this.query('SELECT * FROM ' + SCHEMA_NAME + '.message WHERE chatid =' + `'${chatId}'`  + END_CHAR);
     }
 
     public async getUSerFavorite(email: string): Promise<pg.QueryResult> {
@@ -87,6 +104,11 @@ export class DatabaseService {
         return handles;
     }
 
+    public async getChats(): Promise<pg.QueryResult> {
+        console.log('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+        return this.query('SELECT chatId FROM ' + SCHEMA_NAME + '.Chat' + END_CHAR);
+    }
+
     public async getMyInfos(email: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('users') + ' WHERE email =' + `'${email}' ` + END_CHAR);
         return this.query(SELECT_ALL('users') + ` WHERE email = '${email}' ` + END_CHAR);
@@ -95,6 +117,11 @@ export class DatabaseService {
     public async getMyNotifications(handle: string): Promise<pg.QueryResult> {
         console.log(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
         return this.query(SELECT_ALL('notification') + ' WHERE destination_handle =' + `'${handle}' or destination_handle='*'` + END_CHAR);
+    }
+
+    public async getMyChats(handle: string): Promise<pg.QueryResult> {
+        console.log(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
+        return this.query(SELECT_ALL('chat') + ` WHERE members Like '%${handle}%' or members Like 'users/*'` + END_CHAR);
     }
 
     public async getMyFriends(email: string): Promise<pg.QueryResult> {
@@ -130,8 +157,8 @@ export class DatabaseService {
     }
 
     public async searchUsers(handle: string): Promise<pg.QueryResult> {
-        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(name)  or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
-        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE account_name LIKE ' + `'%${handle}%'` + ' or handle LIKE ' + `'%${handle}%' ` + END_CHAR)
+        console.log(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(account_name) LIKE' + ` UPPER('%${handle}%')` + ' or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
+        return this.query(SELECT_SOME(['handle', 'profile_pic', 'account_name'],'users') + ' WHERE UPPER(account_name) LIKE' + ` UPPER('%${handle}%')` + ' or UPPER(handle) LIKE ' + `UPPER('%${handle}%')` + END_CHAR);
     }
 
     public async getFriendsInfos(handle: string): Promise<any[]> {
@@ -167,6 +194,21 @@ export class DatabaseService {
             }
         })
     }
+
+    public async pushMessage(obj: any): Promise<void> {
+        this.create('message', obj);
+    }
+
+    public async createPost(obj: any): Promise<pg.QueryResult> {
+        const chatInfos = {
+            chatid: obj.post_id,
+            message_log: '',
+            members: '',
+        }
+        await this.create('post', obj);
+        return this.create('chat', chatInfos);
+    }
+    
 
     public async createLike(email: string, postId: string): Promise<void> {
         this.query(INSERT('likes', 2), [email, postId]).catch( async ()=>{
@@ -258,6 +300,13 @@ export class DatabaseService {
     public async deleteUser(email: string): Promise<pg.QueryResult> {
         console.log(DELETE_USER(email));
         return this.query(DELETE_USER(email))
+    }
+
+    public async deletePost(id: string): Promise<pg.QueryResult> {
+        console.log(DELETE_POST(id));
+        console.log('DELETE FROM chymera.chat WHERE chatid =' + `'${id}'`);
+        await this.query('DELETE FROM chymera.chat WHERE chatid =' + `'${id}'`);
+        return this.query(DELETE_POST(id));
     }
 
     public async change(tableName: string, update: Update): Promise<pg.QueryResult> {

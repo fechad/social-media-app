@@ -1,0 +1,252 @@
+.message-bar-container {
+
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    .message-photo-preview{
+
+        position: relative;
+        bottom: 16px;
+        left: 156px;
+        width: 200px;
+        height: 200px;
+        
+        .RemovePhoto {
+
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #525151;
+            background-color: rgba(17, 17, 17, 0.65);
+
+            &:hover {
+
+                cursor: pointer;
+                background-color: rgba(10, 10, 10, 0.65);
+            }
+
+            &:active {
+
+                cursor: pointer;
+                background-color: rgba(39, 39, 39, 0.65);
+            }
+        }
+    }
+
+    .message-file-preview {
+
+        position: relative;
+        bottom: 8px;
+        left: 156px;
+        width: fit-content;
+        padding-right: 48px;
+        max-width: 600px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+
+        p {
+            color: darkblue;
+
+            &:hover {
+
+                cursor: pointer;
+                text-decoration: underline;
+                color: rgb(1, 1, 80);
+            }
+
+            &:active {
+
+                cursor: pointer;
+                text-decoration: underline;
+                color: rgb(31, 31, 223);
+            }
+        }
+        
+        .RemovePhoto {
+
+            position: absolute;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #525151;
+            background-color: rgba(17, 17, 17, 0.65);
+
+            &:hover {
+
+                cursor: pointer;
+                background-color: rgba(10, 10, 10, 0.65);
+            }
+
+            &:active {
+
+                cursor: pointer;
+                background-color: rgba(39, 39, 39, 0.65);
+            }
+        }
+    }
+
+    .message-reply-preview {
+
+        position: relative;
+        bottom: 16px;
+        left: 156px;
+        width: fit-content;
+        padding-right: 48px;
+        max-width: 470px;
+        max-height: 80px;
+        min-height: 40px;
+        display: flex;
+        align-items: center;
+        border: 1px solid #272727;
+        border-radius: 16px;
+        padding-left: 8px;
+
+        #reply-message {
+
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .RemovePhoto {
+
+            position: absolute;
+            right: 8px;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            border: 1px solid #525151;
+            background-color: rgba(17, 17, 17, 0.65);
+
+            &:hover {
+
+                cursor: pointer;
+                background-color: rgba(10, 10, 10, 0.65);
+            }
+
+            &:active {
+
+                cursor: pointer;
+                background-color: rgba(39, 39, 39, 0.65);
+            }
+        }
+        
+    }
+    .actual-bar {
+
+        display: flex;
+        align-items: center;
+        padding: auto 8px;
+        width: 776px;
+        min-height: 72px;
+        gap: 8px;
+        position: relative;
+        bottom: 20px;
+
+
+        .message-options {
+
+            width: 148px;
+            height: 40px;
+            display: flex;
+            justify-content: space-evenly;
+            align-items: center;
+            align-self: flex-end;
+            //gap: 4px;
+    
+            .message-option, label {
+    
+                &:hover {
+    
+                    cursor: pointer;
+                    
+                    svg {
+                        
+                        color:#525151;
+                    }
+                }
+    
+                &:active {
+    
+                    cursor: pointer;
+                    
+                    svg {
+                        
+                        color:#272727;
+                    }
+                }
+            }
+        }
+    
+        .message-writing-container {
+    
+            width: 616px;
+            align-self: flex-end;
+    
+            textarea{
+    
+                width: 100%;
+                min-height: 100%;
+                max-height: auto;;
+                background-color: #F8F8F8;
+                border-radius: 8px;
+                padding: 4px;
+    
+                font-family: 'Oswald', sans-serif;
+                font-size: 16px;
+    
+    
+            }
+        }
+    }
+}
+
+.emoji-option, .gif-box {
+
+    position: relative;
+
+    #pickerContainer {
+
+        position: absolute;
+        left: 42px;
+        bottom: 72px;
+        width: fit-content;
+    }
+
+    #giphy-pickerContainer {
+
+        position: absolute;
+        left: 82px;
+        bottom: 72px;
+        width: 200px;
+
+        .giphy-search-box {
+            min-width: fit-content;
+            background-color: white;
+            border: 1px solid #272727;
+            border-radius: 8px;
+            padding: 8px;
+            padding-right: 0px;
+
+            .reactGiphySearchbox-searchForm-form{
+                
+                margin-right: 8px;
+            }
+        }
+    }
+}

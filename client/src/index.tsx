@@ -23,7 +23,6 @@ import NewsFeed from './pages/NewsFeed';
 import Notifications from './pages/Notifications';
 import Chats from './pages/Chats';
 import OtherUserProfile from './pages/OtherUserProfile';
-import PostComments from './pages/PostComments';
 import UserSettings from './pages/UserSettings';
 import { UserDataContext } from './DataContext';
 
@@ -47,11 +46,10 @@ root.render(
       <Route  path='/User/MyFeed'  element={<ProtectedRoute outlet={<UserDataContext><MyFeed /></UserDataContext>} />}/>
       <Route  path='/User/NewsFeed'  element={<ProtectedRoute outlet={<UserDataContext><NewsFeed /></UserDataContext>} />}/>
       <Route  path='/User/Notifications'  element={<ProtectedRoute outlet={<UserDataContext><Notifications/></UserDataContext>} />}/>
-      <Route  path='/User/Chats'  element={<ProtectedRoute outlet={<Chats/>} />}/>
+      <Route  path='/User/Chat/:id'  element={<ProtectedRoute outlet={<UserDataContext><Chats/></UserDataContext>} />}/>
       <Route path='/components' element={<Library/>}/>
       <Route path = 'User/Profile' element = {<ProtectedRoute outlet = {<UserDataContext><UserProfile/></UserDataContext>}/>}/>
       <Route path = 'User/Profile/:handle' element = {<ProtectedRoute outlet = {<UserDataContext><OtherUserProfile/></UserDataContext>}/>}/>
-      <Route path = 'Post/:PostId' element = {<ProtectedRoute outlet = {<PostComments/>}/>}/>
       <Route path = 'User/Settings' element = {<ProtectedRoute outlet = {<UserDataContext><UserSettings/></UserDataContext>}/>}/>
     </Routes>
     

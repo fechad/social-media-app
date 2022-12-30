@@ -1,0 +1,321 @@
+
+.message-section-sender{
+
+    width: 760px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    gap: 40px;
+    align-self: flex-end;
+
+    .message-avatar-section{
+
+        align-self: flex-start;
+        margin-top: 0px;
+
+        &:hover {
+            
+            cursor: pointer;
+        }
+    }
+
+    
+    .message-bubble-and-tooltip-container {
+
+        background-color: #F3F0FF;
+        display: flex;
+        min-width: 104px;
+        max-width: 464px;
+        height: fit-content;
+        background: #F3F0FF;
+        border: 1px solid #868686;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        position: relative;
+
+        .message-bubble-container-tail {
+
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border: 20px solid;
+            border-color: transparent transparent  transparent #F3F0FF;
+            top: 0px;
+            right: -40px;
+            z-index: -2;
+        }
+
+       .message-bubble-container {
+
+            min-width: 104px;
+            max-width: 464px;
+            padding: 8px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            text-align: right;
+       }
+    
+    }
+}
+
+
+.message-hover-container {
+
+    max-width: 140px;
+    height: 32px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
+    gap: 16px;
+    padding: 1px 8px;
+    text-align: center;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.05)), #c5c5c5;
+    border-radius: 8px;
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    margin-left: -75px;
+
+    .message-edit {
+
+        &:hover {
+
+            cursor: pointer;
+
+            svg {
+
+                color: #3f3f3f;
+            }
+        }
+
+        &:active {
+
+            cursor: pointer;
+
+            svg {
+                
+                color: #8d8d8d;
+            }
+        }
+
+        .message-edit-tooltip-container {
+
+            position: absolute;
+
+            .message-edit-tooltip-tail {
+
+                position: absolute;
+                width: 0px;
+                height: 0px;
+                border: 8px solid;
+                border-color: #D9D9D9 transparent transparent  transparent ;
+                bottom: -14px;
+                right: 14px;
+                z-index: 2;
+    
+            }
+            .message-edit-tooltip {
+    
+                background: #D9D9D9;
+                border-radius: 8px;
+                position: absolute;
+                width: 48px;
+                height: 24px;
+                text-align: center;
+                top: -32px;
+                left: -16px;
+    
+                p {
+                    margin: 0%;
+                }
+            }
+
+        }
+    }
+}
+
+.message-time {
+
+    color: #767676;
+
+    p {
+        margin-top: 0%;
+    }
+}
+
+.message-section-receiver{
+
+    width: 760px;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 40px;
+   
+    .message-avatar-section{
+
+        align-self: flex-start;
+        margin-top: 0px;
+
+        &:hover {
+            
+            cursor: pointer;
+        }
+    }
+
+    
+    .message-bubble-and-tooltip-container {
+
+        background-color: #ffffff;
+        display: flex;
+        min-width: 104px;
+        max-width: 464px;
+        height: fit-content;
+        border: 1px solid #868686;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        border-radius: 8px;
+        position: relative;
+
+        .message-bubble-container-tail {
+
+            position: absolute;
+            width: 0px;
+            height: 0px;
+            border: 20px solid;
+            border-color: transparent #d4d4d4 transparent  transparent ;
+            top: 2px;
+            left: -40px;
+            z-index: -2;
+        }
+
+       .message-bubble-container {
+
+            min-width: 104px;
+            max-width: 464px;
+            padding: 8px;
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+       }
+    
+    }
+}
+
+
+.message-reply-container{
+
+    display: flex;
+    height: fit-content;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: -8px;
+
+    .message-reply-bubble{
+
+        height: 40px;
+        min-width: 80px;
+        max-width: 464px;
+
+        
+        padding: 8px;
+        background-color: #f3f3f3;
+
+        border: 1px solid #868686;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+
+        p {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+
+        &:hover{
+
+            cursor: pointer;
+        }
+    }
+    
+}
+
+.message-media-container {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+
+    img {
+        width: 240px;
+        height: 200px;
+        &:hover {
+
+            cursor: pointer;
+        }
+    }
+
+    video {
+
+        width: 240px;
+        height: auto;
+    }
+}
+.image-display {
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    div {
+        width: fit-content;
+        height: fit-content;
+        max-height: 800px;
+
+        img {
+            width: fit-content;
+            height: fit-content;
+    
+            &:hover {
+    
+                cursor: pointer;
+            }
+        }
+
+        video {
+
+            width: 600px;
+            height: auto;
+        }
+    }
+
+   
+}
+
+
+
+.file-message {
+
+    color: darkblue;
+
+    &:hover {
+
+        cursor: pointer;
+        text-decoration: underline;
+        color: rgb(1, 1, 80);
+    }
+
+    &:active {
+
+        cursor: pointer;
+        text-decoration: underline;
+        color: rgb(31, 31, 223);
+    }
+}

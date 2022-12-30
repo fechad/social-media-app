@@ -2,12 +2,15 @@ import { Application } from './app';
 import * as http from 'http';
 import { AddressInfo } from 'net';
 import { Service } from 'typedi';
+import { SocketController } from './controllers/socket.controller';
 
 @Service()
 export class Server {
     private static readonly appPort: string | number | boolean = Server.normalizePort(process.env.PORT || '3000');
     // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     private server!: http.Server;
+    private socketController!: SocketController;
+
     constructor(private readonly application: Application) {}
 
     private static normalizePort(val: number | string): number | string | boolean {
@@ -21,6 +24,8 @@ export class Server {
         this.server.listen(Server.appPort);
         this.server.on('error', (error: NodeJS.ErrnoException) => this.onError(error));
         this.server.on('listening', () => this.onListening());
+        this.socketController = new SocketController(this.server);
+        this.socketController.init();
     }
 
     private onError(error: NodeJS.ErrnoException): void {

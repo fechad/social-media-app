@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom'
 import { getAuth, signOut  } from "firebase/auth";
 import { app } from '../firebaseConfig'
 import { DataContext } from '../DataContext'
+import { environment } from '../environments/environment'
+import Avatar from './Avatar'
 
 function swithTheme(){
     const sidepane = document.getElementsByClassName('RightSidePaneContainer')[0] as HTMLElement;
@@ -44,6 +46,8 @@ function RightSidePane() {
 
     const [popupOpened, openPopup] = useState(false);
 
+    const { data } = useContext(DataContext);
+
     let navigate = useNavigate();
     let {notifications} = useContext(DataContext);
 
@@ -69,7 +73,9 @@ function RightSidePane() {
         <div className='HeaderArea'>
             <Switch resp='theme' role={swithTheme}/>
             <div className='ProfileAvatar'>
-                <img src='/logo.svg' alt="" height="87"width="50" onClick={() => openPopup(!popupOpened)}></img>
+                <div onClick={() => openPopup(!popupOpened)}>
+                    <Avatar photo={`${environment.serverUrl}/image/${data.profile_pic.replace('./assets/profile-pics/', '')}`} online={false} inGroup={false} />
+                </div>
                 {
                     popupOpened ? 
                     <div className='PopupContainer'>
