@@ -84,6 +84,7 @@ function LeftSidePane() {
                     let photo: string = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))?.profile_pic.replace('./assets/profile-pics/', '')
                     if(!photo) photo = 'Oveezion.png'
                     console.log(handles, photo);
+                    // eslint-disable-next-line @typescript-eslint/no-unused-vars
                     let nameList = users.data.find((user: any) => user.handle === handles.find(handle => handle === user.handle))
                     convos.push({
                         id: chat.chatid,

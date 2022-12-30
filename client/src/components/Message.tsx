@@ -7,6 +7,7 @@ import '../styles/Message.scss'
 import Avatar from './Avatar'
 import eventBus from '../components/eventBus';
 import { environment } from '../environments/environment'
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { style } from '@mui/system'
 
 interface MessageProps {

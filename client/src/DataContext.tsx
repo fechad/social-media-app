@@ -69,10 +69,12 @@ export function  UserDataContext({children}:any) {
     members: 'oveezion;users/*',
   }]);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const[activeUsers, setActiveUsers] = useState([{
     handle: ''
   }])
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [socket, setSocket] = useState(io(`${environment.socketUrl}`));
 
   socket.connect();
